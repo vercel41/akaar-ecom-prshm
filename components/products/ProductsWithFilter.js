@@ -5,8 +5,8 @@ import ProductList from "./ProductList";
 import { fetchData } from "@/utils/fetchData";
 import PaginationWithSummery from "../PaginationWithSummery";
 import NoProducts from "./NoProducts";
-import FilterMenu from "../FilterMenu";
 import FilterPanel from "../side-drawers/FilterPanel";
+import FilterMenu from "../elements/FilterMenu";
 
 const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
   const params = new URLSearchParams(customSearchParams);

@@ -1,8 +1,8 @@
 "use client";
-import { toggleFilterPanel } from "@/store/features/commonSlice";
 import React from "react";
-import { HiOutlineFilter } from "react-icons/hi";
 import { useDispatch } from "react-redux";
+import { toggleFilterPanel } from "@/store/features/commonSlice";
+import { HiOutlineFilter } from "react-icons/hi";
 
 export default function FilterMenu() {
   const dispatch = useDispatch();

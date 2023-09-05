@@ -29,7 +29,7 @@ const VideoBanner = async () => {
             এছাড়াও আমাদের অফিশিয়াল ইউটিউব চ্যানেলে পাবেন সকল প্রডাক্টের রিভিউ
           </p>
           <Link
-            href={settings.review_video_link}
+            href={settings?.review_video_link || "https://youtube.com"}
             target="_blank"
             className="inline-block text-lg/[26px] font-semibold text-white bg-primary p-3 rounded-lg"
           >
