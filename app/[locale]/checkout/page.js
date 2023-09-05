@@ -45,12 +45,23 @@ const payOptions = [
   },
 ];
 
-const deliveryMethods = [
-  { key: "inside dhaka", title: "ঢাকার ভিতরে", charges: 60 },
-  { key: "outside dhaka", title: "ঢাকার বাহিরে", charges: 100 },
-];
-
 const Checkout = () => {
+  // Dynamic delivery charges
+  const { settings } = useSelector((state) => state.common);
+  // console.log(settings);
+  const deliveryMethods = [
+    {
+      key: "inside dhaka",
+      title: "ঢাকার ভিতরে",
+      charges: settings?.inside_dhaka_delivery_charges,
+    },
+    {
+      key: "outside dhaka",
+      title: "ঢাকার বাহিরে",
+      charges: settings?.outside_dhaka_delivery_charges,
+    },
+  ];
+
   const [payOption, setPayOption] = useState(payOptions[0]);
   const [deliveryMethod, setDeliveryMethod] = useState(deliveryMethods[0]);
   const [orderCollapsed, setOrderCollapsed] = useState(false);
@@ -83,6 +94,14 @@ const Checkout = () => {
   //Summary calculation
   const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
   const discountedPrice = getCouponDiscount(discountCoupon, total);
+  const totalWithDiscount = total - discountedPrice;
+
+  //Handling free delivery
+  const isDeliveryCharge =
+    settings?.free_delivery_charges_limit === 0 ||
+    settings?.free_delivery_charges_limit > totalWithDiscount;
+
+  // console.log(isDeliveryCharge);
 
   const handleOrderPlace = async (data, event) => {
     dispatch(setGlobalLoader(true));
@@ -96,13 +115,15 @@ const Checkout = () => {
       alt_address: data.address,
       order_items: getOrderFormattedCartItems(cart),
       payment_type: payOption.key,
-      delivery_type: deliveryMethod.key,
-      delivery_charge: deliveryMethod.charges,
+      delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
+      delivery_charge: isDeliveryCharge ? deliveryMethod.charges : 0,
       coupon: discountCoupon?.code || null,
       coupon_discount: discountedPrice,
       subtotal: total,
-      after_discount: total - discountedPrice,
-      grand_total: total - discountedPrice + deliveryMethod.charges,
+      after_discount: totalWithDiscount,
+      grand_total: isDeliveryCharge
+        ? deliveryMethod.charges + totalWithDiscount
+        : totalWithDiscount,
       // note: "",
     };
     // console.log(newOrder);
@@ -178,23 +199,25 @@ const Checkout = () => {
               )
             )}
           </div>
-          <div className="p-4 mt-8 bg-amber-200 shadow border border-primary rounded-lg">
-            <h4 className="text-slate-700 font-bold">
-              ডেলিভারি মেথড নির্বাচন করুন
-            </h4>
-            <div className="flex justify-between items-center py-3">
-              {deliveryMethods.map((dm) => (
-                <div key={dm.key} className="flex gap-2 items-center">
-                  <CustomRadio
-                    isChecked={deliveryMethod.key === dm.key}
-                    label={dm.title}
-                    onClick={() => setDeliveryMethod(dm)}
-                  />
-                  <p className="font-bold">৳{dm.charges}</p>
-                </div>
-              ))}
+          {isDeliveryCharge ? (
+            <div className="p-4 mt-8 bg-amber-200 shadow border border-primary rounded-lg">
+              <h4 className="text-slate-700 font-bold">
+                ডেলিভারি মেথড নির্বাচন করুন
+              </h4>
+              <div className="flex justify-between items-center py-3">
+                {deliveryMethods.map((dm) => (
+                  <div key={dm.key} className="flex gap-2 items-center">
+                    <CustomRadio
+                      isChecked={deliveryMethod.key === dm.key}
+                      label={dm.title}
+                      onClick={() => setDeliveryMethod(dm)}
+                    />
+                    <p className="font-bold">৳{dm.charges}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
           <div className="text-slate-700 p-4 rounded-lg shadow bg-white my-3">
             <div className="flex-between my-2">
               <p>মোট টাকার পরিমান</p>
@@ -220,16 +243,24 @@ const Checkout = () => {
             <div className="border-b border-slate-300 my-2"></div>
             <div className="flex-between my-2">
               <p>মোট পরিমান</p>
-              <p>৳{total - discountedPrice}</p>
+              <p>৳{totalWithDiscount}</p>
             </div>
-            <div className="flex-between my-2">
-              <p>ডেলিভারি খরচ</p>
-              <p>৳{deliveryMethod.charges}</p>
-            </div>
+            {isDeliveryCharge && (
+              <div className="flex-between my-2">
+                <p>ডেলিভারি খরচ</p>
+                <p>৳{deliveryMethod.charges}</p>
+              </div>
+            )}
             <div className="border-b border-slate-900 my-2"></div>
             <div className="flex-between my-2 font-bold">
               <p>পরিশোধ করতে হবে</p>
-              <p>৳{total - discountedPrice + deliveryMethod.charges}</p>
+
+              <p>
+                ৳
+                {isDeliveryCharge
+                  ? deliveryMethod.charges + totalWithDiscount
+                  : totalWithDiscount}
+              </p>
             </div>
           </div>
         </div>

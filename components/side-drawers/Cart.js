@@ -11,6 +11,8 @@ import { getMultipliedColumnTotal } from "@/utils/getTotal";
 
 const Cart = () => {
   const { isCartOpen, cart } = useSelector((state) => state.cart);
+  const { settings } = useSelector((state) => state.common);
+  // console.log(settings);
   const dispatch = useDispatch();
   const closeCart = () => {
     dispatch(toggleCart());
@@ -22,15 +24,17 @@ const Cart = () => {
       show={isCartOpen}
       setShow={closeCart}
     >
-      <div
-        style={{
-          background: "linear-gradient(90deg, #EF4444 -2.83%, #F99104 100%)",
-        }}
-        className="p-4 text-white"
-      >
-        ১৫০০ টাকার উপের অর্ডার করেল ডেলিভারি চার্জ ফ্রী! সারাদেশে ক্যাশ অন
-        ডেলিভারি।
-      </div>
+      {settings?.free_delivery_charges_limit ? (
+        <div
+          style={{
+            background: "linear-gradient(90deg, #EF4444 -2.83%, #F99104 100%)",
+          }}
+          className="p-4 text-white"
+        >
+          {settings?.free_delivery_charges_limit} টাকার উপের অর্ডার করেল
+          ডেলিভারি চার্জ ফ্রী! সারাদেশে ক্যাশ অন ডেলিভারি।
+        </div>
+      ) : null}
       <div className="p-8 flex flex-col h-[77%]">
         <div className="overflow-y-auto">
           {cart.map((item) => (

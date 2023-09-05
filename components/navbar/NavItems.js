@@ -18,19 +18,17 @@ const NavItems = async () => {
     categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
 
   return (
-    <>
-      <div className="header-left flex items-center gap-4">
-        <Link href="/" className="logo">
-          <Image
-            src={settings?.logo}
-            alt={settings?.name}
-            width={200}
-            height={48}
-          />
-        </Link>
-        <MegaMenu categories={categories} settings={settings} />
-      </div>
-    </>
+    <div className="header-left flex items-center gap-4">
+      <Link href="/" className="logo">
+        <Image
+          src={settings?.logo}
+          alt={settings?.name}
+          width={200}
+          height={48}
+        />
+      </Link>
+      <MegaMenu categories={categories} settings={settings} />
+    </div>
   );
 };
 

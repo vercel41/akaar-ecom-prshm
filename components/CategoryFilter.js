@@ -93,7 +93,7 @@ const CategoryFilter = ({ selectedCategory }) => {
           <li key={category.id}>
             <button
               className={`cursor-pointer ${
-                selectedCategory?.id === category.id ? "font-bold" : ""
+                selectedCategory?.id === category.id ? "text-primary" : ""
               }`}
               onClick={() => handleCategoryChange(category)}
             >

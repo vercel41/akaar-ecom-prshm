@@ -12,7 +12,7 @@ export default function Modal({ showModal, setShowModal, title, children }) {
               <div className="border-0 rounded-2xl shadow-md relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-hidden">
                 {/*header*/}
                 <div className="flex items-center justify-between px-5 py-1">
-                  <h3 className="text-xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-title font-semibold text-slate-900">
                     {title ? title : null}
                   </h3>
                   <button
