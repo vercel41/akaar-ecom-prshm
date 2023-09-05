@@ -19,9 +19,7 @@ export default function Home({ searchParams }) {
   return (
     <main>
       <section className="banner">
-        <div className="container">
           <Intro />
-        </div>
       </section>
 
       <section className="service-features">
