@@ -9,7 +9,7 @@ import { formatLongNumber, getFractionFixed } from "@/utils/formatNumber";
 // ** Import Icon
 import { FaStar } from "react-icons/fa";
 
-const SingleProductList = ({ product }) => {
+const SingleProductList = ({ product, isHistory }) => {
   const [loading, setLoading] = useState(true);
 
   const {
@@ -34,27 +34,35 @@ const SingleProductList = ({ product }) => {
 
   return (
     <div className="product-card-wrap flex items-center gap-x-2 bg-white border border-slate-200 rounded-xl p-2">
-      <div className="product-img h-[116px] w-[116px]">
+      <div
+        className="product-img"
+        style={{
+          height: isHistory ? "76px" : "116px",
+          width: isHistory ? "76px" : "116px",
+        }}
+      >
         <Link href="/products/[slug]" as={`/products/${slug}`}>
           <Image
             src={image || "/assets/images/no-image.png"}
             alt={`product`}
-            width={116}
-            height={116}
+            width={isHistory ? 76 : 116}
+            height={isHistory ? 76 : 116}
             // priority={true}
             className="h-full w-full object-cover"
           />
         </Link>
       </div>
       <div className="product-content-wrap">
-        <div className="product-category">
-          <Link
-            href={`/brands/${brand?.id ? brand?.id : ""}`}
-            className="text-xs text-primary capitalize"
-          >
-            {brand?.brand_name || "No Brand"}
-          </Link>
-        </div>
+        {!isHistory && (
+          <div className="product-category">
+            <Link
+              href={`/brands/${brand?.id ? brand?.id : ""}`}
+              className="text-xs text-primary capitalize"
+            >
+              {brand?.brand_name || "No Brand"}
+            </Link>
+          </div>
+        )}
         <h2>
           <Link
             href={`/products/${slug}`}

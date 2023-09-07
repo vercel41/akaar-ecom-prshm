@@ -1,4 +1,4 @@
-import DescriptionViewer from "@/components/DescriptionViewer";
+import ViewHTML from "@/components/elements/ViewHTML";
 import { fetchData } from "@/utils/fetchData";
 import { BiPlus } from "react-icons/bi";
 
@@ -12,7 +12,7 @@ const Specifications = async ({ params }) => {
         স্পেসিফিকেশন:
       </h4>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-        <DescriptionViewer details={product?.specification} />
+        <ViewHTML htmlText={product?.specification} />
         {/* <div class="inline-block min-w-full shadow-sm rounded-lg overflow-hidden mb-3">
           <table class="min-w-full leading-normal">
             <thead className="bg-slate-200 text-slate-900">

@@ -2,7 +2,7 @@ import { Collapse } from "react-collapse";
 
 // ** Imoprt icons
 import { HiOutlinePlusSm, HiOutlineMinusSm } from "react-icons/hi";
-import DescriptionViewer from "../DescriptionViewer";
+import ViewHTML from "./ViewHTML";
 
 const QAItem = ({ item, open, toggleOpen }) => {
   return (
@@ -27,7 +27,7 @@ const QAItem = ({ item, open, toggleOpen }) => {
         </div>
         <Collapse isOpened={open}>
           <div className="mt-4">
-            <DescriptionViewer details={item.answer} />
+            <ViewHTML htmlText={item.answer} />
           </div>
         </Collapse>
       </div>

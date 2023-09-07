@@ -15,8 +15,18 @@ export const metadata = {
 export default async function ProductDetailsLayout({ children, params }) {
   const { slug } = params;
   if (slug === "null") return notFound();
-  const response = await fetchData({ api: `products/${slug}` });
-  const product = response?.data || {};
+  // const response = await fetchData({ api: `products/${slug}` });
+  // const product = response?.data || {};
+
+  const [settingsRes, productRes] = await Promise.allSettled([
+    fetchData({ api: `info/basic` }),
+    fetchData({ api: `products/${slug}` }),
+  ]);
+
+  const settings =
+    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+  const product =
+    productRes.status === "fulfilled" ? productRes.value?.data || [] : [];
 
   //Category Filter
   const customSearchParams = {
@@ -70,7 +80,11 @@ export default async function ProductDetailsLayout({ children, params }) {
         </div>
       </div>
       <div className="container">
-        <ProductDetails product={product} tabItems={tabItems}>
+        <ProductDetails
+          product={product}
+          settings={settings}
+          tabItems={tabItems}
+        >
           {children}
         </ProductDetails>
       </div>
