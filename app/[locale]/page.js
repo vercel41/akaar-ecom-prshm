@@ -20,7 +20,7 @@ export default function Home({ searchParams }) {
   return (
     <main>
       <section className="banner">
-          <Intro />
+        <Intro />
       </section>
 
       {/* <section className="service-features">
@@ -39,22 +39,24 @@ export default function Home({ searchParams }) {
       <FlashSale />
 
       <section
-        className="all-category py-14 mt-12"
+        className="all-category container py-14 my-6"
         style={{
-          backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
+          // backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
+          backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
+
         }}
       >
         <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center">
+          <div className="sec-heading w-full flex justify-between items-center mb-6">
             <h2 className="sec-title !text-white">জনপ্রিয় ক্যাটাগর‍ি</h2>
             <Link href="/categories" className="all-btn !text-white">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
-
-          <div className="category-slider mt-12  relative">
+          <div class="grid grid-cols-5 gap-4">
             <PopularCategories />
           </div>
+
         </div>
       </section>
 
