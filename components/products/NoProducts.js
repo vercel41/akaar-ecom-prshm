@@ -1,11 +1,18 @@
-import Link from "next/link";
+"use client";
 import React from "react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import { BsFillTelephoneFill } from "react-icons/bs";
+const Lottie = dynamic(() => import("lottie-react"));
+import notFound from "@/public/assets/lottie/not-found.json";
 
 export default function NoProducts() {
   return (
     <div className="container">
       <div className="content flex flex-col items-center py-28">
+        <div className="h-[311px] w-[340px] mb-12">
+          <Lottie animationData={notFound} loop={false} />
+        </div>
         <h2 className="text-3xl font-bold font-title text-slate-900">
           দুঃখিত, কোন প্রাডাক্ট পাওয়া যায় নি
         </h2>

@@ -1,10 +1,13 @@
 "use client";
-import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import Link from "next/link";
 import React from "react";
+import dynamic from "next/dynamic";
 import { FaCheck } from "react-icons/fa";
+import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { getBdFormattedDate } from "@/utils/formatDate";
+const Lottie = dynamic(() => import("lottie-react"));
+import confetti from "@/public/assets/lottie/confetti.json";
 
 const OrderSuccess = ({ params }) => {
   const { order_id } = params;
@@ -15,17 +18,20 @@ const OrderSuccess = ({ params }) => {
     <div className="container min-h-screen">
       <div className="w-[540px] mx-auto my-12 p-5 rounded-lg">
         <div className="text-center font-bold">
-          <div className="flex-center my-4">
+          <div className="relative flex-center my-4">
             <div className="p-3 bg-green-100 rounded-[100%]">
               <div className="bg-green-500 rounded-[100%] p-5 w-20">
                 <FaCheck className="text-white" size={36} />
               </div>
             </div>
+            <div className="absolute">
+              <Lottie animationData={confetti} loop={false} />
+            </div>
           </div>
-          <h1 className="text-green-500 text-4xl">
+          <h1 className="text-green-500 text-3xl font-title">
             অর্ডার সফলভাবে সম্পন্ন হয়েছে!
           </h1>
-          <h3 className="text-slate-800 text-xl my-2">
+          <h3 className="text-slate-800 text-2xl my-2">
             সততা স্টোর থেকে কেনাকাটা করার জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ৷
           </h3>
         </div>

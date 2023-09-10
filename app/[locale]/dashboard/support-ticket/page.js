@@ -25,7 +25,9 @@ export default function SupportTicket() {
   return (
     <div className="px-10 py-6">
       <div className="mb-6 flex justify-between items-center">
-        <h2 className="text-slate-900 font-bold text-2xl">সাপোর্ট টিকিট</h2>
+        <h2 className="text-slate-900 font-title font-bold text-2xl">
+          সাপোর্ট টিকিট
+        </h2>
         <Link
           href={"/dashboard/support-ticket/new"}
           className="text-secondary-700 font-bold border border-secondary-700 py-2 px-3 rounded-lg active:scale-95 cursor-pointer"
