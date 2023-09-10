@@ -45,7 +45,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
             <div className="products-wpr grid grid-cols-4 gap-4">
               {visitedProducts?.map((product, i) => (
                 <div key={i}>
-                  <SingleProductList product={product} />
+                  <SingleProductList isHistory={true} product={product} />
                 </div>
               ))}
             </div>

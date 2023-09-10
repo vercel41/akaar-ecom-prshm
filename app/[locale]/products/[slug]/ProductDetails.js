@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { getCouponDiscount } from "@/utils/checkoutBusinessLogics";
 import ThumbSlider from "@/components/elements/sliders/ThumbSlider";
 import { getSlicedText } from "@/utils/formatText";
-import DescriptionViewer from "@/components/DescriptionViewer";
+import ViewHTML from "@/components/elements/ViewHTML";
 import { addToCart } from "@/store/features/cartSlice";
 import ProductVariantSelect from "@/components/products/ProductVariantSelect";
 import ActiveLink from "@/components/elements/ActiveLink";
@@ -16,17 +18,11 @@ import { formatLongNumber, getFractionFixed } from "@/utils/formatNumber";
 import SocialShare from "@/components/elements/SocialShare";
 
 // ** Import Icon
-import {
-  HiChatBubbleLeftRight,
-  HiOutlineShoppingCart,
-  HiOutlineArrowLongRight,
-} from "react-icons/hi2";
+import { HiChatBubbleLeftRight, HiOutlineShoppingCart } from "react-icons/hi2";
 import { TbTag } from "react-icons/tb";
 import { IoCall, IoCopy } from "react-icons/io5";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { getCouponDiscount } from "@/utils/checkoutBusinessLogics";
 
-const ProductDetails = ({ children, product, tabItems }) => {
+const ProductDetails = ({ children, product, tabItems, settings }) => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -71,18 +67,31 @@ const ProductDetails = ({ children, product, tabItems }) => {
                     onClick={handleBuyNow}
                     className="bg-primary py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
                   >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M7.91634 1.66667H15.4163L10.833 7.50001H17.083L7.08301 18.3333L9.16634 10.4167H3.33301L7.91634 1.66667Z"
+                        fill="white"
+                        stroke="white"
+                        stroke-linejoin="round"
+                      />
+                    </svg>{" "}
                     <span className="mr-2">এখনই কিনুন</span>
-                    <HiOutlineArrowLongRight size={20} />
                   </button>
                 </div>
-                <div className="bg-slate-200 rounded-lg flex justify-between items-center flex-wrap px-5 py-6 font-bold">
+                <div className="border-t border-slate-200 rounded-lg flex justify-between items-center flex-wrap py-4 font-bold">
                   <p className="text-slate-900">বিস্তারিত জানতে কল করুন</p>
                   <p className="text-primary">
-                    <IoCall /> 01720060958
+                    <IoCall /> {settings?.phone}
                   </p>
                   <p className="text-slate-500">অথবা</p>
                   <p className="text-primary">
-                    <IoCall /> 01720060977
+                    <IoCall /> {settings?.phone}
                   </p>
                 </div>
               </div>
@@ -119,8 +128,8 @@ const ProductDetails = ({ children, product, tabItems }) => {
                 <SocialShare />
               </div>
               {/* short description  */}
-              <DescriptionViewer
-                details={product?.product_short_description}
+              <ViewHTML
+                htmlText={product?.product_short_description}
                 className={"desc text-base text-slate-600"}
               />
               <div className="product-price flex items-center gap-4 border-b border-slate-200 py-5">
@@ -144,6 +153,7 @@ const ProductDetails = ({ children, product, tabItems }) => {
                   productVariants={product?.productVariants}
                   selectedVariant={selectedVariant}
                   setSelectedVariant={setSelectedVariant}
+                  sizeChart={product?.size_chart}
                 />
               ) : null}
 
@@ -201,7 +211,10 @@ const ProductDetails = ({ children, product, tabItems }) => {
                   />
                   <div>
                     <p className="text-slate-600">ডেলিভারি খরচ:</p>
-                    <p className="text-slate-600">ঢাকার ভিতরে - ৬০ টাকা</p>
+                    <p className="text-slate-600">
+                      ঢাকার ভিতরে - {settings?.inside_dhaka_delivery_charges}{" "}
+                      টাকা
+                    </p>
                   </div>
                 </div>
                 <div className="single-info border-l border-slate-200">
@@ -215,7 +228,10 @@ const ProductDetails = ({ children, product, tabItems }) => {
                   />
                   <div>
                     <p className="text-slate-600">ডেলিভারি খরচ:</p>
-                    <p className="text-slate-600">ঢাকার বাইরে - ১৩০ টাকা</p>
+                    <p className="text-slate-600">
+                      ঢাকার বাইরে - {settings?.outside_dhaka_delivery_charges}{" "}
+                      টাকা
+                    </p>
                   </div>
                 </div>
                 <div className="single-info">

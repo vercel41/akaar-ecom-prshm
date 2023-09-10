@@ -46,21 +46,28 @@ const ProductSelect = () => {
       setShow={closeDrawer}
     >
       <div className="p-6">
-        <div className="product-info flex gap-2">
+        <div className="product-info flex gap-4 items-center">
           <Image
             src={selectedProduct?.image || noImage}
             alt="product"
             height={84}
             width={84}
-            sizes="84px"
+            className="h-[84px] w-[84px] rounded-lg"
           />
-          <div className="flex flex-col justify-between">
-            <h5 className="text-primary">
+          <div className="">
+            <h5 className="text-primary text-xs font-semibold">
               {selectedProduct?.brand?.brand_name || "No Brand"}
             </h5>
-            <h4>{selectedProduct?.product_name.slice(0, 50) + "..."}</h4>
-            <div className="flex gap-3 items-center">
-              <h3 className="text-xl text-red-500">
+            <h2 className="mt-2">
+              <Link
+                href={`/products/${selectedProduct?.slug}`}
+                className="product-title text-base font-semibold text-slate-900 font-body overflow-text"
+              >
+                {selectedProduct?.product_name}
+              </Link>
+            </h2>
+            <div className="mt-3 flex gap-3 items-center">
+              <h3 className="text-xl font-bold text-red-500">
                 ৳{selectedProduct?.new_price || 0}
               </h3>
               {typeof selectedProduct?.discount_percentage === "number" &&

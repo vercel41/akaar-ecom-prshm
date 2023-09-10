@@ -3,14 +3,11 @@ import { fetchData } from "@/utils/fetchData";
 
 const BestSell = async () => {
   const data = await fetchData({ api: "product-bestsale" });
-  const allProducts = data?.data || [];
-  // const bestProducts = allProducts.sort(function (a, b) {
-  //   return a.totalSell > b.totalSell ? -1 : 1;
-  // });
+  const bestProducts = data?.data || [];
 
   return (
     <>
-      <BestSellSlider bestProducts={allProducts} />
+      <BestSellSlider bestProducts={bestProducts} />
     </>
   );
 };

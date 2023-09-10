@@ -1,17 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { HiPlayCircle } from "react-icons/hi2";
+// import { HiPlayCircle } from "react-icons/hi2";
 
 // import ProductBanner from "@/components/elements/sliders/ProductBanner";
 // import ProductReview from "@/components/elements/sliders/ProductReview";
-import DescriptionViewer from "@/components/DescriptionViewer";
+import ViewHTML from "@/components/elements/ViewHTML";
 import { fetchData } from "@/utils/fetchData";
 
 const page = async ({ params }) => {
   const { slug } = params;
-  const response = await fetchData({ api: `products/${slug}` });
-  const product = response?.data || {};
+  // const response = await fetchData({ api: `products/${slug}` });
+  // const product = response?.data || {};
+
+  const [settingsRes, productRes] = await Promise.allSettled([
+    fetchData({ api: `info/basic` }),
+    fetchData({ api: `products/${slug}` }),
+  ]);
+
+  const settings =
+    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+  const product =
+    productRes.status === "fulfilled" ? productRes.value?.data || [] : [];
 
   return (
     <div className="">
@@ -19,7 +29,7 @@ const page = async ({ params }) => {
         <h4 className="text-2xl font-bold font-title text-slate-900">
           প্রডাক্টের বিবরণ:
         </h4>
-        <DescriptionViewer details={product?.details} />
+        <ViewHTML htmlText={product?.details} />
         {/* <p className="text-slate-700 my-5">
           Insta360 Go 2 Tiny Mighty Action Camera 1440P 50fps স্পোর্টস ক্যামেরা
           IPX8 4M ওয়াটারপ্রুফ ফ্লোস্টেট স্ট্যাবিলাইজেশন হাইপারল্যাপ্স স্লো মোশন
@@ -205,53 +215,44 @@ const page = async ({ params }) => {
           <ProductReview />
         </div>
       </div> */}
+
       <div className="mt-8">
         <h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
           যা যা সাথে থাকবে
         </h4>
         <Image
-          src={`/assets/images/shop/accessories.jpg`}
+          src={
+            product?.product_includes || `/assets/images/shop/accessories.jpg`
+          }
           alt="Insta 360"
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="w-auto"
+          width={628}
+          height={510}
+          className="w-full h-[510px] rounded-xl"
         />
       </div>
-      <div className="my-8">
-        <h4 className="text-2xl font-bold font-title text-slate-900">
-          রিভিউ ভিডিও
-        </h4>
-        <div className="slider-imag relative mt-4">
-          <Image
-            src={`/assets/images/shop/video-review.jpg`}
-            alt=""
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-auto"
-          />
-          <a
-            href="youtube.com"
-            target="_blank"
-            className="vid-icon absolute inline-flex justify-center items-center top-1/2 left-1/2 w-[72px] h-[72px] rounded-full drop-shadow-[0_0px_60px_rgba(0,0,0,0.16)] translate-x-[-50%] translate-y-[-50%]"
-          >
-            <HiPlayCircle size={60} className="text-white hover:text-primary" />
-          </a>
-        </div>
-      </div>
 
-      <div className="contact bg-amber-200 border border-primary rounded-xl p-5 mb-4 text-center">
+      {product?.review_video && (
+        <div className="mt-8">
+          <h4 className="text-2xl font-bold font-title text-slate-900">
+            রিভিউ ভিডিও
+          </h4>
+          <div className="slider-imag [&>div>iframe]:rounded-xl relative mt-4">
+            <ViewHTML htmlText={product?.review_video} />
+          </div>
+        </div>
+      )}
+
+      <div className="contact mt-8 bg-amber-200 border border-primary rounded-xl p-5 mb-4 text-center">
         <h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
           আরও কিছু জানার থাকলে
         </h5>
         <p className="flex justify-center items-center gap-4">
           <span className="text-base text-slate-900">কল করুন:</span>{" "}
           <Link
-            href="tel:01720060958"
+            href={`tel:${settings?.phone}`}
             className="text-2xl font-bold font-title text-primary"
           >
-            <BsFillTelephoneFill /> 01720060958
+            <BsFillTelephoneFill /> {settings?.phone}
           </Link>
         </p>
       </div>
