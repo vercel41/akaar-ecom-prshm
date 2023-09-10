@@ -6,7 +6,12 @@ const categoriesAPI = apiSlice.injectEndpoints({
       query: () => `categories`,
       providesTags: ["categories"],
     }),
+    
+    getPopularCategories: builder.query({
+      query: () => `popular-categories?no_child=1`,
+      providesTags: ["popular-categories"],
+    }),
   }),
 });
 
-export const { useGetCategoriesQuery } = categoriesAPI;
+export const { useGetCategoriesQuery , useGetPopularCategoriesQuery} = categoriesAPI;

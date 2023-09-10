@@ -11,6 +11,7 @@ import Link from "next/link";
 import VideoBanner from "@/components/elements/VideoBanner";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import PopularCategories from "@/components/PopularCategories";
+import PopularCategory from "@/components/PopularCategory";
 
 // ** Import Iocns
 import { HiArrowLongRight } from "react-icons/hi2";
@@ -22,11 +23,18 @@ export default function Home({ searchParams }) {
           <Intro />
       </section>
 
-      <section className="service-features">
+      {/* <section className="service-features">
         <div className="container">
           <ServiceFeatures />
         </div>
+      </section> */}
+
+      <section className="popular-categories">
+        <div className="container">
+          <PopularCategory />
+        </div>
       </section>
+
 
       <FlashSale />
 

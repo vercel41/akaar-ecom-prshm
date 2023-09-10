@@ -36,6 +36,7 @@ export const apiSlice = createApi({
     "orders",
     "order",
     "categories",
+    "popular-categories",
     "product-qna",
     "faqs",
     "user-reviews",
