@@ -129,7 +129,7 @@ const SingleProduct = ({ product, addToCompare }) => {
                   {product_name}
                 </Link>
               </h2>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-2">
                 <div className="product-price mb-3 flex justify-end gap-2">
                   <span className="text-lg/[24px] font-semibold text-red-500">
                     ৳{new_price}
