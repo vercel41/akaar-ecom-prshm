@@ -2,48 +2,52 @@
 
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SingleProduct from "@/components/products/SingleProduct";
 
 SwiperCore.use([Navigation]);
 
 // ** Import Icons
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
-import SingleProductList from "@/components/products/SingleProductList";
 
-const NewArrivalSlider = ({ newProducts, chunk_size }) => {
-  const productChunks = (newProducts, chunk_size = 2) =>
-    new Array(Math.ceil(newProducts.length / chunk_size))
-      .fill()
-      .map((_, index) => index * chunk_size)
-      .map((begin) => newProducts.slice(begin, begin + chunk_size));
-
-  const newProductsArray = productChunks(newProducts, chunk_size);
-
+const NewArrivalSlider = ({ newProducts }) => {
   return (
     <>
       <Swiper
         modules={[Navigation]}
-        slidesPerView={3}
+        slidesPerView={4}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640:{
+            slidesPerView:2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024:{
+            slidesPerView:4
+          }
+        }}
         spaceBetween={20}
         loop={false}
         navigation={{
-          prevEl: ".custom_prev_n",
-          nextEl: ".custom_next_n",
+          prevEl: ".custom_prev_b",
+          nextEl: ".custom_next_b",
         }}
       >
-        {newProductsArray?.map((product, i) => (
+        {newProducts?.map((product, i) => (
           <SwiperSlide key={i}>
-            {product.map((product, i) => (
-              <SingleProductList product={product} key={i} />
-            ))}
+            <SingleProduct product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
 
       <div className="slider-arrow">
-        <span className="slider-btn slider-prev slick-arrow custom_prev_n">
+        <span className="slider-btn slider-prev slick-arrow custom_prev_b">
           <TfiAngleLeft />
         </span>
-        <span className="slider-btn slider-next slick-arrow custom_next_n">
+        <span className="slider-btn slider-next slick-arrow custom_next_b">
           <TfiAngleRight />
         </span>
       </div>
