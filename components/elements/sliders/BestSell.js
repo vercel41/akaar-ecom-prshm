@@ -14,7 +14,7 @@ const BestSell = ({ bestProducts }) => {
     <>
       <Swiper
         modules={[Navigation]}
-        slidesPerView={5}
+        slidesPerView={4}
         spaceBetween={20}
         loop={false}
         navigation={{

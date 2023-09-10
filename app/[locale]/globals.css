@@ -187,15 +187,15 @@
 }
 
 .product-img-action-wrap .action-btn {
-  @apply absolute top-3 right-3 inline-flex justify-center items-center w-7 h-7 bg-white border border-slate-300 rounded-full cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
+  @apply absolute top-3 left-3 inline-flex justify-center items-center w-7 h-7 bg-white border border-slate-300 rounded-full cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
 }
 
 .product-actions .action-btn {
-  @apply inline-flex justify-center items-center w-9 h-9 text-primary border border-primary rounded-lg cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
+  @apply inline-flex justify-center items-center w-9 h-9 text-primary border border-primary rounded-[5px] cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
 }
 
 .buy-btn {
-  @apply flex justify-center items-center gap-2 text-base/[16px] font-semibold font-title text-white bg-[#F99104] w-[168px] rounded-md py-2 active:scale-95;
+  @apply flex justify-center items-center gap-2 text-base/[16px] font-semibold font-title text-white bg-[#F99104] w-[168px] py-2 active:scale-95;
 }
 
 .new-slider .swiper-slide .product-card-wrap:first-of-type {

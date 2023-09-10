@@ -85,20 +85,8 @@ const SingleProduct = ({ product, addToCompare }) => {
     <>
       {!loading ? (
         <>
-          <div className="product-card-wrap bg-white border border-slate-200 rounded-xl hover:border-primary">
+          <div className="product-card-wrap bg-white border border-slate-200 hover:border-primary">
             <div className="product-img-action-wrap relative">
-              <div className="product-img p-2 pb-0">
-                <Link href="/products/[slug]" as={`/products/${slug}`}>
-                  <Image
-                    className="default-img h-56 w-56 rounded-lg"
-                    src={image || "/assets/images/no-image.png"}
-                    alt={product_name}
-                    width={226}
-                    height={226}
-                    // priority={true}
-                  />
-                </Link>
-              </div>
               <div className="product-action">
                 <button
                   href={""}
@@ -109,14 +97,28 @@ const SingleProduct = ({ product, addToCompare }) => {
                   <HiOutlineHeart />
                 </button>
               </div>
+              <div className="product-img border-b-2	">
+                <Link href="/products/[slug]" as={`/products/${slug}`}>
+                  <Image
+                    className="default-img h-400 w-full"
+                    src={image || "/assets/images/no-image.png"}
+                    alt={product_name}
+                    width={226}
+                    height={400}
+                  />
+                </Link>
+              </div>
+
             </div>
             <div className="product-content-wrap p-3">
-              <div className="product-category">
+              <div className="">
                 <Link
                   href={`/brands/${brand?.id ? brand?.id : ""}`}
                   className="text-xs text-primary capitalize"
                 >
-                  {brand?.brand_name || "No Brand"}
+                  <span class="inline-block px-2 py-1 text-xs font-semibold leading-none rounded-full bg-primary text-white">
+                    {brand?.brand_name || "No Brand"}
+                  </span>
                 </Link>
               </div>
               <h2>
@@ -127,34 +129,43 @@ const SingleProduct = ({ product, addToCompare }) => {
                   {product_name}
                 </Link>
               </h2>
-              <div className="rating-result flex items-center gap-2 mb-4">
-                <span className="font-semibold text-slate-900">
-                  {getFractionFixed(averate_rating) || 0}{" "}
-                  <FaStar className="text-primary pb-1" />
-                </span>
-                <span className="block border-l border-l-slate-200 pl-2 font-semibold text-slate-900">
-                  {total_rating === 0
-                    ? "No Rating"
-                    : formatLongNumber(total_rating)}
-                </span>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="product-price mb-3 flex justify-end gap-2">
+                  <span className="text-lg/[24px] font-semibold text-red-500">
+                    ৳{new_price}
+                  </span>
+                  {typeof discount_percentage === "number" &&
+                    discount_percentage > 0 ? (
+                    <>
+                      <del className="old-price text-lg/[24px] font-normal text-slate-400">
+                        ৳{old_price}
+                      </del>
+                      <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
+                        -{getFractionFixed(discount_percentage)}%
+                      </span>
+                    </>
+                  ) : null}
+                </div>
+                <div className="rating-result flex items-center gap-2 mb-4">
+                  <span className="font-semibold text-slate-900">
+                    {getFractionFixed(averate_rating) || 0}{" "}
+                    <FaStar className="text-primary pb-1" />
+                  </span>
+                  <span className="block border-l border-l-slate-200 pl-2 font-semibold text-slate-900">
+                    {total_rating === 0
+                      ? "No Rating"
+                      : formatLongNumber(total_rating)}
+                  </span>
+                </div>
               </div>
-              <div className="product-price mb-3 flex gap-2">
-                <span className="text-lg/[24px] font-semibold text-red-500">
-                  ৳{new_price}
-                </span>
-                {typeof discount_percentage === "number" &&
-                discount_percentage > 0 ? (
-                  <>
-                    <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                      ৳{old_price}
-                    </del>
-                    <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
-                      -{getFractionFixed(discount_percentage)}%
-                    </span>
-                  </>
-                ) : null}
-              </div>
+
               <div className="product-actions flex justify-center items-center gap-2">
+                <button
+                  onClick={() => handleCheckout(product)}
+                  className="buy-btn px-2"
+                >
+                  এখনই কিনুন <HiArrowLongRight size={20} />
+                </button>
                 <button
                   aria-label="Add To Cart"
                   className="action-btn"
@@ -164,12 +175,6 @@ const SingleProduct = ({ product, addToCompare }) => {
                     size={24}
                     className="active:scale-90"
                   />
-                </button>
-                <button
-                  onClick={() => handleCheckout(product)}
-                  className="buy-btn px-2"
-                >
-                  এখনই কিনুন <HiArrowLongRight size={20} />
                 </button>
               </div>
             </div>
