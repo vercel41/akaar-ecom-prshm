@@ -25,7 +25,7 @@ const PopularCategory = () => {
                                 />
                             </Link>
                             <div class="cat-content">
-                                <div class="cat-heading mb-3">
+                                <div class="cat-heading mb-3 text-6xl font-sans text-white italic ">
                                     <h1>{category.category_name}</h1>
                                 </div>
                                 <Link href="#">Shop Now</Link>
