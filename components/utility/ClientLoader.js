@@ -1,13 +1,17 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setSettings } from "@/store/features/commonSlice";
+import { setSettings, setTranslations } from "@/store/features/commonSlice";
 
-export default function ClientLoader({ settings: settingsProp }) {
-  // console.log(settingsProp);
-  // const { settings } = useSelector((state) => state.common);
-  // console.log(settings);
+export default function ClientLoader({
+  settings: settingsProp,
+  translations: translationsProp,
+}) {
   const dispatch = useDispatch();
+  // console.log(translationsProp);
+  // const { translations } = useSelector((state) => state.common);
+  // console.log(translations);
+
   useEffect(() => {
     if (settingsProp) {
       try {
@@ -16,6 +20,13 @@ export default function ClientLoader({ settings: settingsProp }) {
         console.log(error);
       }
     }
-  }, [dispatch, settingsProp]);
+    if (translationsProp) {
+      try {
+        dispatch(setTranslations(translationsProp));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [dispatch, settingsProp, translationsProp]);
   return null;
 }

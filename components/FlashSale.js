@@ -1,14 +1,16 @@
+"use client";
+import Link from "next/link";
 import FlashSaleSlider from "./elements/sliders/FlashSale";
 import Timer from "@/components/elements/Timer";
-import { fetchData } from "@/utils/fetchData";
-import Link from "next/link";
+import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSale";
 import { HiArrowLongRight } from "react-icons/hi2";
 
-const FlashSale = async () => {
-  const flashSaleResponse = await fetchData({ api: "product-flash-sale" });
-  const flashSaleInfo = flashSaleResponse?.flashSale || {};
-  const saleProducts = flashSaleResponse?.data || [];
-  if (flashSaleResponse?.status === false) return null;
+const FlashSale = () => {
+  const { data: flashSaleData, isLoading } = useGetProductFlashSaleQuery();
+  const flashSaleInfo = flashSaleData?.flashSale || {};
+  const saleProducts = flashSaleData?.data || [];
+  if (flashSaleData?.status === false || isLoading) return null;
+  // console.log(data);
 
   return (
     <section className="flash-sale mt-28">

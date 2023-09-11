@@ -48,6 +48,7 @@ export const apiSlice = createApi({
     "review-summary",
     "review-images",
     "review-details",
+    "product-flash-sale",
   ],
   endpoints: () => ({}),
 });

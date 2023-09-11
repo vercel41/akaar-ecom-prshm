@@ -4,6 +4,7 @@ const initialState = {
   isGlobalLoading: false,
   isFilterPanelOpen: false,
   settings: null,
+  translations: null,
 };
 
 const commonSlice = createSlice({
@@ -19,10 +20,17 @@ const commonSlice = createSlice({
     setSettings: (state, action) => {
       state.settings = action.payload;
     },
+    setTranslations: (state, action) => {
+      state.translations = action.payload;
+    },
   },
 });
 
-export const { setGlobalLoader, toggleFilterPanel, setSettings } =
-  commonSlice.actions;
+export const {
+  setGlobalLoader,
+  toggleFilterPanel,
+  setSettings,
+  setTranslations,
+} = commonSlice.actions;
 
 export default commonSlice.reducer;
