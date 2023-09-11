@@ -9,8 +9,11 @@ import SubcriptionForm from "./SubscriptionForm";
 
 const Footer = async () => {
   const { data: settings = {} } = await fetchData({ api: "info/basic" });
+
   const footerPage = settings?.footer_page || {};
   const helpPage = settings?.help_page || {};
+
+  console.log('settings--------', settings);
 
   return (
     <>
@@ -169,95 +172,94 @@ const Footer = async () => {
         </div>
       </footer> */}
 
-      <footer class="footer">
+      <footer class="footer mb-5">
         <div class="container">
           <div class="text-center">
             <h2 className="text-4xl/[48px] font-title my-5">Trear Your Inbox</h2>
-            <p className=" mb-8">Receive our newsletter on the latest deals and happenings. You can unsubscribe any time you want. <a href="#"><b>Read More</b> about how and why we ask for this data.</a></p>
+            <p className=" mb-8">Receive our newsletter on the latest deals and happenings. You can unsubscribe any time you want.</p>
             <SubcriptionForm />
           </div>
-          <div class="grid grid-cols-3 justify-between mt-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between mt-8">
             <div class="">
               <h6 className="text-xl mb-4">Customer Care</h6>
               <ul class="widget-list">
-                <li><a href="#">Help</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">FAQ's</a></li>
-                <li><a href="#">Shipping</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">Returns Care</a></li>
+                {Object.keys(helpPage).map((key) => (
+                  <li key={key}>
+                    <Link href={helpPage[key]}>{key}</Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div class="">
               <h6 className="text-xl mb-4">About Us</h6>
               <ul class="widget-list">
-                <li><a href="#">Choose What You Pay</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our Store</a></li>
-                <li><a href="#">Read Our Journal</a></li>
+                {Object.keys(footerPage).map((key) => (
+                  <li key={key}>
+                    <Link href={footerPage[key]}>{key}</Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div class="">
-              <h6 className="text-xl mb-4">Term & Condition</h6>
+              {/* <h6 className="text-xl mb-4">Term & Condition</h6>
               <ul class="widget-list">
                 <li><a href="#">Legal Policy</a></li>
                 <li><a href="#">Terms</a></li>
                 <li><a href="#">Return Conditions</a></li>
                 <li><a href="#">Payment Privacy</a></li>
-              </ul>
+              </ul> */}
+              <div class="text-center py-4 flex gap-4 items-center justify-center">
+                {/* <div class="footer-social-menu"> */}
+                <Link href={settings.facebook_link} className="inline">
+                  <Image
+                    src="/assets/icons/social/fb.svg"
+                    alt="Facebook"
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                  />
+                </Link>
+                <Link href={settings.youtube_link} className="inline">
+                  <Image
+                    src="/assets/icons/social/YouTube.svg"
+                    alt="Youtube"
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                  />
+                </Link>
+                <Link href={settings.whatsapp_link} className="inline">
+                  <Image
+                    src="/assets/icons/social/whatsapp.png"
+                    alt="TikTok"
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                  />
+                </Link>
+                <Link href={settings.twitter_link} className="inline">
+                  <Image
+                    src="/assets/icons/social/twitter.svg"
+                    alt="Twitter"
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                  />
+                </Link>
+                <Link href={settings.linkedin_link} className="inline">
+                  <Image
+                    src="/assets/icons/social/linkedin.svg"
+                    alt="Linkedin"
+                    width="24"
+                    height="24"
+                    className="w-6 h-6"
+                  />
+                </Link>
+                {/* </div> */}
+              </div>
+              <p class="mt-3 text-center">&copy; {new Date().getFullYear()}, All Rights Reserved By <Link href="/">{settings?.name}</Link></p>
             </div>
           </div>
-          <div class="text-center py-4 flex gap-4 items-center justify-center">
-            {/* <div class="footer-social-menu"> */}
-              <Link href={settings.facebook_link} className="inline">
-                <Image
-                  src="/assets/icons/social/fb.svg"
-                  alt="Facebook"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link href={settings.youtube_link} className="inline">
-                <Image
-                  src="/assets/icons/social/YouTube.svg"
-                  alt="Youtube"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link href={settings.whatsapp_link} className="inline">
-                <Image
-                  src="/assets/icons/social/whatsapp.png"
-                  alt="TikTok"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link href={settings.twitter_link} className="inline">
-                <Image
-                  src="/assets/icons/social/twitter.svg"
-                  alt="Twitter"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link href={settings.linkedin_link} className="inline">
-                <Image
-                  src="/assets/icons/social/linkedin.svg"
-                  alt="Linkedin"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-            {/* </div> */}
-          </div>
-            <p class="mt-3 text-center">&copy; 2022, All Rights Reserved By <a href="#">Aaron</a></p>
         </div>
       </footer>
     </>
