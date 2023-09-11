@@ -27,7 +27,7 @@ const Cart = () => {
       {settings?.free_delivery_charges_limit ? (
         <div
           style={{
-            background: "linear-gradient(90deg, #EF4444 -2.83%, #F99104 100%)",
+            background: "linear-gradient(90deg, #EF4444 -2.83%, #2980B9 100%)",
           }}
           className="p-4 text-white"
         >

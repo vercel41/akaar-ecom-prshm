@@ -24,7 +24,8 @@ const NavItems = async () => {
           src={settings?.logo}
           alt={settings?.name}
           width={200}
-          height={48}
+          height={20}
+          className="h-16"
         />
       </Link>
       <MegaMenu categories={categories} settings={settings} />

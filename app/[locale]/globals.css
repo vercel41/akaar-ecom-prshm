@@ -101,7 +101,7 @@
 }
 
 .cart .content {
-  background-image: linear-gradient(90deg, #ef4444 -2.83%, #f99104 100%);
+  background-image: linear-gradient(90deg, #ef4444 -2.83%, #2980B9 100%);
   @apply px-3 py-2;
 }
 
@@ -195,7 +195,7 @@
 }
 
 .buy-btn {
-  @apply flex justify-center items-center gap-2 text-base/[16px] font-semibold font-title text-white bg-[#F99104] w-[168px] py-2 active:scale-95;
+  @apply flex justify-center items-center gap-2 text-base/[16px] font-semibold font-title text-white bg-[#2980B9] w-[168px] py-2 active:scale-95;
 }
 
 .new-slider .swiper-slide .product-card-wrap:first-of-type {
@@ -216,7 +216,7 @@
 }
 
 .submit-btn {
-  @apply w-[240px] text-lg font-semibold font-title text-white bg-[#F99104] rounded-lg py-3 active:scale-95;
+  @apply w-[240px] text-lg font-semibold font-title text-white bg-[#2980B9] rounded-lg py-3 active:scale-95;
 }
 
 .errorMsg {

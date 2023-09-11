@@ -25,7 +25,7 @@ module.exports = {
         padding: "1rem",
       },
       colors: {
-        primary: "#F99104",
+        primary: "#2980B9",
         secondary: {
           700: "#00B7C9",
           800: "#00A7B8",

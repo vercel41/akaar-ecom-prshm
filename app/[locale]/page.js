@@ -29,11 +29,11 @@ export default function Home({ searchParams }) {
         </div>
       </section> */}
 
-      <section className="popular-categories">
+      {/* <section className="popular-categories">
         <div className="container">
           <PopularCategory />
         </div>
-      </section>
+      </section> */}
 
 
       <FlashSale />
@@ -73,9 +73,9 @@ export default function Home({ searchParams }) {
               />
               বেস্ট সেলিং প্রডাক্ট
             </h2>
-            <Link href="/products" className="all-btn">
+            {/* <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="bestSell-slider mt-6 relative">
@@ -94,9 +94,9 @@ export default function Home({ searchParams }) {
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">সকল প্রডাক্ট</h2>
-            <Link href="/products" className="all-btn">
+            {/* <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="bestSell-slider mt-6">
@@ -109,9 +109,9 @@ export default function Home({ searchParams }) {
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">শপে নতুন এসেছে</h2>
-            <Link href="/products" className="all-btn">
+            {/* <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="new-slider mt-6  relative">
