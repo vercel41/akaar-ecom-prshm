@@ -29,7 +29,7 @@ export default function Home({ searchParams }) {
         </div>
       </section> */}
 
-      <section className="popular-categories">
+      {/* <section className="popular-categories">
         <div className="container">
           <PopularCategory />
         </div>
@@ -135,7 +135,7 @@ export default function Home({ searchParams }) {
             <Brands />
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }
