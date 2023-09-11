@@ -13,7 +13,7 @@ const PopularCategory = () => {
         <>
             <div className="features grid grid-cols-3 gap-6">
                 {popularCategories?.map((category, i) => (
-                    <div class="single-cat mb-4 mb-sm-0" style={{ backgroundColor: "yellow" }}>
+                    <div key={i} class="single-cat mb-4 mb-sm-0" style={{ backgroundColor: "yellow" }}>
                         <div class="cat-image">
                             <Link href="#">
                                 <Image

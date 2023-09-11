@@ -15,7 +15,7 @@ const Brands = () => {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
         {brands?.map((brand, i) => (
-          <div class="mb-5">
+          <div key={i} class="mb-5">
             <Link
               href={`/brands/${brand.id}`}
               className=""
