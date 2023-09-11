@@ -195,7 +195,7 @@
 }
 
 .buy-btn {
-  @apply flex justify-center items-center gap-2 text-base/[16px] font-semibold font-title text-white bg-[#F99104] w-[168px] rounded-md py-2 active:scale-95;
+  @apply text-center text-base/[16px] font-semibold font-title text-white bg-[#F99104] w-[168px] rounded-md py-2 active:scale-95;
 }
 
 .new-slider .swiper-slide .product-card-wrap:first-of-type {
