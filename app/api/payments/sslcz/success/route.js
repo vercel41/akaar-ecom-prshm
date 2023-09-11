@@ -1,14 +1,10 @@
 import { postData } from "@/utils/postData";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  // try {
-  //   const data = await request.json();
-  //   console.log(data);
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
+  // console.log(origin);
   const orderId = searchParams.get("order");
   const tranId = searchParams.get("tran");
   const paidAmount = searchParams.get("amount");
@@ -28,7 +24,13 @@ export async function POST(request) {
     paymentData
   );
 
-  console.log(result, "from pay success update");
+  // const successUrl = new URL(`/checkout/success/${orderId}`, request.url);
+  return NextResponse.redirect(`${origin}/checkout/success/${orderId}`, {
+    status: 301,
+  });
 
-  redirect(`/checkout/success/${orderId}`);
+  // redirect(`/checkout/success/${orderId}`);
+  // return NextResponse.redirect(successUrl.href, {
+  //   status: 301,
+  // });
 }

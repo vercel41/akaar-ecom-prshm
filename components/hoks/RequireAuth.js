@@ -1,3 +1,4 @@
+"use client"
 // RequireAuth.js
 
 import { useRouter } from "next/navigation";
