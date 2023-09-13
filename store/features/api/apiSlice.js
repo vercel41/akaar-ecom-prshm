@@ -8,7 +8,7 @@ export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.server,
-    prepareHeaders: (headers) => {
+    prepareHeaders: (headers, { getState }) => {
       // Retrieve the API keys from next config env variables
       const publicKey = process.env.amsPublickey;
       const privateKey = process.env.amsPrivateKey;
@@ -17,6 +17,11 @@ export const apiSlice = createApi({
       // Set the API key headers
       headers.set("AmsPublicKey", publicKey);
       headers.set("AmsPrivateKey", privateKey);
+
+      // Set the lang key headers
+      // const locale = getState().common.locale;
+      // console.log(locale);
+      // headers.set("lang", locale);
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);

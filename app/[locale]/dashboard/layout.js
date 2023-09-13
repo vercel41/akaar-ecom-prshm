@@ -1,10 +1,10 @@
 "use client";
 
-import { logOut } from "@/store/features/authSlice";
+import { logoutUser } from "@/store/features/authSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import RequireAuth from "@/components/hoks/RequireAuth";
 
 //icons
 import { FaClipboardList, FaUser } from "react-icons/fa";
@@ -43,16 +43,10 @@ const navItems = [
   },
   // Add more items as needed
 ];
-export default function DashboardLayout({ children }) {
+const DashboardLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
-
-  const handleLogout = () => {
-    dispatch(logOut());
-    router.push("/");
-  };
-
   const pathname = usePathname();
+
   return (
     <div className="bg-slate-100">
       <div className="container">
@@ -89,7 +83,7 @@ export default function DashboardLayout({ children }) {
                 >
                   <button
                     className="flex items-center space-x-2"
-                    onClick={handleLogout}
+                    onClick={() => dispatch(logoutUser())}
                   >
                     <span className={`text-amber-400 font-bold text-xl`}>
                       <IoLogOut />
@@ -105,4 +99,6 @@ export default function DashboardLayout({ children }) {
       </div>
     </div>
   );
-}
+};
+
+export default RequireAuth(DashboardLayout);

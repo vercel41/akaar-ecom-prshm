@@ -11,11 +11,21 @@ const supportTicketAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["s-ticket"],
     }),
     getSupportTicket: builder.query({
-      query: () => `support-ticket/index`,
+      query: (payload) => ({
+        url: "support-ticket/index",
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["s-ticket"],
     }),
     getSupportTicketTypes: builder.query({
-      query: () => `support-ticket-type`,
+      query: (payload) => ({
+        url: "support-ticket-type",
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["s-ticket-type"],
     }),
   }),

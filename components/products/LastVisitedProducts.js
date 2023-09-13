@@ -3,15 +3,17 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SingleProductList from "./SingleProductList";
+import { useParams } from "next/navigation";
 import {
   useAddToVisitedMutation,
   useGetVisitedProductsQuery,
 } from "@/store/features/api/visitedProductsAPI";
 
 const LastVisitedProducts = ({ visitedProductId }) => {
+  const { locale } = useParams();
   const { user } = useSelector((state) => state.auth);
   const [addToVisited] = useAddToVisitedMutation();
-  const { data, isLoading } = useGetVisitedProductsQuery();
+  const { data, isLoading } = useGetVisitedProductsQuery({ locale });
   const visitedProducts = data?.data || [];
   // console.log(visitedProducts);
 

@@ -4,13 +4,15 @@ import { HiPlus } from "react-icons/hi2";
 import SupportTicketCard from "./SupportTicketCard";
 import NoItems from "../NoItems";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useGetSupportTicketQuery } from "@/store/features/api/supportTicketAPI";
 import { getCountByKeyNotValue, getCountByKeyValue } from "@/utils/itemsCount";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 
 export default function SupportTicket() {
+  const { locale } = useParams();
   const [selectedTab, setSelectedTab] = useState("running");
-  const { data, isLoading } = useGetSupportTicketQuery();
+  const { data, isLoading } = useGetSupportTicketQuery({ locale });
   const supportTickets = data?.data || [];
   let filteredTickets = [];
   if (selectedTab === "Completed") {

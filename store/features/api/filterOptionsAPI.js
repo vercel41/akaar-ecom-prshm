@@ -3,7 +3,12 @@ import apiSlice from "./apiSlice";
 const filterOptionsAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFilterOptionsByCategory: builder.query({
-      query: (searchQuery) => `search-summery?${searchQuery}`,
+      query: (payload) => ({
+        url: `search-summery?${payload.searchQuery}`,
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["filter-options"],
     }),
   }),

@@ -11,7 +11,12 @@ const visitedProductsAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["visited"],
     }),
     getVisitedProducts: builder.query({
-      query: () => `visit-history/index`,
+      query: (payload) => ({
+        url: "visit-history/index",
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["visited"],
     }),
   }),

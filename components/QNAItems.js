@@ -5,7 +5,8 @@ import { useGetFaqsQuery } from "@/store/features/api/faqsAPI";
 import ItemsListLoader from "./elements/loaders/ItemsListLoader";
 
 export default function QNAItems() {
-  const { data, isLoading } = useGetFaqsQuery();
+  const { locale } = useParams();
+  const { data, isLoading } = useGetFaqsQuery({ locale });
   const [open, setOpen] = useState(0);
   const faqs = data?.data || [];
 

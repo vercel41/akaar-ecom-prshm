@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useGetFilterOptionsByCategoryQuery } from "@/store/features/api/filterOptionsAPI";
 
 import BrandFilter from "../filters/BrandFilter";
@@ -14,10 +14,13 @@ import useSelectURLQuery from "@/hooks/useSelectURLQuery";
 
 const Filter = ({ category }) => {
   const router = useRouter();
+  const { locale } = useParams();
   const { handleSelectChange } = useSelectURLQuery();
-
-  const query = category?.id ? `category_ids=${category?.id}` : "";
-  const { data: filterOptions } = useGetFilterOptionsByCategoryQuery(query);
+  const searchQuery = category?.id ? `category_ids=${category?.id}` : "";
+  const { data: filterOptions } = useGetFilterOptionsByCategoryQuery({
+    searchQuery,
+    locale,
+  });
 
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
