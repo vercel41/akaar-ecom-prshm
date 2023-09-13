@@ -11,9 +11,10 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (user, thunkAPI) => {
     try {
-      const response = await axiosInstance.get(`user`);
-      return response.data?.data;
+      const response = await axiosInstance.get(`logout`);
+      return response.data;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -40,9 +41,9 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(logoutUser.fulfilled, (state) => {
+        localStorage.removeItem("token");
         state.user = null;
         state.isLoading = false;
-        localStorage.removeItem("token");
       })
       .addCase(logoutUser.rejected, (state) => {
         state.isLoading = false;
