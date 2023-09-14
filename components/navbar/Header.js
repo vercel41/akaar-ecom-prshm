@@ -130,11 +130,13 @@ const Header = ({ children, locale }) => {
           </div>
         </div>
       </header>
-      <LoginModal
-        showModal={isLoginModalOpen}
-        setShowModal={(show) => dispatch(setLoginModalOpen(show))}
-        title={translations["welcome"]}
-      />
+      {isLoginModalOpen && (
+        <LoginModal
+          showModal={isLoginModalOpen}
+          setShowModal={(show) => dispatch(setLoginModalOpen(show))}
+          title={translations["welcome"]}
+        />
+      )}
     </>
   );
 };

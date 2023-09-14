@@ -16,7 +16,8 @@ import { toast } from "react-toastify";
 const Search = () => {
   const [showSuggestionResults, setShowSuggestionResults] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  // console.log(user);
+  const { translations } = useSelector((state) => state.common);
+
   const [searchTerm, setSearchTerm] = useState("");
   const { data: popularSearch } = useGetPopularSearchQuery(null, {
     skip: !showSuggestionResults,
@@ -109,7 +110,7 @@ const Search = () => {
           onFocus={handleFocus}
           onBlur={handleBlur}
           type="text"
-          placeholder="আপনার কাঙ্খিত পণ্য সার্চ করুন"
+          placeholder={translations["search-for-your-desired-product"]}
           className="border-r-0"
         />
 
@@ -121,7 +122,7 @@ const Search = () => {
         <div className="z-20 absolute font-title text-slate-600 mt-2 py-2 w-full overflow-hidden rounded-md bg-white">
           {searchHistory?.length ? (
             <div className="px-4 mb-4">
-              <h3 className="mb-2">সাম্প্রতি সার্চ করেছেন</h3>
+              <h3 className="mb-2">{translations["recently-searched"]}</h3>
               {searchHistory.map((keyword) => (
                 <div
                   key={keyword.id}
@@ -169,7 +170,7 @@ const Search = () => {
           ) : null}
           {popular?.length ? (
             <div className="px-4">
-              <h3 className="mb-2">জনপ্রিয় কিওয়ার্ড</h3>
+              <h3 className="mb-2">{translations["popular-keywords"]}</h3>
               {popular.map((keyword) => (
                 <div
                   key={keyword.id}
