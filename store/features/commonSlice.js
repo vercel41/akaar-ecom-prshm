@@ -5,7 +5,7 @@ const initialState = {
   locale: "en",
   isFilterPanelOpen: false,
   settings: null,
-  translations: null,
+  translations: {},
 };
 
 const commonSlice = createSlice({

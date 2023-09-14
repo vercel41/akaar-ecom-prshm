@@ -5,10 +5,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsArrowRight, BsChevronDown } from "react-icons/bs";
 import noImage from "@/public/assets/images/no-image.png";
 import menuOffer from "@/public/assets/images/banner/category-menu-offer.png";
+import { useSelector } from "react-redux";
 
 export default function MegaMenu({ categories, settings }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerPage = settings?.header_page || {};
+  const { translations } = useSelector((state) => state.common);
   //   console.log(headerPage);
   //   console.log(categories);
 
@@ -40,11 +42,11 @@ export default function MegaMenu({ categories, settings }) {
             onClick={() => setMenuOpen(!menuOpen)}
             className="menuBtn px-2 py-3 bg-white rounded-sm flex items-center gap-1"
           >
-            ক্যাটিগরি <BsChevronDown />
+            {translations["category"]} <BsChevronDown />
           </button>
         ) : (
           <span className="menuBtn px-2 py-3 bg-white rounded-sm flex cursor-pointer items-center gap-1">
-            ক্যাটিগরি <BsChevronDown />
+            {translations["category"]} <BsChevronDown />
           </span>
         )}
         {Object.keys(headerPage).map((key) => (
@@ -92,7 +94,7 @@ export default function MegaMenu({ categories, settings }) {
                   onClick={closeMenu}
                   className="border border-primary rounded-lg py-2 px-3 text-primary active:scale-95"
                 >
-                  সকল প্রডাক্ট দেখুন <BsArrowRight />
+                  {translations["view-all-products"]} <BsArrowRight />
                 </Link>
               </div>
             </div>
