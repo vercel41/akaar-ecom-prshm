@@ -18,6 +18,7 @@ import {
 } from "react-icons/hi2";
 import Search from "../elements/Search";
 import { HiArrowNarrowRight } from "react-icons/hi";
+import Offer from "../Offer";
 
 const Header = ({ children, locale }) => {
   const [scroll, setScroll] = useState(0);
@@ -65,8 +66,8 @@ const Header = ({ children, locale }) => {
 
   return (
     <>
-      <header className="relative header border-b border-slate-300 py-4">
-        <div className="container">
+      <header className="relative header border-b border-slate-300">
+        <div className="main-nav container  py-4">
           <div className="header-wrap flex justify-between items-center">
             {/* Nav Items  */}
             {children}
@@ -129,6 +130,7 @@ const Header = ({ children, locale }) => {
             </div>
           </div>
         </div>
+        <Offer />
       </header>
       {isLoginModalOpen && (
         <LoginModal

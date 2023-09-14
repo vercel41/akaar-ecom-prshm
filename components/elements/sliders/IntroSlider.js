@@ -24,8 +24,15 @@ const IntroSlider = ({ sliders }) => {
         autoplay={{ delay: 3000 }}
       >
         {sliders.map((slide) => (
-          <SwiperSlide key={slide?.id} className="mt-6 mb-8">
-            <div className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[100vh] bg-cover" style={{ backgroundImage :  slide?.image ? `url(${slide?.image})` : `/assets/images/banner/banner-1.png`,  }}>
+          <SwiperSlide key={slide?.id}>
+            <div
+              className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[100vh] bg-cover"
+              style={{
+                backgroundImage: slide?.image
+                  ? `url(${slide?.image})`
+                  : `/assets/images/banner/banner-1.png`,
+              }}
+            >
               <div className="grid grid-cols-12 items-center">
                 <div className="col-span-12">
                   <div className="hero-slider-content">
