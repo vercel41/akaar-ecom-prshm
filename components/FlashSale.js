@@ -13,8 +13,8 @@ const FlashSale = () => {
   });
   const flashSaleInfo = flashSaleData?.flashSale || {};
   const saleProducts = flashSaleData?.data || [];
-  if (flashSaleData?.status === false || isLoading) return null;
-  // console.log(data);
+  if (flashSaleData?.status === false || isLoading || !flashSaleData)
+    return null;
 
   return (
     <section className="flash-sale mt-28">
