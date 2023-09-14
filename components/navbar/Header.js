@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import LoginModal from "../modals/login/LoginModal";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "@/store/features/cartSlice";
+import AuthUserMenus from "./AuthUserMenus";
+import LanguageSelector from "./LanguageSelector";
+import { setLoginModalOpen } from "@/store/features/authSlice";
 
 // ** Import Icons
 import {
@@ -10,23 +17,13 @@ import {
   HiOutlineUser,
 } from "react-icons/hi2";
 import Search from "../elements/Search";
-import LanguageSelector from "./LanguageSelector";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import LoginModal from "../modals/login/LoginModal";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleCart } from "@/store/features/cartSlice";
-import AuthUserMenus from "./AuthUserMenus";
-import Image from "next/image";
-import { setLoginModalOpen } from "@/store/features/authSlice";
 
-const Header = ({ totalCartItems, totalCompareItems, children, locale }) => {
-  const [isToggled, setToggled] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+const Header = ({ children, locale }) => {
   const [scroll, setScroll] = useState(0);
   const { cart } = useSelector((state) => state.cart);
-  const { user, isLoading, isLoginModalOpen } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isLoginModalOpen } = useSelector((state) => state.auth);
+  const { translations } = useSelector((state) => state.common);
   const dispatch = useDispatch();
 
   //start of popover
@@ -66,8 +63,6 @@ const Header = ({ totalCartItems, totalCompareItems, children, locale }) => {
     });
   }, [scroll]);
 
-  const handleToggle = () => setToggled(!isToggled);
-
   return (
     <>
       <header className="relative header border-b border-slate-300 py-4">
@@ -80,7 +75,7 @@ const Header = ({ totalCartItems, totalCompareItems, children, locale }) => {
               <div className="header-actions flex gap-4">
                 <Link href="/dashboard/my-wishlist" className="single-action">
                   <HiOutlineHeart size={24} />
-                  <span className="pro-count blue">{totalCompareItems}</span>
+                  {/* <span className="pro-count blue">{totalCompareItems}</span> */}
                 </Link>
                 <button
                   onClick={() => dispatch(toggleCart())}
@@ -110,14 +105,14 @@ const Header = ({ totalCartItems, totalCompareItems, children, locale }) => {
                       <div className="relative bg-white px-6 py-8 w-52 border border-slate-300 rounded-lg">
                         <div className="absolute top-0 right-0 transform -translate-x-1/2 -translate-y-1/2 rotate-45 w-4 h-4 bg-white border-l border-t border-slate-300"></div>
                         <p className="text-slate-500 text-base font-bold text-center">
-                          আপনার একাউন্ট লগ-ইন করা নেই
+                          {translations["login-status"]}
                         </p>
                         <div className="flex justify-center mt-4">
                           <button
                             className="primary-btn px-6"
                             onClick={handleModalOpen}
                           >
-                            লগ-ইন করুন
+                            {translations["log-in"]}
                             <HiArrowNarrowRight />
                           </button>
                         </div>
@@ -138,7 +133,7 @@ const Header = ({ totalCartItems, totalCompareItems, children, locale }) => {
       <LoginModal
         showModal={isLoginModalOpen}
         setShowModal={(show) => dispatch(setLoginModalOpen(show))}
-        title={"স্বাগতম"}
+        title={translations["welcome"]}
       />
     </>
   );

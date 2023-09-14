@@ -12,14 +12,15 @@ import {
   useGetSupportTicketTypesQuery,
 } from "@/store/features/api/supportTicketAPI";
 import { useGetOrdersQuery } from "@/store/features/api/orderAPI";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function AddSupportTicket() {
+  const { locale } = useParams();
   const router = useRouter();
   const [imageFiles, setImageFiles] = useState([]);
   const { data: ordersData } = useGetOrdersQuery();
   const myOrders = ordersData?.data || [];
-  const { data } = useGetSupportTicketTypesQuery();
+  const { data } = useGetSupportTicketTypesQuery({ locale });
   const ticketTypes = data?.data || [];
 
   const [addSupportTicket] = useAddSupportTicketMutation();

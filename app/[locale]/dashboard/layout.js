@@ -1,10 +1,10 @@
 "use client";
 
-import { logOut } from "@/store/features/authSlice";
+import { logoutUser } from "@/store/features/authSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import RequireAuth from "@/components/hoks/RequireAuth";
 
 //icons
 import { FaClipboardList, FaUser } from "react-icons/fa";
@@ -13,46 +13,44 @@ import { IoLogOut } from "react-icons/io5";
 import { MdRateReview } from "react-icons/md";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 
-const navItems = [
-  { text: "আমার প্রফাইল", icon: <FaUser />, path: "/dashboard" },
-  {
-    text: "আমার অর্ডার",
-    icon: <FaClipboardList />,
-    path: "/dashboard/my-orders",
-  },
-  { text: "আমার উইশ লিষ্ট", icon: <HiHeart />, path: "/dashboard/my-wishlist" },
-  {
-    text: "আমার রিভিউ",
-    icon: <MdRateReview />,
-    path: "/dashboard/my-reviews",
-  },
-  {
-    text: "ভাউচার",
-    icon: <HiReceiptPercent />,
-    path: "/dashboard/my-voucher",
-  },
-  {
-    text: "প্রশ্ন ও উত্তর",
-    icon: <RiQuestionAnswerFill />,
-    path: "/dashboard/qna",
-  },
-  {
-    text: "সাপোর্ট টিকিট",
-    icon: <HiTicket />,
-    path: "/dashboard/support-ticket",
-  },
-  // Add more items as needed
-];
-export default function DashboardLayout({ children }) {
+const DashboardLayout = ({ children, params }) => {
+  const { locale } = params;
   const dispatch = useDispatch();
-  const router = useRouter();
-
-  const handleLogout = () => {
-    dispatch(logOut());
-    router.push("/");
-  };
-
   const pathname = usePathname();
+  const navItems = [
+    { text: "আমার প্রফাইল", icon: <FaUser />, path: "/dashboard" },
+    {
+      text: "আমার অর্ডার",
+      icon: <FaClipboardList />,
+      path: "/dashboard/my-orders",
+    },
+    {
+      text: "আমার উইশ লিষ্ট",
+      icon: <HiHeart />,
+      path: "/dashboard/my-wishlist",
+    },
+    {
+      text: "আমার রিভিউ",
+      icon: <MdRateReview />,
+      path: "/dashboard/my-reviews",
+    },
+    {
+      text: "ভাউচার",
+      icon: <HiReceiptPercent />,
+      path: "/dashboard/my-voucher",
+    },
+    {
+      text: "প্রশ্ন ও উত্তর",
+      icon: <RiQuestionAnswerFill />,
+      path: "/dashboard/qna",
+    },
+    {
+      text: "সাপোর্ট টিকিট",
+      icon: <HiTicket />,
+      path: "/dashboard/support-ticket",
+    },
+  ];
+
   return (
     <div className="bg-slate-100">
       <div className="container">
@@ -64,7 +62,8 @@ export default function DashboardLayout({ children }) {
                   <li
                     key={item.path}
                     className={`flex items-center py-3 px-4 rounded-lg w-full font-bold ${
-                      pathname === item.path
+                      pathname === item.path ||
+                      pathname.split(locale)[1] === item.path
                         ? "bg-amber-200 border-b-2 border-primary text-primary"
                         : ""
                     }`}
@@ -89,7 +88,7 @@ export default function DashboardLayout({ children }) {
                 >
                   <button
                     className="flex items-center space-x-2"
-                    onClick={handleLogout}
+                    onClick={() => dispatch(logoutUser())}
                   >
                     <span className={`text-amber-400 font-bold text-xl`}>
                       <IoLogOut />
@@ -105,4 +104,6 @@ export default function DashboardLayout({ children }) {
       </div>
     </div>
   );
-}
+};
+
+export default RequireAuth(DashboardLayout);

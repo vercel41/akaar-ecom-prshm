@@ -11,7 +11,12 @@ const wishListAPI = apiSlice.injectEndpoints({
       invalidatesTags: ["wishlist"],
     }),
     getWishList: builder.query({
-      query: () => `wishlist/index`,
+      query: (payload) => ({
+        url: `wishlist/index`,
+        headers: {
+          lang: payload.locale || "en",
+        },
+      }),
       providesTags: ["wishlist"],
     }),
     removeFromWishList: builder.mutation({

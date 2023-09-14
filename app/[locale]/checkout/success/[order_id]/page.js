@@ -10,8 +10,11 @@ const Lottie = dynamic(() => import("lottie-react"));
 import confetti from "@/public/assets/lottie/confetti.json";
 
 const OrderSuccess = ({ params }) => {
-  const { order_id } = params;
-  const { data: orderData, isLoading } = useGetOrderByIdQuery(order_id);
+  const { order_id, locale } = params;
+  const { data: orderData, isLoading } = useGetOrderByIdQuery({
+    order_id,
+    locale,
+  });
   const order = orderData?.sale || null;
   // console.log(order);
   return (

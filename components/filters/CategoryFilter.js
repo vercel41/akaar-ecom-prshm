@@ -1,12 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetCategoriesQuery } from "@/store/features/api/categoriesAPI";
 import { IoChevronBackOutline } from "react-icons/io5";
 
 const CategoryFilter = ({ selectedCategory }) => {
+  const { locale } = useParams();
   const router = useRouter();
-  const { data: categoriesData } = useGetCategoriesQuery(); // we can use server fetched data instead
+  const { data: categoriesData } = useGetCategoriesQuery({ locale }); // we can use server fetched data instead
   const categories = categoriesData?.data || [];
 
   const handleCategoryChange = (category) => {

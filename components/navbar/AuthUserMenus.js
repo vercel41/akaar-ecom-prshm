@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/store/features/authSlice";
+
 //icons
 import { FaClipboardList, FaUser } from "react-icons/fa";
 import { HiHeart, HiReceiptPercent, HiTicket } from "react-icons/hi2";
 import { IoLogOut } from "react-icons/io5";
 import { MdRateReview } from "react-icons/md";
 import { RiQuestionAnswerFill } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { logOut } from "@/store/features/authSlice";
-import { useRouter } from "next/navigation";
 
 const navItems = [
   { text: "আমার প্রফাইল", icon: <FaUser />, path: "/dashboard" },
@@ -44,11 +44,9 @@ const navItems = [
 
 export default function AuthUserMenus({ togglePopover }) {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const handleLogout = () => {
-    dispatch(logOut());
-    router.push("/");
+    dispatch(logoutUser());
     togglePopover();
   };
   return (

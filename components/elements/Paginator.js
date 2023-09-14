@@ -30,7 +30,7 @@ export default function Paginator({ meta, paginateItems }) {
   let links = [];
   if (Array.isArray(meta?.links)) {
     links = [...meta.links];
-    console.log(links);
+    // console.log(links);
     links.shift();
     links.pop();
   }

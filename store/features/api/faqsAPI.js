@@ -3,7 +3,12 @@ import apiSlice from "./apiSlice";
 const categoriesAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFaqs: builder.query({
-      query: () => `faqs`,
+      query: (payload) => ({
+        url: "faqs",
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["faqs"],
     }),
   }),

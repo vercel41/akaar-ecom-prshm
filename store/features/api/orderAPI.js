@@ -15,7 +15,12 @@ const orderAPI = apiSlice.injectEndpoints({
       providesTags: ["orders"],
     }),
     getOrderById: builder.query({
-      query: (order_id) => `order/show/${order_id}`,
+      query: (payload) => ({
+        url: `order/show/${payload?.order_id}`,
+        headers: {
+          lang: payload?.locale,
+        },
+      }),
       providesTags: ["order"],
     }),
   }),

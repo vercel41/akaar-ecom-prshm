@@ -1,16 +1,20 @@
 "use client";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import FlashSaleSlider from "./elements/sliders/FlashSale";
 import Timer from "@/components/elements/Timer";
-import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSale";
 import { HiArrowLongRight } from "react-icons/hi2";
+import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSaleAPI";
 
 const FlashSale = () => {
-  const { data: flashSaleData, isLoading } = useGetProductFlashSaleQuery();
+  const { locale } = useParams();
+  const { data: flashSaleData, isLoading } = useGetProductFlashSaleQuery({
+    locale,
+  });
   const flashSaleInfo = flashSaleData?.flashSale || {};
   const saleProducts = flashSaleData?.data || [];
-  if (flashSaleData?.status === false || isLoading) return null;
-  // console.log(data);
+  if (flashSaleData?.status === false || isLoading || !flashSaleData)
+    return null;
 
   return (
     <section className="flash-sale mt-28">

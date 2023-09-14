@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import WishListCard from "./WishListCard";
+import { useParams } from "next/navigation";
 import { useGetWishListQuery } from "@/store/features/api/wishListAPI";
 import NoItems from "../NoItems";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 
 const MyWishList = () => {
-  const { data, isLoading } = useGetWishListQuery();
+  const { locale } = useParams();
+  const { data, isLoading } = useGetWishListQuery({ locale });
   const wishedProducts = data?.data || [];
   return (
     <div className="px-10 py-6">

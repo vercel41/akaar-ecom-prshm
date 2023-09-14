@@ -10,8 +10,11 @@ import { setGlobalLoader } from "@/store/features/commonSlice";
 
 const PaymentFail = ({ params }) => {
   const dispatch = useDispatch();
-  const { order_id } = params;
-  const { data: orderData, isLoading } = useGetOrderByIdQuery(order_id);
+  const { order_id, locale } = params;
+  const { data: orderData, isLoading } = useGetOrderByIdQuery({
+    order_id,
+    locale,
+  });
   const order = orderData?.sale || null;
 
   return (

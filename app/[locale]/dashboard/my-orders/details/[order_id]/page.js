@@ -2,12 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 
 import { HiArrowLongLeft } from "react-icons/hi2";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import OrderTracking from "./OrderTracking";
 import SaleProductCard from "./SaleProductCard";
+import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 import { getBdFormattedDate } from "@/utils/formatDate";
 import { setGlobalLoader } from "@/store/features/commonSlice";
@@ -15,9 +15,12 @@ import handleSSLOrderPayLater from "@/utils/sslPay";
 import { useDispatch } from "react-redux";
 
 const OrderDetail = ({ params }) => {
-  const { order_id } = params;
+  const { order_id, locale } = params;
+  const { data: orderData, isLoading } = useGetOrderByIdQuery({
+    order_id,
+    locale,
+  });
   const dispatch = useDispatch();
-  const { data: orderData, isLoading } = useGetOrderByIdQuery(order_id);
   const sale = orderData?.sale || {};
   const saleProducts = orderData?.saleProducts || [];
 
