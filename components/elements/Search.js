@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 const Search = () => {
   const [showSuggestionResults, setShowSuggestionResults] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { translations } = useSelector((state) => state.common);
+  // const { translations } = useSelector((state) => state.common);
 
   const [searchTerm, setSearchTerm] = useState("");
   const { data: popularSearch } = useGetPopularSearchQuery(null, {
@@ -102,7 +102,7 @@ const Search = () => {
 
   return (
     <div className="nav-search relative">
-      <form>
+      <div className="bg-slate-200 rounded-lg">
         <input
           value={searchTerm}
           onKeyDown={handleInput}
@@ -110,20 +110,20 @@ const Search = () => {
           onFocus={handleFocus}
           onBlur={handleBlur}
           type="text"
-          placeholder={translations["search-for-your-desired-product"]}
-          className="border-r-0"
+          placeholder={"search for your desired product"}
+          className="search-input"
         />
 
         <button type="submit" className="search-btn">
-          <HiMagnifyingGlass size={24} color="#fff" />
+          <HiMagnifyingGlass size={24} />
         </button>
-      </form>
+      </div>
       {showSuggestionResults && (searchHistory?.length || popular?.length) ? (
         <div className="z-20 absolute font-title text-slate-600 mt-2 py-2 w-full overflow-hidden rounded-md bg-white">
           {searchHistory?.length ? (
             <div className="px-4 mb-4">
-              <h3 className="mb-2">{translations["recently-searched"]}</h3>
-              {searchHistory.map((keyword) => (
+              <h3 className="mb-2">Recently Searched</h3>
+              {searchHistory?.slice(0, 5)?.map((keyword) => (
                 <div
                   key={keyword.id}
                   className="cursor-pointer py-2 flex gap-4 hover:bg-slate-100"
@@ -170,8 +170,8 @@ const Search = () => {
           ) : null}
           {popular?.length ? (
             <div className="px-4">
-              <h3 className="mb-2">{translations["popular-keywords"]}</h3>
-              {popular.map((keyword) => (
+              <h3 className="mb-2">Popular Keywords</h3>
+              {popular?.slice(0, 5)?.map((keyword) => (
                 <div
                   key={keyword.id}
                   className="cursor-pointer py-2 flex gap-4 hover:bg-slate-100"

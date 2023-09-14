@@ -1,7 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
 import { fetchData } from "@/utils/fetchData";
-import MegaMenu from "./MegaMenu";
+import ResponsiveMenu from "./ResponsiveMenu";
 
 const NavItems = async () => {
   // const { data: settings = {} } = await fetchData({ api: "info/basic" });
@@ -18,18 +16,9 @@ const NavItems = async () => {
     categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
 
   return (
-    <div className="header-left flex items-center gap-4">
-      <Link href="/" className="logo">
-        <Image
-          src={settings?.logo}
-          alt={settings?.name}
-          width={200}
-          height={20}
-          className="h-16"
-        />
-      </Link>
-      <MegaMenu categories={categories} settings={settings} />
-    </div>
+    <>
+      <ResponsiveMenu categories={categories} settings={settings} />
+    </>
   );
 };
 

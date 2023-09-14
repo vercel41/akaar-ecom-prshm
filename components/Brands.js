@@ -3,12 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useGetBrandsQuery } from "@/store/features/api/brandsAPI";
-
+import { useParams } from "next/navigation";
 
 const Brands = () => {
-  const { data: brandsData } = useGetBrandsQuery();
-  console.log('brandsData-------', brandsData);
-
+  const { locale } = useParams();
+  const { data: brandsData } = useGetBrandsQuery({ locale });
+  // console.log("brandsData-------", brandsData);
   const brands = brandsData?.data || [];
 
   return (
@@ -16,10 +16,7 @@ const Brands = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
         {brands?.map((brand, i) => (
           <div key={i} class="mb-5">
-            <Link
-              href={`/brands/${brand.id}`}
-              className=""
-            >
+            <Link href={`/brands/${brand.id}`} className="">
               <Image
                 src={brand.brand_image || noImage}
                 alt={brand.title}
@@ -30,9 +27,7 @@ const Brands = () => {
             </Link>
           </div>
         ))}
-
       </div>
-
     </>
   );
 };

@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 // ** Import Icons
-import { BsFillTelephoneFill } from "react-icons/bs";
-import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import { fetchData } from "@/utils/fetchData";
 import SubcriptionForm from "./SubscriptionForm";
 
@@ -13,7 +11,7 @@ const Footer = async () => {
   const footerPage = settings?.footer_page || {};
   const helpPage = settings?.help_page || {};
 
-  console.log('settings--------', settings);
+  // console.log('settings--------', settings);
 
   return (
     <>
@@ -175,8 +173,13 @@ const Footer = async () => {
       <footer class="footer mb-5">
         <div class="container">
           <div class="text-center">
-            <h2 className="text-4xl/[48px] font-title my-5">Trear Your Inbox</h2>
-            <p className=" mb-8">Receive our newsletter on the latest deals and happenings. You can unsubscribe any time you want.</p>
+            <h2 className="text-4xl/[48px] font-title my-5">
+              Trear Your Inbox
+            </h2>
+            <p className=" mb-8">
+              Receive our newsletter on the latest deals and happenings. You can
+              unsubscribe any time you want.
+            </p>
             <SubcriptionForm />
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between mt-8">
@@ -257,7 +260,10 @@ const Footer = async () => {
                 </Link>
                 {/* </div> */}
               </div>
-              <p class="mt-3 text-center">&copy; {new Date().getFullYear()}, All Rights Reserved By <Link href="/">{settings?.name}</Link></p>
+              <p class="mt-3 text-center">
+                &copy; {new Date().getFullYear()}, All Rights Reserved By{" "}
+                <Link href="/">{settings?.name}</Link>
+              </p>
             </div>
           </div>
         </div>

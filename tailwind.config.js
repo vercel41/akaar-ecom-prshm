@@ -29,6 +29,7 @@ module.exports = {
         secondary: {
           700: "#00B7C9",
           800: "#00A7B8",
+          DEFAULT: "#222222",
         },
         amber: {
           200: "#FFF6EB",
