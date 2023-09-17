@@ -55,7 +55,7 @@
 /* Global Css */
 
 .sec-title {
-  @apply text-3xl font-bold font-title text-slate-900;
+  @apply text-3xl font-normal font-title text-slate-900;
 }
 
 .search-input {
@@ -85,7 +85,7 @@
 }
 
 .slider-btn {
-  @apply absolute top-1/2 left-5 inline-flex justify-center items-center w-12 h-12 bg-[#F8FAFC] rounded-full translate-y-[-1/2] z-10 cursor-pointer;
+  @apply absolute top-1/2 left-5 inline-flex justify-center items-center w-12 h-12 bg-[#F8FAFC] rounded-lg transform -translate-y-12 z-10 cursor-pointer;
 }
 
 .slider-next {

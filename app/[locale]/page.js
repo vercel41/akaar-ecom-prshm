@@ -33,6 +33,19 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
+      <section className="new-products py-14">
+        <div className="container">
+          <div className="pb-3 text-center">
+            <h2 className="sec-title pb-3">New Arrival</h2>
+            <p className="underline">Browse Our New Collections</p>
+          </div>
+
+          {/* <div className="new-slider mt-6  relative"> */}
+          <NewArrival />
+          {/* </div> */}
+        </div>
+      </section>
+
       <section className="all-category my-6">
         <div
           className="container py-6"
@@ -87,21 +100,6 @@ export default function Home({ searchParams }) {
 
           <div className="bestSell-slider mt-6">
             <AllProducts customSearchParams={searchParams} pagination={true} />
-          </div>
-        </div>
-      </section>
-
-      <section className="new-products py-14">
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">শপে নতুন এসেছে</h2>
-            {/* <Link href="/products" className="all-btn">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
-          </div>
-
-          <div className="new-slider mt-6  relative">
-            <NewArrival />
           </div>
         </div>
       </section>
