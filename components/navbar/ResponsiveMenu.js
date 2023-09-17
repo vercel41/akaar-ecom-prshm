@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 
-export default function ResponsiveMenu({ categories, settings }) {
+export default function ResponsiveMenu({ settings }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerPage = settings?.header_page || {};
 

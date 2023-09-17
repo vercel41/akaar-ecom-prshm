@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/footer/Footer";
 import CheckConnection from "@/components/CheckConnection";
 import Header from "@/components/navbar/Header";
-import NavItems from "@/components/navbar/NavItems";
 import CartTray from "@/components/elements/CartTray";
 import ReduxProvider from "@/store/ReduxProvider";
 
@@ -40,9 +39,7 @@ export default function RootLayout({ children, params }) {
     <html lang={locale}>
       <body>
         <ReduxProvider>
-          <Header locale={locale}>
-            <NavItems />
-          </Header>
+          <Header />
           <CheckConnection>{children}</CheckConnection>
           <Footer />
           <CartTray />
