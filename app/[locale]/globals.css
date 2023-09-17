@@ -141,7 +141,7 @@
 
 .nav-menu a,
 .nav-menu .menuBtn {
-  @apply text-base font-title font-normal text-slate-500  ease-in duration-100 hover:text-primary;
+  @apply text-base font-title font-normal text-white  ease-in duration-100 hover:text-primary;
 }
 
 /* since nested groupes are not supported we have to use 

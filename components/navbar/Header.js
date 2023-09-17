@@ -1,4 +1,5 @@
 import Offer from "../Offer";
+import CategoriesNav from "./CategoriesNav";
 import MainNav from "./MainNav";
 import { fetchData } from "@/utils/fetchData";
 
@@ -16,6 +17,7 @@ const Header = async () => {
     <>
       <header className="header">
         <MainNav settings={settings} />
+        <CategoriesNav categories={categories} />
         <Offer />
       </header>
     </>
