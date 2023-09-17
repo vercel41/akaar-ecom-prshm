@@ -19,7 +19,7 @@ import {
   HiArrowLongRight,
 } from "react-icons/hi2";
 
-const SingleProduct = ({ product, addToCompare }) => {
+const SingleProduct = ({ product }) => {
   const { user } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(true);
   const [addToWishlist] = useAddToWishListMutation();
@@ -64,11 +64,6 @@ const SingleProduct = ({ product, addToCompare }) => {
     }
   };
 
-  const handleCompare = (product) => {
-    addToCompare(product);
-    toast.success("Add to Compare !");
-  };
-
   const handleWishlist = async (productId) => {
     if (!user) {
       toast.error("You're not logged in");
@@ -85,7 +80,7 @@ const SingleProduct = ({ product, addToCompare }) => {
     <>
       {!loading ? (
         <>
-          <div className="product-card-wrap bg-white border border-slate-200 hover:border-primary">
+          <div className="product-card-wrap bg-white border border-slate-200">
             <div className="product-img-action-wrap relative">
               <div className="product-action">
                 <button
@@ -97,10 +92,10 @@ const SingleProduct = ({ product, addToCompare }) => {
                   <HiOutlineHeart />
                 </button>
               </div>
-              <div className="product-img border-b-2	">
+              <div className="product-img border-b-2 h-400 overflow-hidden">
                 <Link href="/products/[slug]" as={`/products/${slug}`}>
                   <Image
-                    className="default-img h-400 w-full"
+                    className="default-img h-400 w-full transition-transform duration-300 ease-in-out transform hover:scale-125"
                     src={image || "/assets/images/no-image.png"}
                     alt={product_name}
                     width={226}
@@ -108,10 +103,9 @@ const SingleProduct = ({ product, addToCompare }) => {
                   />
                 </Link>
               </div>
-
             </div>
             <div className="product-content-wrap p-3">
-              <div className="">
+              {/* <div className="">
                 <Link
                   href={`/brands/${brand?.id ? brand?.id : ""}`}
                   className="text-xs text-primary capitalize"
@@ -120,7 +114,7 @@ const SingleProduct = ({ product, addToCompare }) => {
                     {brand?.brand_name || "No Brand"}
                   </span>
                 </Link>
-              </div>
+              </div> */}
               <h2>
                 <Link
                   href={`/products/${slug}`}
@@ -129,24 +123,23 @@ const SingleProduct = ({ product, addToCompare }) => {
                   {product_name}
                 </Link>
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-2">
-                <div className="product-price mb-3 flex justify-end gap-2">
-                  <span className="text-lg/[24px] font-semibold text-red-500">
-                    ৳{new_price}
-                  </span>
-                  {typeof discount_percentage === "number" &&
-                    discount_percentage > 0 ? (
-                    <>
-                      <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                        ৳{old_price}
-                      </del>
-                      <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
+              <div className="product-price mb-3 flex gap-2">
+                <span className="text-lg/[24px] font-semibold">
+                  tk. {new_price}
+                </span>
+                {typeof discount_percentage === "number" &&
+                discount_percentage > 0 ? (
+                  <>
+                    <del className="old-price text-lg/[24px] font-normal text-slate-400">
+                      {old_price}
+                    </del>
+                    {/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
                         -{getFractionFixed(discount_percentage)}%
-                      </span>
-                    </>
-                  ) : null}
-                </div>
-                <div className="rating-result flex items-center gap-2 mb-4">
+                      </span> */}
+                  </>
+                ) : null}
+              </div>
+              {/* <div className="rating-result flex items-center gap-2 mb-4">
                   <span className="font-semibold text-slate-900">
                     {getFractionFixed(averate_rating) || 0}{" "}
                     <FaStar className="text-primary pb-1" />
@@ -156,16 +149,9 @@ const SingleProduct = ({ product, addToCompare }) => {
                       ? "No Rating"
                       : formatLongNumber(total_rating)}
                   </span>
-                </div>
-              </div>
+                </div> */}
 
-              <div className="product-actions flex justify-center items-center gap-2">
-                <button
-                  onClick={() => handleCheckout(product)}
-                  className="buy-btn px-2"
-                >
-                  এখনই কিনুন <HiArrowLongRight size={20} />
-                </button>
+              <div className="product-actions flex justify-between items-center gap-2">
                 <button
                   aria-label="Add To Cart"
                   className="action-btn"
@@ -175,6 +161,12 @@ const SingleProduct = ({ product, addToCompare }) => {
                     size={24}
                     className="active:scale-90"
                   />
+                </button>
+                <button
+                  onClick={() => handleCheckout(product)}
+                  className="buy-btn px-2 rounded"
+                >
+                  Buy Now <HiArrowLongRight size={20} />
                 </button>
               </div>
             </div>
