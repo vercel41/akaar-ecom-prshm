@@ -95,7 +95,7 @@ const SingleProduct = ({ product }) => {
               <div className="product-img border-b-2 h-400 overflow-hidden">
                 <Link href="/products/[slug]" as={`/products/${slug}`}>
                   <Image
-                    className="default-img h-400 w-full transition-transform duration-300 ease-in-out transform hover:scale-125"
+                    className="default-img h-400 w-full hover:scale-125 transition-all duration-300 ease-in-out"
                     src={image || "/assets/images/no-image.png"}
                     alt={product_name}
                     width={226}

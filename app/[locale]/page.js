@@ -33,18 +33,17 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section
-        className="all-category container py-14 my-6"
-        style={{
-          // backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
-          backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
-        }}
-      >
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center mb-6">
-            <h2 className="sec-title !text-white">জনপ্রিয় ক্যাটাগর‍ি</h2>
+      <section className="all-category my-6">
+        <div
+          className="container py-6"
+          style={{
+            backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
+          }}
+        >
+          <div className="sec-heading w-full flex justify-between items-center mb-3">
+            <h2 className="sec-title !text-white">Category</h2>
             <Link href="/categories" className="all-btn !text-white">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
+              View All <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
           <div class="grid grid-cols-5 gap-4">
