@@ -24,7 +24,7 @@ const FeaturedBanner = async () => {
               />
             </div>
             <div className="content absolute bottom-6 left-0 w-full text-center p-5">
-              <h1 className="text-5xl italic text-white mb-3">
+              <h1 className="text-5xl text-left italic text-white mb-3 font-bold font-serif">
                 {banner.title}
               </h1>
               <Link

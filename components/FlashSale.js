@@ -1,9 +1,7 @@
 "use client";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import FlashSaleSlider from "./elements/sliders/FlashSale";
 import Timer from "@/components/elements/Timer";
-import { HiArrowLongRight } from "react-icons/hi2";
 import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSaleAPI";
 
 const FlashSale = () => {
@@ -17,26 +15,20 @@ const FlashSale = () => {
     return null;
 
   return (
-    <section className="flash-sale mt-28">
-      <div className="container relative">
-        <div className="sec-heading absolute top-[-30px] left-0 w-full flex justify-between items-center px-8">
-          <div className="flex gap-4 bg-white">
-            <div>
-              <h2 className="sec-title">{flashSaleInfo?.title}</h2>
-              <p>অফার চলবে আর মাত্র</p>
-            </div>
-            <Timer targetDate={flashSaleInfo?.expire_time} />
-          </div>
-          <Link href="/flash-sale" className="all-btn bg-white">
-            সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-          </Link>
+    <div className="relative">
+      <div className="sec-heading absolute top-[-30px] left-0 w-full flex justify-between items-center">
+        <div className=" bg-white">
+          <h2 className="sec-title">{flashSaleInfo?.title}</h2>
         </div>
-
-        <div className="flashSale-slider border border-primary rounded-2xl p-6 pt-16">
-          <FlashSaleSlider saleProducts={saleProducts} />
+        <div className="bg-white flex gap-4 items-center">
+          <h3 className="text-xl font-bold">Deals End In</h3>
+          <Timer targetDate={flashSaleInfo?.expire_time} />
         </div>
       </div>
-    </section>
+      <div className="flashSale-slider pt-16">
+        <FlashSaleSlider saleProducts={saleProducts} />
+      </div>
+    </div>
   );
 };
 
