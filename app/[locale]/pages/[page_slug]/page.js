@@ -7,7 +7,7 @@ import ViewHTML from "@/components/elements/ViewHTML";
 import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: "Sotota Stall || Booking Policy",
+  title: "Style Mart Brand || Booking Policy",
 };
 
 const DynamicPage = async ({ params }) => {

@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import ServiceFeatures from "@/components/ServiceFeatures";
 import Intro from "@/components/Intro";
 import FlashSale from "@/components/FlashSale";
 import BestSell from "@/components/BestSell";
@@ -11,7 +10,6 @@ import Link from "next/link";
 import VideoBanner from "@/components/elements/VideoBanner";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import PopularCategories from "@/components/PopularCategories";
-import PopularCategory from "@/components/PopularCategory";
 
 // ** Import Iocns
 import { HiArrowLongRight } from "react-icons/hi2";
@@ -23,18 +21,11 @@ export default function Home({ searchParams }) {
         <Intro />
       </section>
 
-      {/* <section className="service-features">
+      <section className="banners pt-14">
         <div className="container">
-          <ServiceFeatures />
+          <FeaturedBanner />
         </div>
-      </section> */}
-
-      {/* <section className="popular-categories">
-        <div className="container">
-          <PopularCategory />
-        </div>
-      </section> */}
-
+      </section>
 
       <FlashSale />
 
@@ -43,7 +34,6 @@ export default function Home({ searchParams }) {
         style={{
           // backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
           backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
-
         }}
       >
         <div className="container">
@@ -56,7 +46,6 @@ export default function Home({ searchParams }) {
           <div class="grid grid-cols-5 gap-4">
             <PopularCategories />
           </div>
-
         </div>
       </section>
 
@@ -81,12 +70,6 @@ export default function Home({ searchParams }) {
           <div className="bestSell-slider mt-6 relative">
             <BestSell />
           </div>
-        </div>
-      </section>
-
-      <section className="banners pt-14">
-        <div className="container">
-          <FeaturedBanner />
         </div>
       </section>
 

@@ -1,14 +1,9 @@
 export async function generateMetadata({ params }) {
-    
-    return {
-      title: 'Sotota Stall || QnA'
-    };
-
+  return {
+    title: "Style Mart Brand || QnA",
+  };
 }
 
-export default function HelpLayout({children}) {
-
-    return (
-        <div>{children}</div>
-    )
+export default function HelpLayout({ children }) {
+  return <div>{children}</div>;
 }

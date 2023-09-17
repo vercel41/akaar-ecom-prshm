@@ -8,7 +8,7 @@ import React from "react";
 import { getSlicedText } from "@/utils/formatText";
 
 export const metadata = {
-  title: "Sotota Stall || product details page",
+  title: "Style Mart Brand || product details page",
   description: "product details page",
 };
 
