@@ -65,7 +65,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="best-sell bg-slate-50 py-14">
+      {/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">
@@ -78,41 +78,41 @@ export default function Home({ searchParams }) {
               />
               বেস্ট সেলিং প্রডাক্ট
             </h2>
-            {/* <Link href="/products" className="all-btn">
+            <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
+            </Link>
           </div>
 
           <div className="bestSell-slider mt-6 relative">
             <BestSell />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="all-products py-14">
+      {/* <section className="all-products py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">সকল প্রডাক্ট</h2>
-            {/* <Link href="/products" className="all-btn">
+            <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
+            </Link>
           </div>
 
           <div className="bestSell-slider mt-6">
             <AllProducts customSearchParams={searchParams} pagination={true} />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <VideoBanner />
 
       <section className="all-brands py-14">
         <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">আমাদের ব্র্যান্ড সমূহ</h2>
-            <Link href="/brands" className="all-btn">
+          <div className="sec-heading w-full pb-3">
+            <h2 className="sec-title">Internation Brands</h2>
+            {/* <Link href="/brands" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="brands-slider mt-6  relative">
