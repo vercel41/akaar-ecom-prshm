@@ -11,7 +11,7 @@ export default function NotFound() {
                 <div className="content flex flex-col items-center py-28">
                     <Image src={`/assets/images/banner/notFound.jpg`} width={600} height={500} alt="Not Found" className="mb-12" />
                     <h2 className="text-3xl font-bold font-title text-slate-900">Page not found!</h2>
-                    <p className="text-lg text-slate-600 mt-6 mb-8">We're sorry, but the page you requested could not be found.</p>
+                    <p className="text-lg text-slate-600 mt-6 mb-8">We are sorry, but the page you requested could not be found.</p>
                     <Link href="/" className="inline-block font-semibold text-white bg-primary px-8 py-3">Back to home</Link>
                 </div>
                 {/* <div className="contact pb-12 text-center">
