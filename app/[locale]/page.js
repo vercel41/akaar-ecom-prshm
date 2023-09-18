@@ -33,18 +33,30 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section
-        className="all-category container py-14 my-6"
-        style={{
-          // backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
-          backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
-        }}
-      >
+      <section className="new-products py-14">
         <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center mb-6">
-            <h2 className="sec-title !text-white">জনপ্রিয় ক্যাটাগর‍ি</h2>
+          <div className="pb-3 text-center">
+            <h2 className="sec-title pb-3">New Arrival</h2>
+            <p className="underline">Browse Our New Collections</p>
+          </div>
+
+          {/* <div className="new-slider mt-6  relative"> */}
+          <NewArrival />
+          {/* </div> */}
+        </div>
+      </section>
+
+      <section className="all-category my-6">
+        <div
+          className="container py-6"
+          style={{
+            backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
+          }}
+        >
+          <div className="sec-heading w-full flex justify-between items-center mb-3">
+            <h2 className="sec-title !text-white">Category</h2>
             <Link href="/categories" className="all-btn !text-white">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
+              View All <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
           <div class="grid grid-cols-5 gap-4">
@@ -88,21 +100,6 @@ export default function Home({ searchParams }) {
 
           <div className="bestSell-slider mt-6">
             <AllProducts customSearchParams={searchParams} pagination={true} />
-          </div>
-        </div>
-      </section>
-
-      <section className="new-products py-14">
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">শপে নতুন এসেছে</h2>
-            {/* <Link href="/products" className="all-btn">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
-          </div>
-
-          <div className="new-slider mt-6  relative">
-            <NewArrival />
           </div>
         </div>
       </section>

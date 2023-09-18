@@ -11,7 +11,7 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 
 const NewArrivalSlider = ({ newProducts }) => {
   return (
-    <>
+    <div className="relative">
       <Swiper
         modules={[Navigation]}
         slidesPerView={4}
@@ -19,15 +19,15 @@ const NewArrivalSlider = ({ newProducts }) => {
           0: {
             slidesPerView: 1,
           },
-          640:{
-            slidesPerView:2,
+          640: {
+            slidesPerView: 2,
           },
           768: {
             slidesPerView: 3,
           },
-          1024:{
-            slidesPerView:4
-          }
+          1024: {
+            slidesPerView: 4,
+          },
         }}
         spaceBetween={20}
         loop={false}
@@ -51,7 +51,7 @@ const NewArrivalSlider = ({ newProducts }) => {
           <TfiAngleRight />
         </span>
       </div>
-    </>
+    </div>
   );
 };
 

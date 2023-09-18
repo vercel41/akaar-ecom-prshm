@@ -12,7 +12,10 @@ const FeaturedBanner = async () => {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {featuredBanner.map((banner) => (
-          <div key={banner.id} className="col-span-1 relative">
+          <div
+            key={banner.id}
+            className="col-span-1 relative hover:-translate-y-2 transition-transform duration-300 ease-in-out"
+          >
             <div className="banner-img">
               <Image
                 src={banner.image || noImage}
