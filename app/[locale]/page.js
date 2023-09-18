@@ -33,7 +33,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="new-products py-14">
+      <section className="new-products mt-28">
         <div className="container">
           <div className="pb-3 text-center">
             <h2 className="sec-title pb-3">New Arrival</h2>
@@ -46,7 +46,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="all-category my-6">
+      <section className="all-category mt-28">
         <div
           className="container py-6"
           style={{
@@ -59,13 +59,13 @@ export default function Home({ searchParams }) {
               View All <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
-          <div class="grid grid-cols-5 gap-4">
+          <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <PopularCategories />
           </div>
         </div>
       </section>
 
-      <section className="best-sell bg-slate-50 py-14">
+      {/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">
@@ -78,41 +78,43 @@ export default function Home({ searchParams }) {
               />
               বেস্ট সেলিং প্রডাক্ট
             </h2>
-            {/* <Link href="/products" className="all-btn">
+            <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
+            </Link>
           </div>
 
           <div className="bestSell-slider mt-6 relative">
             <BestSell />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="all-products py-14">
+      {/* <section className="all-products py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">সকল প্রডাক্ট</h2>
-            {/* <Link href="/products" className="all-btn">
+            <Link href="/products" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
+            </Link>
           </div>
 
           <div className="bestSell-slider mt-6">
             <AllProducts customSearchParams={searchParams} pagination={true} />
           </div>
         </div>
+      </section> */}
+
+      <section className="video-banner mt-28">
+        <VideoBanner />
       </section>
 
-      <VideoBanner />
-
-      <section className="all-brands py-14">
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">আমাদের ব্র্যান্ড সমূহ</h2>
-            <Link href="/brands" className="all-btn">
+      <section className="all-brands">
+        <div className="container py-14">
+          <div className="sec-heading w-full pb-3">
+            <h2 className="sec-title">Internation Brands</h2>
+            {/* <Link href="/brands" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="brands-slider mt-6  relative">

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Autoplay, Pagination } from "swiper";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -49,7 +48,7 @@ const IntroSlider = ({ sliders }) => {
                       href={slide?.url}
                       className="inline-block w-44 h-12 text-white bg-primary text-center leading-[48px]"
                     >
-                      সবগুলো দেখুন{" "}
+                      See All{" "}
                       <HiChevronRight
                         size={20}
                         color="#fff"
