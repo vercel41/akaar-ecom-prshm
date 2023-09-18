@@ -33,7 +33,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="new-products py-14">
+      <section className="new-products mt-28">
         <div className="container">
           <div className="pb-3 text-center">
             <h2 className="sec-title pb-3">New Arrival</h2>
@@ -46,7 +46,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="all-category my-6">
+      <section className="all-category mt-28">
         <div
           className="container py-6"
           style={{
@@ -59,7 +59,7 @@ export default function Home({ searchParams }) {
               View All <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
-          <div class="grid grid-cols-5 gap-4">
+          <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <PopularCategories />
           </div>
         </div>
@@ -104,10 +104,12 @@ export default function Home({ searchParams }) {
         </div>
       </section> */}
 
-      <VideoBanner />
+      <section className="video-banner mt-28">
+        <VideoBanner />
+      </section>
 
-      <section className="all-brands py-14">
-        <div className="container">
+      <section className="all-brands">
+        <div className="container py-14">
           <div className="sec-heading w-full pb-3">
             <h2 className="sec-title">Internation Brands</h2>
             {/* <Link href="/brands" className="all-btn">
