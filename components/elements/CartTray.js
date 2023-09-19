@@ -28,10 +28,10 @@ const CartTray = () => {
         className="cart fixed top-1/2 right-0 cursor-pointer z-40 text-white"
         onClick={handleCart}
       >
-        <div className="icon bg-white border border-r-0 border-primary rounded-ss-lg px-1 text-center">
+        <div className="icon bg-white border border-r-0 border-primary px-1 text-center">
           <BsCart3 size={36} className="text-primary m-2" />
         </div>
-        <div className="rounded-es-lg text-center bg-primary pt-2">
+        <div className="text-center bg-primary pt-2">
           <p className="text-xs text-white">{cart?.length} Items</p>
           <div className="text-xs font-semibold text-white flex items-center justify-center">
             <TbCurrencyTaka size={16} className="mb-1" />

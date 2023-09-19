@@ -22,11 +22,11 @@ const DrawerRight = ({ title, children, show, setShow }) => {
         <div className="relative h-full">
           {/*header*/}
           <div className="flex items-center justify-between px-5 py-2 text-slate-900 border-b-[1px] border-slate-300">
-            <h3 className="text-3xl font-title font-semibold">
+            <h3 className="text-2xl font-title font-semibold">
               {title ? title : null}
             </h3>
             <button
-              className="icon-btn text-3xl text-slate-500"
+              className="icon-btn text-2xl"
               onClick={() => setShow(false)}
             >
               <AiOutlineClose />

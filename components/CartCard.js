@@ -27,7 +27,7 @@ const CartCard = ({ item }) => {
 
   const dispatch = useDispatch();
   return (
-    <div className="relative cart-card p-4 bg-white border border-slate-200 rounded-xl mb-3">
+    <div className="relative cart-card p-4 bg-white border-b border-slate-200 mb-3">
       <button
         className="absolute right-4 top-4 bg-transparent text-red-500"
         onClick={() => dispatch(cartActions.removeFromCart(cartId))}
@@ -53,15 +53,10 @@ const CartCard = ({ item }) => {
             </Link>
           </h2>
           <div className="flex gap-3 products-center items-center">
-            <h3 className="text-xl text-red-500">৳ {new_price}</h3>
+            <h3 className="text-xl">tk. {new_price}</h3>
             {typeof discount_percentage === "number" &&
             discount_percentage > 0 ? (
-              <>
-                <del className="text-xl text-slate-300">৳ {old_price}</del>
-                <div className="rounded-full px-3 text-sm py-1 text-white bg-red-500">
-                  -{getFractionFixed(discount_percentage)}% OFF
-                </div>
-              </>
+              <del className="text-xl text-slate-300"> {old_price}</del>
             ) : null}
           </div>
         </div>
@@ -70,37 +65,25 @@ const CartCard = ({ item }) => {
         <div className="flex products-center gap-3">
           {variantId ? (
             <>
-              <div className="px-2 border border-slate-300 rounded-md">
+              <div className="px-2 border border-slate-300">
                 {selectedVariant?.color}
               </div>
-              <div className="px-2 border border-slate-300 rounded-md">
+              <div className="px-2 border border-slate-300">
                 {selectedVariant?.size}
               </div>
-              {/* <div className="px-2 border border-slate-300 rounded">
-                {sizes[0]?.color}
-              </div>
-              <div>
-                <select className="bg-slate-50 bg-transparent border border-slate-300 text-slate-900 rounded focus:ring-primary focus:border-primary">
-                  {sizes.map((s) => (
-                    <option key={s.size} selected={s.id === variantId}>
-                      {s.size}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
             </>
           ) : null}
         </div>
         <div className="flex items-center products-center gap-3 text-slate-900">
           <button
-            className="bg-transparent border border-primary rounded px-1"
+            className="bg-transparent border border-primary px-1"
             onClick={() => dispatch(cartActions.addQuantity(cartId))}
           >
             <FiPlus />
           </button>
           <div className="mx-1 font-bold">{quantity || 1}</div>
           <button
-            className="bg-transparent border border-primary rounded px-1"
+            className="bg-transparent border border-primary px-1"
             onClick={() => dispatch(cartActions.removeQuantity(cartId))}
           >
             <FiMinus />
