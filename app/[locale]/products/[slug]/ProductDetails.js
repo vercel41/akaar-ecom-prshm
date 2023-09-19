@@ -99,7 +99,7 @@ const ProductDetails = ({ product, settings }) => {
               {/* short description  */}
               <ViewHTML
                 htmlText={product?.product_short_description}
-                className={"desc text-base text-slate-600"}
+                className={"desc"}
               />
               {product?.productVariants?.length ? (
                 <ProductVariantSelect
@@ -158,15 +158,15 @@ const ProductDetails = ({ product, settings }) => {
             <div className="py-4">
               <div className="product-actions my-6 flex gap-4 justify-between items-center">
                 <button
-                  className="bg-secondary-700 py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+                  className="bg-secondary py-3 w-full px-6 text-white  text-center active:scale-95"
                   onClick={handleAddToCart}
                 >
                   <HiOutlineShoppingCart size={24} />
-                  <span className="ml-2">কার্টে রাখুন</span>
+                  <span className="ml-2">Add to Cart</span>
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className="bg-primary py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+                  className="bg-secondary py-3 w-full px-6 text-white  text-center active:scale-95"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -182,7 +182,7 @@ const ProductDetails = ({ product, settings }) => {
                       stroke-linejoin="round"
                     />
                   </svg>{" "}
-                  <span className="mr-2">এখনই কিনুন</span>
+                  <span className="mr-2">Buy Now</span>
                 </button>
               </div>
             </div>
@@ -207,7 +207,7 @@ const ProductDetails = ({ product, settings }) => {
                   alt="Insta 360"
                   width={628}
                   height={510}
-                  className="w-full h-[510px] rounded-xl"
+                  className="w-full h-[510px]"
                 />
               </div>
 
@@ -216,18 +216,19 @@ const ProductDetails = ({ product, settings }) => {
                   <h4 className="text-2xl font-bold font-title text-slate-900">
                     Review Video
                   </h4>
-                  <div className="slider-imag [&>div>iframe]:rounded-xl relative mt-4">
+                  {/* [&>div>iframe]:rounded-xl relative */}
+                  <div className="slider-imag mt-4">
                     <ViewHTML htmlText={product?.review_video} />
                   </div>
                 </div>
               )}
 
-              <div className="contact mt-8 bg-amber-200 border border-primary rounded-xl p-5 mb-4 text-center">
+              <div className="contact mt-8 bg-amber-200  border p-4 mb-4 text-center">
                 <h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
                   Contact for more details
                 </h5>
                 <p className="flex justify-center items-center gap-4">
-                  <span className="text-base text-slate-900">কল করুন:</span>{" "}
+                  <span className="text-base text-slate-900">Call Now:</span>{" "}
                   <Link
                     href={`tel:${settings?.phone}`}
                     className="text-2xl font-bold font-title text-primary"

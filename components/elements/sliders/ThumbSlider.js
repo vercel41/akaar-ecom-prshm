@@ -10,7 +10,7 @@ import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
 import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Icon
-import { HiOutlineHeart, HiPlayCircle } from "react-icons/hi2";
+import { HiOutlineHeart } from "react-icons/hi2";
 
 const ThumbSlider = ({ product }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
@@ -63,7 +63,7 @@ const ThumbSlider = ({ product }) => {
                     alt=""
                     width={64}
                     height={64}
-                    className="border border-transparent h-16 w-16 cursor-pointer rounded-lg mb-3"
+                    className="border border-transparent h-16 w-16 cursor-pointer mb-3"
                   />
                 </div>
               </SwiperSlide>
@@ -104,7 +104,7 @@ const ThumbSlider = ({ product }) => {
                   <div className="product-action absolute top-4 right-4">
                     <button
                       aria-label="Add To Wishlist"
-                      className="action-btn inline-flex justify-center items-center w-11 h-11 bg-white border-slate-300 rounded-lg hover:bg-primary hover:text-white"
+                      className="action-btn inline-flex justify-center items-center w-8 h-8 bg-primary text-white"
                       onClick={(e) => handleWishlist(product.id)}
                     >
                       <HiOutlineHeart size={18} />
