@@ -24,7 +24,7 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
           <FilterPanel category={category} />
         </div>
         <div className="col-span-4 flex justify-between items-center bg-slate-50 rounded-xl px-4 py-3">
-          <p>এখানে {meta?.total} টি প্রডাক্ট আছে</p>
+          <p>Total {meta?.total} products found</p>
           <SortSelect />
         </div>
       </div>

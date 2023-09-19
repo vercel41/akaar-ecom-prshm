@@ -15,7 +15,7 @@ export default function FilterMenu() {
       onClick={toggleFilter}
     >
       <HiOutlineFilter size={20} />
-      <span className="text-base text-slate-900">ফিল্টার করুন</span>
+      <span className="text-base text-slate-900">Filter</span>
     </div>
   );
 }

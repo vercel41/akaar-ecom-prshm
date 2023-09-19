@@ -7,19 +7,19 @@ const SortSelect = () => {
     <>
       <div className="sort-by-product-wrap flex items-center gap-x-8 gap-y-4">
         <div className="sort-by">
-          <span className=" text-sm text-slate-600">ক্রমানুসার :</span>
+          <span className=" text-sm text-slate-600">Sort :</span>
         </div>
         <div className="sort-by-dropdown-wrap">
           <select
             className="select w-72 text-base text-slate-900 bg-white border border-slate-300 rounded-lg px-4 py-2.5 focus:outline-0"
             onChange={(e) => handleSelectChange("sort_type", e.target.value)}
           >
-            <option value="default">এলোমেলো</option>
-            <option value="new">নতুন প্রডাক্ট</option>
-            <option value="low_high">দাম (কম থেকে বেশি)</option>
-            <option value="high_low">দাম (বেশি থেকে কম)</option>
-            <option value="rating_low_high">রেটিং (কম থেকে বেশি)</option>
-            <option value="rating_high_low">রেটিং (বেশি থেকে কম)</option>
+            <option value="default">Random</option>
+            <option value="new">New</option>
+            <option value="low_high">Price (Low to High)</option>
+            <option value="high_low">Price (High to Low)</option>
+            {/* <option value="rating_low_high">Rating (Low to High)</option>
+            <option value="rating_high_low">Rating (High to Low)</option> */}
           </select>
         </div>
       </div>
