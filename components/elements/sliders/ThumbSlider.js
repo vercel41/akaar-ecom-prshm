@@ -92,16 +92,17 @@ const ThumbSlider = ({ product }) => {
           >
             {photos.map((slide, index) => (
               <SwiperSlide key={index}>
-                <div className="slider-imag relative">
+                <div className="slider-imag h-[32.75rem] w-[32.75rem] relative">
                   <Image
                     src={slide}
                     alt=""
                     width={524}
                     height={524}
                     // sizes="100vw"
-                    className="h-[32.75rem] w-[32.75rem] object-contain rounded-lg"
+                    className="h-full w-full object-cover rounded-lg"
                   />
-                  <div className="product-action absolute top-4 right-4">
+
+                  <div className="product-action absolute top-4 right-8">
                     <button
                       aria-label="Add To Wishlist"
                       className="action-btn inline-flex justify-center items-center w-8 h-8 bg-primary text-white"
