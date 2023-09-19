@@ -111,7 +111,7 @@ export default function Home({ searchParams }) {
       <section className="all-brands">
         <div className="container py-14">
           <div className="sec-heading w-full pb-3">
-            <h2 className="sec-title">Internation Brands</h2>
+            <h2 className="sec-title">International Brands</h2>
             {/* <Link href="/brands" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
             </Link> */}

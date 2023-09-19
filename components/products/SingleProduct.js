@@ -9,10 +9,7 @@ import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
 import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
-import { formatLongNumber, getFractionFixed } from "@/utils/formatNumber";
 
-// ** Import Icon
-import { FaStar } from "react-icons/fa";
 import {
   HiOutlineHeart,
   HiOutlineShoppingCart,
@@ -82,11 +79,10 @@ const SingleProduct = ({ product }) => {
         <>
           <div className="product-card-wrap bg-white border border-slate-200">
             <div className="product-img-action-wrap relative">
-              <div className="product-action">
+              <div className="absolute top-2 right-2 z-20">
                 <button
-                  href={""}
                   aria-label="Add To Wishlist"
-                  className="action-btn"
+                  className="bg-primary p-1 text-white active:scale-90"
                   onClick={(e) => handleWishlist(id)}
                 >
                   <HiOutlineHeart />

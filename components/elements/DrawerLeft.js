@@ -14,7 +14,7 @@ const DrawerLeft = ({ title, children, show, setShow }) => {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 left-0 z-50 w-[25rem] h-screen overflow-y-auto transition-transform ease-in-out duration-300 transform ${
+        className={`fixed top-0 left-0 z-50  w-[90vw] lg:w-[25rem] h-screen overflow-y-auto transition-transform ease-in-out duration-300 transform ${
           show ? "translate-x-0" : "-translate-x-full"
         } bg-white`}
         tabIndex="-1"

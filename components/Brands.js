@@ -12,7 +12,7 @@ const Brands = async () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 border">
         {brands?.map((brand, i) => (
           <div key={i} class="h-[150px] w-[150px] overflow-hidden">
             <Link href={`/brands/${brand.id}`} className="">
