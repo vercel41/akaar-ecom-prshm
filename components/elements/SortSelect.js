@@ -5,13 +5,13 @@ const SortSelect = () => {
   const { handleSelectChange } = useSelectURLQuery();
   return (
     <>
-      <div className="sort-by-product-wrap flex items-center gap-x-8 gap-y-4">
+      <div className="sort-by-product-wrap flex items-center gap-x-4 gap-y-4">
         <div className="sort-by">
-          <span className=" text-sm text-slate-600">Sort :</span>
+          <span className="">Sort:</span>
         </div>
         <div className="sort-by-dropdown-wrap">
           <select
-            className="select w-72 text-base text-slate-900 bg-white border border-slate-300 rounded-lg px-4 py-2.5 focus:outline-0"
+            className="w-48 text-base text-slate-900 bg-white border border-slate-300 px-3 py-1 focus:outline-0"
             onChange={(e) => handleSelectChange("sort_type", e.target.value)}
           >
             <option value="default">Random</option>

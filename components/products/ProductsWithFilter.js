@@ -18,13 +18,13 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 
   return (
     <div className="container mb-20">
-      <div className="toolbar grid grid-cols-5 gap-5 my-5 border">
-        <div className="relative col-span-1">
+      <div className="actions-bar flex justify-between items-center mb-8">
+        <div className="">
           <FilterMenu />
           <FilterPanel category={category} />
+          {/* <p>Total {meta?.total} products found</p> */}
         </div>
-        <div className="col-span-4 flex justify-between items-center bg-slate-50 rounded-xl px-4 py-3">
-          <p>Total {meta?.total} products found</p>
+        <div className="">
           <SortSelect />
         </div>
       </div>
