@@ -25,7 +25,7 @@ const ColorFilter = ({ colors, selectedColors }) => {
       <div className="category-filter flex gap-4 flex-wrap pt-3">
         {/* bg-blue-500 */}
         {colors?.map((color, i) => (
-          <div className="input-grp mt-3" key={i}>
+          <div className="input-grp" key={i}>
             <label
               className="flex items-center gap-2 text-base text-slate-700 cursor-pointer"
               htmlFor={`clr-${i}`}
