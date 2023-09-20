@@ -14,7 +14,21 @@ const BestSell = ({ bestProducts }) => {
     <>
       <Swiper
         modules={[Navigation]}
-        slidesPerView={5}
+        slidesPerView={4}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640:{
+            slidesPerView:2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024:{
+            slidesPerView:4
+          }
+        }}
         spaceBetween={20}
         loop={false}
         navigation={{

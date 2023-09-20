@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import ServiceFeatures from "@/components/ServiceFeatures";
 import Intro from "@/components/Intro";
 import FlashSale from "@/components/FlashSale";
 import BestSell from "@/components/BestSell";
@@ -19,40 +18,54 @@ export default function Home({ searchParams }) {
   return (
     <main>
       <section className="banner">
+        <Intro />
+      </section>
+
+      <section className="banners pt-14">
         <div className="container">
-          <Intro />
+          <FeaturedBanner />
         </div>
       </section>
 
-      <section className="service-features">
+      <section className="flash-sale mt-28">
         <div className="container">
-          <ServiceFeatures />
+          <FlashSale />
         </div>
       </section>
 
-      <FlashSale />
-
-      <section
-        className="all-category py-14 mt-12"
-        style={{
-          backgroundImage: "linear-gradient(90deg, #00B7C9 0%, #00C999 100%)",
-        }}
-      >
+      <section className="new-products mt-28">
         <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center">
-            <h2 className="sec-title !text-white">জনপ্রিয় ক্যাটাগর‍ি</h2>
-            <Link href="/categories" className="all-btn !text-white">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+          <div className="pb-3 text-center">
+            <h2 className="sec-title pb-3">New Arrival</h2>
+            <p className="underline">Browse Our New Collections</p>
           </div>
 
-          <div className="category-slider mt-12  relative">
+          {/* <div className="new-slider mt-6  relative"> */}
+          <NewArrival />
+          {/* </div> */}
+        </div>
+      </section>
+
+      <section className="all-category mt-28">
+        <div
+          className="container py-6"
+          style={{
+            backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
+          }}
+        >
+          <div className="sec-heading w-full flex justify-between items-center mb-3">
+            <h2 className="sec-title !text-white">Category</h2>
+            <Link href="/categories" className="all-btn !text-white">
+              View All <HiArrowLongRight size={24} />{" "}
+            </Link>
+          </div>
+          <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <PopularCategories />
           </div>
         </div>
       </section>
 
-      <section className="best-sell bg-slate-50 py-14">
+      {/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">
@@ -74,15 +87,9 @@ export default function Home({ searchParams }) {
             <BestSell />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="banners pt-14">
-        <div className="container">
-          <FeaturedBanner />
-        </div>
-      </section>
-
-      <section className="all-products py-14">
+      {/* <section className="all-products py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">সকল প্রডাক্ট</h2>
@@ -95,32 +102,19 @@ export default function Home({ searchParams }) {
             <AllProducts customSearchParams={searchParams} pagination={true} />
           </div>
         </div>
+      </section> */}
+
+      <section className="video-banner mt-28">
+        <VideoBanner />
       </section>
 
-      <section className="new-products py-14">
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">শপে নতুন এসেছে</h2>
-            <Link href="/products" className="all-btn">
+      <section className="all-brands">
+        <div className="container py-14">
+          <div className="sec-heading w-full pb-3">
+            <h2 className="sec-title">International Brands</h2>
+            {/* <Link href="/brands" className="all-btn">
               সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
-          </div>
-
-          <div className="new-slider mt-6  relative">
-            <NewArrival />
-          </div>
-        </div>
-      </section>
-
-      <VideoBanner />
-
-      <section className="all-brands py-14">
-        <div className="container">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">আমাদের ব্র্যান্ড সমূহ</h2>
-            <Link href="/brands" className="all-btn">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link>
+            </Link> */}
           </div>
 
           <div className="brands-slider mt-6  relative">

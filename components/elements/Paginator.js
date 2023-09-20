@@ -45,16 +45,14 @@ export default function Paginator({ meta, paginateItems }) {
       {/* Previous Page  */}
       {currentPage > 1 ? (
         <Link
-          className={`p-2 rounded-lg border border-slate-200 text-slate-600 px-6`}
+          className={`p-2 border border-slate-200 text-slate-600 px-6`}
           href={pathname + "?" + createQueryString("page", currentPage - 1)}
         >
-          <AiOutlineLeft />
+          Previous
         </Link>
       ) : (
-        <span
-          className={`p-2 rounded-lg border border-slate-200 text-slate-300 px-6`}
-        >
-          <AiOutlineLeft />
+        <span className={`p-2 border border-slate-200 text-slate-300  px-6`}>
+          Previous
         </span>
       )}
       {/* Pages  */}
@@ -70,7 +68,7 @@ export default function Paginator({ meta, paginateItems }) {
           return (
             <span
               key={link.label}
-              className="p-2 min-w-[36px] text-center rounded-lg border border-slate-200 text-slate-600"
+              className="p-2 min-w-[36px] text-center border border-slate-200"
             >
               ...
             </span>
@@ -85,7 +83,7 @@ export default function Paginator({ meta, paginateItems }) {
         ) {
           return (
             <Link
-              className={`p-2 min-w-[36px] text-center rounded-lg border ${
+              className={`p-2 min-w-[36px] text-center border ${
                 link.active
                   ? "border-primary text-primary"
                   : "border-slate-200 text-slate-600"
@@ -103,16 +101,14 @@ export default function Paginator({ meta, paginateItems }) {
       {/* Next Page  */}
       {currentPage < lastPage ? (
         <Link
-          className={`p-2 rounded-lg border border-slate-200 text-slate-600 px-6`}
+          className={`p-2 border border-slate-200 text-slate-600 px-6`}
           href={pathname + "?" + createQueryString("page", currentPage + 1)}
         >
-          <AiOutlineRight />
+          Next
         </Link>
       ) : (
-        <span
-          className={`p-2 rounded-lg border border-slate-200 text-slate-300 px-6`}
-        >
-          <AiOutlineRight />
+        <span className={`p-2 border border-slate-200 text-slate-300 px-6`}>
+          Next
         </span>
       )}
     </div>

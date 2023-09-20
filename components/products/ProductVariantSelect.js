@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "../modals/SizeChartModal";
 
 export default function ProductVariantSelect({
@@ -37,48 +35,43 @@ export default function ProductVariantSelect({
   return (
     <>
       <div className="product-color mt-4">
-        <h4 className="text-slate-900 py-3 font-normal">
-          কালার নির্বাচন করুন:
-        </h4>
         {selectedColor ? (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
+            <h4 className="text-slate-900 py-3 font-normal">Colors:</h4>
             {Object.keys(colors).map((key) => (
-              <Image
+              <span
                 key={key}
-                src={"/assets/images/review/image-2.png"}
-                alt="product"
-                height={52}
-                width={52}
-                sizes="52px"
-                title={key}
-                className={`rounded-md border-2 ${
+                className={`border-2 ${
                   key === selectedColor ? "border-primary" : "border-slate-300"
-                } cursor-pointer`}
+                } cursor-pointer inline-block px-2`}
                 onClick={() => setSelectedColor(key)}
-              />
+              >
+                {key}
+              </span>
             ))}
           </div>
         ) : null}
       </div>
       <div className="product-size mt-4">
-        <div className="flex justify-between font-normal items-center py-3">
-          <h4 className="text-slate-900">সাইজ নির্বাচন করুন:</h4>
+        {/* <div className="flex justify-between font-normal items-center py-3">
+          <h4 className="text-slate-900">Size:</h4>
           {sizeChart && (
             <button
-              className="text-secondary-700 flex items-center gap-x-1"
-              onClick={() => setShowSizeChart((show) => !show)}
+            className="text-secondary-700 flex items-center gap-x-1"
+            onClick={() => setShowSizeChart((show) => !show)}
             >
-              <span>সাইজ চার্ট দেখুন</span>
-              <MdArrowForwardIos />
+            <span>সাইজ চার্ট দেখুন</span>
+            <MdArrowForwardIos />
             </button>
-          )}
-        </div>
+            )}
+          </div> */}
         {colors[selectedColor]?.length ? (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
+            <h4 className="text-slate-900">Size:</h4>
             {colors[selectedColor]?.map((variant) => (
               <div
                 key={variant.id}
-                className={`py-3 px-4 rounded-lg text-slate-700 border-2 ${
+                className={`px-2 uppercase text-slate-700 border-b-2 ${
                   variant?.id === selectedVariant?.id
                     ? "border-primary"
                     : "border-slate-300"

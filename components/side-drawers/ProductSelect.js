@@ -41,7 +41,7 @@ const ProductSelect = () => {
 
   return (
     <DrawerRight
-      title={"নির্বাচন করুন"}
+      title={"Variant Select"}
       show={selectedProduct}
       setShow={closeDrawer}
     >
@@ -55,10 +55,7 @@ const ProductSelect = () => {
             className="h-[84px] w-[84px] rounded-lg"
           />
           <div className="">
-            <h5 className="text-primary text-xs font-semibold">
-              {selectedProduct?.brand?.brand_name || "No Brand"}
-            </h5>
-            <h2 className="mt-2">
+            <h2>
               <Link
                 href={`/products/${selectedProduct?.slug}`}
                 className="product-title text-base font-semibold text-slate-900 font-body overflow-text"
@@ -66,21 +63,16 @@ const ProductSelect = () => {
                 {selectedProduct?.product_name}
               </Link>
             </h2>
+            <h5 className="text-primary text-xs font-semibold mt-2">
+              {selectedProduct?.brand?.brand_name || "No Brand"}
+            </h5>
             <div className="mt-3 flex gap-3 items-center">
-              <h3 className="text-xl font-bold text-red-500">
-                ৳{selectedProduct?.new_price || 0}
-              </h3>
+              <h3 className="text-xl">tk. {selectedProduct?.new_price || 0}</h3>
               {typeof selectedProduct?.discount_percentage === "number" &&
               selectedProduct?.discount_percentage > 0 ? (
-                <>
-                  <del className="text-xl text-slate-300">
-                    ৳ {selectedProduct?.old_price}
-                  </del>
-                  <div className="rounded-full px-3 text-sm py-1 text-white bg-red-500">
-                    -{getFractionFixed(selectedProduct?.discount_percentage)}%
-                    OFF
-                  </div>
-                </>
+                <del className="text-xl text-slate-300">
+                  {selectedProduct?.old_price}
+                </del>
               ) : null}
             </div>
           </div>
@@ -94,23 +86,20 @@ const ProductSelect = () => {
         ) : null}
         <div className="product-actions my-6 flex gap-4 justify-between items-center">
           <button
-            className="bg-secondary-700 py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+            className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
             onClick={handleAddToCart}
           >
             <HiOutlineShoppingCart size={24} />
-            <span className="ml-2">কার্টে রাখুন</span>
+            <span className="ml-2">Add to Cart</span>
           </button>
           <button
             onClick={handleBuyNow}
-            className="bg-primary py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+            className="bg-primary py-3 w-full px-6 text-white  text-center active:scale-95"
           >
-            <span className="mr-2">এখনই কিনুন</span>
+            <span className="mr-2">Buy Now</span>
             <HiArrowLongRight size={20} />
           </button>
         </div>
-        <Link href="/products/productIdOrSlug" className="text-secondary-700">
-          <p className="text-center">প্রডাক্টির বিস্তারিত দেখতে ক্লক করুন</p>
-        </Link>
       </div>
     </DrawerRight>
   );

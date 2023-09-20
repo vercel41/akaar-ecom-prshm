@@ -1,4 +1,4 @@
-# Sotota Stall - Project
+# Style Mart Brand - Project
 
 ## Getting Started
 

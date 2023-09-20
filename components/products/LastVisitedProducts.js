@@ -36,25 +36,19 @@ const LastVisitedProducts = ({ visitedProductId }) => {
   if (!user) return null;
 
   return (
-    <>
-      <div className="container ">
-        <div className="latest-viewed-products bg-slate-50 border border-slate-100 rounded-xl pt-8 mb-14">
-          <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
-            <h2 className="sec-title">সর্বশেষ যে প্রোডাক্ট গুলো দেখেছেন</h2>
-          </div>
-
-          <div className="mt-6 ">
-            <div className="products-wpr grid grid-cols-4 gap-4">
-              {visitedProducts?.map((product, i) => (
-                <div key={i}>
-                  <SingleProductList isHistory={true} product={product} />
-                </div>
-              ))}
+    <section id="visit-history mt-28">
+      <div className="container py-14">
+        <h2 className="sec-title text-center mb-8">Recently Viewed</h2>
+        <div className="category-products"></div>
+        <div className="products-wpr grid grid-cols-4 gap-4">
+          {visitedProducts?.map((product, i) => (
+            <div key={i}>
+              <SingleProductList isHistory={true} product={product} />
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

@@ -1,12 +1,32 @@
+import Link from "next/link";
+import Image from "next/image";
+import noImage from "@/public/assets/images/no-image.png";
 import { fetchData } from "@/utils/fetchData";
-import BrandSlider from "./elements/sliders/Brands";
+
 const Brands = async () => {
+  // const { locale } = useParams();
+  // const { data: brandsData } = useGetBrandsQuery({ locale });
+  // console.log("brandsData-------", brandsData);
   const data = await fetchData({ api: "brands" });
   const brands = data?.data || [];
 
   return (
     <>
-      <BrandSlider brands={brands} />
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 border">
+        {brands?.map((brand, i) => (
+          <div key={i} class="h-[150px] w-[150px] overflow-hidden">
+            <Link href={`/brands/${brand.id}`} className="">
+              <Image
+                src={brand.brand_image || noImage}
+                alt={brand.title}
+                width={150}
+                height={150}
+                className="w-full h-full object-contain hover:scale-125 transition-all duration-300 ease-in-out"
+              />
+            </Link>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

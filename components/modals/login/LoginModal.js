@@ -13,10 +13,12 @@ import {
   useGetCountriesQuery,
   useOtpLoginMutation,
 } from "@/store/features/api/authAPI";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 
 const LoginModal = ({ showModal, setShowModal, title }) => {
+  const { settings } = useSelector((state) => state.common);
+
   const dispatch = useDispatch();
   const [otpSent, setOtpSent] = useState(false);
   const [phone, setPhone] = useState("");
@@ -81,25 +83,19 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
     <Modal showModal={showModal} setShowModal={setShowModal} title={title}>
       <div className="w-[27rem] text-slate-500">
         <div>
-          <Image
-            src={`/assets/images/logo.png`}
-            alt={"Logo"}
-            width={200}
-            height={48}
-          />
+          <Image src={settings?.logo} alt={"Logo"} width={200} height={48} />
         </div>
         <p className="py-6 ">
           {otpSent
-            ? `এইমাত্র আমরা আপনার মোবাইল নাম্বারে একটি ৬ সংখ্যার OTP  কোড পাঠিয়েছি (${
+            ? `We have just sent a 6 digit OTP code to your mobile number (${
                 selectedCountry.dial_code + phone
               })`
-            : `শুধুমাত্র মোবাইল নাম্বার যাচাই করে সততা স্টলের একজন আদর্শ মেম্বার হয়ে
-          যান`}
+            : `Become an ideal member by just verifying your mobile number`}
         </p>
         {!otpSent ? (
           <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-8">
-              <label className="block text-base mb-2">মোবাইল</label>
+              <label className="block text-base mb-2">Phone</label>
               <div className="flex items-center">
                 <select
                   className="h-12 text-base font-title font-normal px-2 rounded-s-lg border border-gray-300 focus:outline-none focus:border-primary"
@@ -119,7 +115,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
                   type="number"
                   className="w-full rounded-s-none rounded-e-lg border border-l-0 border-gray-300 focus:outline-none focus:border-primary"
                   name="phone"
-                  placeholder="আপনার মোবাইল নাম্বার"
+                  placeholder="Your mobile number"
                   {...register("phone", {
                     required: "Phone number is required.",
                   })}
@@ -133,7 +129,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
             <div className="form-control">
               <label></label>
               <button type="submit" className="primary-btn w-full">
-                কোড পাঠান
+                Send OTP
               </button>
             </div>
           </form>
@@ -145,7 +141,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
             setOtpSent={setOtpSent}
           />
         )}
-        <SocialLogin />
+        {/* <SocialLogin /> */}
       </div>
     </Modal>
   );

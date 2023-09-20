@@ -9,17 +9,14 @@ import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
 import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
-import { formatLongNumber, getFractionFixed } from "@/utils/formatNumber";
 
-// ** Import Icon
-import { FaStar } from "react-icons/fa";
 import {
   HiOutlineHeart,
   HiOutlineShoppingCart,
   HiArrowLongRight,
 } from "react-icons/hi2";
 
-const SingleProduct = ({ product, addToCompare }) => {
+const SingleProduct = ({ product }) => {
   const { user } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(true);
   const [addToWishlist] = useAddToWishListMutation();
@@ -64,11 +61,6 @@ const SingleProduct = ({ product, addToCompare }) => {
     }
   };
 
-  const handleCompare = (product) => {
-    addToCompare(product);
-    toast.success("Add to Compare !");
-  };
-
   const handleWishlist = async (productId) => {
     if (!user) {
       toast.error("You're not logged in");
@@ -85,40 +77,40 @@ const SingleProduct = ({ product, addToCompare }) => {
     <>
       {!loading ? (
         <>
-          <div className="product-card-wrap bg-white border border-slate-200 rounded-xl hover:border-primary">
+          <div className="product-card-wrap bg-white border border-slate-200">
             <div className="product-img-action-wrap relative">
-              <div className="product-img p-2 pb-0">
-                <Link href="/products/[slug]" as={`/products/${slug}`}>
-                  <Image
-                    className="default-img h-56 w-56 rounded-lg"
-                    src={image || "/assets/images/no-image.png"}
-                    alt={product_name}
-                    width={226}
-                    height={226}
-                    // priority={true}
-                  />
-                </Link>
-              </div>
-              <div className="product-action">
+              <div className="absolute top-2 right-2 z-20">
                 <button
-                  href={""}
                   aria-label="Add To Wishlist"
-                  className="action-btn"
+                  className="bg-primary p-1 text-white active:scale-90"
                   onClick={(e) => handleWishlist(id)}
                 >
                   <HiOutlineHeart />
                 </button>
               </div>
+              <div className="product-img border-b-2 h-400 overflow-hidden">
+                <Link href="/products/[slug]" as={`/products/${slug}`}>
+                  <Image
+                    className="default-img h-400 w-full hover:scale-125 transition-all duration-300 ease-in-out"
+                    src={image || "/assets/images/no-image.png"}
+                    alt={product_name}
+                    width={226}
+                    height={400}
+                  />
+                </Link>
+              </div>
             </div>
             <div className="product-content-wrap p-3">
-              <div className="product-category">
+              {/* <div className="">
                 <Link
                   href={`/brands/${brand?.id ? brand?.id : ""}`}
                   className="text-xs text-primary capitalize"
                 >
-                  {brand?.brand_name || "No Brand"}
+                  <span class="inline-block px-2 py-1 text-xs font-semibold leading-none rounded-full bg-primary text-white">
+                    {brand?.brand_name || "No Brand"}
+                  </span>
                 </Link>
-              </div>
+              </div> */}
               <h2>
                 <Link
                   href={`/products/${slug}`}
@@ -127,34 +119,35 @@ const SingleProduct = ({ product, addToCompare }) => {
                   {product_name}
                 </Link>
               </h2>
-              <div className="rating-result flex items-center gap-2 mb-4">
-                <span className="font-semibold text-slate-900">
-                  {getFractionFixed(averate_rating) || 0}{" "}
-                  <FaStar className="text-primary pb-1" />
-                </span>
-                <span className="block border-l border-l-slate-200 pl-2 font-semibold text-slate-900">
-                  {total_rating === 0
-                    ? "No Rating"
-                    : formatLongNumber(total_rating)}
-                </span>
-              </div>
               <div className="product-price mb-3 flex gap-2">
-                <span className="text-lg/[24px] font-semibold text-red-500">
-                  ৳{new_price}
+                <span className="text-lg/[24px] font-semibold">
+                  tk. {new_price}
                 </span>
                 {typeof discount_percentage === "number" &&
                 discount_percentage > 0 ? (
                   <>
                     <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                      ৳{old_price}
+                      {old_price}
                     </del>
-                    <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
-                      -{getFractionFixed(discount_percentage)}%
-                    </span>
+                    {/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
+                        -{getFractionFixed(discount_percentage)}%
+                      </span> */}
                   </>
                 ) : null}
               </div>
-              <div className="product-actions flex justify-center items-center gap-2">
+              {/* <div className="rating-result flex items-center gap-2 mb-4">
+                  <span className="font-semibold text-slate-900">
+                    {getFractionFixed(averate_rating) || 0}{" "}
+                    <FaStar className="text-primary pb-1" />
+                  </span>
+                  <span className="block border-l border-l-slate-200 pl-2 font-semibold text-slate-900">
+                    {total_rating === 0
+                      ? "No Rating"
+                      : formatLongNumber(total_rating)}
+                  </span>
+                </div> */}
+
+              <div className="product-actions flex justify-between items-center gap-2">
                 <button
                   aria-label="Add To Cart"
                   className="action-btn"
@@ -169,7 +162,7 @@ const SingleProduct = ({ product, addToCompare }) => {
                   onClick={() => handleCheckout(product)}
                   className="buy-btn px-2"
                 >
-                  এখনই কিনুন <HiArrowLongRight size={20} />
+                  Buy Now <HiArrowLongRight size={20} />
                 </button>
               </div>
             </div>

@@ -30,7 +30,7 @@ const OrderDetail = ({ params }) => {
         <h2 className="text-slate-900 font-bold text-2xl">আমার অর্ডার</h2>
         <Link
           href={"/dashboard/my-orders"}
-          className="icon-btn my-4 hover:text-primary"
+          className="icon-btn my-4 hover:text-secondary"
         >
           <HiArrowLongLeft size={24} /> ফিরে যান
         </Link>
@@ -137,7 +137,7 @@ const OrderDetail = ({ params }) => {
                 <a
                   target="_blank"
                   href={`${process.env.serverBaseUrl}/in/${sale.customer.id}/${sale.id}/sale`}
-                  className="bg-slate-200 p-3 block text-center hover:text-primary w-full mb-3 mt-5 rounded-lg"
+                  className="bg-slate-200 p-3 block text-center hover:text-secondary w-full mb-3 mt-5 rounded-lg"
                 >
                   <FaCloudDownloadAlt size={24} className="mr-2" /> ইনভয়েস
                   ডাউনলোড করুন

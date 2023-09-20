@@ -10,7 +10,7 @@ import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
 import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Icon
-import { HiOutlineHeart, HiPlayCircle } from "react-icons/hi2";
+import { HiOutlineHeart } from "react-icons/hi2";
 
 const ThumbSlider = ({ product }) => {
   const [imagesNavSlider, setImagesNavSlider] = useState(null);
@@ -63,7 +63,7 @@ const ThumbSlider = ({ product }) => {
                     alt=""
                     width={64}
                     height={64}
-                    className="border border-transparent h-16 w-16 cursor-pointer rounded-lg mb-3"
+                    className="border border-transparent h-16 w-16 cursor-pointer mb-3"
                   />
                 </div>
               </SwiperSlide>
@@ -92,19 +92,20 @@ const ThumbSlider = ({ product }) => {
           >
             {photos.map((slide, index) => (
               <SwiperSlide key={index}>
-                <div className="slider-imag relative">
+                <div className="slider-imag h-[36rem] w-[32rem] relative">
                   <Image
                     src={slide}
                     alt=""
                     width={524}
                     height={524}
                     // sizes="100vw"
-                    className="h-[32.75rem] w-[32.75rem] object-contain rounded-lg"
+                    className="h-full w-full object-cover rounded-lg"
                   />
-                  <div className="product-action absolute top-4 right-4">
+
+                  <div className="product-action absolute top-4 right-5">
                     <button
                       aria-label="Add To Wishlist"
-                      className="action-btn inline-flex justify-center items-center w-11 h-11 bg-white border-slate-300 rounded-lg hover:bg-primary hover:text-white"
+                      className="action-btn inline-flex justify-center items-center w-8 h-8 bg-primary text-white"
                       onClick={(e) => handleWishlist(product.id)}
                     >
                       <HiOutlineHeart size={18} />
@@ -118,7 +119,7 @@ const ThumbSlider = ({ product }) => {
                     >
                       <HiPlayCircle
                         size={60}
-                        className="text-white hover:text-primary"
+                        className="text-white hover:text-secondary"
                       />
                     </Link>
                   )} */}

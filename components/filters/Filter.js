@@ -9,13 +9,14 @@ import CategoryFilter from "../filters/CategoryFilter";
 import PriceRangeFilter from "../filters/PriceRangeFilter";
 
 // ** Imoprt icons
-import { IoCloseOutline } from "react-icons/io5";
-import useSelectURLQuery from "@/hooks/useSelectURLQuery";
+// import { IoCloseOutline } from "react-icons/io5";
+// import useSelectURLQuery from "@/hooks/useSelectURLQuery";
+import SizeFilter from "./SizeFilter";
 
 const Filter = ({ category }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const { locale } = useParams();
-  const { handleSelectChange } = useSelectURLQuery();
+  // const { handleSelectChange } = useSelectURLQuery();
   const searchQuery = category?.id ? `category_ids=${category?.id}` : "";
   const { data: filterOptions } = useGetFilterOptionsByCategoryQuery({
     searchQuery,
@@ -24,12 +25,14 @@ const Filter = ({ category }) => {
 
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
+
   //selected brands
   const brandIdsString = params.get("brand_ids");
   let selectedBrandIds = [];
   if (brandIdsString) {
     selectedBrandIds = brandIdsString.split(",");
   }
+
   //selected colors
   const colorsString = params.get("colors");
   let selectedColors = [];
@@ -37,11 +40,19 @@ const Filter = ({ category }) => {
     selectedColors = colorsString.split(",");
   }
 
+  //selected sizes
+  const sizesString = params.get("sizes");
+  let selectedSizes = [];
+  if (sizesString) {
+    selectedSizes = sizesString.split(",");
+  }
+
   return (
-    <div className={`pl-4 filter-sidebar flex flex-col gap-y-7`}>
-      {category || selectedBrandIds.length || selectedColors.length ? (
+    <div
+      className={`min-w-[15rem] min-h-fit pb-14 filter-sidebar flex flex-col pr-2 gap-y-5`}
+    >
+      {/* {category || selectedBrandIds.length || selectedColors.length ? (
         <div className="flex items-center flex-wrap gap-2">
-          {/* selected category  */}
           {category && (
             <div className="flex items-center gap-1 bg-slate-100 border-slate-200 rounded px-2 py-1">
               <p className="text-sm text-slate-900">{category.category_name}</p>
@@ -52,7 +63,7 @@ const Filter = ({ category }) => {
               />
             </div>
           )}
-          {/* brands  */}
+          
           {filterOptions?.brands?.map((brand) =>
             selectedBrandIds.includes(`${brand.id}`) ? (
               <div
@@ -75,7 +86,7 @@ const Filter = ({ category }) => {
               </div>
             ) : null
           )}
-          {/* colors  */}
+
           {filterOptions?.colors?.map((color) =>
             selectedColors.includes(`${color.name}`) ? (
               <div
@@ -103,25 +114,31 @@ const Filter = ({ category }) => {
             ) : null
           )}
         </div>
-      ) : null}
+      ) : null} */}
 
       <CategoryFilter selectedCategory={category} />
-      {filterOptions?.brands?.length ? (
-        <BrandFilter
-          filteredBrands={filterOptions?.brands}
-          selectedBrandIds={selectedBrandIds}
-        />
-      ) : null}
       {filterOptions?.max_price ? (
         <PriceRangeFilter
           min_price={filterOptions?.min_price}
           max_price={filterOptions?.max_price}
         />
       ) : null}
+      {filterOptions?.brands?.length ? (
+        <BrandFilter
+          filteredBrands={filterOptions?.brands}
+          selectedBrandIds={selectedBrandIds}
+        />
+      ) : null}
       {filterOptions?.colors?.length ? (
         <ColorFilter
           colors={filterOptions?.colors}
           selectedColors={selectedColors}
+        />
+      ) : null}
+      {filterOptions?.sizes?.length ? (
+        <SizeFilter
+          sizes={filterOptions?.sizes}
+          selectedSizes={selectedSizes}
         />
       ) : null}
     </div>

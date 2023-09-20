@@ -97,7 +97,7 @@ export default function ReviewViewModal({
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => handleReviewReact("like", review?.id)}
-                className={`icon-btn hover:text-primary ${
+                className={`icon-btn hover:text-secondary ${
                   review.is_liked ? "text-primary" : "text-slate-700"
                 }`}
               >
@@ -105,7 +105,7 @@ export default function ReviewViewModal({
               </button>
               <button
                 onClick={() => handleReviewReact("dislike", review?.id)}
-                className={`icon-btn hover:text-primary ${
+                className={`icon-btn hover:text-secondary ${
                   review.is_disliked ? "text-primary" : "text-slate-700"
                 }`}
               >

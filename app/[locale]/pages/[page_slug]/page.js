@@ -7,7 +7,7 @@ import ViewHTML from "@/components/elements/ViewHTML";
 import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: "Sotota Stall || Booking Policy",
+  title: "Style Mart Brand || Booking Policy",
 };
 
 const DynamicPage = async ({ params }) => {
@@ -27,13 +27,13 @@ const DynamicPage = async ({ params }) => {
           <div>
             <Link
               href={`/`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               হোম
             </Link>
             <Link
               href={`pages/${page.slug}`}
-              className="text-base text-slate-900 hover:text-primary"
+              className="text-base text-slate-900 hover:text-secondary"
             >
               {page.title}
             </Link>

@@ -5,8 +5,9 @@ import ProductList from "./ProductList";
 import { fetchData } from "@/utils/fetchData";
 import PaginationWithSummery from "../PaginationWithSummery";
 import NoProducts from "./NoProducts";
-import FilterPanel from "../side-drawers/FilterPanel";
-import FilterMenu from "../elements/FilterMenu";
+// import FilterPanel from "../side-drawers/FilterPanel";
+import FilterAction from "../elements/FilterAction";
+import FilterMenu from "./FilterMenu";
 
 const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
   const params = new URLSearchParams(customSearchParams);
@@ -18,17 +19,24 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 
   return (
     <div className="container mb-20">
-      <div className="toolbar grid grid-cols-5 gap-5 my-5 border">
-        <div className="relative col-span-1">
-          <FilterMenu />
-          <FilterPanel category={category} />
+      <div className="actions-bar flex justify-between items-center mb-8">
+        <div className="">
+          <FilterAction />
+          {/* <FilterPanel category={category} /> */}
+          {/* <p>Total {meta?.total} products found</p> */}
         </div>
-        <div className="col-span-4 flex justify-between items-center bg-slate-50 rounded-xl px-4 py-3">
-          <p>এখানে {meta?.total} টি প্রডাক্ট আছে</p>
+        <div className="">
           <SortSelect />
         </div>
       </div>
-      {products?.length ? <ProductList products={products} /> : <NoProducts />}
+      <div className="lg:flex gap-4 items-start">
+        <FilterMenu category={category} />
+        {products?.length ? (
+          <ProductList products={products} />
+        ) : (
+          <NoProducts />
+        )}
+      </div>
       <PaginationWithSummery meta={meta} totalItemsShowing={products?.length} />
     </div>
   );

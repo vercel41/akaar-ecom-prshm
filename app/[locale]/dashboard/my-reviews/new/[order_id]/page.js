@@ -111,7 +111,7 @@ const AddReview = ({ params }) => {
         <h2 className="text-slate-900 font-bold text-2xl">আমার রিভিউ</h2>
         <Link
           href={"/dashboard/my-reviews"}
-          className="icon-btn my-4 hover:text-primary"
+          className="icon-btn my-4 hover:text-secondary"
         >
           <HiArrowLongLeft size={24} /> ফিরে যান
         </Link>

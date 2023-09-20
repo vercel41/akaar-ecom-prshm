@@ -25,10 +25,13 @@ module.exports = {
         padding: "1rem",
       },
       colors: {
-        primary: "#F99104",
+        primary: {
+          DEFAULT: "#222222",
+        },
         secondary: {
           700: "#00B7C9",
           800: "#00A7B8",
+          DEFAULT: "#2980B9",
         },
         amber: {
           200: "#FFF6EB",
