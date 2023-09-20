@@ -12,7 +12,7 @@ export default function FilterAction() {
   };
   return (
     <div
-      className="flex items-center gap-3 w-full h-full cursor-pointer hover:text-primary"
+      className="flex items-center gap-3 w-full h-full cursor-pointer hover:text-secondary"
       onClick={toggleFilter}
     >
       <BsFilterSquare size={24} />

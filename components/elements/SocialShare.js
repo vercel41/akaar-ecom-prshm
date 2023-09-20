@@ -44,7 +44,7 @@ export default function SocialShare() {
       {!isOpen ? (
         <button type="button" onClick={() => setIsOpen(true)}>
           <HiShare size={20} />{" "}
-          <span className="hover:text-primary">শেয়ার করুন</span>
+          <span className="hover:text-secondary">শেয়ার করুন</span>
         </button>
       ) : (
         <p>

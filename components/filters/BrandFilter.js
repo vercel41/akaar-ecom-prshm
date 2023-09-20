@@ -27,44 +27,40 @@ const BrandFilter = ({ filteredBrands, selectedBrandIds }) => {
   };
 
   return (
-    <>
-      <div id="brand-filter">
-        <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3">
-          By Brands
-        </h6>
-        <div className="category-filter">
-          {brands?.map((brand) => (
-            <div className="input-grp mt-3" key={brand.id}>
-              <label
-                className="flex items-center gap-2 text-base text-slate-700 cursor-pointer"
-                htmlFor={`brd-${brand.id}`}
-              >
-                <input
-                  type="checkbox"
-                  id={`brd-${brand.id}`}
-                  checked={selectedBrandIds.includes(`${brand.id}`)}
-                  name={brand.brand_name}
-                  value={brand.id}
-                  onChange={handleChange}
-                />
-                {brand.brand_name}
-              </label>
-            </div>
-          ))}
-          {!showAll && filteredBrands?.length > 6 ? (
-            <div className="text-center mt-3">
-              <span
-                onClick={() => setShowAll(true)}
-                className="inline-flex items-center text-primary cursor-pointer"
-              >
-                <FiPlus size={24} className="mr-2" />
-                আরও {filteredBrands?.length - 6}
-              </span>
-            </div>
-          ) : null}
-        </div>
+    <div id="brand-filter" className="border-b border-slate-200 pb-5">
+      <h6 className="text-sm font-bold text-slate-900">By Brands</h6>
+      <div className="category-filter">
+        {brands?.map((brand) => (
+          <div className="input-grp mt-3" key={brand.id}>
+            <label
+              className="flex items-center gap-2 text-base text-slate-700 cursor-pointer"
+              htmlFor={`brd-${brand.id}`}
+            >
+              <input
+                type="checkbox"
+                id={`brd-${brand.id}`}
+                checked={selectedBrandIds.includes(`${brand.id}`)}
+                name={brand.brand_name}
+                value={brand.id}
+                onChange={handleChange}
+              />
+              {brand.brand_name}
+            </label>
+          </div>
+        ))}
+        {!showAll && filteredBrands?.length > 6 ? (
+          <div className="text-center mt-3">
+            <span
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center text-primary cursor-pointer"
+            >
+              <FiPlus size={24} className="mr-2" />
+              More Brands {filteredBrands?.length - 6}
+            </span>
+          </div>
+        ) : null}
       </div>
-    </>
+    </div>
   );
 };
 

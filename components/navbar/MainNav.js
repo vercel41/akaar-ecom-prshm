@@ -46,7 +46,7 @@ export default function MainNav({ settings }) {
           <div className="header-right flex justify-between items-center gap-6">
             <ResponsiveSearch />
             <div className="header-actions flex gap-4">
-              <div className="text-white hover:text-primary">
+              <div className="text-white hover:text-secondary">
                 <button onClick={handleModalOpen}>
                   {user?.image ? (
                     <Image
@@ -63,17 +63,17 @@ export default function MainNav({ settings }) {
               </div>
               <Link
                 href="/dashboard/my-wishlist"
-                className="text-white hover:text-primary"
+                className="text-white hover:text-secondary"
               >
                 <HiOutlineHeart size={24} />
                 {/* <span className="pro-count blue">{totalCompareItems}</span> */}
               </Link>
               <button
                 onClick={() => dispatch(toggleCart())}
-                className="relative text-white hover:text-primary"
+                className="relative text-white hover:text-secondary"
               >
                 <HiOutlineShoppingCart size={24} />
-                <span className="absolute -right-3 -top-3 border border-white text-white hover:text-primary text-xs px-1 text-center rounded-full">
+                <span className="absolute -right-3 -top-3 border border-white text-white hover:text-secondary text-xs px-1 text-center rounded-full">
                   {cart?.length || 0}
                 </span>
               </button>

@@ -33,19 +33,19 @@ const ProductView = async ({ params }) => {
             <div>
               <Link
                 href={`/`}
-                className="text-base text-slate-600 hover:text-primary"
+                className="text-base text-slate-600 hover:text-secondary"
               >
                 Home
               </Link>
               <Link
                 href={`/products`}
-                className="text-base text-slate-600 hover:text-primary"
+                className="text-base text-slate-600 hover:text-secondary"
               >
                 Products
               </Link>
               <Link
                 href={`/products/${slug}`}
-                className={`text-base text-slate-900 hover:text-primary`}
+                className={`text-base text-slate-900 hover:text-secondary`}
               >
                 {getSlicedText(slug, 50)}
               </Link>

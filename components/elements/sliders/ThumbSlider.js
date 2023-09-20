@@ -119,7 +119,7 @@ const ThumbSlider = ({ product }) => {
                     >
                       <HiPlayCircle
                         size={60}
-                        className="text-white hover:text-primary"
+                        className="text-white hover:text-secondary"
                       />
                     </Link>
                   )} */}

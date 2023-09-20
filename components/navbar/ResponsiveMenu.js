@@ -55,7 +55,7 @@ export default function ResponsiveMenu({ settings }) {
       <div className="nav-menu hidden lg:flex gap-4 items-center">
         {Object.keys(headerPage).map((key) => (
           <Link key={key} href={headerPage[key]}>
-            <span className="inline-block h-full text-white hover:text-primary font-semibold uppercase">
+            <span className="inline-block h-full text-white hover:text-secondary font-semibold uppercase">
               {key}
             </span>
           </Link>
@@ -70,7 +70,7 @@ export default function ResponsiveMenu({ settings }) {
             <div className="nav-menu flex flex-col gap-4 items-center">
               {Object.keys(headerPage).map((key) => (
                 <Link key={key} href={headerPage[key]}>
-                  <span className="inline-block h-full text-white hover:text-primary font-semibold uppercase">
+                  <span className="inline-block h-full text-white hover:text-secondary font-semibold uppercase">
                     {key}
                   </span>
                 </Link>

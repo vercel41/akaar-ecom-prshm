@@ -12,13 +12,13 @@ const QnA = () => {
           <div>
             <Link
               href={`/`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               হোম
             </Link>
             <Link
               href={`/help/qna`}
-              className="text-base text-slate-900 hover:text-primary"
+              className="text-base text-slate-900 hover:text-secondary"
             >
               প্রশ্ন ও উত্তর
             </Link>

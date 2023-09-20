@@ -112,7 +112,7 @@ function OrderCard({ order }) {
         </h3>
         <Link
           href={`/dashboard/my-orders/details/${id}`}
-          className="text-slate-500 hover:text-primary"
+          className="text-slate-500 hover:text-secondary"
         >
           বিস্তারিত দেখুন <HiArrowLongRight />
         </Link>

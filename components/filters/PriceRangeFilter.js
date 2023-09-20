@@ -42,10 +42,8 @@ const PriceRangeSlider = ({ min_price, max_price }) => {
   };
 
   return (
-    <div className="price-range">
-      <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3 mb-3">
-        By Price
-      </h6>
+    <div className="price-range border-b border-slate-200 pb-5">
+      <h6 className="text-sm font-bold text-slate-900 mb-3">By Price</h6>
       <div className="flex justify-between my-2">
         <span className="text-sm font-medium border border-secondary rounded px-1">
           ৳{priceRange.min}

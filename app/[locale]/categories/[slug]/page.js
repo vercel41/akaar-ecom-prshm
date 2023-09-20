@@ -34,19 +34,19 @@ const page = async ({ params, searchParams }) => {
           <div>
             <Link
               href={`/`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               Home
             </Link>
             <Link
               href={`/categories`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               Categories
             </Link>
             <Link
               href={`/categories/${category.slug}`}
-              className={`text-base text-slate-900 hover:text-primary`}
+              className={`text-base text-slate-900 hover:text-secondary`}
             >
               {category.category_name}
             </Link>

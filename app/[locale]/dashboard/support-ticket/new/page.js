@@ -67,7 +67,7 @@ export default function AddSupportTicket() {
         </h2>
         <Link
           href={"/dashboard/support-ticket"}
-          className="icon-btn my-4 hover:text-primary"
+          className="icon-btn my-4 hover:text-secondary"
         >
           <HiArrowLongLeft size={24} /> ফিরে যান
         </Link>

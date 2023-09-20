@@ -66,11 +66,13 @@ export default function AuthUserMenus({ togglePopover }) {
                   className="flex items-center space-x-3 group"
                 >
                   <span
-                    className={`group-hover:font-bold text-xl text-amber-400 group-hover:text-primary`}
+                    className={`group-hover:font-bold text-xl text-amber-400 group-hover:text-secondary`}
                   >
                     {item.icon}
                   </span>
-                  <span className="group-hover:text-primary">{item.text}</span>
+                  <span className="group-hover:text-secondary">
+                    {item.text}
+                  </span>
                 </Link>
               </li>
             ))}
@@ -80,11 +82,11 @@ export default function AuthUserMenus({ togglePopover }) {
                 onClick={handleLogout}
               >
                 <span
-                  className={`hover:font-bold text-xl text-amber-400 group-hover:text-primary`}
+                  className={`hover:font-bold text-xl text-amber-400 group-hover:text-secondary`}
                 >
                   <IoLogOut />
                 </span>
-                <span className="group-hover:text-primary hover:font-bold">
+                <span className="group-hover:text-secondary hover:font-bold">
                   লগ-আউট
                 </span>
               </button>

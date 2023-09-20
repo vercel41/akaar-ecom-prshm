@@ -15,13 +15,13 @@ const ContactUs = () => {
           <div>
             <Link
               href={`/`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               {t("breadcrumb.home")}
             </Link>
             <Link
               href={`/help/contact-us`}
-              className="text-base text-slate-900 hover:text-primary"
+              className="text-base text-slate-900 hover:text-secondary"
             >
               {t("breadcrumb.contact")}
             </Link>

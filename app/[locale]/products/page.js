@@ -17,13 +17,13 @@ const page = ({ params, searchParams }) => {
           <div>
             <Link
               href={`/`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               Home
             </Link>
             <Link
               href={`/products`}
-              className="text-base text-slate-600 hover:text-primary"
+              className="text-base text-slate-600 hover:text-secondary"
             >
               All Products
             </Link>
