@@ -42,10 +42,18 @@ const PriceRangeSlider = ({ min_price, max_price }) => {
   };
 
   return (
-    <div className="price-range pr-5">
+    <div className="price-range">
       <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3 mb-3">
-        প্রইজ
+        By Price
       </h6>
+      <div className="flex justify-between my-2">
+        <span className="text-sm font-medium border border-secondary rounded px-1">
+          ৳{priceRange.min}
+        </span>
+        <span className="text-sm font-medium border border-secondary rounded px-1">
+          ৳{priceRange.max}
+        </span>
+      </div>
       <Slider
         range
         allowCross={false}
@@ -53,17 +61,9 @@ const PriceRangeSlider = ({ min_price, max_price }) => {
         defaultValue={[min_price, max_price]} // Use default values based on min_price and max_price
         min={min_price}
         max={max_price}
+        // dotStyle={"text-red-500"}
         onChange={(value) => handlePriceRangeChange(value)}
       />
-
-      <div className="flex justify-between mt-2">
-        <span className="text-sm font-medium text-slate-900">
-          ৳{priceRange.min}
-        </span>
-        <span className="text-sm font-medium text-slate-900">
-          ৳{priceRange.max}
-        </span>
-      </div>
     </div>
   );
 };

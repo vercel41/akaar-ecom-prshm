@@ -124,7 +124,7 @@
 }
 
 .price-range .rc-slider-handle {
-  @apply w-4 h-4 border-solid border-2 border-transparent rounded shadow-[0_0_6px_rgba(0,0,0,0.1)] cursor-pointer opacity-100 hover:border-transparent active:border-primary active:shadow-none active:cursor-pointer focus:border-primary focus-visible:border-primary focus-visible:shadow-none;
+  @apply w-4 h-4 border-solid border-2 border-transparent rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] cursor-pointer opacity-100 hover:border-transparent border-primary hover:border-primary active:shadow-none active:cursor-pointer focus:border-primary focus-visible:border-primary focus-visible:shadow-none;
 }
 
 .price-range

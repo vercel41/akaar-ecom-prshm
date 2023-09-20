@@ -48,9 +48,9 @@ const CategoryFilter = ({ selectedCategory }) => {
   );
 
   return (
-    <div className="pr-5">
+    <div id="category-filter">
       <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3">
-        ক্যাটাগরি থেকে কেনাকাটা
+        By Category
       </h6>
       <div className="category-filter">
         {selectedCategory?.id &&

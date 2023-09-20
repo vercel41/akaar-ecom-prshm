@@ -28,9 +28,9 @@ const BrandFilter = ({ filteredBrands, selectedBrandIds }) => {
 
   return (
     <>
-      <div className="pr-5">
+      <div id="brand-filter">
         <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3">
-          ব্র্যান্ড সমূহ
+          By Brands
         </h6>
         <div className="category-filter">
           {brands?.map((brand) => (
