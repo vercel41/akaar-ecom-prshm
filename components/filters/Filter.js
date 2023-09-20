@@ -117,16 +117,16 @@ const Filter = ({ category }) => {
       ) : null} */}
 
       <CategoryFilter selectedCategory={category} />
-      {filterOptions?.brands?.length ? (
-        <BrandFilter
-          filteredBrands={filterOptions?.brands}
-          selectedBrandIds={selectedBrandIds}
-        />
-      ) : null}
       {filterOptions?.max_price ? (
         <PriceRangeFilter
           min_price={filterOptions?.min_price}
           max_price={filterOptions?.max_price}
+        />
+      ) : null}
+      {filterOptions?.brands?.length ? (
+        <BrandFilter
+          filteredBrands={filterOptions?.brands}
+          selectedBrandIds={selectedBrandIds}
         />
       ) : null}
       {filterOptions?.colors?.length ? (

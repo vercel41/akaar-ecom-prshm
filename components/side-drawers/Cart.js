@@ -47,7 +47,7 @@ const Cart = () => {
         <Link
           href={"/checkout"}
           onClick={closeCart}
-          className="bg-secondary py-3 px-6 w-[276px] text-white text-center active:scale-95"
+          className="bg-primary py-3 px-6 w-[276px] text-white text-center active:scale-95"
         >
           <span className="mr-2">Checkout Now</span>
           <HiArrowLongRight size={20} />

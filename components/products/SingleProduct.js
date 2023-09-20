@@ -160,7 +160,7 @@ const SingleProduct = ({ product }) => {
                 </button>
                 <button
                   onClick={() => handleCheckout(product)}
-                  className="buy-btn px-2 rounded"
+                  className="buy-btn px-2"
                 >
                   Buy Now <HiArrowLongRight size={20} />
                 </button>

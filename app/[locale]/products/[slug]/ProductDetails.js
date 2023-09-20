@@ -113,22 +113,22 @@ const ProductDetails = ({ product, settings }) => {
               {product?.coupons.length ? (
                 <div className="mt-5 mb-8">
                   <p className="font-semibold font-title text-slate-900 mb-2">
-                    সেরা অফার <TbTag size={24} className="text-primary mb-1" />
+                    Offer <TbTag size={24} className="text-primary mb-1" />
                   </p>
                   <ul className="coupon-info">
                     <li className="relative text-slate-900 pl-4">
-                      কুপন ডিসকাউন্ট:{" "}
+                      Coupon Discount:{" "}
                       <span className="font-semibold text-title text-secondary-700">
                         &#2547;
                         {getCouponDiscount(
                           product?.coupons[0],
                           product.new_price
                         )}{" "}
-                        ছাড়!
+                        Discount!
                       </span>
                     </li>
                     <li className="relative text-slate-900 pl-4 my-2 before:!top-3">
-                      কুপন কোড:{" "}
+                      Coupon Code:{" "}
                       <span className="inline-block text-primary border border-dashed border-primary rounded px-2 py-1 ml-1">
                         {product.coupons[0].code}{" "}
                         <CopyToClipboard
@@ -143,13 +143,10 @@ const ProductDetails = ({ product, settings }) => {
                       </span>
                     </li>
                     <li className="relative text-slate-900 pl-4 mb-3">
-                      প্রযোজ্য: ৳{product.coupons[0].max_discount} উপরে অর্ডারে
-                      (শুধুমাত্র প্রথম কেনাকাটায়)
+                      Applicable: ৳{product.coupons[0].max_discount} Above
+                      orders (Only first purchase)
                     </li>
                   </ul>
-                  <Link href="#" className="text-secondary-700 underline">
-                    অফারের সকল প্রডাক্ট দেখুন
-                  </Link>
                 </div>
               ) : null}
             </div>
@@ -158,7 +155,7 @@ const ProductDetails = ({ product, settings }) => {
             <div className="py-4">
               <div className="product-actions my-6 flex gap-4 justify-between items-center">
                 <button
-                  className="bg-secondary py-3 w-full px-6 text-white  text-center active:scale-95"
+                  className="bg-primary py-3 w-full px-6 text-white  text-center active:scale-95"
                   onClick={handleAddToCart}
                 >
                   <HiOutlineShoppingCart size={24} />
@@ -166,7 +163,7 @@ const ProductDetails = ({ product, settings }) => {
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className="bg-secondary py-3 w-full px-6 text-white  text-center active:scale-95"
+                  className="bg-primary py-3 w-full px-6 text-white  text-center active:scale-95"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

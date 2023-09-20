@@ -22,7 +22,7 @@ const ColorFilter = ({ colors, selectedColors }) => {
     <>
       <div id="color-filter">
         <h6 className="text-sm font-bold text-slate-900 border-b border-slate-200 pb-3">
-          Colors
+          By Colors
         </h6>
         <div className="category-filter">
           {/* bg-blue-500 */}

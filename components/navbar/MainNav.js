@@ -38,7 +38,7 @@ export default function MainNav({ settings }) {
     });
   }, [scroll]);
   return (
-    <div className="relative bg-secondary">
+    <div className="relative bg-primary">
       <div className="main-nav container py-3 lg:py-1">
         <div className="header-wrap flex justify-between items-center">
           {/* Nav Items  */}

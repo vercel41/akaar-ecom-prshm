@@ -30,15 +30,15 @@ const VideoBanner = async () => {
             channel
           </p>
           <Link
-            href={settings?.review_video_link || "https://youtube.com"}
+            href={settings?.youtube_link || "https://youtube.com"}
             target="_blank"
             className="inline-block text-lg/[26px] font-semibold text-white bg-primary p-3 rounded-lg"
           >
             <HiPlay className="mr-1" />
-            Watch Review Videos
+            Watch Our Review Videos
           </Link>
         </div>
-        <div className="text-center">
+        {/* <div className="text-center">
           <Link
             href={settings.youtube_link}
             target="_blank"
@@ -47,7 +47,7 @@ const VideoBanner = async () => {
             Visit our YouTube Channel{" "}
             <HiArrowLongRight className="text-lg ml-1" />
           </Link>
-        </div>
+        </div> */}
       </div>
     </>
   );

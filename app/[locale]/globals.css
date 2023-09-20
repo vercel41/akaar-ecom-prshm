@@ -189,7 +189,7 @@
 }
 
 .product-actions .action-btn {
-  @apply inline-flex justify-center items-center w-9 h-9 text-primary border border-primary rounded-[5px] cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
+  @apply inline-flex justify-center items-center w-9 h-9 text-primary border border-primary cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
 }
 
 .buy-btn {
