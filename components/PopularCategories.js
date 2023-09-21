@@ -8,24 +8,22 @@ const PopularCategories = async () => {
   const popularCategories = data?.data || [];
   return (
     <>
-      {popularCategories?.map((category, i) => (
-        <>
-          <div href="#" class="bg-white py-6 px-4">
-            <Link
-              href={`/categories/${category.slug}`}
-              className="flex items-center gap-4"
-            >
-              <Image
-                src={category?.icon || noImage}
-                alt={category.category_name}
-                width={50}
-                height={50}
-                className="w-[50px] h-[auto] object-contain hover:scale-110"
-              />
-              <h5>{category.category_name}</h5>
-            </Link>
-          </div>
-        </>
+      {popularCategories?.map((category) => (
+        <div key={category.id} href="#" className="bg-white py-6 px-4">
+          <Link
+            href={`/categories/${category.slug}`}
+            className="flex items-center gap-4"
+          >
+            <Image
+              src={category?.icon || noImage}
+              alt={category.category_name}
+              width={50}
+              height={50}
+              className="w-[50px] h-[auto] object-contain hover:scale-110"
+            />
+            <h5>{category.category_name}</h5>
+          </Link>
+        </div>
       ))}
     </>
   );

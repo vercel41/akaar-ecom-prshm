@@ -140,7 +140,7 @@ const Search = () => {
                       stroke="#94A3B8"
                       stroke-width="1.5"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       d="M10 6V10.5L14 12"

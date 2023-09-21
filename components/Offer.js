@@ -16,8 +16,8 @@ const offers = [
 ];
 export default function Offer() {
   return (
-    <div class="offer bg-[#f5e7cc] py-3">
-      <div class="container">
+    <div className="offer bg-[#f5e7cc] py-3">
+      <div className="container">
         <OfferSlider sliders={offers} />
       </div>
     </div>

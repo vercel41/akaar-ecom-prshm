@@ -59,7 +59,7 @@ export default function Home({ searchParams }) {
               View All <HiArrowLongRight size={24} />{" "}
             </Link>
           </div>
-          <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
             <PopularCategories />
           </div>
         </div>

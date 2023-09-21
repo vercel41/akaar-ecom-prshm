@@ -1,10 +1,8 @@
 "use client";
 
-import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import SingleProduct from "@/components/products/SingleProduct";
-
-SwiperCore.use([Navigation]);
 
 // ** Import Icons
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";

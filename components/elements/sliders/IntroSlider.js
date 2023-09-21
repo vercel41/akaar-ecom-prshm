@@ -1,16 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Autoplay, Pagination } from "swiper";
-import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 
 // ** Import Iocns
 import { HiChevronRight } from "react-icons/hi2";
 
 const IntroSlider = ({ sliders }) => {
-  // console.log(sliders);
-
   return (
     <>
       <Swiper
@@ -22,8 +19,8 @@ const IntroSlider = ({ sliders }) => {
         className="hero-slider"
         autoplay={{ delay: 3000 }}
       >
-        {sliders.map((slide) => (
-          <SwiperSlide key={slide?.id}>
+        {sliders.map((slide, i) => (
+          <SwiperSlide key={i}>
             <div
               className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[100vh] bg-cover"
               style={{

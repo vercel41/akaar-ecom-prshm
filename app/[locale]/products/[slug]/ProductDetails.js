@@ -176,7 +176,7 @@ const ProductDetails = ({ product, settings }) => {
                       d="M7.91634 1.66667H15.4163L10.833 7.50001H17.083L7.08301 18.3333L9.16634 10.4167H3.33301L7.91634 1.66667Z"
                       fill="white"
                       stroke="white"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     />
                   </svg>{" "}
                   <span className="mr-2">Buy Now</span>

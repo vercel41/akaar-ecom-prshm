@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, Autoplay } from "swiper";
+import { Thumbs, Autoplay } from "swiper/modules";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
@@ -13,7 +13,7 @@ import noImage from "@/public/assets/images/no-image.png";
 import { HiOutlineHeart } from "react-icons/hi2";
 
 const ThumbSlider = ({ product }) => {
-  const [imagesNavSlider, setImagesNavSlider] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { user } = useSelector((state) => state.auth);
   const [addToWishlist] = useAddToWishListMutation();
 
@@ -38,7 +38,7 @@ const ThumbSlider = ({ product }) => {
       <div className="slider">
         <div className="thumb-slider">
           <Swiper
-            onSwiper={setImagesNavSlider}
+            onSwiper={setThumbsSwiper}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,
@@ -73,7 +73,10 @@ const ThumbSlider = ({ product }) => {
 
         <div className="preview-slider grid mx-4">
           <Swiper
-            thumbs={{ swiper: imagesNavSlider }}
+            thumbs={{
+              swiper:
+                thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+            }}
             direction="horizontal"
             autoplay={{
               delay: 2500,

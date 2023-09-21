@@ -12,7 +12,7 @@ export default function OrderTracking({ orderData, isLoading }) {
         {isLoading ? (
           <ItemsListLoader numItems={3} noImage={true} viewBoxWidth={900} />
         ) : (
-          <ol class="relative text-slate-600">
+          <ol className="relative text-slate-600">
             <OrderStep
               date={saleStatus?.Complete?.created_at}
               title={"সম্পন্ন হয়েছে"}

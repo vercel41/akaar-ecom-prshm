@@ -1,10 +1,8 @@
 "use client";
 
-import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import SingleProduct from "@/components/products/SingleProduct";
-
-SwiperCore.use([Navigation]);
 
 // ** Import Icons
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
@@ -19,15 +17,15 @@ const BestSell = ({ bestProducts }) => {
           0: {
             slidesPerView: 1,
           },
-          640:{
-            slidesPerView:2,
+          640: {
+            slidesPerView: 2,
           },
           768: {
             slidesPerView: 3,
           },
-          1024:{
-            slidesPerView:4
-          }
+          1024: {
+            slidesPerView: 4,
+          },
         }}
         spaceBetween={20}
         loop={false}

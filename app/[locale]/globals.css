@@ -59,7 +59,7 @@
 }
 
 .search-input {
-  @apply border-r-0 hover:border-0 focus:border-0 py-0 h-9;
+  @apply border-r-0 hover:border-0 rounded-l-lg focus:border-0 py-0 h-9;
 }
 .search-btn {
   @apply absolute w-12 h-9 bg-transparent text-secondary rounded-e-lg outline-none text-center;

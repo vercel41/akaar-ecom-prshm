@@ -1,7 +1,7 @@
 "use client";
 
-import { Autoplay, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
 
 const OfferSlider = ({ sliders }) => {
   return (
@@ -24,9 +24,9 @@ const OfferSlider = ({ sliders }) => {
         className="mySwiper"
         autoplay={{ delay: 3000 }}
       >
-        {sliders.map((slide) => (
-          <SwiperSlide key={slide?.id}>
-            <div class="item text-center lg:text-start">
+        {sliders.map((slide, i) => (
+          <SwiperSlide key={i}>
+            <div className="item text-center lg:text-start">
               <h5 className="text-slate-700 font-bold">{slide.title}</h5>
               <p className="text-slate-600 text-sm">{slide.text}</p>
             </div>

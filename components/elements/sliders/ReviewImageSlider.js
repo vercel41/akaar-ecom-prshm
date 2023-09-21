@@ -52,7 +52,7 @@ export default function ReviewImageSlider({ images }) {
           direction="horizontal"
         >
           {images.map((slide, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={`thumb-${index}`}>
               <div className="h-20 w-20">
                 <Image
                   src={slide.image}

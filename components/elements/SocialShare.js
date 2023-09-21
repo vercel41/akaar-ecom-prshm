@@ -209,7 +209,7 @@ export default function SocialShare() {
                       stroke="#00B7C9"
                       stroke-width="1.5"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     />
                   </svg>{" "}
                   লিঙ্ক কপি করুন

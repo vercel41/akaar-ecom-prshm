@@ -106,7 +106,7 @@ const SingleProduct = ({ product }) => {
                   href={`/brands/${brand?.id ? brand?.id : ""}`}
                   className="text-xs text-primary capitalize"
                 >
-                  <span class="inline-block px-2 py-1 text-xs font-semibold leading-none rounded-full bg-primary text-white">
+                  <span className="inline-block px-2 py-1 text-xs font-semibold leading-none rounded-full bg-primary text-white">
                     {brand?.brand_name || "No Brand"}
                   </span>
                 </Link>
