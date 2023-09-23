@@ -1,18 +1,20 @@
 import React from "react";
-import dynamic from "next/dynamic";
-const Lottie = dynamic(() => import("lottie-react"));
-import empty from "@/public/assets/lottie/empty.json";
+import Image from "next/image";
+import noItemsImage from "@/public/assets/images/no-item-found-vector.webp";
 
 function NoItems({ title }) {
   return (
-    <div className="flex-center mt-28">
-      <div className="flex-center flex-col h-[25rem] w-[25rem] rounded-2xl border border-slate-300 mb-5">
+    <div className="flex-center mt-20">
+      <div className="flex-center flex-col h-[10rem] w-[15rem] md:h-[20rem] md:w-[25rem] mb-10 md:mb-5">
         <div className="h-[216px] w-[216px]">
-          <Lottie animationData={empty} loop={false} />
+          <Image
+            src={noItemsImage}
+            alt="No-Items-Image"
+            height={216}
+            width={216}
+            className="h-[216px]"
+          />
         </div>
-        <h3 className="font-bold text-lg font-title text-slate-700">
-          {title ?? "কোন আইটেম নেই"}
-        </h3>
       </div>
     </div>
   );

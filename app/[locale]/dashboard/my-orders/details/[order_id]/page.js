@@ -136,7 +136,7 @@ const OrderDetail = ({ params }) => {
               ) : (
                 <a
                   target="_blank"
-                  href={`${process.env.serverBaseUrl}/in/${sale.customer.id}/${sale.id}/sale`}
+                  href={`${process.env.serverBaseUrl}/in/${sale.customer?.id}/${sale.id}/sale`}
                   className="bg-slate-200 p-3 block text-center hover:text-secondary w-full mb-3 mt-5 rounded-lg"
                 >
                   <FaCloudDownloadAlt size={24} className="mr-2" /> ইনভয়েস
