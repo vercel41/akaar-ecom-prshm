@@ -40,12 +40,12 @@ const CouponModal = ({ showModal, setShowModal, title }) => {
   };
   return (
     <Modal showModal={showModal} setShowModal={setShowModal} title={title}>
-      <div className="w-[27rem] text-slate-500">
+      <div className="w-full lg:w-[27rem] text-slate-500">
         <form className="" onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-6 mb-8 form-control">
             <input
               type="text"
-              className=""
+              className="w-full"
               name="coupon_code"
               placeholder="Type coupon code here"
               {...register("coupon_code", {

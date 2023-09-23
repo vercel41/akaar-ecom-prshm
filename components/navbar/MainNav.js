@@ -16,17 +16,22 @@ import {
 } from "react-icons/hi2";
 import ResponsiveSearch from "./ResponsiveSearch";
 import ResponsiveMenu from "./ResponsiveMenu";
+import { useRouter } from "next/navigation";
 
 export default function MainNav({ settings }) {
   const [scroll, setScroll] = useState(0);
   const { cart } = useSelector((state) => state.cart);
   const { user, isLoginModalOpen } = useSelector((state) => state.auth);
   // const { translations } = useSelector((state) => state.common);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleModalOpen = () => {
-    if (user) return;
-    dispatch(setLoginModalOpen(true));
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      dispatch(setLoginModalOpen(true));
+    }
   };
 
   useEffect(() => {
