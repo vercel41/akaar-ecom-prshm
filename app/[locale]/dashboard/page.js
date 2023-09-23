@@ -76,7 +76,6 @@ const MyProfile = () => {
 
   return (
     <div className="px-10 py-6">
-      <h2 className="text-slate-900 font-bold text-2xl">আমার প্রফাইল</h2>
       <form className="basis-3/5" onSubmit={handleSubmit(handleUserUpdate)}>
         <ProfileImageUpload
           profileImageFile={profileImageFile}
