@@ -47,7 +47,7 @@ const CouponModal = ({ showModal, setShowModal, title }) => {
               type="text"
               className=""
               name="coupon_code"
-              placeholder="কুপন কোড লিখুন"
+              placeholder="Type coupon code here"
               {...register("coupon_code", {
                 required: "Coupon code is required.",
               })}
@@ -56,15 +56,12 @@ const CouponModal = ({ showModal, setShowModal, title }) => {
               <p className="errorMsg">{errors.coupon_code.message}</p>
             )}
             {error && (
-              <p className="errorMsg">
-                এই কোডে ভাউচার পাওয়া যায় নি, সঠিক কোড খুজে আবার চেষ্টা করুন
-              </p>
+              <p className="errorMsg">Invalid or Expired Coupon Code</p>
             )}
           </div>
-          <div className="form-control">
-            <label></label>
-            <button type="submit" className="primary-btn w-full">
-              যাচাই করুন
+          <div className="flex justify-center">
+            <button type="submit" className="primary-btn px-16">
+              Apply
             </button>
           </div>
         </form>

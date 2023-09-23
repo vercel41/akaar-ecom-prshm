@@ -54,7 +54,8 @@ const DashboardLayout = ({ children, params }) => {
   return (
     <div className="bg-slate-100">
       <div className="container">
-        <div className="bg-white grid grid-cols-[max-content_1fr] min-h-screen">
+        <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3>
+        {/* <div className="bg-white grid grid-cols-[max-content_1fr] min-h-screen">
           <div className="border-r border-slate-300 px-6 py-12">
             <nav className="text-slate-500">
               <ul className="w-[15.25rem]">
@@ -100,7 +101,7 @@ const DashboardLayout = ({ children, params }) => {
             </nav>
           </div>
           <div className="">{children}</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

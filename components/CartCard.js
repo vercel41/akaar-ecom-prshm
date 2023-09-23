@@ -7,8 +7,11 @@ import * as cartActions from "@/store/features/cartSlice";
 import noImage from "@/public/assets/images/no-image.png";
 import { getFractionFixed } from "@/utils/formatNumber";
 import Link from "next/link";
+import { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
 const CartCard = ({ item }) => {
+  const [imageError, setImageError] = useState(false);
   const {
     slug,
     brand,
@@ -29,18 +32,19 @@ const CartCard = ({ item }) => {
   return (
     <div className="relative cart-card p-4 bg-white border-b border-slate-200 mb-3">
       <button
-        className="absolute right-4 top-4 bg-transparent text-red-500"
+        className="absolute right-4 top-4 bg-transparent text-primary"
         onClick={() => dispatch(cartActions.removeFromCart(cartId))}
       >
-        <FiTrash2 />
+        <AiOutlineClose size={20} />
       </button>
       <div className="flex gap-2">
         <Image
-          src={image || noImage}
+          src={imageError ? noImage : image}
+          onError={() => setImageError(true)}
           alt="product"
           height={80}
           width={80}
-          className="h-20 w-20 rounded-lg"
+          className="h-20 w-20"
         />
         <div className="flex flex-col justify-between">
           <h5 className="text-primary">{brand?.brand_name || "No Brand"}</h5>

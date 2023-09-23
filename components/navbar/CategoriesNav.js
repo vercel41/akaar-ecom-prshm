@@ -6,7 +6,11 @@ import React from "react";
 export default function CategoriesNav({ categories }) {
   const pathname = usePathname();
   const pathArray = pathname.split("/");
-  if (pathArray.includes("categories") || pathArray.includes("products"))
+  if (
+    pathArray.includes("categories") ||
+    pathArray.includes("products") ||
+    pathArray.includes("checkout")
+  )
     return null;
 
   return (

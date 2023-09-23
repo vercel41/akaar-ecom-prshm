@@ -16,7 +16,7 @@ export default function Modal({ showModal, setShowModal, title, children }) {
                     {title ? title : null}
                   </h3>
                   <button
-                    className="icon-btn text-4xl text-secondary"
+                    className="icon-btn text-4xl text-primary"
                     onClick={() => setShowModal(false)}
                   >
                     <RiCloseCircleFill />

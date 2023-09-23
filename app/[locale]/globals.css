@@ -70,7 +70,7 @@
 }
 
 .primary-btn {
-  @apply inline-flex items-center justify-center gap-2 text-white font-semibold font-title bg-primary rounded-lg text-center box-border py-3 active:scale-95;
+  @apply inline-flex items-center justify-center gap-2 text-white font-semibold font-title bg-primary text-center box-border py-3 active:scale-95;
 }
 
 .text-btn {
@@ -203,18 +203,18 @@
 /* From common classes  */
 .form-control input,
 .form-control textarea {
-  @apply w-full rounded-lg;
+  @apply w-full;
 }
 
 /* Contact Form */
 
 .contact-wpr input,
 .contact-wpr textarea {
-  @apply w-full border border-white rounded-lg py-3 px-4 focus:bg-white focus:border-primary focus:outline-none;
+  @apply w-full border border-white py-3 px-4 focus:bg-white focus:border-primary focus:outline-none;
 }
 
 .submit-btn {
-  @apply w-[240px] text-lg font-semibold font-title text-white bg-[#2980B9] rounded-lg py-3 active:scale-95;
+  @apply w-[240px] text-lg font-semibold font-title text-white bg-[#2980B9] py-3 active:scale-95;
 }
 
 .errorMsg {

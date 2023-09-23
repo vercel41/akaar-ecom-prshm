@@ -6,7 +6,6 @@ import React from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import CartCard from "../CartCard";
-import { FiPlus } from "react-icons/fi";
 import { getMultipliedColumnTotal } from "@/utils/getTotal";
 
 const Cart = () => {
