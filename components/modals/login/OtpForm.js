@@ -92,7 +92,7 @@ const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
                 maxLength={1}
                 value={otp[index]}
                 onChange={(e) => handleChange(e, index)}
-                className="w-12 h-12 text-3xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="w-10 md:w-12 h-10 md:h-12 px-0 text-2xl lg:text-3xl text-center border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
               />
               {index !== 5 && (
                 <span className="text-3xl text-slate-300">-</span>
@@ -107,7 +107,7 @@ const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
         onClick={handleOTPVerification}
         className="primary-btn w-full"
       >
-        কোড নিশ্চিত করুন
+        Confirm OTP
       </button>
     </div>
   );

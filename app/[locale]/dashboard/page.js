@@ -44,7 +44,8 @@ const MyProfile = () => {
   } = useForm();
 
   const handleUserUpdate = async (data, event) => {
-    const country = getCountryName(data.dial_code);
+    // const country = getCountryName(data.dial_code);
+    const country = getCountryName(data.alt_dial_code);
     const formData = new FormData();
     formData.append("image", profileImageFile || user?.image);
     formData.append("name", data.name);
@@ -76,7 +77,7 @@ const MyProfile = () => {
   // if (isLoading) return <p className="text-2xl text-red-500">Loading.....</p>;
 
   return (
-    <div className="px-10 py-6">
+    <div className="px-10 pt-6 pb-8">
       <form className="basis-3/5" onSubmit={handleSubmit(handleUserUpdate)}>
         <ProfileImageUpload
           profileImageFile={profileImageFile}
