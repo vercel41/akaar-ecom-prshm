@@ -11,9 +11,9 @@ const MyWishList = () => {
   const { data, isLoading } = useGetWishListQuery({ locale });
   const wishedProducts = data?.data || [];
   return (
-    <div className="px-10 py-6">
-      <h2 className="text-slate-900 font-title font-bold text-2xl">
-        আমার উইশ লিষ্ট
+    <div className="p-6">
+      <h2 className="text-slate-600 text-2xl text-center md:text-start">
+        Wishlist ({wishedProducts.length}) items
       </h2>
       {isLoading ? (
         <div className="py-4">
@@ -26,7 +26,7 @@ const MyWishList = () => {
           ))}
         </div>
       ) : (
-        <NoItems title={"কোন প্রডাক্ট নেই"} />
+        <NoItems />
       )}
     </div>
   );
