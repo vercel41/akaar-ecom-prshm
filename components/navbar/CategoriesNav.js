@@ -1,17 +1,18 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React from "react";
 
 export default function CategoriesNav({ categories }) {
+  const { locale } = useParams();
   const pathname = usePathname();
-  const pathArray = pathname.split("/");
-  if (
-    pathArray.includes("categories") ||
-    pathArray.includes("products") ||
-    pathArray.includes("checkout")
-  )
-    return null;
+  // const pathArray = pathname.split("/");
+  // pathArray.includes("categories") ||
+  // pathArray.includes("products") ||
+  // pathArray.includes("checkout")
+
+  const isHome = pathname === "/" || pathname === `/${locale}`;
+  if (!isHome) return null;
 
   return (
     <div className="categories-nav bg-[#D04FC4] hidden lg:block">

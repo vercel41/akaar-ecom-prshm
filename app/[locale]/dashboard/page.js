@@ -9,9 +9,10 @@ import {
 } from "@/store/features/api/authAPI";
 import ProfileImageUpload from "./ProfileImageUpload";
 import { toast } from "react-toastify";
-import { getBdFormattedDate } from "@/utils/formatDate";
+import { getFormattedDate } from "@/utils/formatDate";
 import axiosInstance from "@/utils/axiosInstance";
-import { setUser } from "@/store/features/authSlice";
+import { logoutUser, setUser } from "@/store/features/authSlice";
+import { IoLogOut } from "react-icons/io5";
 // import { useSelector } from "react-redux";
 
 const MyProfile = () => {
@@ -83,15 +84,13 @@ const MyProfile = () => {
           editMode={editMode}
           user={user}
         />
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           <div className="form-control">
-            <label className="block text-base text-slate-500 mb-2">
-              আপনার নাম
-            </label>
+            <label className="block text-base text-slate-500 mb-2">Name</label>
             {!editMode ? (
               <p className="text-slate-800">
                 {user?.name || (
-                  <span className="text-slate-300">আপনার নাম লিখুন</span>
+                  <span className="text-slate-300">Your Name</span>
                 )}
               </p>
             ) : (
@@ -100,7 +99,7 @@ const MyProfile = () => {
                   type="text"
                   name="name"
                   defaultValue={user?.name}
-                  placeholder="আপনার নাম লিখুন"
+                  placeholder="type your name"
                   {...register("name", {
                     required: "Name is required.",
                     maxLength: {
@@ -115,16 +114,16 @@ const MyProfile = () => {
               </>
             )}
           </div>
-          <div className="form-control ">
+          <div className="form-control">
             <label className="block text-base text-slate-500 mb-2">
-              জন্ম তারিখ
+              Date of Birth
             </label>
             {!editMode ? (
               <p>
                 {user?.birth_date ? (
-                  getBdFormattedDate(user?.birth_date)
+                  getFormattedDate(user?.birth_date)
                 ) : (
-                  <span className="text-slate-300">দিন/মাস/বছর</span>
+                  <span className="text-slate-300">Day/Month/Year</span>
                 )}
               </p>
             ) : (
@@ -141,24 +140,26 @@ const MyProfile = () => {
               </>
             )}
           </div>
-          <div className="form-control ">
-            <label className="block text-base text-slate-500 mb-2">লিঙ্গ</label>
+          <div className="form-control">
+            <label className="block text-base text-slate-500 mb-2">
+              Gender
+            </label>
             {!editMode ? (
               <p className="text-slate-800">
                 {user?.gender && user?.gender !== "Unknown" ? (
                   user?.gender
                 ) : (
-                  <span className="text-slate-300">লিঙ্গ নির্বাচন করুন</span>
+                  <span className="text-slate-300">Your Gender</span>
                 )}
               </p>
             ) : (
               <>
                 <select
-                  className="select w-full h-12 text-base font-title font-normal px-2 rounded-lg border border-gray-300 focus:outline-none focus:border-primary"
+                  className="select w-full h-12 text-base font-title font-normal px-2 border border-gray-300 focus:outline-none focus:border-primary"
                   {...register("gender", { required: "Gender is Required" })}
                   defaultValue={user?.gender}
                 >
-                  <option disabled>লিঙ্গ নির্বাচন করুন</option>
+                  <option disabled>Select your gender</option>
                   <option key="Male" value="Male">
                     Male
                   </option>
@@ -175,14 +176,12 @@ const MyProfile = () => {
               </>
             )}
           </div>
-          <div className="form-control ">
-            <label className="block text-base text-slate-500 mb-2">
-              আপনার ইমেইল (যদি থাকে)
-            </label>
+          <div className="form-control">
+            <label className="block text-base text-slate-500 mb-2">Email</label>
             {!editMode ? (
               <p className="text-slate-800">
                 {user?.email || (
-                  <span className="text-slate-300">ইমেইল এড্রেস লিখুন</span>
+                  <span className="text-slate-300">Your Email</span>
                 )}
               </p>
             ) : (
@@ -191,7 +190,7 @@ const MyProfile = () => {
                   type="email"
                   name="email"
                   defaultValue={user?.email}
-                  placeholder="ইমেইল এড্রেস লিখুন"
+                  placeholder="Type your email"
                   {...register("email", {
                     pattern: {
                       value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
@@ -206,33 +205,18 @@ const MyProfile = () => {
             )}
           </div>
           <div className="">
-            <label className="block text-slate-500 mb-2">ফোন নাম্বার</label>
+            <label className="block text-slate-500 mb-2">Phone</label>
             {!editMode ? (
               <p className="text-slate-800">
                 {(user?.phone && user?.country_code + user.phone) || (
-                  <span className="text-slate-300">ফোন নাম্বার লিখুন</span>
+                  <span className="text-slate-300">Your Phone</span>
                 )}
               </p>
             ) : (
               <>
-                {/* <div className="flex items-center"> */}
-                {/* <select
-                    className="h-12 text-base font-title font-normal px-2 rounded-s-lg border border-gray-300 focus:outline-none focus:border-primary"
-                    {...register("dial_code")}
-                  >
-                    {countries.map((country) => (
-                      <option
-                        selected={country.name === user?.country}
-                        key={country.name}
-                        value={country.dial_code}
-                      >
-                        {country.code} ({country.dial_code})
-                      </option>
-                    ))}
-                  </select> */}
                 <input
                   type="text"
-                  className="w-full rounded-lg border bg-slate-100 border-gray-300 focus:outline-none cursor-not-allowed"
+                  className="w-full border bg-slate-100 border-gray-300 focus:outline-none cursor-not-allowed"
                   name="phone"
                   disabled={true}
                   defaultValue={user?.country_code + user?.phone}
@@ -245,23 +229,19 @@ const MyProfile = () => {
             )}
           </div>
           <div className="">
-            <label className="block text-slate-500 mb-2">
-              বিকল্প ফোন নাম্বার
-            </label>
+            <label className="block text-slate-500 mb-2">Alternate Phone</label>
             {!editMode ? (
               <p className="text-slate-800">
                 {(user?.alt_phone_no &&
                   user?.country_code + user.alt_phone_no) || (
-                  <span className="text-slate-300">
-                    বিকল্প ফোন নাম্বার লিখুন
-                  </span>
+                  <span className="text-slate-300">Your Alternate Phone</span>
                 )}
               </p>
             ) : (
               <>
                 <div className="flex items-center">
                   <select
-                    className="h-12 text-base font-title font-normal px-2 rounded-s-lg border border-gray-300 focus:outline-none focus:border-primary"
+                    className="h-12 text-base font-title font-normal px-2 border border-gray-300 focus:outline-none focus:border-primary"
                     {...register("alt_dial_code")}
                   >
                     {countries.map((country) => (
@@ -276,9 +256,9 @@ const MyProfile = () => {
                   </select>
                   <input
                     type="number"
-                    className="w-full rounded-s-none rounded-e-lg border border-l-0 border-gray-300 focus:outline-none focus:border-primary"
+                    className="w-full border border-l-0 border-gray-300 focus:outline-none focus:border-primary"
                     name="alt_phone_no"
-                    placeholder="বিকল্প ফোন নাম্বার লিখুন"
+                    placeholder="Type alternate phone"
                     defaultValue={user?.alt_phone_no}
                     {...register("alt_phone_no")}
                   />
@@ -296,19 +276,29 @@ const MyProfile = () => {
             <button
               type="button"
               onClick={() => setEditMode((prevMode) => !prevMode)}
-              className="text-secondary-700 font-bold border border-secondary-700 py-3 px-4 rounded-lg active:scale-95"
+              className="text-white bg-primary py-2 px-4 active:scale-95"
             >
-              {editMode ? "বাতিল করুন" : "সম্পাদন করুন"}
+              {editMode ? "Cancel" : "Edit"}
             </button>
           </div>
+          {!editMode && (
+            <div className="form-control">
+              <button
+                className="flex items-center space-x-3 text-white bg-primary py-2 px-4 active:scale-95"
+                onClick={() => dispatch(logoutUser())}
+              >
+                <IoLogOut /> Logout
+              </button>
+            </div>
+          )}
           {editMode ? (
             <div className="form-control">
               <label></label>
               <button
                 type="submit"
-                className="font-bold bg-primary py-3 text-white px-4 rounded-lg active:scale-95"
+                className="bg-primary py-2 text-white px-4 active:scale-95"
               >
-                সংরক্ষন করুন
+                Update Now
               </button>
             </div>
           ) : null}

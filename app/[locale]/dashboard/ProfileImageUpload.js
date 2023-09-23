@@ -37,7 +37,7 @@ const ProfileImageUpload = ({
   };
 
   return (
-    <div className="mb-14 mt-6">
+    <div className="mb-14">
       <div className="w-[6.5rem] h-[6.5rem] relative rounded-full bg-gray-200">
         <Image
           src={
@@ -65,7 +65,7 @@ const ProfileImageUpload = ({
             />
           </label>
         )}
-        <h3 className="text-center m-3 text-sm text-slate-500">প্রফাইল ফটো</h3>
+        <h3 className="text-center m-3 text-sm text-slate-500">Profile</h3>
       </div>
       {validationError && editMode && (
         <div className="text-red-500 mt-12">{validationError}</div>
