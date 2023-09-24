@@ -40,13 +40,13 @@ const Cart = () => {
         <div className="text-center">
           <p className="">Total:</p>
           <h3 className="text-slate-900 font-bold">
-            {`৳ ${getMultipliedColumnTotal(cart, "quantity", "new_price")}`}
+            {`Tk.${getMultipliedColumnTotal(cart, "quantity", "new_price")}`}
           </h3>
         </div>
         <Link
           href={"/checkout"}
           onClick={closeCart}
-          className="bg-primary py-3 px-6 w-[276px] text-white text-center active:scale-95"
+          className="bg-primary py-3 px-3 md:px-6 w-full md:w-[276px] text-white text-center active:scale-95"
         >
           <span className="mr-2">Checkout Now</span>
           <HiArrowLongRight size={20} />

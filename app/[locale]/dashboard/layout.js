@@ -41,7 +41,7 @@ const DashboardLayout = ({ children, params }) => {
             </button>
           </div>
           <nav className="text-slate-500 border-y border-slate-200 mt-8 lg:mt-6">
-            <ul className="w-full flex justify-around">
+            <ul className="w-full flex justify-evenly md:justify-around">
               {navItems.map((item) => (
                 <li
                   key={item.path}

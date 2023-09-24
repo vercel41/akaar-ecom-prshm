@@ -1,7 +1,7 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import noImage from "@/public/assets/images/no-image.png";
-import Link from "next/link";
 
 const SaleProductCard = ({ saleProduct }) => {
   return (
@@ -13,7 +13,7 @@ const SaleProductCard = ({ saleProduct }) => {
             alt="product"
             height={80}
             width={80}
-            className="h-20 w-20 rounded-lg"
+            className="h-20 w-20"
           />
         </div>
         <div className="flex flex-col gap-2 w-full">
@@ -37,12 +37,12 @@ const SaleProductCard = ({ saleProduct }) => {
           )}
           <div className="flex products-center justify-between text-sm">
             <h3 className="text-lg font-bold">
-              ৳ {saleProduct.price} x {saleProduct.qty} পিস
+              Tk. {saleProduct.price} x {saleProduct.qty} পিস
             </h3>
             <div className="flex items-center gap-1 text-primary cursor-pointer">
-              {/* <del className="text-lg text-slate-300">৳2,984</del> */}
+              {/* <del className="text-lg text-slate-300">Tk.2,984</del> */}
               <h3 className="text-lg text-red-500">
-                ৳ {saleProduct.price * saleProduct.qty}
+                Tk. {saleProduct.price * saleProduct.qty}
               </h3>
             </div>
           </div>

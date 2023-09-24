@@ -27,38 +27,26 @@ const FlashSellingProducts = async ({ searchParams }) => {
   return (
     <>
       <div
-        // className="breadcrumb bg-[url('/assets/images/banner/flash-banner.png')] bg-no-repeat bg-cover py-6"
-        className="bg-no-repeat bg-cover w-full h-[240px] breadcrumb py-6"
-        style={{
-          backgroundImage: `url(${flashSaleInfo?.banner_image})`,
-        }}
+      // className="breadcrumb bg-[url('/assets/images/banner/flash-banner.png')] bg-no-repeat bg-cover py-6"
+      // className="bg-no-repeat bg-cover w-full h-[240px] breadcrumb py-6"
+      // style={{
+      //   backgroundImage: `url(${flashSaleInfo?.banner_image})`,
+      // }}
       >
         <div className="container">
-          <div className="max-w-1/2 flex items-center gap-10 mx-auto">
-            <div className="content flex-1">
-              <h3 className="text-4xl font-bold font-title text-slate-900 mb-2">
-                {flashSaleInfo?.title}
-              </h3>
-              <p className="text-lg text-slate-600 mb-4">অফার চলবে আর মাত্র</p>
-              <Timer targetDate={flashSaleInfo?.expire_time} />
-            </div>
-            <div className="img flex-1">
-              {/* <Image
-                src={`/assets/images/banner/robot.png`}
-                alt="image"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: "100%" }}
-              /> */}
-            </div>
+          <div className="flex flex-col items-center justify-center text-center my-4">
+            <h3 className="text-2xl font-bold font-title text-slate-700 mb-2">
+              {flashSaleInfo?.title}
+            </h3>
+            <p className="text-lg text-slate-600 mb-4">Deals End In</p>
+            <Timer targetDate={flashSaleInfo?.expire_time} />
           </div>
         </div>
       </div>
 
       <div className="container lg:mb-20">
-        <div className="toolbar flex justify-between items-center bg-slate-50 rounded-xl px-4 py-3 my-5">
-          <p>এখানে {products?.length} টি প্রডাক্ট আছে</p>
+        <div className="toolbar flex justify-between items-center bg-slate-50 rounded-xl py-3 my-5">
+          <p>Total {products?.length} products</p>
           <Suspense fallback={<SearchBarFallback />}>
             <SortSelect />
           </Suspense>

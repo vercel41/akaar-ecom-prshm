@@ -189,7 +189,7 @@
 }
 
 .product-actions .action-btn {
-  @apply inline-flex justify-center items-center w-9 h-9 text-primary border border-primary cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
+  @apply text-center text-primary border border-primary cursor-pointer ease-in duration-100 hover:bg-primary hover:text-white hover:border-primary;
 }
 
 .buy-btn {
@@ -214,7 +214,7 @@
 }
 
 .submit-btn {
-  @apply w-[240px] text-lg font-semibold font-title text-white bg-[#2980B9] py-3 active:scale-95;
+  @apply w-[240px] text-lg font-semibold font-title text-white bg-primary py-3 active:scale-95;
 }
 
 .errorMsg {

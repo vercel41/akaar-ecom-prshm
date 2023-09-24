@@ -11,7 +11,7 @@ const SortSelect = () => {
         </div>
         <div className="sort-by-dropdown-wrap">
           <select
-            className="w-48 text-base text-slate-900 bg-white border border-slate-300 px-3 py-1 focus:outline-0"
+            className="w-40 md:w-48 text-base text-slate-900 bg-white border border-slate-300 px-3 py-1 focus:outline-0"
             onChange={(e) => handleSelectChange("sort_type", e.target.value)}
           >
             <option value="default">Random</option>

@@ -2,12 +2,11 @@
 import Link from "next/link";
 import React from "react";
 import dynamic from "next/dynamic";
-import { FaCheck } from "react-icons/fa";
 import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { getBdFormattedDate } from "@/utils/formatDate";
 const Lottie = dynamic(() => import("lottie-react"));
-import confetti from "@/public/assets/lottie/confetti.json";
+import successAnimation from "@/public/assets/lottie/success_2.json";
 
 const OrderSuccess = ({ params }) => {
   const { order_id, locale } = params;
@@ -19,61 +18,62 @@ const OrderSuccess = ({ params }) => {
   // console.log(order);
   return (
     <div className="container min-h-screen">
-      <div className="w-[540px] mx-auto my-12 p-5 rounded-lg">
+      <div className="w-full md:w-[540px] mx-auto mt-12 lg:mt-28  mb-12 p-5 border border-slate-200">
         <div className="text-center font-bold">
-          <div className="relative flex-center my-4">
-            <div className="p-3 bg-green-100 rounded-[100%]">
-              <div className="bg-green-500 rounded-[100%] p-5 w-20">
-                <FaCheck className="text-white" size={36} />
-              </div>
-            </div>
-            <div className="absolute">
-              <Lottie animationData={confetti} loop={false} />
-            </div>
+          <div className="flex-center h-28">
+            <Lottie
+              animationData={successAnimation}
+              className="h-full"
+              loop={false}
+            />
           </div>
-          <h1 className="text-green-500 text-3xl font-title">
-            অর্ডার সফলভাবে সম্পন্ন হয়েছে!
+          <h1 className="text-slate-800 text-3xl font-title">
+            Order Successful!
           </h1>
           <h3 className="text-slate-800 text-2xl my-2">
-            সততা স্টোর থেকে কেনাকাটা করার জন্য আপনাকে আন্তরিকভাবে ধন্যবাদ৷
+            Thank you for ordering
           </h3>
         </div>
         {isLoading ? (
           <ArticleLoader />
         ) : (
           <div className="order-info">
-            <div className="order-info bg-slate-50 p-4 my-4">
+            <div className="order-info bg-slate-50 py-4 m-4 border-y border-slate-200">
               <div className="flex-between my-2">
-                <p>অর্ডার আইডি</p>
+                <p>Invoice No</p>
                 <p>{order?.invoice_no}</p>
               </div>
               <div className="flex-between my-2">
-                <p>অর্ডারের তারিখ</p>
+                <p>Date</p>
                 <p>{getBdFormattedDate(order?.sale_date)}</p>
               </div>
               <div className="border-b border-slate-700 my-2"></div>
               <div className="flex-between my-2 font-bold">
                 <p>
-                  প্রদেয় পরিমান{" "}
-                  <span className="bg-red-100 px-2 rounded-lg text-red-500">
-                    বাকি
-                  </span>
+                  Amount{" "}
+                  {order?.due_amount ? (
+                    <span className="bg-red-100 px-2 text-red-500">Due</span>
+                  ) : (
+                    <span className="bg-green-100 px-2 text-green-500">
+                      Paid
+                    </span>
+                  )}
                 </p>
-                <p>৳ {order?.due_amount}</p>
+                <p>Tk. {order?.due_amount}</p>
               </div>
             </div>
-            <div className="actions  my-6 flex gap-4 justify-between items-center">
+            <div className="actions px-4 my-6 flex flex-col md:flex-row gap-4 justify-between items-center">
               <Link
                 href={`/dashboard/my-orders/details/${order_id}`}
-                className="bg-secondary-700 py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+                className="border border-primary py-3 w-full px-6 text-center active:scale-95"
               >
-                অর্ডার ট্র্যাক করুন
+                View Order
               </Link>
               <Link
                 href={"/products"}
-                className="bg-primary py-3 w-full px-6 text-white rounded-lg text-center active:scale-95"
+                className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
               >
-                আরও শপিং করুন
+                Continue shopping
               </Link>
             </div>
           </div>

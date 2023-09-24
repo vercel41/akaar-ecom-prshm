@@ -38,13 +38,13 @@ const ContactForm = () => {
   };
 
   return (
-    <form className="basis-3/5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-control mb-4">
-        <label className="block text-base text-slate-900 mb-2">আপনার নাম</label>
+        <label className="block text-base text-slate-900 mb-2">Your Name</label>
         <input
           type="text"
           name="name"
-          placeholder="নাম লিখুন"
+          placeholder="Type your name"
           {...register("name", {
             required: "Name is required.",
           })}
@@ -53,12 +53,12 @@ const ContactForm = () => {
       </div>
       <div className="form-control mb-4">
         <label className="block text-base text-slate-900 mb-2">
-          আপনার ইমেইল (যদি থাকে)
+          Your Email
         </label>
         <input
           type="email"
           name="email"
-          placeholder="ইমেইল লিখুন"
+          placeholder="Type your email"
           {...register("email", {
             pattern: {
               value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
@@ -69,11 +69,11 @@ const ContactForm = () => {
         {errors.email && <p className="errorMsg">{errors.email.message}</p>}
       </div>
       <div className="form-control mb-4">
-        <label className="block text-base text-slate-900 mb-2">সাবজেক্ট</label>
+        <label className="block text-base text-slate-900 mb-2">Subject</label>
         <input
           type="text"
           name="subject"
-          placeholder="সাবজেক্ট লিখুন"
+          placeholder="Type subject"
           {...register("subject", {
             required: "Subject is required.",
           })}
@@ -81,22 +81,22 @@ const ContactForm = () => {
         {errors.subject && <p className="errorMsg">{errors.subject.message}</p>}
       </div>
       <div className="form-control mb-4">
-        <label className="block text-base text-slate-900 mb-2">মেসেজ</label>
+        <label className="block text-base text-slate-900 mb-2">Message</label>
         <textarea
           className="h-[148px]"
           type="text"
           name="msg"
-          placeholder="আপনার মেসেজ লিখুন"
+          placeholder="Type your message"
           {...register("msg", {
             required: "Message is required.",
           })}
         />
         {errors.msg && <p className="errorMsg">{errors.msg.message}</p>}
       </div>
-      <div className="form-control mt-11">
+      <div className="form-control mt-6">
         <label></label>
         <button type="submit" className="submit-btn">
-          মেসেজ পাঠান
+          Send
         </button>
       </div>
     </form>

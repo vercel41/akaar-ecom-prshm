@@ -26,7 +26,7 @@ const Timer = ({ targetDate }) => {
   return (
     <>
       <div className="sale-counter flex gap-3">
-        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333] rounded-lg">
+        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
             className="count-num text-base font-semibold font-title text-white"
             suppressHydrationWarning
@@ -35,7 +35,7 @@ const Timer = ({ targetDate }) => {
           </p>
           <p className="text-xs text-white">Day</p>
         </div>
-        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333] rounded-lg">
+        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
             className="count-num text-base font-semibold font-title text-white"
             suppressHydrationWarning
@@ -44,7 +44,7 @@ const Timer = ({ targetDate }) => {
           </p>
           <p className="text-xs text-white">Hours</p>
         </div>
-        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333] rounded-lg">
+        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
             className="count-num text-base font-semibold font-title text-white"
             suppressHydrationWarning
@@ -53,7 +53,7 @@ const Timer = ({ targetDate }) => {
           </p>
           <p className="text-xs text-white">Minutes</p>
         </div>
-        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333] rounded-lg">
+        <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
             className="count-num text-base font-semibold font-title text-white"
             suppressHydrationWarning

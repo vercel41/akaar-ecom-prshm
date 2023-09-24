@@ -1,12 +1,15 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import { ImWarning } from "react-icons/im";
 import handleSSLOrderPayLater from "@/utils/sslPay";
 import { setGlobalLoader } from "@/store/features/commonSlice";
+const Lottie = dynamic(() => import("lottie-react"));
+import failedAnimation from "@/public/assets/lottie/payment_failed.json";
 
 const PaymentFail = ({ params }) => {
   const dispatch = useDispatch();
@@ -19,56 +22,53 @@ const PaymentFail = ({ params }) => {
 
   return (
     <div className="container min-h-screen">
-      <div className="w-[540px] mx-auto my-12 p-5 rounded-lg font-title">
+      <div className="w-full md:w-[540px] mx-auto mt-12 lg:mt-28  mb-12 p-5 border border-slate-200">
         <div className="text-center">
-          <div className="flex-center my-3">
-            <div className="p-3 bg-red-100 rounded-[100%]">
-              <div className="text-red-500 rounded-[100%] p-5 w-20">
-                <ImWarning size={36} />
-              </div>
-            </div>
+          <div className="flex-center h-36">
+            <Lottie
+              animationData={failedAnimation}
+              className="h-full"
+              loop={false}
+            />
           </div>
-          <h1 className="text-red-500 text-4xl mt-8 font-bold">
-            পেমেন্ট অসম্পূর্ণ
+          <h1 className="text-red-500 text-4xl mt-2 font-bold">
+            Payment Failed
           </h1>
           <h3 className="text-slate-600 mt-2 text-xl">
-            সততা স্টোর থেকে আপনার অর্ডার নিশ্চিত করা হয়েছে, কিন্তু কোন কারণে
-            পেমেন্ট ব্যর্থ হয়েছে
+            Your order has been confirmed, but payment not complete
           </h3>
         </div>
         {isLoading ? (
           <ArticleLoader />
         ) : (
           <>
-            <div className="order-info bg-slate-100 p-4 my-4 text-center font-bold text-slate-600">
-              <p>আপনার অর্ডার আইডি: #{order?.invoice_no}</p>
-              <p>প্রদেয় পরিমান: ৳{order?.due_amount}</p>
-            </div>
-            <div className="text-center text-slate-600 text-xl">
-              <h3>
-                পেমেন্ট সম্পূর্ণ করতে পেমেন্ট বাটনে ক্লিক করুন <br />
-                অথবা, অর্ডারটির{" "}
-                <Link
-                  href={`/dashboard/my-orders/details/${order_id}`}
-                  className="text-secondary-700 active:scale-95 underline"
-                >
-                  বিস্তারিত দেখুন
-                </Link>
-              </h3>
-            </div>
-            <div className="order-info">
-              <div className="action my-5 flex justify-center">
-                <button
-                  onClick={() =>
-                    handleSSLOrderPayLater(order?.id, (loading) =>
-                      dispatch(setGlobalLoader(loading))
-                    )
-                  }
-                  className="bg-primary py-3 px-6 text-white rounded-lg text-center active:scale-95"
-                >
-                  পেমেন্ট করুন
-                </button>
+            <div className="order-info bg-slate-50 py-4 m-4 border-y border-slate-200">
+              <div className="flex-between my-2">
+                <p>Invoice No</p>
+                <p>{order?.invoice_no}</p>
               </div>
+              <div className="flex-between my-2">
+                <p>Due Amount</p>
+                <p>Tk.{order?.due_amount}</p>
+              </div>
+            </div>
+            <div className="order-actions px-4 my-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+              <Link
+                href={`/dashboard/my-orders/details/${order_id}`}
+                className="border border-primary py-3 w-full px-6 text-center active:scale-95"
+              >
+                View Order
+              </Link>
+              <button
+                onClick={() =>
+                  handleSSLOrderPayLater(order?.id, (loading) =>
+                    dispatch(setGlobalLoader(loading))
+                  )
+                }
+                className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
+              >
+                Make payment
+              </button>
             </div>
           </>
         )}

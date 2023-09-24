@@ -100,7 +100,7 @@ const SingleProduct = ({ product }) => {
                 </Link>
               </div>
             </div>
-            <div className="product-content-wrap p-3">
+            <div className="product-content-wrap p-1 sm:p-3">
               {/* <div className="">
                 <Link
                   href={`/brands/${brand?.id ? brand?.id : ""}`}
@@ -121,7 +121,7 @@ const SingleProduct = ({ product }) => {
               </h2>
               <div className="product-price mb-3 flex gap-2">
                 <span className="text-lg/[24px] font-semibold">
-                  tk. {new_price}
+                  Tk. {new_price}
                 </span>
                 {typeof discount_percentage === "number" &&
                 discount_percentage > 0 ? (
@@ -147,10 +147,10 @@ const SingleProduct = ({ product }) => {
                   </span>
                 </div> */}
 
-              <div className="product-actions flex justify-between items-center gap-2">
+              <div className="product-actions flex justify-between items-center gap-1 sm:gap-2">
                 <button
                   aria-label="Add To Cart"
-                  className="action-btn"
+                  className="action-btn p-1"
                   onClick={(e) => handleAddToCart(product)}
                 >
                   <HiOutlineShoppingCart
