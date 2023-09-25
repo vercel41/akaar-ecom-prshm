@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
-import { ImWarning } from "react-icons/im";
 import handleSSLOrderPayLater from "@/utils/sslPay";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 const Lottie = dynamic(() => import("lottie-react"));

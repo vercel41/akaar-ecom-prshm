@@ -36,13 +36,13 @@ const SaleProductCard = ({ saleProduct }) => {
             </div>
           )}
           <div className="flex products-center justify-between text-sm">
-            <h3 className="text-lg font-bold">
-              Tk. {saleProduct.price} x {saleProduct.qty} পিস
+            <h3 className="text-lg">
+              Tk. {saleProduct.price} x {saleProduct.qty}
             </h3>
             <div className="flex items-center gap-1 text-primary cursor-pointer">
               {/* <del className="text-lg text-slate-300">Tk.2,984</del> */}
-              <h3 className="text-lg text-red-500">
-                Tk. {saleProduct.price * saleProduct.qty}
+              <h3 className="text-lg">
+                Tk.{saleProduct.price * saleProduct.qty}
               </h3>
             </div>
           </div>

@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import SingleProductList from "./SingleProductList";
 import { useParams } from "next/navigation";
 import {
   useAddToVisitedMutation,
   useGetVisitedProductsQuery,
 } from "@/store/features/api/visitedProductsAPI";
+import SingleProduct from "./SingleProduct";
 
 const LastVisitedProducts = ({ visitedProductId }) => {
   const { locale } = useParams();
@@ -43,7 +43,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
         <div className="products-wpr grid grid-cols-4 gap-4">
           {visitedProducts?.map((product, i) => (
             <div key={i}>
-              <SingleProductList isHistory={true} product={product} />
+              <SingleProduct product={product} />
             </div>
           ))}
         </div>

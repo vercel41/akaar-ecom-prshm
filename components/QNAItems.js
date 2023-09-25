@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import QAItem from "./elements/QAItem";
 import { useGetFaqsQuery } from "@/store/features/api/faqsAPI";
 import ItemsListLoader from "./elements/loaders/ItemsListLoader";

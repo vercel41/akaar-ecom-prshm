@@ -118,7 +118,7 @@ const Checkout = () => {
       alt_address: data.addressLine + ", " + data.city + ", " + data.country,
       order_items: getOrderFormattedCartItems(cart),
       payment_type: payOption.key,
-      delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
+      delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
       delivery_charge: isDeliveryCharge ? deliveryMethod.charges : 0,
       coupon: discountCoupon?.code || null,
       coupon_discount: discountedPrice,
@@ -129,7 +129,7 @@ const Checkout = () => {
         : totalWithDiscount,
       // note: "",
     };
-    // console.log(newOrder);
+    console.log(newOrder);
 
     if (payOption.key == "Online") {
       try {

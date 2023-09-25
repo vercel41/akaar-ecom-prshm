@@ -37,8 +37,8 @@ const Footer = async () => {
                     </li>
                     <li>
                       <BsFillTelephoneFill size={14} />
-                      <Link href={`tel:${settings?.phone}`}>
-                        {settings?.phone}
+                      <Link href={`tel:${settings?.phone[0]}`}>
+                        {settings?.phone[0]}
                       </Link>
                     </li>
                     <li>

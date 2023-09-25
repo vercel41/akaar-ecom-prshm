@@ -7,20 +7,20 @@ import QNAItems from "@/components/QNAItems";
 const QnA = () => {
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 py-5 border-b border-slate-200">
+      <div className="breadcrumb breadcrumb-2 py-5">
         <div className="container">
           <div>
             <Link
               href={`/`}
               className="text-base text-slate-600 hover:text-secondary"
             >
-              হোম
+              Home
             </Link>
             <Link
               href={`/help/qna`}
               className="text-base text-slate-900 hover:text-secondary"
             >
-              প্রশ্ন ও উত্তর
+              QNA
             </Link>
           </div>
         </div>
@@ -29,13 +29,13 @@ const QnA = () => {
       <div className="container">
         <div className="qna mb-20">
           <div className="heading border-b border-slate-200 py-4 mb-6">
-            <h3 className="text-4xl/[48px] font-bold font-title text-slate-900">
-              প্রশ্ন ও উত্তর
+            <h3 className="text-3xl font-thin font-title text-slate-900">
+              Contact Us
             </h3>
           </div>
           <QNAItems />
         </div>
-        <div className="contact border-t border-slate-200 py-5 text-center mb-10">
+        {/* <div className="contact border-t border-slate-200 py-5 text-center mb-10">
           <p className="flex justify-center items-center gap-5 bg-amber-200 border border-primary rounded-xl p-4">
             <span className="text-xl font-bold font-title text-slate-900">
               যে কোন জিজ্ঞাসা বা অর্ডার করতে আমাদের কল করুন:
@@ -54,7 +54,7 @@ const QnA = () => {
               <BsFillTelephoneFill /> 01720060977
             </Link>
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );

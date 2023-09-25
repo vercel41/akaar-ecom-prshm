@@ -10,7 +10,7 @@ import OrderTracking from "./OrderTracking";
 import SaleProductCard from "./SaleProductCard";
 import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
-import { getBdFormattedDate } from "@/utils/formatDate";
+import { getFormattedDate } from "@/utils/formatDate";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 import handleSSLOrderPayLater from "@/utils/sslPay";
 import locationImage from "@/public/assets/images/locationImage.png";
@@ -30,7 +30,7 @@ const OrderDetail = ({ params }) => {
       <h2 className="text-slate-600 text-2xl text-center md:text-start">
         Order View
       </h2>
-      <div className="content text-slate-700 pt-8">
+      <div className="content text-slate-700">
         {/* <OrderTracking orderData={orderData} isLoading={isLoading} /> */}
         <div className="bg-white py-4 mt-5">
           <h3 className="text-xl font-bold font-title mb-4">Products</h3>
@@ -81,7 +81,7 @@ const OrderDetail = ({ params }) => {
               </div>
               <div className="flex-between my-2">
                 <p>Date</p>
-                <p>{getBdFormattedDate(sale.sale_date)}</p>
+                <p>{getFormattedDate(sale.sale_date)}</p>
               </div>
 
               <div className="flex-between my-2">
@@ -129,7 +129,7 @@ const OrderDetail = ({ params }) => {
                         dispatch(setGlobalLoader(loading))
                       )
                     }
-                    className="border border-primary py-2 px-4 mb-3 mt-5 text-white text-center active:scale-95"
+                    className="border border-primary py-2 px-4 mb-3 mt-5 text-center active:scale-95"
                   >
                     Make Payment
                   </button>

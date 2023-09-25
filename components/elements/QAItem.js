@@ -10,7 +10,7 @@ const QAItem = ({ item, open, toggleOpen }) => {
       <div
         className={`single-qna border ${
           open ? "border-primary" : "border-slate-200"
-        }  rounded-xl p-3 mb-4`}
+        } p-3 mb-4`}
       >
         <div
           className="flex justify-between items-center cursor-pointer"

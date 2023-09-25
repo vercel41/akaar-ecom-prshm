@@ -50,15 +50,25 @@ const ContactUs = async () => {
                   <FaMapMarkerAlt size={20} />
                   <p className="pr-4">{settings.address}</p>
                 </li>
-                <li className="flex items-center gap-2 mb-4">
-                  <BsFillTelephoneFill size={16} />
-                  <Link href={`tel:${settings.phone}`}>{settings.phone}</Link>
+                <li className="flex items-center flex-wrap gap-2 mb-4">
+                  <BsFillTelephoneFill ize={16} />
+                  {settings?.phone?.map((e, index) => (
+                    <Link key={index} href={`tel:${settings?.phone[index]}`}>
+                      {`${settings?.phone[index]}${
+                        index + 1 < settings.phone.length ? "," : ""
+                      }`}
+                    </Link>
+                  ))}
                 </li>
-                <li className="flex items-center gap-2 mb-4">
+                <li className="flex items-center flex-wrap gap-2 mb-4">
                   <FaEnvelope ize={16} />
-                  <Link href={`mailto:${settings.email}`}>
-                    {settings.email}
-                  </Link>
+                  {settings?.email?.map((e, index) => (
+                    <Link key={index} href={`mailto:${settings?.email[index]}`}>
+                      {`${settings?.email[index]}${
+                        index + 1 < settings.email.length ? "," : ""
+                      }`}
+                    </Link>
+                  ))}
                 </li>
               </ul>
               <div className="[&>div>iframe]:w-full">

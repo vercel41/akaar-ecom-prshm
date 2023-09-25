@@ -192,29 +192,27 @@ const ProductDetails = ({ product, settings }) => {
                 </h4>
                 <ViewHTML htmlText={product?.details} />
               </div>
-              <div className="mt-8">
-                <h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
-                  Product Included
-                </h4>
-                <Image
-                  src={
-                    product?.product_includes ||
-                    `/assets/images/shop/accessories.jpg`
-                  }
-                  alt="Insta 360"
-                  width={628}
-                  height={510}
-                  className="w-full h-[510px]"
-                />
-              </div>
-
+              {product.includedProducts.length ? (
+                <div className="mt-8">
+                  <h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
+                    Product Included
+                  </h4>
+                  <Image
+                    src={product.includedProducts[0]?.image}
+                    alt="Insta 360"
+                    width={628}
+                    height={510}
+                    className="w-full h-[510px]"
+                  />
+                </div>
+              ) : null}
               {product?.review_video && (
                 <div className="mt-8">
                   <h4 className="text-2xl font-bold font-title text-slate-900">
                     Review Video
                   </h4>
                   {/* [&>div>iframe]:rounded-xl relative */}
-                  <div className="slider-imag mt-4">
+                  <div className="slider-imag mt-4 [&>div>iframe]:w-full">
                     <ViewHTML htmlText={product?.review_video} />
                   </div>
                 </div>
@@ -227,10 +225,10 @@ const ProductDetails = ({ product, settings }) => {
                 <p className="flex justify-center items-center gap-4">
                   <span className="text-base text-slate-900">Call Now:</span>{" "}
                   <Link
-                    href={`tel:${settings?.phone}`}
+                    href={`tel:${settings?.phone[0]}`}
                     className="text-2xl font-bold font-title text-primary"
                   >
-                    <BsFillTelephoneFill /> {settings?.phone}
+                    <BsFillTelephoneFill /> {settings?.phone[0]}
                   </Link>
                 </p>
               </div>

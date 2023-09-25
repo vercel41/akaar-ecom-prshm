@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
-import { getBdFormattedDate } from "@/utils/formatDate";
+import { getFormattedDate } from "@/utils/formatDate";
 const Lottie = dynamic(() => import("lottie-react"));
 import successAnimation from "@/public/assets/lottie/success_2.json";
 
@@ -41,11 +41,11 @@ const OrderSuccess = ({ params }) => {
             <div className="order-info bg-slate-50 py-4 m-4 border-y border-slate-200">
               <div className="flex-between my-2">
                 <p>Invoice No</p>
-                <p>{order?.invoice_no}</p>
+                <p>#{order?.invoice_no}</p>
               </div>
               <div className="flex-between my-2">
                 <p>Date</p>
-                <p>{getBdFormattedDate(order?.sale_date)}</p>
+                <p>{getFormattedDate(order?.sale_date)}</p>
               </div>
               <div className="border-b border-slate-700 my-2"></div>
               <div className="flex-between my-2 font-bold">
@@ -59,7 +59,10 @@ const OrderSuccess = ({ params }) => {
                     </span>
                   )}
                 </p>
-                <p>Tk. {order?.due_amount}</p>
+                <p>
+                  Tk.
+                  {order?.due_amount ? order?.due_amount : order?.total_amount}
+                </p>
               </div>
             </div>
             <div className="actions px-4 my-6 flex flex-col md:flex-row gap-4 justify-between items-center">
