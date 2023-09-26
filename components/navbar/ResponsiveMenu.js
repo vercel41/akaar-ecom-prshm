@@ -64,12 +64,12 @@ export default function ResponsiveMenu({ settings }) {
       {menuOpen && (
         <div
           ref={megaMenuRef}
-          className="absolute z-30 left-0 top-full bg-secondary shadow-lg w-full lg:hidden"
+          className="absolute z-30 left-0 top-full bg-primary shadow-lg w-full lg:hidden"
         >
           <div className="container py-8 pl-8">
             <div className="nav-menu flex flex-col gap-4 items-center">
               {Object.keys(headerPage).map((key) => (
-                <Link key={key} href={headerPage[key]}>
+                <Link key={key} href={headerPage[key]} onClick={closeMenu}>
                   <span className="inline-block h-full text-white hover:text-secondary font-semibold uppercase">
                     {key}
                   </span>

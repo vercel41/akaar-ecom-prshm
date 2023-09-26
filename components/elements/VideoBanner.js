@@ -16,23 +16,23 @@ const VideoBanner = async () => {
   return (
     <>
       <div
-        className="bg-no-repeat bg-cover py-12"
+        className="bg-no-repeat bg-cover px-6 py-10 md:p-12"
         style={{
           backgroundImage: `url(${settings.home_review_banner})`,
         }}
       >
         <div className="content text-center">
-          <h3 className="text-4xl/[48px] font-bold font-title text-white">
+          <h3 className="text-3xl lg:text-4xl/[48px] font-bold font-title text-white">
             Check out some review videos of our latest products
           </h3>
-          <p className="max-w-sm text-lg font-normal text-white my-7 mx-auto">
+          <p className="max-w-sm text-lg font-normal text-white my-5 mx-auto">
             You can also find reviews of all products on our official YouTube
             channel
           </p>
           <Link
             href={settings?.youtube_link || "https://youtube.com"}
             target="_blank"
-            className="inline-block text-lg/[26px] font-semibold text-white bg-primary p-3 rounded-lg"
+            className="inline-block text-lg/[26px] font-semibold text-primary hover:text-secondary border-2 border-primary hover:border-secondary p-3"
           >
             <HiPlay className="mr-1" />
             Watch Our Review Videos

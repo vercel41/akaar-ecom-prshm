@@ -50,7 +50,7 @@ export default function ResponsiveSearch() {
       {searchOpen && (
         <div
           ref={searchMenuRef}
-          className="absolute z-30 left-0 top-full bg-secondary shadow-lg w-full lg:hidden"
+          className="absolute z-30 left-0 top-full bg-primary shadow-lg w-full lg:hidden"
         >
           <div className="container flex justify-center py-8 pl-8">
             <Search />

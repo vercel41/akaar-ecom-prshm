@@ -1,9 +1,5 @@
-import Image from "next/image";
-
 import Intro from "@/components/Intro";
 import FlashSale from "@/components/FlashSale";
-import BestSell from "@/components/BestSell";
-import AllProducts from "@/components/products/AllProducts";
 import NewArrival from "@/components/NewArrival";
 import Brands from "@/components/Brands";
 import Link from "next/link";

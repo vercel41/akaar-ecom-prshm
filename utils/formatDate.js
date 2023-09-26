@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 
 /**
  * The function `getBdFormattedDate` takes a date as input and returns the formatted date in the
@@ -46,4 +46,16 @@ export const getBdFormattedDateTime = (date) => {
   const formattedTime = new Date(date).toLocaleString("bn-BD", optionsTime);
 
   return `${formattedDate} - ${formattedTime}`;
+};
+
+/**
+ * The function calculates the number of days that have passed since a given date.
+ * @param createdAt - The `createdAt` parameter is a date representing the creation date of an object
+ * or entity.
+ * @returns The function `getDaysSinceCreation` returns the number of days that have passed since the
+ * `createdAt` date.
+ */
+export const getDaysSinceCreation = (createdAt) => {
+  const days = differenceInDays(new Date(), new Date(createdAt));
+  return days;
 };

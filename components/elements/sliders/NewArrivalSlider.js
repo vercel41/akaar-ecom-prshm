@@ -17,7 +17,7 @@ const NewArrivalSlider = ({ newProducts }) => {
           0: {
             slidesPerView: 1,
           },
-          640: {
+          540: {
             slidesPerView: 2,
           },
           768: {
@@ -33,6 +33,7 @@ const NewArrivalSlider = ({ newProducts }) => {
           prevEl: ".custom_prev_b",
           nextEl: ".custom_next_b",
         }}
+        // centeredSlides={true}
       >
         {newProducts?.map((product, i) => (
           <SwiperSlide key={i}>

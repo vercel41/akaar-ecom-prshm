@@ -188,7 +188,9 @@ const Footer = async () => {
               <ul className="widget-list">
                 {Object.keys(helpPage).map((key) => (
                   <li key={key}>
-                    <Link href={helpPage[key]}>{key}</Link>
+                    <Link className="hover:text-secondary" href={helpPage[key]}>
+                      {key}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -198,7 +200,12 @@ const Footer = async () => {
               <ul className="widget-list">
                 {Object.keys(footerPage).map((key) => (
                   <li key={key}>
-                    <Link href={footerPage[key]}>{key}</Link>
+                    <Link
+                      className="hover:text-secondary"
+                      href={footerPage[key]}
+                    >
+                      {key}
+                    </Link>
                   </li>
                 ))}
               </ul>

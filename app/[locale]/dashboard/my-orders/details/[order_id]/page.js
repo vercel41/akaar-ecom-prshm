@@ -119,7 +119,9 @@ const OrderDetail = ({ params }) => {
                       : "Paid"}
                   </span>
                 </p>
-                <p>Tk.{sale.due_amount}</p>
+                <p>
+                  Tk.{sale.due_amount ? sale.due_amount : sale.total_amount}
+                </p>
               </div>
               <div className="actions mt-14 flex justify-center  items-center">
                 {sale.due_amount > 0 && sale.payment_type !== "COD" ? (

@@ -17,7 +17,7 @@ const FlashSale = ({ saleProducts }) => {
           0: {
             slidesPerView: 1,
           },
-          640: {
+          540: {
             slidesPerView: 2,
           },
           768: {
@@ -36,7 +36,7 @@ const FlashSale = ({ saleProducts }) => {
       >
         {saleProducts?.map((product, i) => (
           <SwiperSlide key={i}>
-            <SingleProduct product={product} />
+            <SingleProduct product={product} isFlashSale />
           </SwiperSlide>
         ))}
       </Swiper>

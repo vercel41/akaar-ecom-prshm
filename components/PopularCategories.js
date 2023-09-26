@@ -12,14 +12,14 @@ const PopularCategories = async () => {
         <div key={category.id} href="#" className="bg-white py-6 px-4">
           <Link
             href={`/categories/${category.slug}`}
-            className="flex items-center gap-4"
+            className="flex items-center gap-4 hover:scale-105 hover:text-secondary"
           >
             <Image
               src={category?.icon || noImage}
               alt={category.category_name}
               width={50}
               height={50}
-              className="w-[50px] h-[auto] object-contain hover:scale-110"
+              className="w-[50px] h-[auto] object-contain"
             />
             <h5>{category.category_name}</h5>
           </Link>

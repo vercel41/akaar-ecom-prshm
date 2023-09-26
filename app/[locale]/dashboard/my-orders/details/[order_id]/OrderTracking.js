@@ -52,7 +52,7 @@ export default function OrderTracking({ orderData, isLoading }) {
             <OrderStep
               date={saleStatus?.Pending?.created_at}
               title={"অর্ডার প্লেসড"}
-              message={`আপনার অর্ডার সফলভাবে সততা স্টোরে এ প্লেসড হয়েছে৷ আপনার অর্ডার
+              message={`আপনার অর্ডার সফলভাবে প্লেসড হয়েছে৷ আপনার অর্ডার
             আইডি #${orderData?.sale?.invoice_no}`}
               isComplete={saleStatus?.Pending}
             />

@@ -7,11 +7,16 @@ import { useGetOrdersQuery } from "@/store/features/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 import { getFormattedDate } from "@/utils/formatDate";
 import Link from "next/link";
-import { AiFillEye } from "react-icons/ai";
+import handleSSLOrderPayLater from "@/utils/sslPay";
+import { useDispatch } from "react-redux";
+import { setGlobalLoader } from "@/store/features/commonSlice";
+// import { AiFillEye } from "react-icons/ai";
 
 const MyOrders = () => {
   const { data: ordersData, isLoading } = useGetOrdersQuery();
   const myOrders = ordersData?.data || [];
+  const dispatch = useDispatch();
+  console.log(myOrders);
   return (
     <div className="py-6">
       <h2 className="text-slate-600 text-2xl text-center md:text-start">
@@ -77,7 +82,24 @@ const MyOrders = () => {
                             {order.status}
                           </td>
                           <td class="whitespace-nowrap border-r px-6 py-4">
-                            {order.payment_type}
+                            {order.payment_type === "COD" ? (
+                              "Cash on Delivery"
+                            ) : order.due_amount > 0 ? (
+                              <button
+                                onClick={() =>
+                                  handleSSLOrderPayLater(order.id, (loading) =>
+                                    dispatch(setGlobalLoader(loading))
+                                  )
+                                }
+                              >
+                                Online{" "}
+                                <span className="text-red-500 text-xs">
+                                  (Payment Failed)
+                                </span>
+                              </button>
+                            ) : (
+                              "Online"
+                            )}
                           </td>
                           {/* <td class="whitespace-nowrap border-r px-6 py-4">
                             <Link

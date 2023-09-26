@@ -42,15 +42,11 @@ const IntroSlider = ({ sliders }) => {
                       {slide?.text}
                     </h2>
                     <Link
-                      href={slide?.url}
-                      className="inline-block w-44 h-12 text-white bg-primary text-center leading-[48px]"
+                      href={slide?.url || "/products"}
+                      className="inline-block w-44 h-12 text-white hover:text-secondary  bg-primary text-center leading-[48px]"
                     >
                       See All{" "}
-                      <HiChevronRight
-                        size={20}
-                        color="#fff"
-                        className="inline align-sub"
-                      />
+                      <HiChevronRight size={20} className="inline align-sub" />
                     </Link>
                   </div>
                 </div>

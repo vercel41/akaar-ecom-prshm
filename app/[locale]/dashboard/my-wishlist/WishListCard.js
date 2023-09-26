@@ -110,7 +110,7 @@ const WishListCard = ({ product }) => {
             ) : (
               <Link
                 href={`/categories/${product.category?.slug}`}
-                className="text-primary font-bold border border-primary py-2 px-3 active:scale-95 cursor-pointer"
+                className="text-primary text-center font-bold border border-primary py-2 px-3 active:scale-95 cursor-pointer"
               >
                 Similar Products
               </Link>

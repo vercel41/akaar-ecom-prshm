@@ -84,18 +84,6 @@
   @apply inline-flex justify-center items-center w-full gap-2 py-2 px-8 rounded-full border border-slate-300;
 }
 
-.slider-btn {
-  @apply absolute top-1/2 left-5 inline-flex justify-center items-center w-12 h-12 bg-[#F8FAFC] rounded-lg transform -translate-y-12 z-10 cursor-pointer;
-}
-
-.slider-next {
-  @apply left-auto right-5;
-}
-
-.swiper-button-disabled {
-  @apply text-slate-200;
-}
-
 .overflow-text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -196,10 +184,6 @@
   @apply text-center  text-base/[16px] font-semibold font-title text-white bg-primary w-[168px] py-2 active:scale-95;
 }
 
-.new-slider .swiper-slide .product-card-wrap:first-of-type {
-  @apply mb-5;
-}
-
 /* From common classes  */
 .form-control input,
 .form-control textarea {
@@ -217,11 +201,24 @@
   @apply w-[240px] text-lg font-semibold font-title text-white bg-primary py-3 active:scale-95;
 }
 
-.errorMsg {
-  @apply text-base text-red-500 mt-2;
+/* Swiper  slider*/
+
+.slider-btn {
+  @apply absolute top-1/2 left-5 inline-flex justify-center items-center w-12 h-12 bg-[#F8FAFC] rounded-full transform -translate-y-12 z-10 cursor-pointer;
 }
 
-/* Product Thumb Slider */
+.slider-next {
+  @apply left-auto right-5;
+}
+
+.swiper-button-disabled {
+  @apply hidden;
+}
+
+.new-slider .swiper-slide .product-card-wrap:first-of-type {
+  @apply mb-5;
+}
+/* Swiper Thumb Slider */
 
 .slider {
   @apply grid grid-cols-[64px_1fr] items-start;
@@ -301,11 +298,13 @@
   @apply text-white mb-3;
 }
 
+/* common classes */
 .ReactCollapse__collapse {
   transition: height 300ms;
 }
-
-/* common classes */
+.errorMsg {
+  @apply text-base text-red-500 mt-2;
+}
 .flex-center {
   @apply flex justify-center items-center;
 }
