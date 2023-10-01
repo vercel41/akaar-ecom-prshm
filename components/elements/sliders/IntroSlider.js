@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, EffectFade } from "swiper/modules";
 
 // ** Import Iocns
 import { HiChevronRight } from "react-icons/hi2";
@@ -11,18 +11,20 @@ const IntroSlider = ({ sliders }) => {
   return (
     <>
       <Swiper
-        modules={[Pagination, Autoplay]}
+        modules={[Pagination, Autoplay, EffectFade]}
         slidesPerView={1}
         spaceBetween={0}
         loop={true}
         pagination={{ clickable: true }}
         className="hero-slider"
         autoplay={{ delay: 3000 }}
+        effect="fade"
+        speed={1200}
       >
         {sliders.map((slide, i) => (
           <SwiperSlide key={i}>
             <div
-              className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[100vh] bg-cover"
+              className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[90vh] bg-cover bg-center"
               style={{
                 backgroundImage: slide?.image
                   ? `url(${slide?.image})`

@@ -16,6 +16,7 @@ import ReduxProvider from "@/store/ReduxProvider";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 
 import Cart from "@/components/side-drawers/Cart";

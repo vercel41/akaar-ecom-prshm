@@ -58,17 +58,17 @@ const ProductDetails = ({ product, settings }) => {
               <p className="text-sm font-bold text-primary capitalize mb-2">
                 {product?.brand?.brand_name || "No Brand"}
               </p>
-              <h5 className="text-2xl font-title text-slate-900">
+              <h5 className="text-2xl font-title font-bold text-slate-900">
                 {getSlicedText(product?.product_name, 100)}
               </h5>
               <div className="product-price flex items-center gap-4 py-4">
                 <span className="text-xl font-title text-slate-900">
-                  tk. {product?.new_price || "0.00"}{" "}
+                  Tk.{product?.new_price || "0.00"}{" "}
                 </span>
                 {product?.discount_percentage > 0 ? (
                   <>
                     <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                      {product?.old_price ? `${product?.old_price}` : "0.00"}
+                      Tk.{product?.old_price ? `${product?.old_price}` : "0.00"}
                     </del>
                   </>
                 ) : null}

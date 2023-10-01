@@ -36,9 +36,12 @@ const DashboardLayout = ({ children, params }) => {
               <p className="my-1">Hello Customer</p>
               <p className="my-1">Welcome to your Style Mart Brand account.</p>
             </div>
-            <button className="border px-3 border-primary py-2 hover:text-secondary hover:border-secondary active:scale-95">
+            <Link
+              href={"/products"}
+              className="border px-3 border-primary py-2 hover:text-secondary hover:border-secondary active:scale-95"
+            >
               Go to shopping
-            </button>
+            </Link>
           </div>
           <nav className="text-slate-500 border-y border-slate-200 mt-8 lg:mt-6">
             <ul className="w-full flex justify-evenly md:justify-around">

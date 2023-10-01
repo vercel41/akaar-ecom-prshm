@@ -135,13 +135,13 @@ const SingleProduct = ({ product, isFlashSale }) => {
               </h2>
               <div className="product-price mb-3 flex gap-2">
                 <span className="text-lg/[24px] font-semibold">
-                  Tk. {new_price}
+                  Tk.{new_price}
                 </span>
                 {typeof discount_percentage === "number" &&
                 discount_percentage > 0 ? (
                   <>
                     <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                      {old_price}
+                      Tk.{old_price}
                     </del>
                     {/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
                         -{getFractionFixed(discount_percentage)}%

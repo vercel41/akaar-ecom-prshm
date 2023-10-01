@@ -22,14 +22,14 @@ const DynamicPage = async ({ params }) => {
 
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 py-5 border-b border-slate-200">
+      <div className="breadcrumb breadcrumb-2 py-5">
         <div className="container">
           <div>
             <Link
               href={`/`}
               className="text-base text-slate-600 hover:text-secondary"
             >
-              হোম
+              Home
             </Link>
             <Link
               href={`pages/${page.slug}`}
@@ -45,7 +45,7 @@ const DynamicPage = async ({ params }) => {
         <div className="mb-4">
           <ViewHTML htmlText={page.description} />
         </div>
-        <div className="contact border-t border-slate-200 py-8 text-center flex justify-center">
+        {/* <div className="contact border-t border-slate-200 py-8 text-center flex justify-center">
           <div className="w-3/4 flex justify-center items-center gap-5 bg-amber-200 border border-primary rounded-xl p-4">
             <span className="text-xl font-bold font-title text-slate-900">
               যে কোন জিজ্ঞাসা বা অর্ডার করতে আমাদের কল করুন:
@@ -64,7 +64,7 @@ const DynamicPage = async ({ params }) => {
               <BsFillTelephoneFill /> 01720060977
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
