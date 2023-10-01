@@ -67,11 +67,11 @@ const ProductSelect = () => {
               {selectedProduct?.brand?.brand_name || "No Brand"}
             </h5>
             <div className="mt-3 flex gap-3 items-center">
-              <h3 className="text-xl">tk. {selectedProduct?.new_price || 0}</h3>
+              <h3 className="text-xl">Tk.{selectedProduct?.new_price || 0}</h3>
               {typeof selectedProduct?.discount_percentage === "number" &&
               selectedProduct?.discount_percentage > 0 ? (
                 <del className="text-xl text-slate-300">
-                  {selectedProduct?.old_price}
+                  Tk.{selectedProduct?.old_price}
                 </del>
               ) : null}
             </div>

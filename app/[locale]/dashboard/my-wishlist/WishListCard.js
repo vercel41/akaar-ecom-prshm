@@ -91,11 +91,11 @@ const WishListCard = ({ product }) => {
                 stockOut ? "opacity-50" : ""
               }`}
             >
-              <h3 className="text-xl">Tk. {new_price}</h3>
+              <h3 className="text-xl">Tk.{new_price}</h3>
               {typeof discount_percentage === "number" &&
               discount_percentage > 0 ? (
                 <>
-                  <del className="text-xl text-slate-300">{old_price}</del>
+                  <del className="text-xl text-slate-300">Tk.{old_price}</del>
                 </>
               ) : null}
             </div>

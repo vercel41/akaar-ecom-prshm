@@ -1,8 +1,11 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useContactNowMutation } from "@/store/features/api/contactAPI";
 
 const ContactForm = () => {
+  const [contactNow] = useContactNowMutation();
   const {
     register,
     handleSubmit,
@@ -10,31 +13,27 @@ const ContactForm = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data, event) => {
-    event.preventDefault();
+  const onSubmit = async (data) => {
+    const newMessage = {
+      name: data.name,
+      email: data.email,
+      // phone: data.subject,
+      subject: data.subject,
+      message: data.msg,
+    };
+    // console.log(newMessage);
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.ok) {
-      console.log("Message sent successfully", data);
-      // reset the form
-      reset({
-        name: "",
-        email: "",
-        subject: "",
-        msg: "",
+    contactNow(newMessage)
+      .unwrap()
+      .then((response) => {
+        // Handle the successful response if necessary
+        toast.success("Thanks for contacting us! We'll get back to you soon.");
+      })
+      .catch((error) => {
+        // Handle the error if necessary
+        toast.error("Failed to send your message");
+        console.log(error);
       });
-    }
-
-    if (!response.ok) {
-      console.log("Error sending message");
-    }
   };
 
   return (
@@ -94,9 +93,8 @@ const ContactForm = () => {
         {errors.msg && <p className="errorMsg">{errors.msg.message}</p>}
       </div>
       <div className="form-control mt-6">
-        <label></label>
         <button type="submit" className="submit-btn">
-          Send
+          Send Message
         </button>
       </div>
     </form>
