@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -48,7 +49,7 @@
 
 @layer components {
   .container {
-    @apply xl:max-w-[1276px];
+    @apply md:px-5 2xl:max-w-[1276px];
   }
 }
 
@@ -59,7 +60,7 @@
 }
 
 .search-input {
-  @apply border-r-0 hover:border-0 rounded-l-lg focus:border-0 py-0 h-9;
+  @apply border-r-0 rounded-l-lg focus:border-slate-300 py-0 h-9;
 }
 .search-btn {
   @apply absolute w-12 h-9 bg-transparent text-secondary rounded-e-lg outline-none text-center;
@@ -124,7 +125,7 @@
 
 .nav-menu a,
 .nav-menu .menuBtn {
-  @apply text-base text-white  ease-in duration-100 hover:text-secondary;
+  @apply text-sm text-white  ease-in duration-100 hover:text-primary;
 }
 
 /* since nested groupes are not supported we have to use 
@@ -144,7 +145,7 @@
 }
 
 .nav-search {
-  width: 30rem;
+  width: 20rem;
 }
 
 .nav-search input {

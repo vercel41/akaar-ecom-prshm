@@ -11,6 +11,7 @@ import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
 import { getDaysSinceCreation } from "@/utils/formatDate";
 import { getSalePercent } from "@/utils/getPercent";
+import noImage from "@/public/assets/images/no-image.png";
 
 import {
   HiOutlineHeart,
@@ -49,19 +50,29 @@ const SingleProduct = ({ product, isFlashSale }) => {
   }, [product]);
 
   const handleAddToCart = (product) => {
+    if (stock_qty === 0) {
+      toast.error("stock out");
+      return;
+    }
     if (productVariants?.length) {
       dispatch(addToSelected(product));
     } else {
       dispatch(addToCart(product));
+      toast.success("Added to cart");
     }
   };
 
   // Buy Now action
   const handleCheckout = (product) => {
+    if (stock_qty === 0) {
+      toast.error("stock out");
+      return;
+    }
     if (productVariants.length) {
       dispatch(addToSelected(product));
     } else {
       dispatch(addToCart(product));
+      toast.success("Added to cart");
       router.push("/checkout");
     }
   };
@@ -83,7 +94,7 @@ const SingleProduct = ({ product, isFlashSale }) => {
       {!loading ? (
         <>
           <div className="product-card-wrap bg-white border border-slate-200">
-            <div className="product-img-action-wrap relative">
+            <div className="product-img-action-wrap relative @container">
               {getDaysSinceCreation(created_at) < 8 && (
                 <div className="absolute top-2 left-2 z-20">
                   <span className="bg-primary text-sm px-1 text-white active:scale-90">
@@ -101,12 +112,12 @@ const SingleProduct = ({ product, isFlashSale }) => {
                 </button>
               </div>
               <div
-                className={`product-img border-b-2 overflow-hidden max-h-[400px]`}
+                className={`product-img border-b-2 overflow-hidden @[200px]:h-[300px] @[250px]:h-[400px]`}
               >
                 <Link href="/products/[slug]" as={`/products/${slug}`}>
                   <Image
                     className="default-img h-full w-full hover:scale-125 transition-all duration-300 ease-in-out"
-                    src={image || "/assets/images/no-image.png"}
+                    src={image || noImage}
                     alt={product_name}
                     width={226}
                     height={400}
@@ -128,26 +139,33 @@ const SingleProduct = ({ product, isFlashSale }) => {
               <h2>
                 <Link
                   href={`/products/${slug}`}
-                  className="product-title text-base font-semibold text-slate-900 font-body overflow-text"
+                  className="product-title text-base text-slate-900 font-body overflow-text"
                 >
                   {product_name}
                 </Link>
               </h2>
-              <div className="product-price mb-3 flex gap-2">
-                <span className="text-lg/[24px] font-semibold">
+              <div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2 md:justify-between">
+                <span className="font-semibold text-lg/[24px]">
                   Tk.{new_price}
-                </span>
-                {typeof discount_percentage === "number" &&
-                discount_percentage > 0 ? (
-                  <>
-                    <del className="old-price text-lg/[24px] font-normal text-slate-400">
-                      Tk.{old_price}
-                    </del>
-                    {/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
+                  {typeof discount_percentage === "number" &&
+                  discount_percentage > 0 ? (
+                    <>
+                      <del className="pl-2 old-price font-normal text-slate-400">
+                        Tk.{old_price}
+                      </del>
+                      {/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
                         -{getFractionFixed(discount_percentage)}%
                       </span> */}
-                  </>
-                ) : null}
+                    </>
+                  ) : null}
+                </span>
+                <h3 className="text-lg/[24px]">
+                  {stock_qty ? (
+                    `In-Stock: ${stock_qty}`
+                  ) : (
+                    <span className="text-red-300">Stock Out</span>
+                  )}
+                </h3>
               </div>
               {/* <div className="rating-result flex items-center gap-2 mb-4">
                   <span className="font-semibold text-slate-900">
@@ -174,7 +192,7 @@ const SingleProduct = ({ product, isFlashSale }) => {
                 </button>
                 <button
                   onClick={() => handleCheckout(product)}
-                  className="buy-btn px-2"
+                  className="action-btn px-2 lg:px-4 py-1"
                 >
                   Buy Now <HiArrowLongRight size={20} />
                 </button>
@@ -195,10 +213,10 @@ const SingleProduct = ({ product, isFlashSale }) => {
                     </div>
                     <h3>{getSalePercent(total_sale_qty, stock_qty)}%</h3>
                   </div>
-                  <div className="flex-between mt-1 font-light">
+                  {/* <div className="flex-between mt-1 font-light">
                     <h3>Sold: {total_sale_qty}</h3>
                     <h3>In-Stock: {stock_qty}</h3>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>

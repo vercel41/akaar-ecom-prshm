@@ -19,7 +19,7 @@ import ResponsiveSearch from "./ResponsiveSearch";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { useRouter } from "next/navigation";
 
-export default function MainNav({ settings }) {
+export default function MainNav({ settings, categories }) {
   const [scroll, setScroll] = useState(0);
   const { cart } = useSelector((state) => state.cart);
   const { user, isLoginModalOpen } = useSelector((state) => state.auth);
@@ -44,17 +44,17 @@ export default function MainNav({ settings }) {
     });
   }, [scroll]);
   return (
-    <div className="relative bg-primary">
-      <div className="main-nav container py-3 lg:py-1">
+    <div className="relative bg-[#7573B2] py-2 lg:py-0">
+      <div className="main-nav container">
         <div className="header-wrap flex justify-between items-center">
           {/* Nav Items  */}
-          <ResponsiveMenu settings={settings} />
+          <ResponsiveMenu settings={settings} categories={categories} />
           <div className="header-right flex justify-between items-center gap-6">
             <ResponsiveSearch />
             <div className="header-actions flex gap-4">
               <button
                 onClick={handleModalOpen}
-                className="text-white hover:text-secondary"
+                className="text-white hover:text-primary"
               >
                 {user?.image ? (
                   <Image
@@ -70,16 +70,16 @@ export default function MainNav({ settings }) {
               </button>
               <button
                 onClick={() => router.push("/dashboard/my-wishlist")}
-                className="inline-block text-white hover:text-secondary"
+                className="inline-block text-white hover:text-primary"
               >
                 <HiOutlineHeart size={24} />
               </button>
               <button
                 onClick={() => dispatch(toggleCart())}
-                className="relative text-white hover:text-secondary"
+                className="group relative text-white hover:text-primary"
               >
                 <HiOutlineShoppingCart size={24} />
-                <span className="absolute -right-2 -top-2 border border-white text-white hover:text-secondary text-[10px] px-1 text-center rounded-full">
+                <span className="absolute -right-2 -top-2 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
                   {cart?.length || 0}
                 </span>
               </button>

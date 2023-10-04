@@ -9,7 +9,14 @@ const contactAPI = apiSlice.injectEndpoints({
         body: payload,
       }),
     }),
+    addToNewsletter: builder.mutation({
+      query: (payload) => ({
+        url: "newsletter",
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
-export const { useContactNowMutation } = contactAPI;
+export const { useContactNowMutation, useAddToNewsletterMutation } = contactAPI;

@@ -1,7 +1,7 @@
 import Intro from "@/components/Intro";
 import FlashSale from "@/components/FlashSale";
 import NewArrival from "@/components/NewArrival";
-import Brands from "@/components/Brands";
+// import Brands from "@/components/Brands";
 import Link from "next/link";
 import VideoBanner from "@/components/elements/VideoBanner";
 import FeaturedBanner from "@/components/FeaturedBanner";
@@ -26,19 +26,6 @@ export default function Home({ searchParams }) {
       <section className="flash-sale mt-28">
         <div className="container">
           <FlashSale />
-        </div>
-      </section>
-
-      <section className="new-products mt-28">
-        <div className="container">
-          <div className="pb-3 text-center">
-            <h2 className="sec-title pb-3">New Arrival</h2>
-            <p className="underline">Browse Our New Collections</p>
-          </div>
-
-          {/* <div className="new-slider mt-6  relative"> */}
-          <NewArrival />
-          {/* </div> */}
         </div>
       </section>
 
@@ -104,17 +91,27 @@ export default function Home({ searchParams }) {
         <VideoBanner />
       </section>
 
-      <section className="all-brands">
+      {/* <section className="all-brands">
         <div className="container py-14">
-          <div className="sec-heading w-full pb-3">
+          <div className="sec-heading w-full pb-3 text-center">
             <h2 className="sec-title">International Brands</h2>
-            {/* <Link href="/brands" className="all-btn">
-              সবগুলো দেখুন <HiArrowLongRight size={24} />{" "}
-            </Link> */}
           </div>
 
           <div className="brands-slider mt-6  relative">
             <Brands />
+          </div>
+        </div>
+      </section> */}
+
+      <section className="new-products my-28">
+        <div className="container">
+          <div className="pb-3 text-center">
+            <h2 className="sec-title pb-3">New Arrival</h2>
+            <p className="underline">Browse Our New Collections</p>
+          </div>
+
+          <div className="">
+            <NewArrival />
           </div>
         </div>
       </section>

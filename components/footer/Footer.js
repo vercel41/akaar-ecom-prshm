@@ -3,7 +3,7 @@ import Image from "next/image";
 
 // ** Import Icons
 import { fetchData } from "@/utils/fetchData";
-import SubcriptionForm from "./SubscriptionForm";
+import SubscriptionForm from "./SubscriptionForm";
 
 const Footer = async () => {
   const { data: settings = {} } = await fetchData({ api: "info/basic" });
@@ -12,19 +12,23 @@ const Footer = async () => {
   const helpPage = settings?.help_page || {};
 
   return (
-    <footer className="footer mb-5">
+    <footer className="footer py-5 bg-[#CFE6C9]">
       <div className="container">
         <div className="text-center">
-          <h2 className="text-4xl/[48px] font-title my-5">Treat Your Inbox</h2>
-          <p className=" mb-8">
+          <h2 className="text-3xl/[40px] font-title text-primary font-medium my-5">
+            Treat Your Inbox
+          </h2>
+          <p className="mb-8 text-sm/6 font-light text-primary">
             Receive our newsletter on the latest deals and happenings. You can
             unsubscribe any time you want.
           </p>
-          <SubcriptionForm />
+          <SubscriptionForm />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between mt-8">
-          <div className="">
-            <h6 className="text-xl mb-4 font-title font-bold">Customer Care</h6>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between gap-5 mt-8">
+          <div className="text-sm/6 font-light text-primary">
+            <h6 className="mb-4 font-title uppercase font-medium">
+              CUSTOMER SERVICE
+            </h6>
             <ul className="widget-list">
               <li>
                 <Link
@@ -48,8 +52,8 @@ const Footer = async () => {
               ))}
             </ul>
           </div>
-          <div className="">
-            <h6 className="text-xl font-title font-bold mb-4">Company</h6>
+          <div className="text-sm/6 font-light text-primary">
+            <h6 className="mb-4 font-title uppercase font-medium">Company</h6>
             <ul className="widget-list">
               {Object.keys(footerPage).map((key) => (
                 <li key={key}>
@@ -129,7 +133,7 @@ const Footer = async () => {
               </Link>
               {/* </div> */}
             </div>
-            <p className="mt-3 text-center">
+            <p className="mt-3 text-center text-sm/6 font-light text-primary">
               &copy; {new Date().getFullYear()}, All Rights Reserved By{" "}
               <Link href="/">{settings?.name}</Link>
             </p>

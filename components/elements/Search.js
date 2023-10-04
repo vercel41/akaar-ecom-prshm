@@ -154,7 +154,7 @@ const Search = () => {
                     className="text-sm font-medium"
                     onClick={() => handleSuggestionsSelect(keyword.search_name)}
                   >
-                    {getSlicedText(keyword.search_name, 30)}
+                    {getSlicedText(keyword.search_name, 25)}
                   </p>
                   <div className="flex-1 text-right">
                     <span
@@ -179,7 +179,7 @@ const Search = () => {
                 >
                   <FiSearch />
                   <p className="text-sm font-medium">
-                    {getSlicedText(keyword.search_name, 40)}
+                    {getSlicedText(keyword.search_name, 35)}
                   </p>
                 </div>
               ))}

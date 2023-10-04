@@ -24,45 +24,40 @@ const IntroSlider = ({ sliders }) => {
         {sliders.map((slide, i) => (
           <SwiperSlide key={i}>
             <div
-              className="single-hero-slider bg-black px-12 py-10 text-center flex justify-center items-center lg:h-[90vh] bg-cover bg-center"
+              className="single-hero-slider px-3 lg:px-12 md:py-10 text-center flex justify-center items-center h-[180px] md:h-[320px] lg:h-[95vh] bg-no-repeat bg-cover bg-center"
               style={{
                 backgroundImage: slide?.image
                   ? `url(${slide?.image})`
                   : `/assets/images/banner/banner-1.png`,
               }}
             >
-              <div className="grid grid-cols-12 items-center">
-                <div className="col-span-12">
-                  <div className="hero-slider-content">
-                    <p className="text-lg/[24px] font-normal font-body text-white mb-4">
+              <div className="">
+                <div className="hero-slider-content">
+                  {slide?.title && (
+                    <p className="text-sm lg:text-lg/[24px] font-normal font-body text-white lg:mb-4">
                       {slide?.title}
                     </p>
-                    <h1 className="text-5xl font-bold font-title text-white">
+                  )}
+                  {slide?.title_2 && (
+                    <h1 className="text-xl lg:text-5xl font-bold font-title text-white">
                       {slide?.title_2}
                     </h1>
-                    <h2 className="text-4xl/[48px] font-bold font-title text-white my-5">
+                  )}
+                  {slide?.text && (
+                    <h2 className="text-lg lg:text-4xl/[48px] font-bold font-title text-white mb-2 lg:my-5">
                       {slide?.text}
                     </h2>
+                  )}
+                  {slide?.url && (
                     <Link
-                      href={slide?.url || "/products"}
-                      className="inline-block w-44 h-12 text-white hover:text-secondary  bg-primary text-center leading-[48px]"
+                      href={slide?.url}
+                      className="inline-block px-4 text-white hover:text-secondary  bg-primary text-center leading-[40px]"
                     >
                       See All{" "}
                       <HiChevronRight size={20} className="inline align-sub" />
                     </Link>
-                  </div>
+                  )}
                 </div>
-                {/* <div className="col-span-5">
-                  <div className="single-slider-img text-right">
-                    <Image
-                      className="animated slider-1-1 object-cover h-[252px] w-[472px]"
-                      src={slide?.image || `/assets/images/banner/banner-1.png`}
-                      alt="Watch"
-                      width={472}
-                      height={252}
-                    />
-                  </div>
-                </div> */}
               </div>
             </div>
           </SwiperSlide>

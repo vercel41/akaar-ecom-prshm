@@ -338,7 +338,7 @@ const Checkout = () => {
                     <FieldsetInput
                       label={"Address Line"}
                       name="addressLine"
-                      // defaultValue={user?.name}
+                      defaultValue={user?.address}
                       register={register("addressLine", {
                         required: "Address line is required.",
                       })}
@@ -351,7 +351,7 @@ const Checkout = () => {
                     <FieldsetInput
                       label={"City"}
                       name="city"
-                      // defaultValue={user?.name}
+                      defaultValue={user?.city}
                       register={register("city", {
                         required: "City is required.",
                       })}
@@ -364,7 +364,7 @@ const Checkout = () => {
                     <FieldsetInput
                       label={"Country"}
                       name="country"
-                      defaultValue={"Bangladesh"}
+                      defaultValue={user.country || "Bangladesh"}
                       register={register("country", {
                         required: "Country is required.",
                       })}

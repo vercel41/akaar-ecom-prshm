@@ -28,6 +28,7 @@ const ContactForm = () => {
       .then((response) => {
         // Handle the successful response if necessary
         toast.success("Thanks for contacting us! We'll get back to you soon.");
+        reset();
       })
       .catch((error) => {
         // Handle the error if necessary
@@ -63,6 +64,7 @@ const ContactForm = () => {
               value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
               message: "Email is not valid.",
             },
+            required: "Email is required.",
           })}
         />
         {errors.email && <p className="errorMsg">{errors.email.message}</p>}

@@ -30,7 +30,7 @@ const DashboardLayout = ({ children, params }) => {
       <div className="container">
         {/* <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3> */}
         <div className="bg-white border-b border-slate-200">
-          <h3 className="text-center text-2xl lg:text-3xl mt-8">My Account</h3>
+          <h3 className="text-center text-2xl lg:text-3xl pt-8">My Account</h3>
           <div className="flex flex-col items-center text-center lg:text-start gap-4 md:flex-row md:justify-between mt-4">
             <div className="text-sm text-slate-600">
               <p className="my-1">Hello Customer</p>

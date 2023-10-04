@@ -7,9 +7,9 @@ import ProductsWithFilter from "@/components/products/ProductsWithFilter";
 // import noImage from "@/public/assets/images/no-image.png";
 
 const page = async ({ params, searchParams }) => {
-  const { slug } = params;
+  const { category_slug } = params;
   const [categoryResponse] = await Promise.allSettled([
-    fetchData({ api: `category/${slug}` }),
+    fetchData({ api: `category/${category_slug}` }),
   ]);
 
   const category =
@@ -45,7 +45,7 @@ const page = async ({ params, searchParams }) => {
               Categories
             </Link>
             <Link
-              href={`/categories/${category.slug}`}
+              href={`/categories/${category.category_slug}`}
               className={`text-base text-slate-900 hover:text-secondary`}
             >
               {category.category_name}

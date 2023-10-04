@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -25,6 +26,10 @@ const ProductDetails = ({ product, settings }) => {
   const router = useRouter();
 
   const handleAddToCart = () => {
+    if (product?.stock_qty === 0) {
+      toast.error("stock out");
+      return;
+    }
     if (product?.productVariants?.length) {
       const variantProduct = {
         ...product,
@@ -37,9 +42,14 @@ const ProductDetails = ({ product, settings }) => {
     } else {
       dispatch(addToCart(product));
     }
+    toast.success("Added to cart");
   };
 
   const handleBuyNow = () => {
+    if (product?.stock_qty === 0) {
+      toast.error("stock out");
+      return;
+    }
     handleAddToCart();
     router.push("/checkout");
   };

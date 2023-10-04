@@ -1,31 +1,63 @@
 "use client";
-import { useState } from 'react';
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useAddToNewsletterMutation } from "@/store/features/api/contactAPI";
 
-const SubcriptionForm = () =>  {
-    const [inputValue, setInputValue] = useState('');
+const SubscriptionForm = () => {
+  const [addToNewsLetter] = useAddToNewsletterMutation();
 
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const onSubmit = async (data) => {
+    const newMessage = {
+      email: data.email,
     };
+    // console.log(newMessage);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle the form submission or perform other actions with inputValue
-        console.log('Input value:', inputValue);
-    };
+    addToNewsLetter(newMessage)
+      .unwrap()
+      .then((response) => {
+        // Handle the successful response if necessary
+        toast.success("Thank you for subscribe us.");
+        reset();
+      })
+      .catch((error) => {
+        // Handle the error if necessary
+        toast.error("Failed to subscribe");
+        console.log(error);
+      });
+  };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <input
-                className='rounded-none'
-                type="email"
-                value={inputValue}
-                placeholder="example@gamil.com"
-                onChange={handleInputChange}
-            />
-            <button className="inline-block w-44 h-12 text-white bg-primary text-center leading-[48px]" type="submit">Submit</button>
-        </form>
-    );
-}
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex items-center justify-center">
+        <input
+          className="rounded-none"
+          type="email"
+          name="email"
+          placeholder="example@email.com"
+          {...register("email", {
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Email is not valid.",
+            },
+            required: "Email is required.",
+          })}
+        />
+        <button
+          className="inline-block w-44 h-12 text-white bg-primary text-center leading-[40px]"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+      {errors.email && <p className="errorMsg">{errors.email.message}</p>}
+    </form>
+  );
+};
 
-export default SubcriptionForm;
+export default SubscriptionForm;

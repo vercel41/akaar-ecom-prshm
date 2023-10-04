@@ -12,7 +12,8 @@ module.exports = {
     extend: {
       fontFamily: {
         body: ["Noto Sans Bengali", ...defaultTheme.fontFamily.sans],
-        title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
+        title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
+        // title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
       },
       screens: {
         sm: "576px",
@@ -29,7 +30,7 @@ module.exports = {
           DEFAULT: "#222222",
         },
         secondary: {
-          700: "#00B7C9",
+          700: "#243e8b",
           800: "#00A7B8",
           DEFAULT: "#2980B9",
         },
@@ -53,5 +54,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/container-queries")],
 };

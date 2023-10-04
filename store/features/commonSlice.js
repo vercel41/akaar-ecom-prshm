@@ -6,6 +6,7 @@ const initialState = {
   isFilterPanelOpen: false,
   settings: null,
   translations: {},
+  activeCategory: null, //subcategories for navbar
 };
 
 const commonSlice = createSlice({
@@ -27,6 +28,10 @@ const commonSlice = createSlice({
     setLocale: (state, action) => {
       state.locale = action.payload;
     },
+
+    setActiveCategory: (state, action) => {
+      state.activeCategory = action.payload;
+    },
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   setSettings,
   setTranslations,
   setLocale,
+  setActiveCategory,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;

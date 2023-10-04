@@ -13,7 +13,6 @@ import { getFormattedDate } from "@/utils/formatDate";
 import axiosInstance from "@/utils/axiosInstance";
 import { logoutUser, setUser } from "@/store/features/authSlice";
 import { IoLogOut } from "react-icons/io5";
-// import { useSelector } from "react-redux";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
@@ -54,6 +53,8 @@ const MyProfile = () => {
     formData.append("email", data.email);
     formData.append("phone", user?.phone);
     formData.append("alt_phone_no", data.alt_phone_no);
+    formData.append("address", data.addressLine);
+    formData.append("city", data.city);
     formData.append("country", country);
 
     updateProfile(formData)
@@ -85,7 +86,7 @@ const MyProfile = () => {
           editMode={editMode}
           user={user}
         />
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8">
           <div className="form-control">
             <label className="block text-base text-slate-500 mb-2">Name</label>
             {!editMode ? (
@@ -266,6 +267,86 @@ const MyProfile = () => {
                 </div>
                 {errors.alt_phone_no && (
                   <p className="errorMsg">{errors.alt_phone_no.message}</p>
+                )}
+              </>
+            )}
+          </div>
+          {/* Address  */}
+          <div className="form-control">
+            <label className="block text-base text-slate-500 mb-2">
+              Address Line
+            </label>
+            {!editMode ? (
+              <p className="text-slate-800">
+                {user?.address || (
+                  <span className="text-slate-300">Your Address Line</span>
+                )}
+              </p>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  name="addressLine"
+                  defaultValue={user?.address}
+                  placeholder="Type your address line"
+                  {...register("addressLine", {
+                    // required: "Address line required",
+                  })}
+                />
+                {errors.addressLine && (
+                  <p className="errorMsg">{errors.addressLine.message}</p>
+                )}
+              </>
+            )}
+          </div>
+          <div className="form-control">
+            <label className="block text-base text-slate-500 mb-2">City</label>
+            {!editMode ? (
+              <p className="text-slate-800">
+                {user?.city || (
+                  <span className="text-slate-300">Your City</span>
+                )}
+              </p>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  name="city"
+                  defaultValue={user?.city}
+                  placeholder="Type your city"
+                  {...register("city", {
+                    // required: "City required",
+                  })}
+                />
+                {errors.city && (
+                  <p className="errorMsg">{errors.city.message}</p>
+                )}
+              </>
+            )}
+          </div>
+          <div className="form-control">
+            <label className="block text-base text-slate-500 mb-2">
+              Country
+            </label>
+            {!editMode ? (
+              <p className="text-slate-800">
+                {user?.country || (
+                  <span className="text-slate-300">Your Country</span>
+                )}
+              </p>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  name="country"
+                  defaultValue={user?.country}
+                  placeholder="Type your country"
+                  {...register("country", {
+                    required: "Country required",
+                  })}
+                />
+                {errors.country && (
+                  <p className="errorMsg">{errors.country.message}</p>
                 )}
               </>
             )}

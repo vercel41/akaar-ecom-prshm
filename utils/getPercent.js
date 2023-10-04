@@ -6,6 +6,7 @@
  */
 export const getSalePercent = (saleQty, stockQty) => {
   let salePercent = 0;
+  if (saleQty === 0 && stockQty === 0) return 0;
   if (typeof saleQty === "number" && typeof stockQty === "number") {
     const totalQty = stockQty + saleQty;
     salePercent = (saleQty / totalQty) * 100;
