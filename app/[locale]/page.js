@@ -9,6 +9,8 @@ import PopularCategories from "@/components/PopularCategories";
 
 // ** Import Iocns
 import { HiArrowLongRight } from "react-icons/hi2";
+import MenFashion from "@/components/MenFashion";
+import WomenFashion from "@/components/WomenFashion";
 
 export default function Home({ searchParams }) {
   return (
@@ -29,7 +31,20 @@ export default function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="all-category mt-28">
+      <section className="new-products mt-28">
+        <div className="container">
+          <div className="pb-10 text-center">
+            <h2 className="sec-title pb-3">New Arrival</h2>
+            <p className="underline">Browse Our New Collections</p>
+          </div>
+
+          <div className="">
+            <NewArrival />
+          </div>
+        </div>
+      </section>
+
+      {/* <section className="all-category mt-28">
         <div
           className="container py-6"
           style={{
@@ -46,7 +61,7 @@ export default function Home({ searchParams }) {
             <PopularCategories />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">
@@ -103,15 +118,23 @@ export default function Home({ searchParams }) {
         </div>
       </section> */}
 
+      <section className="new-products mt-28">
+        <div className="container">
+          <div className="pb-10 text-center">
+            <h2 className="sec-title pb-3">MEN FASHION</h2>
+          </div>
+          <div className="">
+            <MenFashion />
+          </div>
+        </div>
+      </section>
       <section className="new-products my-28">
         <div className="container">
-          <div className="pb-3 text-center">
-            <h2 className="sec-title pb-3">New Arrival</h2>
-            <p className="underline">Browse Our New Collections</p>
+          <div className="pb-10 text-center">
+            <h2 className="sec-title pb-3">WOMEN FASHION</h2>
           </div>
-
           <div className="">
-            <NewArrival />
+            <WomenFashion />
           </div>
         </div>
       </section>

@@ -1,13 +1,13 @@
-import NewArrivalSlider from "./elements/sliders/NewArrivalSlider";
 import { fetchData } from "@/utils/fetchData";
+import ProductSlider from "./elements/sliders/ProductSlider";
 
 const NewArrival = async () => {
   const data = await fetchData({ api: "product-latest" });
-  const newProducts = data?.data || [];
+  const products = data?.data || [];
 
   return (
     <>
-      <NewArrivalSlider newProducts={newProducts} />
+      <ProductSlider products={products} sliderId="new-arrival" />
     </>
   );
 };

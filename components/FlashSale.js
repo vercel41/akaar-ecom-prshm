@@ -1,8 +1,8 @@
 "use client";
 import { useParams } from "next/navigation";
-import FlashSaleSlider from "./elements/sliders/FlashSale";
 import Timer from "@/components/elements/Timer";
 import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSaleAPI";
+import ProductSlider from "./elements/sliders/ProductSlider";
 
 const FlashSale = () => {
   const { locale } = useParams();
@@ -26,7 +26,11 @@ const FlashSale = () => {
         </div>
       </div>
       <div className="flashSale-slider pt-32 lg:pt-16">
-        <FlashSaleSlider saleProducts={saleProducts} />
+        <ProductSlider
+          products={saleProducts}
+          sliderId="flash-sale"
+          isFlashSale
+        />
       </div>
     </div>
   );

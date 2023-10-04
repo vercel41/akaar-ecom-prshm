@@ -7,7 +7,7 @@ import SingleProduct from "@/components/products/SingleProduct";
 // ** Import Icons
 import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 
-const NewArrivalSlider = ({ newProducts }) => {
+const ProductSlider = ({ products, sliderId = "slider", isFlashSale }) => {
   return (
     <div className="relative">
       <Swiper
@@ -30,23 +30,27 @@ const NewArrivalSlider = ({ newProducts }) => {
         spaceBetween={20}
         loop={false}
         navigation={{
-          prevEl: ".custom_prev_b",
-          nextEl: ".custom_next_b",
+          prevEl: `.custom_prev_${sliderId}`,
+          nextEl: `.custom_next_${sliderId}`,
         }}
         // centeredSlides={true}
       >
-        {newProducts?.map((product, i) => (
+        {products?.map((product, i) => (
           <SwiperSlide key={i}>
-            <SingleProduct product={product} />
+            <SingleProduct product={product} isFlashSale={isFlashSale} />
           </SwiperSlide>
         ))}
       </Swiper>
 
       <div className="slider-arrow">
-        <span className="slider-btn slider-prev slick-arrow custom_prev_b">
+        <span
+          className={`slider-btn slider-prev slick-arrow custom_prev_${sliderId}`}
+        >
           <TfiAngleLeft />
         </span>
-        <span className="slider-btn slider-next slick-arrow custom_next_b">
+        <span
+          className={`slider-btn slider-next slick-arrow custom_next_${sliderId}`}
+        >
           <TfiAngleRight />
         </span>
       </div>
@@ -54,4 +58,4 @@ const NewArrivalSlider = ({ newProducts }) => {
   );
 };
 
-export default NewArrivalSlider;
+export default ProductSlider;
