@@ -39,7 +39,7 @@ const CartCard = ({ item }) => {
       </button>
       <div className="flex gap-2">
         <Image
-          src={imageError ? noImage : image}
+          src={imageError || !image ? noImage : image}
           onError={() => setImageError(true)}
           alt="product"
           height={80}

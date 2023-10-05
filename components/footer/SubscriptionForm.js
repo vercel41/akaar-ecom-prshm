@@ -49,7 +49,7 @@ const SubscriptionForm = () => {
           })}
         />
         <button
-          className="inline-block w-44 h-12 text-white bg-primary text-center leading-[40px]"
+          className="inline-block px-4 py-1 text-white bg-primary border-none text-center leading-[40px]"
           type="submit"
         >
           Submit

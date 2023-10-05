@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
-
-// ** Import Icons
 import { fetchData } from "@/utils/fetchData";
 import SubscriptionForm from "./SubscriptionForm";
+
+// ** Import Icons
+import SocialIcon from "../elements/SocialIcon";
 
 const Footer = async () => {
   const { data: settings = {} } = await fetchData({ api: "info/basic" });
@@ -65,73 +65,32 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="">
-            <div className="social-links text-center py-4 flex gap-4 items-center justify-center">
-              <Link
-                target="_blank"
+            <div className="social-links text-center py-4 flex gap-3 items-center justify-center">
+              <SocialIcon
                 href={settings.facebook_link}
-                className="inline"
-              >
-                <Image
-                  src="/assets/icons/social/fb.svg"
-                  alt="Facebook"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link
-                target="_blank"
+                icon={"/assets/icons/social/fb.svg"}
+              />
+              <SocialIcon
                 href={settings.youtube_link}
-                className="inline"
-              >
-                <Image
-                  src="/assets/icons/social/YouTube.svg"
-                  alt="Youtube"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link
-                target="_blank"
+                icon={"/assets/icons/social/YouTube.svg"}
+              />
+              <SocialIcon
                 href={settings.whatsapp_link}
-                className="inline"
-              >
-                <Image
-                  src="/assets/icons/social/whatsapp.png"
-                  alt="TikTok"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link
-                target="_blank"
+                icon={"/assets/icons/social/whatsapp.svg"}
+                iconClass={"h-7 w-7"}
+              />
+              <SocialIcon
                 href={settings.twitter_link}
-                className="inline"
-              >
-                <Image
-                  src="/assets/icons/social/twitter.svg"
-                  alt="Twitter"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              <Link
-                target="_blank"
+                icon={"/assets/icons/social/TikTok.svg"}
+              />
+              <SocialIcon
+                href={settings.instagram_link}
+                icon={"/assets/icons/social/instagram.svg"}
+              />
+              <SocialIcon
                 href={settings.linkedin_link}
-                className="inline"
-              >
-                <Image
-                  src="/assets/icons/social/linkedin.svg"
-                  alt="Linkedin"
-                  width="24"
-                  height="24"
-                  className="w-6 h-6"
-                />
-              </Link>
-              {/* </div> */}
+                icon={"/assets/icons/social/pinterest.svg"}
+              />
             </div>
             <p className="mt-3 text-center text-sm/6 font-light text-primary">
               &copy; {new Date().getFullYear()}, All Rights Reserved By{" "}

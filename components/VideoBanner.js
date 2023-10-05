@@ -15,7 +15,7 @@ const VideoBanner = async () => {
       muted={true}
       playing={true}
       controls={true}
-      className={"h-[300px] md:h-[520px] lg:h-[720px]"}
+      className={"h-[300px] md:h-[520px] lg:h-[80vh]"}
     />
   );
 };

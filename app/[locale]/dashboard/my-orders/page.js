@@ -16,7 +16,7 @@ const MyOrders = () => {
   const { data: ordersData, isLoading } = useGetOrdersQuery();
   const myOrders = ordersData?.data || [];
   const dispatch = useDispatch();
-  console.log(myOrders);
+  // console.log(myOrders);
   return (
     <div className="py-6">
       <h2 className="text-slate-600 text-2xl text-center md:text-start">
@@ -79,7 +79,9 @@ const MyOrders = () => {
                             {getFormattedDate(order.sale_date)}
                           </td>
                           <td class="whitespace-nowrap border-r px-6 py-4">
-                            {order.status}
+                            {order.status === "Delivery"
+                              ? "Product on the way to shipment"
+                              : order.status}
                           </td>
                           <td class="whitespace-nowrap border-r px-6 py-4">
                             {order.payment_type === "COD" ? (

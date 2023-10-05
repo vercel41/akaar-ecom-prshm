@@ -1,10 +1,13 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+
+import getToken from "@/utils/getToken";
 import { getMultipliedColumnTotal } from "@/utils/getTotal";
 import {
   getCouponDiscount,
@@ -16,6 +19,8 @@ import CartCard from "@/components/CartCard";
 import CustomRadio from "@/components/elements/CustomRadio";
 import CouponModal from "@/components/modals/CouponModal";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
+import RequireAuth from "@/components/hoks/RequireAuth";
+import FieldsetInput from "@/components/elements/FieldsetInput";
 
 //store
 import { clearCart, clearDiscountInfo } from "@/store/features/cartSlice";
@@ -23,13 +28,8 @@ import { usePlaceAnOrderMutation } from "@/store/features/api/orderAPI";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 
 //Icons
-import PayOptionIcon from "@/components/elements/svg/PayOptionIcon";
 import { FiPlus } from "react-icons/fi";
-import getToken from "@/utils/getToken";
-import RequireAuth from "@/components/hoks/RequireAuth";
 import { AiOutlinePlus } from "react-icons/ai";
-import FieldsetInput from "@/components/elements/FieldsetInput";
-import Link from "next/link";
 
 const payOptions = [
   {
@@ -114,8 +114,8 @@ const Checkout = () => {
       alt_name: data.name,
       phone: user?.country_code + user?.phone,
       alt_phone: user?.country_code + user?.alt_phone_no,
-      address: data.addressLine + ", " + data.city + ", " + data.country,
-      alt_address: data.addressLine + ", " + data.city + ", " + data.country,
+      address: data.addressLine + ", " + data.city, // + ", " + data.country,
+      alt_address: data.addressLine + ", " + data.city, // + ", " + data.country,
       order_items: getOrderFormattedCartItems(cart),
       payment_type: payOption.key,
       delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
@@ -360,7 +360,7 @@ const Checkout = () => {
                       <p className="errorMsg">{errors.city.message}</p>
                     )}
                   </div>
-                  <div className="form-control mb-6">
+                  {/* <div className="form-control mb-6">
                     <FieldsetInput
                       label={"Country"}
                       name="country"
@@ -372,7 +372,7 @@ const Checkout = () => {
                     {errors.country && (
                       <p className="errorMsg">{errors.country.message}</p>
                     )}
-                  </div>
+                  </div> */}
                 </>
               )}
               <div className="form-control my-8">
