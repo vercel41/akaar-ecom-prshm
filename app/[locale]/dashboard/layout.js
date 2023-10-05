@@ -31,7 +31,7 @@ const DashboardLayout = ({ children, params }) => {
         {/* <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3> */}
         <div className="bg-white border-b border-slate-200">
           <h3 className="text-center text-2xl lg:text-3xl pt-8">My Account</h3>
-          <div className="flex flex-col items-center text-center lg:text-start gap-4 md:flex-row md:justify-between mt-4">
+          <div className="flex flex-col items-center text-center lg:text-start gap-4 md:flex-row md:justify-between mt-4 px-4">
             <div className="text-sm text-slate-600">
               <p className="my-1">Hello Customer</p>
               <p className="my-1">Welcome to your Style Mart Brand account.</p>
@@ -62,7 +62,7 @@ const DashboardLayout = ({ children, params }) => {
               ))}
             </ul>
           </nav>
-          <div className="">{children}</div>
+          <div className="md:min-h-[70vh]">{children}</div>
         </div>
       </div>
     </div>
