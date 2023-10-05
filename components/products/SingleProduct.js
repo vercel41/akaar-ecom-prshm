@@ -145,7 +145,7 @@ const SingleProduct = ({ product, isFlashSale }) => {
                 </Link>
               </h2>
               <div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2 md:justify-between">
-                <span className="font-semibold text-lg/[24px]">
+                <span className="font-semibold ">
                   Tk.{new_price}
                   {typeof discount_percentage === "number" &&
                   discount_percentage > 0 ? (
@@ -159,11 +159,11 @@ const SingleProduct = ({ product, isFlashSale }) => {
                     </>
                   ) : null}
                 </span>
-                <h3 className="text-lg/[24px]">
+                <h3 className="">
                   {stock_qty ? (
-                    `In-Stock: ${stock_qty}`
+                    `Stock: ${stock_qty}`
                   ) : (
-                    <span className="text-red-300">Stock Out</span>
+                    <span className="text-red-300 font-title">Stock Out</span>
                   )}
                 </h3>
               </div>
