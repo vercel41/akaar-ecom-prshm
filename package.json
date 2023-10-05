@@ -34,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
+    "react-player": "^2.13.0",
     "react-redux": "^8.0.5",
     "react-share": "^4.4.1",
     "react-simple-star-rating": "^5.1.7",

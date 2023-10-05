@@ -1,18 +1,14 @@
 import Intro from "@/components/Intro";
 import FlashSale from "@/components/FlashSale";
 import NewArrival from "@/components/NewArrival";
-// import Brands from "@/components/Brands";
-import Link from "next/link";
-import VideoBanner from "@/components/elements/VideoBanner";
+import VideoBanner from "@/components/VideoBanner";
 import FeaturedBanner from "@/components/FeaturedBanner";
-import PopularCategories from "@/components/PopularCategories";
 
 // ** Import Iocns
-import { HiArrowLongRight } from "react-icons/hi2";
 import MenFashion from "@/components/MenFashion";
 import WomenFashion from "@/components/WomenFashion";
 
-export default function Home({ searchParams }) {
+export default function Home() {
   return (
     <>
       <section className="banner">
@@ -29,6 +25,10 @@ export default function Home({ searchParams }) {
         <div className="container">
           <FlashSale />
         </div>
+      </section>
+
+      <section className="video-banner mt-28">
+        <VideoBanner />
       </section>
 
       <section className="new-products mt-28">
@@ -101,10 +101,6 @@ export default function Home({ searchParams }) {
           </div>
         </div>
       </section> */}
-
-      <section className="video-banner mt-28">
-        <VideoBanner />
-      </section>
 
       {/* <section className="all-brands">
         <div className="container py-14">

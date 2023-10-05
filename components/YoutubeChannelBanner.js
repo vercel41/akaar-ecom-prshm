@@ -5,7 +5,7 @@ import Link from "next/link";
 import { HiPlay } from "react-icons/hi";
 import { HiArrowLongRight } from "react-icons/hi2";
 
-const VideoBanner = async () => {
+const YoutubeChannelBanner = async () => {
   const [settingsRes] = await Promise.allSettled([
     fetchData({ api: `info/basic` }),
   ]);
@@ -53,4 +53,4 @@ const VideoBanner = async () => {
   );
 };
 
-export default VideoBanner;
+export default YoutubeChannelBanner;
