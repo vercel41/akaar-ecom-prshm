@@ -95,7 +95,7 @@ const ThumbSlider = ({ product }) => {
           >
             {photos.map((slide, index) => (
               <SwiperSlide key={index}>
-                <div className="slider-imag h-[36rem] w-[32rem] relative">
+                <div className="slider-imag h-[300px] lg:h-[36rem] w-full lg:w-[32rem] relative">
                   <Image
                     src={slide}
                     alt=""

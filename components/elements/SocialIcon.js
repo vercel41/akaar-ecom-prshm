@@ -20,7 +20,7 @@ export default function SocialIcon({
     >
       <Image
         src={icon}
-        alt={name | "social-icon"}
+        alt={name || "social-icon"}
         width="24"
         height="24"
         className={twMerge("w-6 h-6", iconClass)}

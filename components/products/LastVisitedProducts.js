@@ -36,11 +36,11 @@ const LastVisitedProducts = ({ visitedProductId }) => {
   if (!user) return null;
 
   return (
-    <section id="visit-history mt-28">
-      <div className="container py-14">
+    <section id="visit-history">
+      <div className="container py-8 lg:py-14">
         <h2 className="sec-title text-center mb-8">Recently Viewed</h2>
         <div className="category-products"></div>
-        <div className="products-wpr grid grid-cols-4 gap-4">
+        <div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-5">
           {visitedProducts?.map((product, i) => (
             <div key={i}>
               <SingleProduct product={product} />

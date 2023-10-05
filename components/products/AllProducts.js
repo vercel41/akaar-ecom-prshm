@@ -10,7 +10,7 @@ const AllProducts = async ({ customSearchParams = {}, pagination }) => {
 
   return (
     <>
-      <div className="products-wpr grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-5 gap-y-12 mb-12">
+      <div className="products-wpr grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-2 lg:gap-5 mb-12">
         {products?.map((product, i) => (
           <div className="col-span-1" key={i}>
             <SingleProduct product={product} />

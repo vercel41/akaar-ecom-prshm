@@ -56,8 +56,8 @@ const ProductView = async ({ params }) => {
       <div className="container">
         <ProductDetails product={product} settings={settings}></ProductDetails>
       </div>
-      <section id="same-category-products mt-28">
-        <div className="container py-14">
+      <section id="same-category-products">
+        <div className="container pt-8 lg:pt-14">
           <h2 className="sec-title text-center mb-8">Similar Products</h2>
           <div className="category-products">
             <AllProducts customSearchParams={customSearchParams} />
