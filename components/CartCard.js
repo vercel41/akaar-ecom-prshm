@@ -5,7 +5,7 @@ import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import * as cartActions from "@/store/features/cartSlice";
 import noImage from "@/public/assets/images/no-image.png";
-import { getFractionFixed } from "@/utils/formatNumber";
+// import { getFractionFixed } from "@/utils/formatNumber";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -25,6 +25,8 @@ const CartCard = ({ item }) => {
     cartId,
     variantId,
     selectedVariant,
+    minimum_wholesale_price,
+    minimum_wholesale_quantity,
     // sizes,
   } = item;
 
@@ -57,11 +59,21 @@ const CartCard = ({ item }) => {
             </Link>
           </h2>
           <div className="flex gap-3 products-center items-center">
-            <h3 className="text-xl">Tk.{new_price}</h3>
-            {typeof discount_percentage === "number" &&
-            discount_percentage > 0 ? (
-              <del className="text-xl text-slate-300">Tk.{old_price}</del>
-            ) : null}
+            {minimum_wholesale_quantity &&
+            quantity >= minimum_wholesale_quantity ? (
+              <h3 className="">
+                Tk.{minimum_wholesale_price} -{" "}
+                <span className="text-green-600">(wholesale)</span>
+              </h3>
+            ) : (
+              <>
+                <h3 className="text-xl">Tk.{new_price}</h3>
+                {typeof discount_percentage === "number" &&
+                discount_percentage > 0 ? (
+                  <del className="text-xl text-slate-300">Tk.{old_price}</del>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -81,16 +93,16 @@ const CartCard = ({ item }) => {
         <div className="flex items-center products-center gap-3 text-slate-900">
           <button
             className="bg-transparent border border-primary px-1"
-            onClick={() => dispatch(cartActions.addQuantity(cartId))}
+            onClick={() => dispatch(cartActions.removeQuantity(cartId))}
           >
-            <FiPlus />
+            <FiMinus />
           </button>
           <div className="mx-1 font-bold">{quantity || 1}</div>
           <button
             className="bg-transparent border border-primary px-1"
-            onClick={() => dispatch(cartActions.removeQuantity(cartId))}
+            onClick={() => dispatch(cartActions.addQuantity(cartId))}
           >
-            <FiMinus />
+            <FiPlus />
           </button>
         </div>
       </div>

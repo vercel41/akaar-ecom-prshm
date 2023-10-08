@@ -8,8 +8,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import getToken from "@/utils/getToken";
-import { getMultipliedColumnTotal } from "@/utils/getTotal";
+// import { getMultipliedColumnTotal } from "@/utils/getTotal";
 import {
+  getCartTotal,
   getCouponDiscount,
   getOrderFormattedCartItems,
 } from "@/utils/checkoutBusinessLogics";
@@ -95,7 +96,8 @@ const Checkout = () => {
   }, [user, reset]);
 
   //Summary calculation
-  const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
+  // const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
+  const total = getCartTotal(cart);
   const discountedPrice = getCouponDiscount(discountCoupon, total);
   const totalWithDiscount = total - discountedPrice;
 

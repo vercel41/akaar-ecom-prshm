@@ -37,8 +37,36 @@ export const getOrderFormattedCartItems = (allCartItems) => {
       product_id: item.id,
       product_variant_id: item?.variantId || null,
       quantity: item.quantity,
-      price: item.new_price,
+      // price: item.new_price,
+
+      //Added wholesale price
+      price:
+        item.minimum_wholesale_quantity > 0 &&
+        item.quantity >= item.minimum_wholesale_quantity
+          ? item.minimum_wholesale_price
+          : item.new_price,
     };
   });
   return order_items;
+};
+
+/**
+ * The `getCartTotal` function calculates the total price of all items in a shopping cart based on wholesale.
+ * @param allCartItems - An array of objects representing the items in the cart. Each object should
+ * have the following properties:
+ * @returns the total value of the cart items.
+ */
+export const getCartTotal = (allCartItems) => {
+  let total = 0;
+  if (Array.isArray(allCartItems)) {
+    allCartItems.forEach((item) => {
+      total +=
+        (item?.quantity || 1) *
+        (item.minimum_wholesale_quantity > 0 &&
+        item.quantity >= item.minimum_wholesale_quantity
+          ? item.minimum_wholesale_price
+          : item.new_price || 0);
+    });
+  }
+  return total;
 };

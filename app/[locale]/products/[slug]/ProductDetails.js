@@ -83,6 +83,17 @@ const ProductDetails = ({ product, settings }) => {
                   </>
                 ) : null}
               </div>
+              {product?.minimum_wholesale_quantity > 0 && (
+                <div className="product-price flex items-center gap-4 pb-4">
+                  <span className="text-xl font-title text-slate-900">
+                    Wholesale Price Tk.
+                    {product?.minimum_wholesale_price || "0.00"}{" "}
+                  </span>
+                  <span className="old-price text-lg/[24px] font-normal text-slate-400">
+                    (MOQ: {product?.minimum_wholesale_quantity})
+                  </span>
+                </div>
+              )}
               {/* Rating Review and Share section  */}
               {/* <div className="meta-data flex items-center gap-8 my-2">
                 <div className="flex gap-1 items-center">
