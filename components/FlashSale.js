@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import Timer from "@/components/elements/Timer";
 import { useGetProductFlashSaleQuery } from "@/store/features/api/productFlashSaleAPI";
 import ProductSlider from "./elements/sliders/ProductSlider";
+import Link from "next/link";
 
 const FlashSale = () => {
   const { locale } = useParams();
@@ -18,7 +19,12 @@ const FlashSale = () => {
     <div className="relative">
       <div className="sec-heading absolute top-[-30px] left-0 w-full flex flex-col lg:flex-row justify-center lg:justify-between items-center">
         <div className=" bg-white">
-          <h2 className="sec-title">{flashSaleInfo?.title}</h2>
+          <h2 className="sec-title">
+            {flashSaleInfo?.title}{" "}
+            <Link href={`/flash-sale`} className="text-sm hover:text-secondary">
+              See All
+            </Link>
+          </h2>
         </div>
         <div className="bg-white flex flex-col lg:flex-row justify-center lg:justify-start gap-4 items-center">
           <h3 className="text-xl font-bold">Deals End In</h3>

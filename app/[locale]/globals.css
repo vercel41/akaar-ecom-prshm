@@ -56,7 +56,7 @@
 /* Global Css */
 
 .sec-title {
-  @apply text-3xl font-normal font-title text-slate-900;
+  @apply text-3xl font-bold font-title text-slate-900;
 }
 
 .search-input {

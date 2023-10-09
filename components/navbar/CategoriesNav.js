@@ -19,8 +19,9 @@ export default function CategoriesNav({ categories = [] }) {
   // else {
   //   subMenuCategories = categories[0]?.child_categories;
   // }
+  //
 
-  if (!subMenuCategories.length) return null;
+  if (!subMenuCategories || !subMenuCategories.length) return null;
 
   return (
     <div className="categories-nav bg-[#D04FC4] hidden lg:block">

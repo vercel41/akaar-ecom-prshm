@@ -52,7 +52,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
   useEffect(() => {
     if (isSuccess && otpResponse) {
       toast.success("OTP has been sent to your mobile");
-      toast(otpResponse?.otp_message);
+      // toast(otpResponse?.otp_message);
       // console.log(otpResponse, "OTP Response");
       setOtpSent(true);
     } else if (isError) {
@@ -83,7 +83,12 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
     <Modal showModal={showModal} setShowModal={setShowModal} title={title}>
       <div className="w-full lg:w-[27rem] text-slate-500">
         <div>
-          <Image src={settings?.logo} alt={"Logo"} width={200} height={48} />
+          <Image
+            src={settings?.footer_logo}
+            alt={"Logo"}
+            width={200}
+            height={48}
+          />
         </div>
         <p className="py-6 ">
           {otpSent

@@ -28,7 +28,7 @@ const FeaturedBanner = async () => {
               </h1>
               <Link
                 href={banner.url}
-                className="border border-primary hover:border-secondary rounded px-2 font-semibold font-title hover:text-secondary"
+                className="border border-primary hover:border-secondary rounded px-2 pb-1 font-semibold font-title hover:text-secondary"
               >
                 Shop Now
               </Link>

@@ -3,10 +3,7 @@ import FlashSale from "@/components/FlashSale";
 import NewArrival from "@/components/NewArrival";
 import VideoBanner from "@/components/VideoBanner";
 import FeaturedBanner from "@/components/FeaturedBanner";
-
-// ** Import Iocns
-import MenFashion from "@/components/MenFashion";
-import WomenFashion from "@/components/WomenFashion";
+import HomeCategoryProducts from "@/components/HomeCategoryProducts";
 
 export default function Home() {
   return (
@@ -21,19 +18,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flash-sale mt-28">
+      <section className="flash-sale mt-10">
         <div className="container">
           <FlashSale />
         </div>
       </section>
 
-      <section className="video-banner mt-28">
+      <section className="video-banner mt-10">
         <VideoBanner />
       </section>
 
-      <section className="new-products mt-28">
+      <section className="new-products">
         <div className="container">
-          <div className="pb-10 text-center">
+          <div className="py-10 text-center">
             <h2 className="sec-title pb-3">New Arrival</h2>
             <p className="underline">Browse Our New Collections</p>
           </div>
@@ -114,25 +111,8 @@ export default function Home() {
         </div>
       </section> */}
 
-      <section className="new-products mt-28">
-        <div className="container">
-          <div className="pb-10 text-center">
-            <h2 className="sec-title pb-3">MEN FASHION</h2>
-          </div>
-          <div className="">
-            <MenFashion />
-          </div>
-        </div>
-      </section>
-      <section className="new-products my-28">
-        <div className="container">
-          <div className="pb-10 text-center">
-            <h2 className="sec-title pb-3">WOMEN FASHION</h2>
-          </div>
-          <div className="">
-            <WomenFashion />
-          </div>
-        </div>
+      <section className="home-category-products mb-10">
+        <HomeCategoryProducts />
       </section>
     </>
   );

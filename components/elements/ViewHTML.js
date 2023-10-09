@@ -8,9 +8,7 @@ const ViewHTML = ({ htmlText, className, ...props }) => {
       dangerouslySetInnerHTML={{ __html: htmlText }}
       {...props}
     />
-  ) : (
-    <p className="py-2 text-slate-300">Not Available</p>
-  );
+  ) : null;
 };
 
 export default ViewHTML;

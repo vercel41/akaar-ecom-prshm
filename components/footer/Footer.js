@@ -80,7 +80,7 @@ const Footer = async () => {
                 iconClass={"h-7 w-7"}
               />
               <SocialIcon
-                href={settings.twitter_link}
+                href={settings.tiktok_link}
                 icon={"/assets/icons/social/TikTok.svg"}
               />
               <SocialIcon
@@ -88,7 +88,7 @@ const Footer = async () => {
                 icon={"/assets/icons/social/instagram.svg"}
               />
               <SocialIcon
-                href={settings.linkedin_link}
+                href={settings.pinterest_link}
                 icon={"/assets/icons/social/pinterest.svg"}
               />
             </div>

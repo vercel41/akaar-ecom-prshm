@@ -182,19 +182,19 @@ const SingleProduct = ({ product, isFlashSale }) => {
               <div className="product-actions flex justify-between items-center gap-1 sm:gap-2">
                 <button
                   aria-label="Add To Cart"
-                  className="action-btn p-1"
+                  className="action-btn p-1 lg:px-2 text-sm lg:text-lg"
                   onClick={(e) => handleAddToCart(product)}
                 >
                   <HiOutlineShoppingCart
-                    size={24}
+                    size={20}
                     className="active:scale-90"
                   />
                 </button>
                 <button
                   onClick={() => handleCheckout(product)}
-                  className="action-btn px-2 lg:px-4 py-1"
+                  className="action-btn p-1 text-sm lg:text-lg lg:px-4 py-1"
                 >
-                  Buy Now <HiArrowLongRight size={20} />
+                  Buy Now <HiArrowLongRight className="" size={20} />
                 </button>
               </div>
               {isFlashSale && (

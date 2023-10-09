@@ -12,7 +12,7 @@ import FilterMenu from "./FilterMenu";
 const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
   const params = new URLSearchParams(customSearchParams);
   const productResponse = await fetchData({
-    api: `products?${params.toString()}`,
+    api: `products?per_page=20&${params.toString()}`,
   });
   const products = productResponse?.data || [];
   const meta = productResponse?.meta || {};
@@ -29,7 +29,7 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
           <SortSelect />
         </div>
       </div>
-      <div className="lg:flex gap-4 items-start">
+      <div className="lg:flex gap-4">
         <FilterMenu category={category} />
         {products?.length ? (
           <ProductList products={products} />

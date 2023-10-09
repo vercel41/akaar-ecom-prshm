@@ -49,7 +49,7 @@ const Filter = ({ category }) => {
 
   return (
     <div
-      className={`min-w-[15rem] min-h-fit pb-14 filter-sidebar flex flex-col pr-2 gap-y-5`}
+      className={`min-w-[15rem] lg:max-w-[15rem] min-h-fit pb-14 filter-sidebar flex flex-col pr-2 gap-y-5`}
     >
       {/* {category || selectedBrandIds.length || selectedColors.length ? (
         <div className="flex items-center flex-wrap gap-2">

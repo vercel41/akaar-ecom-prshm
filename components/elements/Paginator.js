@@ -45,14 +45,18 @@ export default function Paginator({ meta, paginateItems }) {
       {/* Previous Page  */}
       {currentPage > 1 ? (
         <Link
-          className={`p-2 border border-slate-200 text-slate-600 px-6`}
+          className={`p-2 border border-slate-200 text-slate-600 px-2 md:px-6`}
           href={pathname + "?" + createQueryString("page", currentPage - 1)}
         >
-          Previous
+          <span className="hidden md:block">Previous</span>
+          <AiOutlineLeft className="md:hidden" />
         </Link>
       ) : (
-        <span className={`p-2 border border-slate-200 text-slate-300  px-6`}>
-          Previous
+        <span
+          className={`p-2 border border-slate-200 text-slate-300  px-2 md:px-6`}
+        >
+          <span className="hidden md:block">Previous</span>
+          <AiOutlineLeft className="md:hidden" />
         </span>
       )}
       {/* Pages  */}
@@ -101,14 +105,18 @@ export default function Paginator({ meta, paginateItems }) {
       {/* Next Page  */}
       {currentPage < lastPage ? (
         <Link
-          className={`p-2 border border-slate-200 text-slate-600 px-6`}
+          className={`p-2 border border-slate-200 text-slate-600 px-2 md:px-6`}
           href={pathname + "?" + createQueryString("page", currentPage + 1)}
         >
-          Next
+          <span className="hidden md:block">Next</span>
+          <AiOutlineRight className="md:hidden" />
         </Link>
       ) : (
-        <span className={`p-2 border border-slate-200 text-slate-300 px-6`}>
-          Next
+        <span
+          className={`p-2 border border-slate-200 text-slate-300 px-2 md:px-6`}
+        >
+          <span className="hidden md:block">Next</span>
+          <AiOutlineRight className="md:hidden" />
         </span>
       )}
     </div>
