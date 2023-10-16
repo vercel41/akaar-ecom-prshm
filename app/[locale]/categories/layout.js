@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Style Mart Brand || All Categories",
-  description: "All Categories Of Style Mart Brand",
+  title: "All Categories",
+  description: "All Categories",
 };
 export default function CategoriesLayout({ children }) {
   return <div>{children}</div>;

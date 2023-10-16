@@ -2,12 +2,11 @@ import Link from "next/link";
 import { fetchData } from "@/utils/fetchData";
 
 // ** Imoprt icons
-import { BsFillTelephoneFill } from "react-icons/bs";
 import ViewHTML from "@/components/elements/ViewHTML";
 import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: "Style Mart Brand || Booking Policy",
+  title: "Booking Policy",
 };
 
 const DynamicPage = async ({ params }) => {

@@ -34,7 +34,7 @@ const DashboardLayout = ({ children, params }) => {
           <div className="flex flex-col items-center text-center lg:text-start gap-4 md:flex-row md:justify-between mt-4 px-4">
             <div className="text-sm text-slate-600">
               <p className="my-1">Hello Customer</p>
-              <p className="my-1">Welcome to your Style Mart Brand account.</p>
+              <p className="my-1">Welcome to your account.</p>
             </div>
             <Link
               href={"/products"}

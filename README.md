@@ -1,4 +1,4 @@
-# Style Mart Brand - Project
+# Next.Js E-commerce - Project
 
 ## Getting Started
 

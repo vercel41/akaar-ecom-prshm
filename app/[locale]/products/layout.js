@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Style Mart Brand || Products",
-  description: "Category Products",
+  title: "All Products",
+  description: "ALL Products",
 };
 export default function FlashSaleLayout({ children }) {
   return <div>{children}</div>;

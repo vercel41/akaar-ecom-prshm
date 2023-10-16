@@ -5,57 +5,58 @@ import getToken from "@/utils/getToken";
 
 // Define a service using a base URL and expected endpoints
 export const apiSlice = createApi({
-  reducerPath: "apiSlice",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.server,
-    prepareHeaders: (headers, { getState }) => {
-      // Retrieve the API keys from next config env variables
-      const publicKey = process.env.amsPublickey;
-      const privateKey = process.env.amsPrivateKey;
-      const token = getToken();
+	reducerPath: "apiSlice",
+	baseQuery: fetchBaseQuery({
+		baseUrl: process.env.server,
+		prepareHeaders: (headers, { getState }) => {
+			// Retrieve the API keys from next config env variables
+			const publicKey = process.env.amsPublickey;
+			const privateKey = process.env.amsPrivateKey;
+			const token = getToken();
 
-      // Set the API key headers
-      headers.set("AmsPublicKey", publicKey);
-      headers.set("AmsPrivateKey", privateKey);
+			// Set the API key headers
+			headers.set("AmsPublicKey", publicKey);
+			headers.set("AmsPrivateKey", privateKey);
 
-      // Set the lang key headers
-      // const locale = getState().common.locale;
-      // console.log(locale);
-      // headers.set("lang", locale);
+			// Set the lang key headers
+			// const locale = getState().common.locale;
+			// console.log(locale);
+			// headers.set("lang", locale);
 
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
+			if (token) {
+				headers.set("Authorization", `Bearer ${token}`);
+			}
 
-      return headers;
-    },
-  }),
+			return headers;
+		},
+	}),
 
-  tagTypes: [
-    "countries",
-    "user",
-    "wishlist",
-    "s-ticket",
-    "s-ticket-type",
-    "visited",
-    "orders",
-    "order",
-    "categories",
-    "popular-categories",
-    "product-qna",
-    "faqs",
-    "user-reviews",
-    "product-reviews",
-    "user-review-show",
-    "popular-search",
-    "brands",
-    "filter-options",
-    "review-summary",
-    "review-images",
-    "review-details",
-    "product-flash-sale",
-  ],
-  endpoints: () => ({}),
+	tagTypes: [
+		"countries",
+		"user",
+		"wishlist",
+		"s-ticket",
+		"s-ticket-type",
+		"visited",
+		"orders",
+		"order",
+		"categories",
+		"popular-categories",
+		"product-qna",
+		"faqs",
+		"user-reviews",
+		"product-reviews",
+		"user-review-show",
+		"popular-search",
+		"brands",
+		"filter-options",
+		"review-summary",
+		"review-images",
+		"review-details",
+		"product-flash-sale",
+		"payment-methods",
+	],
+	endpoints: () => ({}),
 });
 
 export default apiSlice;

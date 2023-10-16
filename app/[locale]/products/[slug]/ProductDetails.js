@@ -131,7 +131,7 @@ const ProductDetails = ({ product, settings }) => {
                 />
               ) : null}
 
-              {product?.coupons.length ? (
+              {product?.coupons?.length ? (
                 <div className="mt-5 mb-8">
                   <p className="font-semibold font-title text-slate-900 mb-2">
                     Offer <TbTag size={24} className="text-primary mb-1" />
@@ -213,7 +213,7 @@ const ProductDetails = ({ product, settings }) => {
                 </h4>
                 <ViewHTML htmlText={product?.details} />
               </div>
-              {product.includedProducts.length ? (
+              {product.includedProducts?.length ? (
                 <div className="mt-8">
                   <h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
                     Product Included

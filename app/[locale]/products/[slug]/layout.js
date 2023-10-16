@@ -1,6 +1,19 @@
-export const metadata = {
-  title: "Style Mart Brand || product details page",
-  description: "product details page",
+import { fetchData } from "@/utils/fetchData";
+import { notFound } from "next/navigation";
+
+export const generateMetadata = async ({ params }, parent) => {
+  const parentMetaData = await parent;
+  let product = {};
+  try {
+    product = await fetchData({ api: `products/${params.slug}` });
+  } catch (error) {
+    return notFound();
+  }
+
+  return {
+    title: `${product?.data?.product_name} || ${parentMetaData.applicationName}`,
+    description: `${product?.data?.product_name} a product of ${parentMetaData.applicationName}`,
+  };
 };
 
 export default async function ProductDetailsLayout({ children }) {

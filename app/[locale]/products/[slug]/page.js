@@ -18,7 +18,7 @@ const ProductView = async ({ params }) => {
   const settings =
     settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
   const product =
-    productRes.status === "fulfilled" ? productRes.value?.data || [] : [];
+    productRes.status === "fulfilled" ? productRes.value?.data || {} : {};
 
   //Category Filter
   const customSearchParams = {

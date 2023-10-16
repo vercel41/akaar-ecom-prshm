@@ -1,10 +1,15 @@
 import Link from "next/link";
-import Image from "next/image";
 import { fetchData } from "@/utils/fetchData";
 import ProductsWithFilter from "@/components/products/ProductsWithFilter";
 
-// ** Imoprt icons
-// import noImage from "@/public/assets/images/no-image.png";
+export const generateMetadata = async ({ params }, parent) => {
+  const parentMetaData = await parent;
+  // console.log(parentMetaData);
+  return {
+    title: `${params.category_slug} || ${parentMetaData.applicationName}`,
+    description: `All ${params.category_slug} products of ${parentMetaData.applicationName}`,
+  };
+};
 
 const page = async ({ params, searchParams }) => {
   const { category_slug } = params;

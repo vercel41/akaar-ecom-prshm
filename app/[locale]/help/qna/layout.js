@@ -1,6 +1,6 @@
 export async function generateMetadata({ params }) {
   return {
-    title: "Style Mart Brand || QnA",
+    title: "Question and Answer",
   };
 }
 
