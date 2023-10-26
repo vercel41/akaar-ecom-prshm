@@ -86,7 +86,7 @@ const ProductDetails = ({ product, settings }) => {
 								<div className="product-price flex items-center gap-4 pb-4">
 									<span className="text-xl font-title text-slate-900">
 										Wholesale Price Tk.
-										{product?.minimum_wholesale_price || "0.00"}{" "}
+										{product?.wholesale_price || "0.00"}{" "}
 									</span>
 									<span className="old-price text-lg/[24px] font-normal text-slate-400">
 										(MOQ: {product?.minimum_wholesale_quantity})

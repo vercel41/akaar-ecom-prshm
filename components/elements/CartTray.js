@@ -6,36 +6,36 @@ import { useDispatch, useSelector } from "react-redux";
 // import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { toggleCart } from "@/store/features/cartSlice";
-import { getMultipliedColumnTotal } from "@/utils/getTotal";
 // import cartImage from "@/public/assets/images/cart.gif";
 // import dynamic from "next/dynamic";
 import { BsCart3 } from "react-icons/bs";
+import { getCartTotal } from "@/utils/checkoutBusinessLogics";
 // const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 //   ssr: false,
 // });
 
 const CartTray = () => {
-  const { cart } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+	const { cart } = useSelector((state) => state.cart);
+	const dispatch = useDispatch();
 
-  const handleCart = () => {
-    dispatch(toggleCart());
-  };
+	const handleCart = () => {
+		dispatch(toggleCart());
+	};
 
-  return (
-    <>
-      <div
-        className="cart fixed top-1/2 right-0 cursor-pointer z-40 text-white"
-        onClick={handleCart}
-      >
-        <div className="icon bg-white border border-r-0 border-primary px-1 text-center">
-          <BsCart3 size={36} className="text-primary m-2" />
-        </div>
-        <div className="text-center bg-primary pt-2">
-          <p className="text-xs text-white">{cart?.length} Items</p>
-          <div className="text-xs font-semibold text-white flex items-center justify-center">
-            <TbCurrencyTaka size={16} className="mb-1" />
-            {/* <AnimatedNumbers
+	return (
+		<>
+			<div
+				className="cart fixed top-1/2 right-0 cursor-pointer z-40 text-white"
+				onClick={handleCart}
+			>
+				<div className="icon bg-white border border-r-0 border-primary px-1 text-center">
+					<BsCart3 size={36} className="text-primary m-2" />
+				</div>
+				<div className="text-center bg-primary pt-2">
+					<p className="text-xs text-white">{cart?.length} Items</p>
+					<div className="text-xs font-semibold text-white flex items-center justify-center">
+						<TbCurrencyTaka size={16} className="mb-1" />
+						{/* <AnimatedNumbers
               animateToNumber={getMultipliedColumnTotal(
                 cart,
                 "quantity",
@@ -56,12 +56,13 @@ const CartTray = () => {
               //   { mass: 1, tension: 210, friction: 180 },
               // ]}
             ></AnimatedNumbers> */}
-            {getMultipliedColumnTotal(cart, "quantity", "new_price")}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+						{/* {getMultipliedColumnTotal(cart, "quantity", "new_price")} */}
+						{getCartTotal(cart)}
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default CartTray;

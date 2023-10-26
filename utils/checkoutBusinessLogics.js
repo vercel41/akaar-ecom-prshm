@@ -9,17 +9,17 @@
  * and total price.
  */
 export const getCouponDiscount = (discountCoupon, totalPrice) => {
-  let discountAmount = 0;
-  if (discountCoupon?.discount_type === "percentage") {
-    discountAmount = totalPrice * (discountCoupon?.discount_amount / 100);
-    if (discountAmount > discountCoupon?.max_discount) {
-      return discountCoupon?.max_discount || 0;
-    }
-    return discountAmount;
-  } else if (discountCoupon?.discount_type === "flat") {
-    return discountCoupon?.discount_amount;
-  }
-  return discountAmount;
+	let discountAmount = 0;
+	if (discountCoupon?.discount_type === "percentage") {
+		discountAmount = totalPrice * (discountCoupon?.discount_amount / 100);
+		if (discountAmount > discountCoupon?.max_discount) {
+			return discountCoupon?.max_discount || 0;
+		}
+		return discountAmount;
+	} else if (discountCoupon?.discount_type === "flat") {
+		return discountCoupon?.discount_amount;
+	}
+	return discountAmount;
 };
 
 //Formatting cart items for order
@@ -32,22 +32,22 @@ export const getCouponDiscount = (discountCoupon, totalPrice) => {
  * quantity, and price.
  */
 export const getOrderFormattedCartItems = (allCartItems) => {
-  const order_items = allCartItems.map((item) => {
-    return {
-      product_id: item.id,
-      product_variant_id: item?.variantId || null,
-      quantity: item.quantity,
-      // price: item.new_price,
+	const order_items = allCartItems.map((item) => {
+		return {
+			product_id: item.id,
+			product_variant_id: item?.variantId || null,
+			quantity: item.quantity,
+			// price: item.new_price,
 
-      //Added wholesale price
-      price:
-        item.minimum_wholesale_quantity > 0 &&
-        item.quantity >= item.minimum_wholesale_quantity
-          ? item.minimum_wholesale_price
-          : item.new_price,
-    };
-  });
-  return order_items;
+			//Added wholesale price
+			price:
+				item.minimum_wholesale_quantity > 0 &&
+				item.quantity >= item.minimum_wholesale_quantity
+					? item.wholesale_price
+					: item.new_price,
+		};
+	});
+	return order_items;
 };
 
 /**
@@ -57,16 +57,16 @@ export const getOrderFormattedCartItems = (allCartItems) => {
  * @returns the total value of the cart items.
  */
 export const getCartTotal = (allCartItems) => {
-  let total = 0;
-  if (Array.isArray(allCartItems)) {
-    allCartItems.forEach((item) => {
-      total +=
-        (item?.quantity || 1) *
-        (item.minimum_wholesale_quantity > 0 &&
-        item.quantity >= item.minimum_wholesale_quantity
-          ? item.minimum_wholesale_price
-          : item.new_price || 0);
-    });
-  }
-  return total;
+	let total = 0;
+	if (Array.isArray(allCartItems)) {
+		allCartItems.forEach((item) => {
+			total +=
+				(item?.quantity || 1) *
+				(item.minimum_wholesale_quantity > 0 &&
+				item.quantity >= item.minimum_wholesale_quantity
+					? item.wholesale_price
+					: item.new_price || 0);
+		});
+	}
+	return total;
 };
