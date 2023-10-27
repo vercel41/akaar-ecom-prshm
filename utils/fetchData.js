@@ -18,7 +18,7 @@ import {
 export async function fetchData(config) {
   // fetch(`${process.env.server}/products`, { cache: 'force-cache' });
   const res = await fetch(`${process.env.server}/${config?.api}`, {
-    next: { revalidate: config?.revalidate || 300 },
+    next: { revalidate: 59 },
     headers: {
       AmsPublickey: process.env.AMS_PUBLIC_KEY,
       AmsPrivateKey: process.env.AMS_PRIVATE_KEY,

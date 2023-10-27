@@ -49,7 +49,7 @@ export default function MainNav({ settings, categories }) {
         <div className="header-wrap flex justify-between items-center">
           {/* Nav Items  */}
           <ResponsiveMenu settings={settings} categories={categories} />
-          <div className="header-right flex justify-between items-center gap-6">
+          <div className="header-right flex justify-between items-center ml-4 gap-6">
             <ResponsiveSearch />
             <div className="header-actions flex gap-4">
               <button

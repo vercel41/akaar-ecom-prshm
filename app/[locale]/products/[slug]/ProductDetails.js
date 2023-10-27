@@ -70,7 +70,7 @@ const ProductDetails = ({ product, settings }) => {
 							<h5 className="text-2xl font-title font-bold text-slate-900">
 								{getSlicedText(product?.product_name, 100)}
 							</h5>
-							<div className="product-price flex items-center gap-4 py-4">
+							<div className="product-price flex items-center gap-4 pt-4">
 								<span className="text-xl font-title text-slate-900">
 									Tk.{product?.new_price || "0.00"}{" "}
 								</span>
@@ -83,7 +83,7 @@ const ProductDetails = ({ product, settings }) => {
 								) : null}
 							</div>
 							{product?.minimum_wholesale_quantity > 0 && (
-								<div className="product-price flex items-center gap-4 pb-4">
+								<div className="product-price flex items-center gap-4 pt-4">
 									<span className="text-xl font-title text-slate-900">
 										Wholesale Price Tk.
 										{product?.wholesale_price || "0.00"}{" "}
@@ -93,6 +93,16 @@ const ProductDetails = ({ product, settings }) => {
 									</span>
 								</div>
 							)}
+							<div className="flex items-center gap-2 py-4 font-title text-lg">
+								<span className="text-slate-900">
+										SKU: 
+								</span>
+								<span className="text-secondary">
+									{product?.sku}
+								</span>
+							</div>
+							
+									
 							{/* Rating Review and Share section  */}
 							{/* <div className="meta-data flex items-center gap-8 my-2">
                 <div className="flex gap-1 items-center">

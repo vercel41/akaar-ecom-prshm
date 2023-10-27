@@ -23,6 +23,7 @@ const SaleProductCard = ({ saleProduct }) => {
               className="product-title text-base font-semibold text-slate-900 font-body overflow-text"
             >
               {saleProduct.product.product_name}
+              {/* - (sku: {saleProduct?.product?.sku}) */}
             </Link>
           </h2>
           {saleProduct?.product_variant && (

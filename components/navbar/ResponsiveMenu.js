@@ -45,7 +45,7 @@ export default function ResponsiveMenu({ settings, categories }) {
 	};
 
 	return (
-		<div className="header-left flex items-center gap-x-3">
+		<div className="header-left flex items-center gap-x-2">
 			{!menuOpen ? (
 				<button
 					onClick={() => setMenuOpen(!menuOpen)}
@@ -67,18 +67,11 @@ export default function ResponsiveMenu({ settings, categories }) {
 					className="h-full max-h-[60px] py-2 object-contain lg:w-auto"
 				/>
 			</Link>
-			<ul className="ml-3 nav-menu hidden lg:flex gap-4 items-center h-[60px] box-border">
-				{/* {Object.keys(headerPage).map((key) => (
-          <Link key={key} href={headerPage[key]}>
-            <span className="inline-block h-full text-primary font-title font-bold hover:text-primary uppercase">
-              {key}
-            </span>
-          </Link>
-        ))} */}
+			<ul className="ml-3 nav-menu hidden lg:flex gap-3 items-center justify-start h-[60px] box-border">
 				{categories.map((category, index) => (
 					<li
 						key={category.id}
-						className={`h-full inline-flex items-center ${
+						className={`h-full inline-flex items-center whitespace-nowrap text-ellipsis  ${
 							category.slug == category_slug ||
 							(category.child_categories || []).some(
 								(c) => c.slug === category_slug
