@@ -90,11 +90,11 @@ export default function ProductVariantSelect({
 					</div>
 				) : null}
 			</div>
-			<div className="product-size mt-8">
+			{/* <div className="product-size mt-8">
 				<h4 className="text-slate-900">
 					In-Stock: {selectedVariant?.stock_quantity || 0}
 				</h4>
-			</div>
+			</div> */}
 			{sizeChart && showSizeChart && (
 				<SizeChartModal
 					showModal={showSizeChart}

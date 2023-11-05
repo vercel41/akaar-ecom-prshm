@@ -158,13 +158,13 @@ const SingleProduct = ({ product, isFlashSale }) => {
 										</>
 									) : null}
 								</span>
-								<h3 className="">
+								{/* <h3 className="">
 									{stock_qty ? (
 										`Stock: ${stock_qty}`
 									) : (
 										<span className="text-red-300 font-title">Stock Out</span>
 									)}
-								</h3>
+								</h3> */}
 							</div>
 							{/* <div className="rating-result flex items-center gap-2 mb-4">
                   <span className="font-semibold text-slate-900">

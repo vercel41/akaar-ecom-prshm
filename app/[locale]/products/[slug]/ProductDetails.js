@@ -140,13 +140,13 @@ const ProductDetails = ({ product, settings }) => {
 									setSelectedVariant={setSelectedVariant}
 									sizeChart={product?.size_chart}
 								/>
-							) : (
-								<div className="product-size mt-8">
-									<h4 className="text-slate-900">
-										In-Stock: {product?.stock_qty || 0}
-									</h4>
-								</div>
-							)}
+							) : null
+							// <div className="product-size mt-8">
+							// 	<h4 className="text-slate-900">
+							// 		In-Stock: {product?.stock_qty || 0}
+							// 	</h4>
+							// </div>
+							}
 
 							{product?.coupons?.length ? (
 								<div className="mt-5 mb-8">
