@@ -57,7 +57,7 @@ const cartSlice = createSlice({
 					if (
 						variantProduct.quantity >= product?.selectedVariant?.stock_quantity
 					) {
-						toast.error("No more products");
+						toast.error("No more stock for this variant");
 						return;
 					}
 					const cartId = variantProduct.cartId;
@@ -104,12 +104,18 @@ const cartSlice = createSlice({
 			//Updating item
 			const item = state.cart[index];
 
-			//checking available stock for regular and variant products
+			//checking available stock for regular products
+			if (item.quantity >= item.stock_qty) {
+				toast.error("No more products");
+				return;
+			}
+
+			//checking available stock for variant products
 			if (
-				item.quantity >= item.stock_qty ||
+				item.variantId &&
 				item.quantity >= item?.selectedVariant?.stock_quantity
 			) {
-				toast.error("No more products");
+				toast.error("No more stock for this variant");
 				return;
 			}
 

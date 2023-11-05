@@ -35,7 +35,7 @@ const ProductDetails = ({ product, settings }) => {
 				!selectedVariant?.stock_quantity ||
 				selectedVariant?.stock_quantity <= 0
 			) {
-				toast.error("stock out");
+				toast.error("No more stock for this variant");
 				return;
 			}
 			const variantProduct = {
