@@ -50,7 +50,7 @@ const SingleProduct = ({ product, isFlashSale }) => {
 	}, [product]);
 
 	const handleAddToCart = (product) => {
-		if (stock_qty === 0) {
+		if (!stock_qty || stock_qty <= 0) {
 			toast.error("stock out");
 			return;
 		}
@@ -63,7 +63,7 @@ const SingleProduct = ({ product, isFlashSale }) => {
 
 	// Buy Now action
 	const handleCheckout = (product) => {
-		if (stock_qty === 0) {
+		if (!stock_qty || stock_qty <= 0) {
 			toast.error("stock out");
 			return;
 		}

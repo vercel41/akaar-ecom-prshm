@@ -17,7 +17,7 @@ import ProductVariantSelect from "@/components/products/ProductVariantSelect";
 // ** Import Icon
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { TbTag } from "react-icons/tb";
-import { IoCall, IoCopy } from "react-icons/io5";
+import { IoCopy } from "react-icons/io5";
 import { BsFillTelephoneFill } from "react-icons/bs";
 
 const ProductDetails = ({ product, settings }) => {
@@ -26,11 +26,18 @@ const ProductDetails = ({ product, settings }) => {
 	const router = useRouter();
 
 	const handleAddToCart = () => {
-		if (product?.stock_qty === 0 || selectedVariant?.stock_quantity === 0) {
+		if (!product?.stock_qty || product?.stock_qty <= 0) {
 			toast.error("stock out");
 			return;
 		}
 		if (product?.productVariants?.length) {
+			if (
+				!selectedVariant?.stock_quantity ||
+				selectedVariant?.stock_quantity <= 0
+			) {
+				toast.error("stock out");
+				return;
+			}
 			const variantProduct = {
 				...product,
 				variantId: selectedVariant?.id,
@@ -45,7 +52,7 @@ const ProductDetails = ({ product, settings }) => {
 	};
 
 	const handleBuyNow = () => {
-		if (product?.stock_qty === 0) {
+		if (!product?.stock_qty || product?.stock_qty <= 0) {
 			toast.error("stock out");
 			return;
 		}
@@ -94,15 +101,10 @@ const ProductDetails = ({ product, settings }) => {
 								</div>
 							)}
 							<div className="flex items-center gap-2 py-4 font-title text-lg">
-								<span className="text-slate-900">
-										SKU: 
-								</span>
-								<span className="text-secondary">
-									{product?.sku}
-								</span>
+								<span className="text-slate-900">SKU:</span>
+								<span className="text-secondary">{product?.sku}</span>
 							</div>
-							
-									
+
 							{/* Rating Review and Share section  */}
 							{/* <div className="meta-data flex items-center gap-8 my-2">
                 <div className="flex gap-1 items-center">
@@ -138,7 +140,13 @@ const ProductDetails = ({ product, settings }) => {
 									setSelectedVariant={setSelectedVariant}
 									sizeChart={product?.size_chart}
 								/>
-							) : null}
+							) : (
+								<div className="product-size mt-8">
+									<h4 className="text-slate-900">
+										In-Stock: {product?.stock_qty || 0}
+									</h4>
+								</div>
+							)}
 
 							{product?.coupons?.length ? (
 								<div className="mt-5 mb-8">

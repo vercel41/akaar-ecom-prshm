@@ -21,8 +21,8 @@ const ProductSelect = () => {
 
 	const handleAddToCart = () => {
 		if (
-			selectedProduct?.stock_qty === 0 ||
-			selectedVariant?.stock_quantity === 0
+			!selectedVariant?.stock_quantity ||
+			selectedVariant?.stock_quantity <= 0
 		) {
 			toast.error("stock out");
 			return;

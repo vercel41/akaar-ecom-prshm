@@ -104,8 +104,11 @@ const cartSlice = createSlice({
 			//Updating item
 			const item = state.cart[index];
 
-			//checking available stock
-			if (item.quantity >= item?.selectedVariant?.stock_quantity) {
+			//checking available stock for regular and variant products
+			if (
+				item.quantity >= item.stock_qty ||
+				item.quantity >= item?.selectedVariant?.stock_quantity
+			) {
 				toast.error("No more products");
 				return;
 			}
