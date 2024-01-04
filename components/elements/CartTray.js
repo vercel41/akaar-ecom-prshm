@@ -9,7 +9,7 @@ import { toggleCart } from "@/store/features/cartSlice";
 // import cartImage from "@/public/assets/images/cart.gif";
 // import dynamic from "next/dynamic";
 import { BsCart3 } from "react-icons/bs";
-import { getCartTotal } from "@/utils/checkoutBusinessLogics";
+import { getCartTotal } from "@/lib/checkout";
 // const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 //   ssr: false,
 // });

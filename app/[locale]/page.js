@@ -1,9 +1,9 @@
-import Intro from "@/components/Intro";
-import FlashSale from "@/components/FlashSale";
-import NewArrival from "@/components/NewArrival";
-import VideoBanner from "@/components/VideoBanner";
-import FeaturedBanner from "@/components/FeaturedBanner";
-import HomeCategoryProducts from "@/components/HomeCategoryProducts";
+import Intro from "./_components/intro";
+import FlashSale from "./_components/FlashSale";
+import NewArrival from "./_components/NewArrival";
+import VideoBanner from "./_components/VideoBanner";
+import FeaturedBanner from "./_components/FeaturedBanner";
+import HomeCategoryProducts from "./_components/HomeCategoryProducts";
 
 export default function Home() {
 	return (
@@ -42,23 +42,23 @@ export default function Home() {
 			</section>
 
 			{/* <section className="all-category mt-28">
-        <div
-          className="container py-6"
-          style={{
-            backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
-          }}
-        >
-          <div className="sec-heading w-full flex justify-between items-center mb-3">
-            <h2 className="sec-title !text-white">Category</h2>
-            <Link href="/categories" className="all-btn !text-white">
-              View All <HiArrowLongRight size={24} />{" "}
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <PopularCategories />
-          </div>
-        </div>
-      </section> */}
+				<div
+					className="container py-6"
+					style={{
+						backgroundImage: "linear-gradient(to right, #2980B9, #6DD5FA)",
+					}}
+				>
+					<div className="sec-heading w-full flex justify-between items-center mb-3">
+						<h2 className="sec-title !text-white">Category</h2>
+						<Link href="/categories" className="all-btn !text-white">
+							View All <HiArrowLongRight size={24} />{" "}
+						</Link>
+					</div>
+					<div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+						<PopularCategories />
+					</div>
+				</div>
+			</section> */}
 
 			{/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">

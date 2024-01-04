@@ -7,13 +7,13 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import getToken from "@/utils/getToken";
+import getToken from "@/utils/token";
 // import { getMultipliedColumnTotal } from "@/utils/getTotal";
 import {
 	getCartTotal,
 	getCouponDiscount,
 	getOrderFormattedCartItems,
-} from "@/utils/checkoutBusinessLogics";
+} from "@/lib/checkout";
 
 //components
 import CartCard from "@/components/CartCard";

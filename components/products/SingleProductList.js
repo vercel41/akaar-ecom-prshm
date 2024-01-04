@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Loader from "../elements/loaders/Loader";
-import { formatLongNumber, getFractionFixed } from "@/utils/formatNumber";
+import { formatLongNumber, getFractionFixed } from "@/utils/format-number";
 
 // ** Import Icon
 import { FaStar } from "react-icons/fa";

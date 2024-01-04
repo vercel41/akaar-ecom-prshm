@@ -3,56 +3,59 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        body: ["Noto Sans Bengali", ...defaultTheme.fontFamily.sans],
-        title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
-        // title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
-      },
-      screens: {
-        sm: "576px",
-        md: "768px",
-        lg: "992px",
-        xl: "1200px",
-      },
-      container: {
-        center: true,
-        padding: "1rem",
-      },
-      colors: {
-        primary: {
-          DEFAULT: "#222222",
-        },
-        secondary: {
-          700: "#243e8b",
-          800: "#00A7B8",
-          DEFAULT: "#2980B9",
-        },
-        amber: {
-          200: "#FFF6EB",
-          400: "#FDBE68",
-        },
-        slate: {
-          300: "#CBD5E1",
-          400: "#94A3B8",
-          500: "#64748B",
-          700: "#334155",
-          900: "#0F172A",
-        },
-        red: {
-          500: "#EF4444",
-        },
-      },
-      maxWidth: {
-        "1/2": "50%",
-      },
-    },
-  },
-  plugins: [require("@tailwindcss/container-queries")],
+	content: [
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./app/**/*.{js,ts,jsx,tsx,mdx}",
+	],
+	theme: {
+		extend: {
+			fontFamily: {
+				body: ["Noto Sans Bengali", ...defaultTheme.fontFamily.sans],
+				title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
+				// title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
+			},
+			screens: {
+				sm: "576px",
+				md: "768px",
+				lg: "992px",
+				xl: "1200px",
+			},
+			container: {
+				center: true,
+				padding: "1rem",
+			},
+			colors: {
+				primary: {
+					DEFAULT: "#222222",
+				},
+				secondary: {
+					700: "#243e8b",
+					800: "#00A7B8",
+					DEFAULT: "#2980B9",
+				},
+				amber: {
+					200: "#FFF6EB",
+					400: "#FDBE68",
+				},
+				slate: {
+					300: "#CBD5E1",
+					400: "#94A3B8",
+					500: "#64748B",
+					700: "#334155",
+					900: "#0F172A",
+				},
+				red: {
+					500: "#EF4444",
+				},
+			},
+			maxWidth: {
+				"1/2": "50%",
+			},
+		},
+	},
+	plugins: [
+		require("@tailwindcss/container-queries"),
+		require("./config/tailwind-custom-plugin"),
+	],
 };

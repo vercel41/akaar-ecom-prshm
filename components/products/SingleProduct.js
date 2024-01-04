@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
 import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
-import { getDaysSinceCreation } from "@/utils/formatDate";
-import { getSalePercent } from "@/utils/getPercent";
+import { getDaysSinceCreation } from "@/utils/format-date";
+import { getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
 
 import {

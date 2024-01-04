@@ -1,4 +1,4 @@
-import { generateUniqueId } from "@/utils/getUniqueId";
+import { generateUniqueId } from "@/utils/get-unique";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 

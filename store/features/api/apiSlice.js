@@ -1,7 +1,7 @@
 // Need to use the React-specific entry point to allow generating React hooks
 // Important note: if we use /react entry point then we can't able to use redux in server component
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import getToken from "@/utils/getToken";
+import getToken from "@/utils/token";
 
 // Define a service using a base URL and expected endpoints
 export const apiSlice = createApi({

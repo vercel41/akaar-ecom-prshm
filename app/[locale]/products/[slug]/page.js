@@ -1,11 +1,11 @@
-import Link from "next/link";
-import AllProducts from "@/components/products/AllProducts";
-import LastVisitedProducts from "@/components/products/LastVisitedProducts";
-import ProductDetails from "./ProductDetails";
-import { fetchData } from "@/utils/fetchData";
-import { notFound } from "next/navigation";
 import React from "react";
-import { getSlicedText } from "@/utils/formatText";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { fetchData } from "@/lib/fetch-data";
+import { getSlicedText } from "@/utils/format-text";
+import AllProducts from "@/components/products/AllProducts";
+import ProductDetails from "./_components/ProductDetails";
+import LastVisitedProducts from "./_components/LastVisitedProducts";
 
 const ProductView = async ({ params }) => {
 	const { slug } = params;

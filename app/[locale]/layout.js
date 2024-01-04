@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 // ** Import Components
 import Footer from "@/components/footer/Footer";
 import CheckConnection from "@/components/CheckConnection";
-import Header from "@/components/navbar/Header";
+import Header from "@/components/navigation/header";
 import CartTray from "@/components/elements/CartTray";
 import ReduxProvider from "@/store/ReduxProvider";
 
@@ -24,7 +24,7 @@ import ProductSelect from "@/components/side-drawers/ProductSelect";
 import PersistUser from "@/components/utility/PersistUser";
 import GlobalLoader from "@/components/utility/GlobalLoader";
 import ServerDataProvider from "@/components/utility/ServerDataProvider";
-import { fetchData } from "@/utils/fetchData";
+import { fetchData } from "@/lib/fetch-data";
 
 export const generateMetadata = async () => {
 	let settings = {};
