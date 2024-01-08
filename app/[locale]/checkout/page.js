@@ -1,14 +1,10 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import getToken from "@/utils/token";
-// import { getMultipliedColumnTotal } from "@/utils/getTotal";
 import {
 	getCartTotal,
 	getCouponDiscount,
@@ -22,10 +18,6 @@ import CouponModal from "@/components/modals/CouponModal";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import RequireAuth from "@/components/hoks/RequireAuth";
 import FieldsetInput from "@/components/elements/FieldsetInput";
-
-//store
-import { clearCart, clearDiscountInfo } from "@/store/features/cartSlice";
-import { usePlaceAnOrderMutation } from "@/store/features/api/orderAPI";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 
 //Icons
@@ -33,6 +25,7 @@ import { FiPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
 import { siteConfig } from "@/config/site";
+import useOrderPlace from "@/hooks/useOrderPlace";
 
 const Checkout = () => {
 	// Dynamic delivery charges
@@ -58,10 +51,9 @@ const Checkout = () => {
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
 	const { user, isLoading } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-	const router = useRouter();
+	const { handleOrderPlace } = useOrderPlace(); //custom hook for separating order place business logics
 	const { data: paymentMethodsData } = useGetPaymentMethodsQuery();
 	const paymentMethods = paymentMethodsData?.data || {};
-	const [placeAnOrder] = usePlaceAnOrderMutation();
 
 	//slicing cart items based on orderCollapsed
 	const cartItems = orderCollapsed ? cart : cart.slice(0, 3);
@@ -94,7 +86,7 @@ const Checkout = () => {
 
 	// console.log(isDeliveryCharge);
 
-	const handleOrderPlace = async (data, event) => {
+	const handleCheckoutSubmit = async (data, event) => {
 		dispatch(setGlobalLoader(true));
 
 		const newOrder = {
@@ -120,56 +112,7 @@ const Checkout = () => {
 			// note: "",
 		};
 		// console.log(newOrder);
-
-		if (
-			selectedPayMethod
-				? selectedPayMethod.key === "Online"
-				: Object.values(paymentMethods)[0]?.key === "Online"
-		) {
-			try {
-				const res = await fetch("/api/payments/sslcz", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						authorization: `Bearer ${getToken()}`,
-					},
-					body: JSON.stringify(newOrder),
-				});
-				const data = await res.json();
-				dispatch(setGlobalLoader(false));
-				// console.log(data);
-				if (data?.GatewayPageURL) {
-					toast.success("Online payment is processing please wait");
-					dispatch(clearDiscountInfo());
-					dispatch(clearCart());
-					window.location.replace(data.GatewayPageURL);
-				} else {
-					toast.error("Something went wrong");
-				}
-			} catch (error) {
-				dispatch(setGlobalLoader(false));
-				toast.error("Something went wrong...", error);
-			}
-		} else {
-			// console.log(newOrder);
-			placeAnOrder(newOrder)
-				.unwrap()
-				.then((response) => {
-					// Handle the successful response if necessary
-					// console.log(response);
-					dispatch(clearDiscountInfo());
-					dispatch(clearCart());
-					dispatch(setGlobalLoader(false));
-					toast.success("Order successful");
-					router.push(`checkout/success/${response?.sale?.id}`);
-				})
-				.catch((error) => {
-					// Handle the error if necessary
-					dispatch(setGlobalLoader(false));
-					toast.error("Failed to place an order");
-					console.log(error);
-				});
-		}
+		handleOrderPlace(newOrder);
 	};
 
 	return (
@@ -307,7 +250,10 @@ const Checkout = () => {
 						<h3 className="text-xl">Shipping Address</h3>
 					</div>
 					<div className="border-b border-slate-200">
-						<form className="w-full" onSubmit={handleSubmit(handleOrderPlace)}>
+						<form
+							className="w-full"
+							onSubmit={handleSubmit(handleCheckoutSubmit)}
+						>
 							{isLoading ? (
 								<ArticleLoader />
 							) : (
