@@ -4,8 +4,8 @@ import {
 	useRemoveSearchHistoryMutation,
 } from "@/store/features/api/searchAPI";
 import { getSlicedText } from "@/utils/format-text";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 // ** Import Icons
@@ -45,6 +45,15 @@ const Search = () => {
 	const [removeHistory] = useRemoveSearchHistoryMutation();
 
 	const router = useRouter();
+	const pathname = usePathname();
+
+	// Clear search term when route changes
+	useEffect(() => {
+		const pathArray = pathname.split("/");
+		if (pathArray[pathArray.length - 1] !== "products") {
+			setSearchTerm("");
+		}
+	}, [pathname]);
 
 	const handleSearch = (text) => {
 		if (user) {
@@ -114,19 +123,23 @@ const Search = () => {
 					className="search-input"
 				/>
 
-				<button type="submit" className="search-btn">
+				<button
+					type="submit"
+					onClick={() => handleSearch(searchTerm)}
+					className="search-btn"
+				>
 					<HiMagnifyingGlass size={24} />
 				</button>
 			</div>
 			{showSuggestionResults && (searchHistory?.length || popular?.length) ? (
 				<div className="z-20 absolute font-title text-slate-600 mt-2 py-2 w-full overflow-hidden rounded-md bg-white">
 					{searchHistory?.length ? (
-						<div className="px-4 mb-4">
-							<h3 className="mb-2">Recently Searched</h3>
+						<div className="mx-2 mb-4">
+							<h3 className="mb-2 mx-2">Recently Searched</h3>
 							{searchHistory?.slice(0, 5)?.map((keyword) => (
 								<div
 									key={keyword.id}
-									className="cursor-pointer py-2 flex gap-4 hover:bg-slate-100"
+									className="cursor-pointer group px-2 py-2 flex gap-4 hover:bg-slate-100 rounded-lg"
 								>
 									<svg
 										width="20"
@@ -154,12 +167,12 @@ const Search = () => {
 										className="text-sm font-medium"
 										onClick={() => handleSuggestionsSelect(keyword.search_name)}
 									>
-										{getSlicedText(keyword.search_name, 25)}
+										{getSlicedText(keyword.search_name, 30)}
 									</p>
-									<div className="flex-1 text-right">
+									<div className="flex-1 text-right hidden group-hover:block">
 										<span
 											onClick={() => handleDeleteHistoryItem(keyword.id)}
-											className="text-slate-600"
+											className="text-slate-600 hover:text-primary"
 										>
 											X
 										</span>
@@ -169,17 +182,17 @@ const Search = () => {
 						</div>
 					) : null}
 					{popular?.length ? (
-						<div className="px-4">
-							<h3 className="mb-2">Popular Keywords</h3>
+						<div className="mx-2">
+							<h3 className="mb-2 mx-2">Popular Keywords</h3>
 							{popular?.slice(0, 5)?.map((keyword) => (
 								<div
 									key={keyword.id}
-									className="cursor-pointer py-2 flex gap-4 hover:bg-slate-100"
+									className="cursor-pointer px-2 py-2 flex gap-4 hover:bg-slate-100 rounded-lg"
 									onClick={() => handleSuggestionsSelect(keyword.search_name)}
 								>
 									<FiSearch />
 									<p className="text-sm font-medium">
-										{getSlicedText(keyword.search_name, 35)}
+										{getSlicedText(keyword.search_name, 40)}
 									</p>
 								</div>
 							))}

@@ -1,5 +1,4 @@
 // import Offer from "../Offer";
-import Offer from "./offer";
 import CategoriesNav from "./CategoriesNav";
 import MainNav from "./main-nav";
 import { fetchData } from "@/lib/fetch-data";
@@ -19,7 +18,7 @@ const Header = async () => {
 			<header className="header">
 				<MainNav settings={settings} categories={categories} />
 				<CategoriesNav categories={categories} />
-				<Offer />
+				{/* <Offer /> */}
 			</header>
 		</>
 	);

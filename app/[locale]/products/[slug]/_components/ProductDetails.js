@@ -19,6 +19,7 @@ import { TbTag } from "react-icons/tb";
 import { IoCopy } from "react-icons/io5";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import ProductViewSlider from "./ProductViewSlider";
+import { siteConfig } from "@/config/site";
 
 const ProductDetails = ({ product, settings }) => {
 	const [selectedVariant, setSelectedVariant] = useState(null);
@@ -79,12 +80,14 @@ const ProductDetails = ({ product, settings }) => {
 							</h5>
 							<div className="product-price flex items-center gap-4 pt-4">
 								<span className="text-xl font-title text-slate-900">
-									Tk.{product?.new_price || "0.00"}{" "}
+									{siteConfig.currency.shortForm}
+									{product?.new_price || "0.00"}{" "}
 								</span>
 								{product?.discount_percentage > 0 ? (
 									<>
 										<del className="old-price text-lg/[24px] font-normal text-slate-400">
-											Tk.{product?.old_price ? `${product?.old_price}` : "0.00"}
+											{siteConfig.currency.shortForm}
+											{product?.old_price ? `${product?.old_price}` : "0.00"}
 										</del>
 									</>
 								) : null}
@@ -92,7 +95,7 @@ const ProductDetails = ({ product, settings }) => {
 							{product?.minimum_wholesale_quantity > 0 && (
 								<div className="product-price flex items-center gap-4 pt-4">
 									<span className="text-xl font-title text-slate-900">
-										Wholesale Price Tk.
+										Wholesale Price {siteConfig.currency.shortForm}
 										{product?.wholesale_price || "0.00"}{" "}
 									</span>
 									<span className="old-price text-lg/[24px] font-normal text-slate-400">

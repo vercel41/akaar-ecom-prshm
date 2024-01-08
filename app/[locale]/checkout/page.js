@@ -16,7 +16,7 @@ import {
 } from "@/lib/checkout";
 
 //components
-import CartCard from "@/components/CartCard";
+import CartCard from "@/components/cards/CartCard";
 import CustomRadio from "@/components/elements/CustomRadio";
 import CouponModal from "@/components/modals/CouponModal";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
@@ -32,6 +32,7 @@ import { setGlobalLoader } from "@/store/features/commonSlice";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
+import { siteConfig } from "@/config/site";
 
 const Checkout = () => {
 	// Dynamic delivery charges
@@ -243,11 +244,17 @@ const Checkout = () => {
 						<div className="text-slate-700 p-4 bg-white my-3">
 							<div className="flex-between my-2">
 								<p>Total</p>
-								<p>Tk.{total}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{total}
+								</p>
 							</div>
 							<div className="flex-between my-2">
 								<p>Discount Amount</p>
-								<p className="">-Tk.{discountedPrice}</p>
+								<p className="">
+									-{siteConfig.currency.shortForm}
+									{discountedPrice}
+								</p>
 							</div>
 							<div className="flex-between my-2">
 								<p>Coupon Discount</p>
@@ -265,12 +272,18 @@ const Checkout = () => {
 							<div className="border-b border-slate-300 my-2"></div>
 							<div className="flex-between my-2">
 								<p>Total with Discount</p>
-								<p>Tk.{totalWithDiscount}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{totalWithDiscount}
+								</p>
 							</div>
 							{isDeliveryCharge && (
 								<div className="flex-between my-2">
 									<p>Delivery Charge</p>
-									<p>Tk.{deliveryMethod.charges}</p>
+									<p>
+										{siteConfig.currency.shortForm}
+										{deliveryMethod.charges}
+									</p>
 								</div>
 							)}
 							<div className="border-b border-slate-900 my-2"></div>
@@ -278,7 +291,7 @@ const Checkout = () => {
 								<p>Grand Total</p>
 
 								<p>
-									Tk.
+									{siteConfig.currency.shortForm}
 									{isDeliveryCharge
 										? deliveryMethod.charges + totalWithDiscount
 										: totalWithDiscount}

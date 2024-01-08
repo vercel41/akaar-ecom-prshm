@@ -14,6 +14,7 @@ import { getFormattedDate } from "@/utils/format-date";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 import handleSSLOrderPayLater from "@/lib/ssl-pay";
 import locationImage from "@/public/assets/images/locationImage.png";
+import { siteConfig } from "@/config/site";
 
 const OrderDetail = ({ params }) => {
 	const { order_id, locale } = params;
@@ -86,20 +87,32 @@ const OrderDetail = ({ params }) => {
 
 							<div className="flex-between my-2">
 								<p>Total</p>
-								<p>Tk.{sale.sub_total}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{sale.sub_total}
+								</p>
 							</div>
 							<div className="flex-between my-2">
 								<p>Discount Amount</p>
-								<p className="text-red-500">-Tk.{sale.discount_amount}</p>
+								<p className="text-red-500">
+									-{siteConfig.currency.shortForm}
+									{sale.discount_amount}
+								</p>
 							</div>
 							<div className="border-b border-slate-300 my-2"></div>
 							<div className="flex-between my-2">
 								<p>Total with Discount</p>
-								<p>Tk.{sale.sub_total - sale.discount_amount}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{sale.sub_total - sale.discount_amount}
+								</p>
 							</div>
 							<div className="flex-between my-2">
 								<p>Delivery Charge</p>
-								<p>Tk.{sale.shipping?.delivery_charge}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{sale.shipping?.delivery_charge}
+								</p>
 							</div>
 							<div className="border-b border-slate-900 my-2"></div>
 							<div className="flex-between my-2 font-bold">
@@ -120,7 +133,8 @@ const OrderDetail = ({ params }) => {
 									</span>
 								</p>
 								<p>
-									Tk.{sale.due_amount ? sale.due_amount : sale.total_amount}
+									{siteConfig.currency.shortForm}
+									{sale.due_amount ? sale.due_amount : sale.total_amount}
 								</p>
 							</div>
 							<div className="actions mt-14 flex justify-center  items-center">

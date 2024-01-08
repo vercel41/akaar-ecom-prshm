@@ -7,7 +7,7 @@ import {
 	useAddToVisitedMutation,
 	useGetVisitedProductsQuery,
 } from "@/store/features/api/visitedProductsAPI";
-import SingleProduct from "@/components/products/SingleProduct";
+import ProductCard from "@/components/cards/ProductCard";
 
 const LastVisitedProducts = ({ visitedProductId }) => {
 	const { locale } = useParams();
@@ -43,7 +43,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
 				<div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-5">
 					{visitedProducts?.map((product, i) => (
 						<div key={i}>
-							<SingleProduct product={product} />
+							<ProductCard product={product} />
 						</div>
 					))}
 				</div>

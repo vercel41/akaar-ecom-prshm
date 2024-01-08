@@ -7,6 +7,7 @@ import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { getFormattedDate } from "@/utils/format-date";
 const Lottie = dynamic(() => import("lottie-react"));
 import successAnimation from "@/public/assets/lottie/success_2.json";
+import { siteConfig } from "@/config/site";
 
 const OrderSuccess = ({ params }) => {
 	const { order_id, locale } = params;
@@ -60,7 +61,7 @@ const OrderSuccess = ({ params }) => {
 									)}
 								</p>
 								<p>
-									Tk.
+									{siteConfig.currency.shortForm}
 									{order?.due_amount ? order?.due_amount : order?.total_amount}
 								</p>
 							</div>

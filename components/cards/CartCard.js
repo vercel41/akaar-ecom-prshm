@@ -9,6 +9,7 @@ import noImage from "@/public/assets/images/no-image.png";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { siteConfig } from "@/config/site";
 
 const CartCard = ({ item }) => {
 	const [imageError, setImageError] = useState(false);
@@ -62,15 +63,22 @@ const CartCard = ({ item }) => {
 						{minimum_wholesale_quantity &&
 						quantity >= minimum_wholesale_quantity ? (
 							<h3 className="">
-								Tk.{wholesale_price} -{" "}
+								{siteConfig.currency.shortForm}
+								{wholesale_price} -{" "}
 								<span className="text-green-600">(wholesale)</span>
 							</h3>
 						) : (
 							<>
-								<h3 className="text-xl">Tk.{new_price}</h3>
+								<h3 className="text-xl">
+									{siteConfig.currency.shortForm}
+									{new_price}
+								</h3>
 								{typeof discount_percentage === "number" &&
 								discount_percentage > 0 ? (
-									<del className="text-xl text-slate-300">Tk.{old_price}</del>
+									<del className="text-xl text-slate-300">
+										{siteConfig.currency.shortForm}
+										{old_price}
+									</del>
 								) : null}
 							</>
 						)}

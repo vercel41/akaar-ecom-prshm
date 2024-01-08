@@ -68,7 +68,7 @@ export default function ResponsiveMenu({ settings, categories }) {
 				/>
 			</Link>
 			<ul className="ml-3 nav-menu hidden lg:flex gap-3 items-center justify-start h-[60px] box-border">
-				{categories.map((category, index) => (
+				{categories?.slice(0, 4)?.map((category, index) => (
 					<li
 						key={category.id}
 						className={`h-full inline-flex items-center whitespace-nowrap text-ellipsis  ${
@@ -89,6 +89,18 @@ export default function ResponsiveMenu({ settings, categories }) {
 						</Link>
 					</li>
 				))}
+				{categories?.length > 4 && (
+					<li
+						className={`h-full inline-flex items-center whitespace-nowrap text-ellipsis border-b-2 border-transparent`}
+					>
+						<Link
+							href={`/categories`}
+							className="inline-block mt-[2px] text-white font-title font-bold hover:text-primary uppercase"
+						>
+							All Categories
+						</Link>
+					</li>
+				)}
 			</ul>
 			{menuOpen && (
 				<div

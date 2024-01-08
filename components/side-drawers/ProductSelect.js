@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductVariantSelect from "../products/ProductVariantSelect";
 import noImage from "@/public/assets/images/no-image.png";
 import { toast } from "react-toastify";
+import { siteConfig } from "@/config/site";
 // import { getFractionFixed } from "@/utils/formatNumber";
 
 const ProductSelect = () => {
@@ -75,11 +76,15 @@ const ProductSelect = () => {
 							{selectedProduct?.brand?.brand_name || "No Brand"}
 						</h5>
 						<div className="mt-3 flex gap-3 items-center">
-							<h3 className="text-xl">Tk.{selectedProduct?.new_price || 0}</h3>
+							<h3 className="text-xl">
+								{siteConfig.currency.shortForm}
+								{selectedProduct?.new_price || 0}
+							</h3>
 							{typeof selectedProduct?.discount_percentage === "number" &&
 							selectedProduct?.discount_percentage > 0 ? (
 								<del className="text-xl text-slate-300">
-									Tk.{selectedProduct?.old_price}
+									{siteConfig.currency.shortForm}
+									{selectedProduct?.old_price}
 								</del>
 							) : null}
 						</div>

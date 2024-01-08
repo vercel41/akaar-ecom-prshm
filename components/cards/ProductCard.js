@@ -18,8 +18,9 @@ import {
 	HiOutlineShoppingCart,
 	HiArrowLongRight,
 } from "react-icons/hi2";
+import { siteConfig } from "@/config/site";
 
-const SingleProduct = ({ product, isFlashSale }) => {
+const ProductCard = ({ product, isFlashSale }) => {
 	const { user } = useSelector((state) => state.auth);
 	const [loading, setLoading] = useState(true);
 	const [addToWishlist] = useAddToWishListMutation();
@@ -145,12 +146,14 @@ const SingleProduct = ({ product, isFlashSale }) => {
 							</h2>
 							<div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2 md:justify-between">
 								<span className="font-semibold ">
-									Tk.{new_price}
+									{siteConfig.currency.shortForm}
+									{new_price}
 									{typeof discount_percentage === "number" &&
 									discount_percentage > 0 ? (
 										<>
 											<del className="pl-2 old-price font-normal text-slate-400">
-												Tk.{old_price}
+												{siteConfig.currency.shortForm}
+												{old_price}
 											</del>
 											{/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
                         -{getFractionFixed(discount_percentage)}%
@@ -228,4 +231,4 @@ const SingleProduct = ({ product, isFlashSale }) => {
 	);
 };
 
-export default SingleProduct;
+export default ProductCard;

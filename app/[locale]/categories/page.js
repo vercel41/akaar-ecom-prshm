@@ -28,13 +28,16 @@ const page = async () => {
 				</div>
 			</div>
 
-			<div className="container mt-12 lg:mt-8 mb-24">
-				<div className="flex items-center justify-center lg:justify-start flex-wrap gap-10">
+			<div className="container mt-4 md:mt-8 mb-4 md:mb-24">
+				<div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-3 md:gap-5 mb-12">
 					{categories?.map((category, i) => (
-						<div className="category" key={i}>
+						<div
+							className="category flex flex-col justify-center items-center border p-3 lg:p-4"
+							key={i}
+						>
 							<Link
 								href={`/categories/${category.slug}`}
-								className="category-img flex justify-center items-center w-[180px] h-[200px]"
+								className="category-img w-full md:w-[200px] h-[150px] md:h-[200px] overflow-hidden"
 							>
 								<Image
 									src={category?.icon || noImage}
@@ -42,7 +45,7 @@ const page = async () => {
 									width={180}
 									height={200}
 									// style={{ width: "auto", height: "auto" }}
-									className="h-full w-full object-contain"
+									className="h-full w-full object-cover hover:scale-105 ease-in-out duration-300"
 								/>
 							</Link>
 							<Link

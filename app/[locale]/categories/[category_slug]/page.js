@@ -47,7 +47,7 @@ const page = async ({ params, searchParams }) => {
 							href={`/categories`}
 							className="text-base text-slate-600 hover:text-secondary"
 						>
-							Categories
+							All Categories
 						</Link>
 						<Link
 							href={`/categories/${category.slug}`}

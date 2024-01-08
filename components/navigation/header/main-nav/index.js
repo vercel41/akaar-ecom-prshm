@@ -54,7 +54,7 @@ export default function MainNav({ settings, categories }) {
 						<div className="header-actions flex gap-4">
 							<button
 								onClick={handleModalOpen}
-								className="text-white hover:text-primary"
+								className="single-action text-white hover:text-primary"
 							>
 								{user?.image ? (
 									<Image
@@ -62,7 +62,7 @@ export default function MainNav({ settings, categories }) {
 										alt="Profile"
 										height={32}
 										width={32}
-										className="h-8 w-8 rounded-full"
+										className="h-full w-full rounded-full"
 									/>
 								) : (
 									<HiOutlineUser size={24} />
@@ -79,7 +79,7 @@ export default function MainNav({ settings, categories }) {
 								className="group relative text-white hover:text-primary"
 							>
 								<HiOutlineShoppingCart size={24} />
-								<span className="absolute -right-2 -top-2 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
+								<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
 									{cart?.length || 0}
 								</span>
 							</button>

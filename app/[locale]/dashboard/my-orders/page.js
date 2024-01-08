@@ -18,7 +18,7 @@ const MyOrders = () => {
 	const dispatch = useDispatch();
 	// console.log(myOrders);
 	return (
-		<div className="py-6">
+		<div className="py-6 px-10">
 			<h2 className="text-slate-600 text-2xl text-center md:text-start">
 				Recent Order History
 			</h2>

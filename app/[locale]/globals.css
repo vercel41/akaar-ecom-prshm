@@ -153,7 +153,7 @@
 }
 
 .header-actions .single-action {
-	@apply inline-flex justify-center items-center w-12 h-12 text-[#475569] border border-slate-300 rounded-full ease-in duration-100 hover:bg-primary hover:text-white hover:border-transparent;
+	@apply inline-flex justify-center items-center w-10 h-10  rounded-full ease-in duration-100;
 }
 
 /* Service Features */

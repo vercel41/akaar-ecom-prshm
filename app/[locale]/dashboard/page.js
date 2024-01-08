@@ -105,7 +105,7 @@ const MyProfile = () => {
 									{...register("name", {
 										required: "Name is required.",
 										maxLength: {
-											value: 20,
+											value: 25,
 											message: "Name is too large",
 										},
 									})}

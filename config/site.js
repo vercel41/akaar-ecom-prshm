@@ -5,7 +5,7 @@ export const siteConfig = {
 		locale: "টাকা",
 		sign: "৳",
 		code: "BDT",
-		shortForm: "Tk",
+		shortForm: "Tk.",
 		icon: <TbCurrencyTaka size={16} />, //Optional
 	},
 };

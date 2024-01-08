@@ -5,9 +5,10 @@ import Link from "next/link";
 import React from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import CartCard from "../CartCard";
+import CartCard from "../cards/CartCard";
 // import { getMultipliedColumnTotal } from "@/utils/getTotal";
 import { getCartTotal } from "@/lib/checkout";
+import { siteConfig } from "@/config/site";
 
 const Cart = () => {
 	const { isCartOpen, cart } = useSelector((state) => state.cart);
@@ -41,8 +42,8 @@ const Cart = () => {
 				<div className="text-center">
 					<p className="">Total:</p>
 					<h3 className="text-slate-900 font-bold">
-						{/* {`Tk.${getMultipliedColumnTotal(cart, "quantity", "new_price")}`} */}
-						{`Tk.${getCartTotal(cart)}`}
+						{/* {`${siteConfig.currency.shortForm}${getMultipliedColumnTotal(cart, "quantity", "new_price")}`} */}
+						{`${siteConfig.currency.shortForm}${getCartTotal(cart)}`}
 					</h3>
 				</div>
 				<Link

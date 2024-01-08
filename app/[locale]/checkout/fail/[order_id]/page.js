@@ -9,6 +9,7 @@ import handleSSLOrderPayLater from "@/lib/ssl-pay";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 const Lottie = dynamic(() => import("lottie-react"));
 import failedAnimation from "@/public/assets/lottie/payment_failed.json";
+import { siteConfig } from "@/config/site";
 
 const PaymentFail = ({ params }) => {
 	const dispatch = useDispatch();
@@ -48,7 +49,10 @@ const PaymentFail = ({ params }) => {
 							</div>
 							<div className="flex-between my-2">
 								<p>Due Amount</p>
-								<p>Tk.{order?.due_amount}</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{order?.due_amount}
+								</p>
 							</div>
 						</div>
 						<div className="order-actions px-4 my-6 flex flex-col md:flex-row gap-4 justify-between items-center">
