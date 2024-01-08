@@ -4,34 +4,23 @@ import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs, Autoplay } from "swiper/modules";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
 import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Icon
 import { HiOutlineHeart } from "react-icons/hi2";
+import useWishList from "@/hooks/useWishList";
 
 const ProductViewSlider = ({ product }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const { user } = useSelector((state) => state.auth);
-	const [addToWishlist] = useAddToWishListMutation();
-
-	const handleWishlist = async (productId) => {
-		if (!user) {
-			toast.error("You're not logged in");
-			return;
-		}
-		try {
-			await addToWishlist({ product_id: productId });
-			toast.success("Product added to Wishlist!");
-		} catch (error) {
-			toast.error("Failed to add to wishlist");
-		}
-	};
+	const {
+		handleAddToWishlist,
+		handleWishListProductStatus,
+		handleRemoveFromWishlist,
+	} = useWishList();
 
 	//setting default image if no image is provided
 	const photos = product?.photos?.length ? product?.photos : [noImage];
+	const isInWishlist = handleWishListProductStatus(product?.id);
 
 	return (
 		<>
@@ -71,7 +60,7 @@ const ProductViewSlider = ({ product }) => {
 					</Swiper>
 				</div>
 
-				<div className="preview-slider grid mx-4">
+				<div className="preview-slider grid mx-4 relative border border-slate-200">
 					<Swiper
 						thumbs={{
 							swiper:
@@ -95,25 +84,15 @@ const ProductViewSlider = ({ product }) => {
 					>
 						{photos.map((slide, index) => (
 							<SwiperSlide key={index}>
-								<div className="slider-imag h-[300px] lg:h-[36rem] w-full lg:w-[32rem] relative">
+								<div className="slider-imag h-[300px] lg:h-[36rem] w-full lg:w-[32rem]">
 									<Image
 										src={slide}
 										alt=""
 										width={524}
 										height={524}
 										// sizes="100vw"
-										className="h-full w-full object-cover rounded-lg"
+										className="h-full w-full object-contain rounded-lg"
 									/>
-
-									<div className="product-action absolute top-4 right-5">
-										<button
-											aria-label="Add To Wishlist"
-											className="action-btn inline-flex justify-center items-center w-8 h-8 bg-primary text-white"
-											onClick={(e) => handleWishlist(product.id)}
-										>
-											<HiOutlineHeart size={18} />
-										</button>
-									</div>
 									{/* {true && (
                     <Link
                       href="https://www.youtube.com/"
@@ -130,6 +109,23 @@ const ProductViewSlider = ({ product }) => {
 							</SwiperSlide>
 						))}
 					</Swiper>
+					<div className="product-action absolute top-4 right-5 z-10">
+						<button
+							aria-label="Add To Wishlist"
+							className={`action-btn inline-flex justify-center items-center w-8 h-8 border ${
+								isInWishlist
+									? "bg-primary text-white"
+									: "border-primary bg-white text-primary"
+							}`}
+							onClick={(e) =>
+								!isInWishlist
+									? handleAddToWishlist(product?.id)
+									: handleRemoveFromWishlist(product?.id)
+							}
+						>
+							<HiOutlineHeart size={18} />
+						</button>
+					</div>
 				</div>
 			</div>
 		</>

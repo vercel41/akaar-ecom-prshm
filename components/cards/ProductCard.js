@@ -3,12 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
 import { addToCart, addToSelected } from "@/store/features/cartSlice";
-import { useAddToWishListMutation } from "@/store/features/api/wishListAPI";
 import { getDaysSinceCreation } from "@/utils/format-date";
 import { getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
@@ -19,11 +18,15 @@ import {
 	HiArrowLongRight,
 } from "react-icons/hi2";
 import { siteConfig } from "@/config/site";
+import useWishList from "@/hooks/useWishList";
 
 const ProductCard = ({ product, isFlashSale }) => {
-	const { user } = useSelector((state) => state.auth);
 	const [loading, setLoading] = useState(true);
-	const [addToWishlist] = useAddToWishListMutation();
+	const {
+		handleAddToWishlist,
+		handleWishListProductStatus,
+		handleRemoveFromWishlist,
+	} = useWishList();
 	const dispatch = useDispatch();
 	const router = useRouter();
 
@@ -77,18 +80,8 @@ const ProductCard = ({ product, isFlashSale }) => {
 		}
 	};
 
-	const handleWishlist = async (productId) => {
-		if (!user) {
-			toast.error("You're not logged in");
-			return;
-		}
-		try {
-			await addToWishlist({ product_id: productId });
-			toast.success("Product added to Wishlist!");
-		} catch (error) {
-			toast.error("Failed to add to wishlist");
-		}
-	};
+	const isInWishlist = handleWishListProductStatus(id);
+
 	return (
 		<>
 			{!loading ? (
@@ -105,8 +98,16 @@ const ProductCard = ({ product, isFlashSale }) => {
 							<div className="absolute top-2 right-2 z-20">
 								<button
 									aria-label="Add To Wishlist"
-									className="bg-primary px-1 text-white active:scale-90"
-									onClick={(e) => handleWishlist(id)}
+									className={`border ${
+										isInWishlist
+											? "bg-primary text-white"
+											: "border-primary bg-white text-primary"
+									} px-1 active:scale-90 hover:text-white hover:bg-primary`}
+									onClick={(e) =>
+										!isInWishlist
+											? handleAddToWishlist(id)
+											: handleRemoveFromWishlist(id)
+									}
 								>
 									<HiOutlineHeart />
 								</button>

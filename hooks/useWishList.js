@@ -50,7 +50,7 @@ const useWishList = () => {
 	const handleRemoveFromWishlist = async (productId) => {
 		try {
 			await deleteFromWishlist(productId);
-			toast.success("Product removed successfully!");
+			toast.success("Product removed from wishlist!");
 		} catch (error) {
 			toast.error("Failed to delete from wishlist");
 		}

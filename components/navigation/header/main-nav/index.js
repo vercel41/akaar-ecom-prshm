@@ -18,11 +18,13 @@ import {
 import ResponsiveSearch from "./ResponsiveSearch";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { useRouter } from "next/navigation";
+import useWishList from "@/hooks/useWishList";
 
 export default function MainNav({ settings, categories }) {
 	const [scroll, setScroll] = useState(0);
 	const { cart } = useSelector((state) => state.cart);
 	const { user, isLoginModalOpen } = useSelector((state) => state.auth);
+	const { getWishlistCount } = useWishList();
 	// const { translations } = useSelector((state) => state.common);
 	const router = useRouter();
 	const dispatch = useDispatch();
@@ -43,6 +45,8 @@ export default function MainNav({ settings, categories }) {
 			}
 		});
 	}, [scroll]);
+
+	const wishlistCount = getWishlistCount();
 	return (
 		<div className="relative bg-[#7573B2] py-2 lg:py-0">
 			<div className="main-nav container">
@@ -70,18 +74,25 @@ export default function MainNav({ settings, categories }) {
 							</button>
 							<button
 								onClick={() => router.push("/dashboard/my-wishlist")}
-								className="inline-block text-white hover:text-primary"
+								className="inline-block relative text-white hover:text-primary"
 							>
 								<HiOutlineHeart size={24} />
+								{wishlistCount ? (
+									<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
+										{wishlistCount}
+									</span>
+								) : null}
 							</button>
 							<button
 								onClick={() => dispatch(toggleCart())}
 								className="group relative text-white hover:text-primary"
 							>
 								<HiOutlineShoppingCart size={24} />
-								<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
-									{cart?.length || 0}
-								</span>
+								{cart?.length ? (
+									<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
+										{cart?.length}
+									</span>
+								) : null}
 							</button>
 						</div>
 					</div>

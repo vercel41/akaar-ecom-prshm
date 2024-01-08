@@ -1,18 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { useRemoveFromWishListMutation } from "@/store/features/api/wishListAPI";
 import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import noImage from "@/public/assets/images/no-image.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { siteConfig } from "@/config/site";
+import useWishList from "@/hooks/useWishList";
 
 const WishListCard = ({ product }) => {
-	const [deleteFromWishlist] = useRemoveFromWishListMutation();
-	const dispatch = useDispatch();
+	const { handleRemoveFromWishlist } = useWishList();
 
 	const {
 		id,
@@ -28,15 +25,6 @@ const WishListCard = ({ product }) => {
 
 	const stockOut = stock_qty <= 0 ? true : false;
 
-	const handleDelete = async (productId) => {
-		try {
-			await deleteFromWishlist(productId);
-			toast.success("Product removed successfully!");
-		} catch (error) {
-			toast.error("Failed to delete from wishlist");
-		}
-	};
-
 	const handleAddToCart = (product) => {
 		if (productVariants?.length) {
 			dispatch(addToSelected(product));
@@ -49,8 +37,8 @@ const WishListCard = ({ product }) => {
 	return (
 		<div className="relative px-3 py-4 bg-white border-t border-slate-200 mb-3">
 			<button
-				className="absolute right-3 top-1 bg-transparent"
-				onClick={() => handleDelete(id)}
+				className="absolute right-3 z-20 top-1 bg-transparent w-fit h-fit p-1"
+				onClick={() => handleRemoveFromWishlist(id)}
 			>
 				<AiOutlineClose size={20} />
 			</button>
@@ -72,12 +60,12 @@ const WishListCard = ({ product }) => {
 					) : null}
 				</div>
 				<div className="flex flex-col justify-between w-full">
-					<Link
-						href={`/brands/${brand?.id}`}
+					<span
+						// href={`/brands/${brand?.id}`}
 						className={`text-primary ${stockOut ? "opacity-50" : ""}`}
 					>
 						{brand?.brand_name || "No Brand"}
-					</Link>
+					</span>
 					<Link
 						href={`/products/${slug}`}
 						className={`${
