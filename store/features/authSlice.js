@@ -42,6 +42,7 @@ const authSlice = createSlice({
 			})
 			.addCase(logoutUser.fulfilled, (state) => {
 				localStorage.removeItem("token");
+				window.location.replace("/");
 				state.user = null;
 				state.isLoading = false;
 			})

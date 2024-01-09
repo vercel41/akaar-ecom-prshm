@@ -1,22 +1,35 @@
 "use client";
+import React from "react";
+import CartCard from "../cards/CartCard";
+import { siteConfig } from "@/config/site";
+import { getCartTotal } from "@/lib/checkout";
 import DrawerRight from "@/components/elements/DrawerRight";
 import { toggleCart } from "@/store/features/cartSlice";
-import Link from "next/link";
-import React from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import CartCard from "../cards/CartCard";
-// import { getMultipliedColumnTotal } from "@/utils/getTotal";
-import { getCartTotal } from "@/lib/checkout";
-import { siteConfig } from "@/config/site";
+import useSelectURLQuery from "@/hooks/useSelectURLQuery";
+import { setLoginModalOpen } from "@/store/features/authSlice";
 
 const Cart = () => {
 	const { isCartOpen, cart } = useSelector((state) => state.cart);
 	const { settings } = useSelector((state) => state.common);
+	const { user } = useSelector((state) => state.auth);
+	const { handleSelectChange } = useSelectURLQuery();
 	// console.log(settings);
 	const dispatch = useDispatch();
 	const closeCart = () => {
 		dispatch(toggleCart());
+	};
+
+	const handleCheckoutNavigate = () => {
+		if (user) {
+			router.push("/checkout");
+			closeCart();
+			return;
+		}
+		closeCart();
+		dispatch(setLoginModalOpen(true));
+		handleSelectChange("redirect", "/checkout");
 	};
 
 	return (
@@ -46,14 +59,13 @@ const Cart = () => {
 						{`${siteConfig.currency.shortForm}${getCartTotal(cart)}`}
 					</h3>
 				</div>
-				<Link
-					href={"/checkout"}
-					onClick={closeCart}
+				<button
+					onClick={handleCheckoutNavigate}
 					className="bg-primary py-3 px-3 md:px-6 w-full md:w-[276px] text-white text-center active:scale-95"
 				>
 					<span className="mr-2">Checkout Now</span>
 					<HiArrowLongRight size={20} />
-				</Link>
+				</button>
 			</div>
 		</DrawerRight>
 	);
