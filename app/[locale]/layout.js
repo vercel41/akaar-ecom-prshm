@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 
 // ** Import Components
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/footer";
 import CheckConnection from "@/components/CheckConnection";
 import Header from "@/components/navigation/header";
 import CartTray from "@/components/elements/CartTray";

@@ -12,20 +12,26 @@ const Footer = async () => {
 	const helpPage = settings?.help_page || {};
 
 	return (
-		<footer className="footer py-5 bg-[#CFE6C9]">
+		<footer
+			className="footer py-5"
+			style={{
+				backgroundColor: settings?.colors?.secondary,
+				color: settings?.colors?.secondary_text,
+			}}
+		>
 			<div className="container">
 				<div className="text-center">
-					<h2 className="text-3xl/[40px] font-title text-primary font-medium my-5">
+					<h2 className="text-3xl/[40px] font-title font-medium my-5">
 						Treat Your Inbox
 					</h2>
-					<p className="mb-8 text-sm/6 font-light text-primary">
+					<p className="mb-8 text-sm/6 font-light">
 						Receive our newsletter on the latest deals and happenings. You can
 						unsubscribe any time you want.
 					</p>
-					<SubscriptionForm />
+					<SubscriptionForm settings={settings} />
 				</div>
 				<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between gap-5 mt-8">
-					<div className="text-sm/6 font-light text-primary">
+					<div className="text-sm/6 font-light">
 						<h6 className="mb-4 font-title uppercase font-medium">
 							CUSTOMER SERVICE
 						</h6>
@@ -52,7 +58,7 @@ const Footer = async () => {
 							))}
 						</ul>
 					</div>
-					<div className="text-sm/6 font-light text-primary">
+					<div className="text-sm/6 font-light">
 						<h6 className="mb-4 font-title uppercase font-medium">Company</h6>
 						<ul className="widget-list">
 							{Object.keys(footerPage).map((key) => (
@@ -92,7 +98,7 @@ const Footer = async () => {
 								icon={"/assets/icons/social/pinterest.svg"}
 							/>
 						</div>
-						<p className="mt-3 text-center text-sm/6 font-light text-primary">
+						<p className="mt-3 text-center text-sm/6 font-light">
 							&copy; {new Date().getFullYear()}, All Rights Reserved By{" "}
 							<Link href="/">{settings?.name}</Link>
 						</p>

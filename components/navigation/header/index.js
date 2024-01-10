@@ -17,7 +17,7 @@ const Header = async () => {
 		<>
 			<header className="header">
 				<MainNav settings={settings} categories={categories} />
-				<CategoriesNav categories={categories} />
+				<CategoriesNav categories={categories} settings={settings} />
 				{/* <Offer /> */}
 			</header>
 		</>

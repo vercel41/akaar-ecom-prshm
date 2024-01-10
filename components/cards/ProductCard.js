@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
@@ -19,9 +19,13 @@ import {
 } from "react-icons/hi2";
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
+import useHover from "@/hooks/useHover";
 
 const ProductCard = ({ product, isFlashSale }) => {
+	const { settings } = useSelector((state) => state.common);
 	const [loading, setLoading] = useState(true);
+	const { isHovered: isHoveredElement1, bind: bindElement1 } = useHover();
+	const { isHovered: isHoveredElement2, bind: bindElement2 } = useHover();
 	const {
 		handleAddToWishlist,
 		handleWishListProductStatus,
@@ -86,11 +90,20 @@ const ProductCard = ({ product, isFlashSale }) => {
 		<>
 			{!loading ? (
 				<>
-					<div className="product-card-wrap bg-white border border-slate-200">
+					<div
+						className="product-card-wrap bg-white"
+						style={{ border: `1px solid ${settings?.colors?.primary}` }}
+					>
 						<div className="product-img-action-wrap relative @container">
 							{getDaysSinceCreation(created_at) < 8 && (
 								<div className="absolute top-2 left-2 z-20">
-									<span className="bg-primary text-sm px-1 text-white active:scale-90">
+									<span
+										className="text-sm px-1  active:scale-90"
+										style={{
+											backgroundColor: settings?.colors?.primary,
+											color: settings?.colors?.primary_text,
+										}}
+									>
 										New
 									</span>
 								</div>
@@ -98,11 +111,15 @@ const ProductCard = ({ product, isFlashSale }) => {
 							<div className="absolute top-2 right-2 z-20">
 								<button
 									aria-label="Add To Wishlist"
-									className={`border ${
-										isInWishlist
-											? "bg-primary text-white"
-											: "border-primary bg-white text-primary"
-									} px-1 active:scale-90 hover:text-white hover:bg-primary`}
+									className={`border px-1 active:scale-90 `}
+									style={{
+										backgroundColor: isInWishlist
+											? settings?.colors?.primary
+											: "white",
+										color: isInWishlist
+											? settings?.colors?.primary_text
+											: settings?.colors?.primary,
+									}}
 									onClick={(e) =>
 										!isInWishlist
 											? handleAddToWishlist(id)
@@ -187,6 +204,16 @@ const ProductCard = ({ product, isFlashSale }) => {
 									aria-label="Add To Cart"
 									className="action-btn p-1 lg:px-2 text-sm lg:text-lg"
 									onClick={(e) => handleAddToCart(product)}
+									{...bindElement1}
+									style={{
+										border: `1px solid ${settings?.colors?.primary}`,
+										backgroundColor: isHoveredElement1
+											? settings?.colors?.primary
+											: "transparent",
+										color: isHoveredElement1
+											? settings?.colors?.primary_text
+											: settings?.colors?.primary,
+									}}
 								>
 									<HiOutlineShoppingCart
 										size={20}
@@ -195,7 +222,17 @@ const ProductCard = ({ product, isFlashSale }) => {
 								</button>
 								<button
 									onClick={() => handleCheckout(product)}
+									{...bindElement2}
 									className="action-btn p-1 text-sm lg:text-lg lg:px-4 py-1"
+									style={{
+										border: `1px solid ${settings?.colors?.primary}`,
+										backgroundColor: isHoveredElement2
+											? settings?.colors?.primary
+											: "transparent",
+										color: isHoveredElement2
+											? settings?.colors?.primary_text
+											: settings?.colors?.primary,
+									}}
 								>
 									Buy Now <HiArrowLongRight className="" size={20} />
 								</button>

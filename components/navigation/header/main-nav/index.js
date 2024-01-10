@@ -19,6 +19,7 @@ import ResponsiveSearch from "./ResponsiveSearch";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { useRouter } from "next/navigation";
 import useWishList from "@/hooks/useWishList";
+import { cn } from "@/utils";
 
 export default function MainNav({ settings, categories }) {
 	const [scroll, setScroll] = useState(0);
@@ -48,18 +49,21 @@ export default function MainNav({ settings, categories }) {
 
 	const wishlistCount = getWishlistCount();
 	return (
-		<div className="relative bg-[#7573B2] py-2 lg:py-0">
+		<div
+			className={cn(`relative py-2 lg:py-0`)}
+			style={{ backgroundColor: settings?.colors?.primary }}
+		>
 			<div className="main-nav container">
 				<div className="header-wrap flex justify-between items-center">
 					{/* Nav Items  */}
 					<ResponsiveMenu settings={settings} categories={categories} />
 					<div className="header-right flex justify-between items-center ml-4 gap-6">
-						<ResponsiveSearch />
-						<div className="header-actions flex gap-4">
-							<button
-								onClick={handleModalOpen}
-								className="single-action text-white hover:text-primary"
-							>
+						<ResponsiveSearch settings={settings} />
+						<div
+							className="header-actions flex gap-4"
+							style={{ color: settings?.colors?.primary_text }}
+						>
+							<button onClick={handleModalOpen} className="single-action">
 								{user?.image ? (
 									<Image
 										src={user.image}
@@ -74,22 +78,32 @@ export default function MainNav({ settings, categories }) {
 							</button>
 							<button
 								onClick={() => router.push("/dashboard/my-wishlist")}
-								className="inline-block relative text-white hover:text-primary"
+								className="inline-block relative"
 							>
 								<HiOutlineHeart size={24} />
 								{wishlistCount ? (
-									<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
+									<span
+										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full"
+										style={{
+											border: `1px solid ${settings?.colors?.primary_text}`,
+										}}
+									>
 										{wishlistCount}
 									</span>
 								) : null}
 							</button>
 							<button
 								onClick={() => dispatch(toggleCart())}
-								className="group relative text-white hover:text-primary"
+								className="group relative"
 							>
 								<HiOutlineShoppingCart size={24} />
 								{cart?.length ? (
-									<span className="absolute -right-1.5 -top-1.5 border border-white group-hover:border-primary text-white group-hover:text-primary text-[10px] px-1 text-center rounded-full">
+									<span
+										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full"
+										style={{
+											border: `1px solid ${settings?.colors?.primary_text}`,
+										}}
+									>
 										{cart?.length}
 									</span>
 								) : null}

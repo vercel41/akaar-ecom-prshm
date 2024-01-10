@@ -45,16 +45,16 @@ export default function ResponsiveMenu({ settings, categories }) {
 	};
 
 	return (
-		<div className="header-left flex items-center gap-x-2">
+		<div
+			className="header-left flex items-center gap-x-2"
+			style={{ color: settings?.colors?.primary_text }}
+		>
 			{!menuOpen ? (
-				<button
-					onClick={() => setMenuOpen(!menuOpen)}
-					className="text-white hover:text-primary md:hidden"
-				>
+				<button onClick={() => setMenuOpen(!menuOpen)} className=" md:hidden">
 					<HiMenuAlt1 size={24} />
 				</button>
 			) : (
-				<span className="text-white hover:text-primary md:hidden">
+				<span className=" md:hidden">
 					<AiOutlineClose size={24} />
 				</span>
 			)}
@@ -71,19 +71,21 @@ export default function ResponsiveMenu({ settings, categories }) {
 				{categories?.slice(0, 4)?.map((category, index) => (
 					<li
 						key={category.id}
-						className={`h-full inline-flex items-center whitespace-nowrap text-ellipsis  ${
-							category.slug == category_slug ||
-							(category.child_categories || []).some(
-								(c) => c.slug === category_slug
-							)
-								? //|| (index === 0 && !category_slug)
-								  "border-b-2 border-primary"
-								: "border-b-2 border-transparent"
-						}`}
+						className={`h-full inline-flex items-center whitespace-nowrap text-ellipsis border-b-2`}
+						style={{
+							borderBottom:
+								category.slug == category_slug ||
+								(category.child_categories || []).some(
+									(c) => c.slug === category_slug
+								)
+									? `2px solid ${settings?.colors?.primary_text}`
+									: "2px solid transparent",
+						}}
 					>
 						<Link
 							href={`/categories/${category.slug}`}
-							className="inline-block mt-[2px] text-white font-title font-bold hover:text-primary uppercase"
+							className="inline-block mt-[2px] font-title font-bold uppercase"
+							style={{ color: settings?.colors?.primary_text }}
 						>
 							{category.category_name}
 						</Link>
@@ -95,7 +97,8 @@ export default function ResponsiveMenu({ settings, categories }) {
 					>
 						<Link
 							href={`/categories`}
-							className="inline-block mt-[2px] text-white font-title font-bold hover:text-primary uppercase"
+							className="inline-block mt-[2px] font-title font-bold uppercase"
+							style={{ color: settings?.colors?.primary_text }}
 						>
 							All Categories
 						</Link>
@@ -105,7 +108,8 @@ export default function ResponsiveMenu({ settings, categories }) {
 			{menuOpen && (
 				<div
 					ref={megaMenuRef}
-					className="absolute z-30 left-0 top-full bg-[#7573B2]  shadow-lg w-full lg:hidden"
+					className="absolute z-30 left-0 top-full shadow-lg w-full lg:hidden"
+					style={{ backgroundColor: settings?.colors?.primary }}
 				>
 					<div className="">
 						<ul className="nav-menu text-center py-2">
@@ -113,19 +117,26 @@ export default function ResponsiveMenu({ settings, categories }) {
 								<li key={category.id} className="my-2">
 									<button
 										onClick={() => handleActiveOrNavigate(category)}
-										className="inline-block h-full text-white font-title font-bold hover:text-primary uppercase"
+										className="inline-block h-full font-title font-bold uppercase"
+										style={{ color: settings?.colors?.primary_text }}
 									>
 										{category.category_name}
 										{category.slug === activeCategory ? "-" : "+"}
 									</button>
 									{category.slug === activeCategory ? (
-										<ul className="bg-[#d3d3d3] text-center py-2">
+										<ul
+											className="text-center py-2"
+											style={{ backgroundColor: settings?.colors?.secondary }}
+										>
 											{category?.child_categories?.map((subCategory, index) => (
 												<li key={subCategory.id} className="my-2">
 													<Link
 														href={`/categories/${subCategory.slug}`}
 														onClick={closeMenu}
-														className="inline-block h-full text-white font-title font-bold hover:text-primary uppercase"
+														className="inline-block h-full font-title font-bold uppercase"
+														style={{
+															color: settings?.colors?.secondary_text,
+														}}
 													>
 														{subCategory.category_name}
 													</Link>
