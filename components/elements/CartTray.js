@@ -34,6 +34,7 @@ const CartTray = () => {
 					className="icon bg-white border border-r-0  px-1 text-center"
 					style={{
 						border: `1px solid ${settings?.colors?.primary}`,
+						color: settings?.colors?.primary,
 					}}
 				>
 					<BsCart3 size={36} className=" m-2" />

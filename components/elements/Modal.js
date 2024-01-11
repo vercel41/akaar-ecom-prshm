@@ -1,8 +1,11 @@
 import React from "react";
 import useLockedBody from "@/hooks/useLockedBody";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 export default function Modal({ showModal, setShowModal, title, children }) {
+	const { settings } = useSelector((state) => state.common);
+
 	useLockedBody(showModal); // Lock the body when the drawer is open
 
 	return (
@@ -19,8 +22,9 @@ export default function Modal({ showModal, setShowModal, title, children }) {
 										{title ? title : null}
 									</h3>
 									<button
-										className="icon-btn text-4xl text-primary"
+										className="icon-btn text-4xl"
 										onClick={() => setShowModal(false)}
+										style={{ color: settings?.colors?.primary }}
 									>
 										<RiCloseCircleFill />
 									</button>

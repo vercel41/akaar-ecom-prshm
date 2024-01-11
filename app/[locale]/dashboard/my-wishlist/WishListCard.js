@@ -7,9 +7,11 @@ import noImage from "@/public/assets/images/no-image.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
+import { useSelector } from "react-redux";
 
 const WishListCard = ({ product }) => {
 	const { handleRemoveFromWishlist } = useWishList();
+	const { settings } = useSelector((state) => state.common);
 
 	const {
 		id,
@@ -53,7 +55,7 @@ const WishListCard = ({ product }) => {
 					/>
 					{stockOut ? (
 						<div className="w-full h-full rounded absolute left-0 top-0 flex items-center justify-center">
-							<span className="text-primary text-center bg-red-100 px-2 font-bold">
+							<span className="text-center text-red-500 bg-red-100 px-2 font-bold">
 								Stock Out
 							</span>
 						</div>
@@ -96,8 +98,12 @@ const WishListCard = ({ product }) => {
 						</div>
 						{!stockOut ? (
 							<button
-								className="bg-primary py-2 px-3 text-white text-center active:scale-95"
+								className="py-2 px-3 text-center active:scale-95"
 								onClick={() => handleAddToCart(product)}
+								style={{
+									backgroundColor: settings?.colors?.primary,
+									color: settings?.colors?.primary_text,
+								}}
 							>
 								<HiOutlineShoppingCart size={16} />
 								<span className="ml-2">Add to Cart</span>
@@ -105,7 +111,11 @@ const WishListCard = ({ product }) => {
 						) : (
 							<Link
 								href={`/categories/${product.category?.slug}`}
-								className="text-primary text-center font-bold border border-primary py-2 px-3 active:scale-95 cursor-pointer"
+								className="text-center font-bold py-2 px-3 active:scale-95 cursor-pointer"
+								style={{
+									border: `1px solid ${settings?.colors?.primary}`,
+									color: settings?.colors?.primary,
+								}}
 							>
 								Similar Products
 							</Link>

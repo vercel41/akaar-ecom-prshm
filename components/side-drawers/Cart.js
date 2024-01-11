@@ -39,7 +39,13 @@ const Cart = () => {
 			setShow={closeCart}
 		>
 			{settings?.free_delivery_charges_limit ? (
-				<div className="p-4 text-white bg-primary">
+				<div
+					className="p-4"
+					style={{
+						backgroundColor: settings?.colors?.primary,
+						color: settings?.colors?.primary_text,
+					}}
+				>
 					Orders over {settings?.free_delivery_charges_limit} taka free delivery
 					charge!
 				</div>
@@ -61,7 +67,11 @@ const Cart = () => {
 				</div>
 				<button
 					onClick={handleCheckoutNavigate}
-					className="bg-primary py-3 px-3 md:px-6 w-full md:w-[276px] text-white text-center active:scale-95"
+					className="py-3 px-3 md:px-6 w-full md:w-[276px] text-center active:scale-95"
+					style={{
+						backgroundColor: settings?.colors?.primary,
+						color: settings?.colors?.primary_text,
+					}}
 				>
 					<span className="mr-2">Checkout Now</span>
 					<HiArrowLongRight size={20} />

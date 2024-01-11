@@ -134,7 +134,14 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
 
 						<div className="form-control">
 							<label></label>
-							<button type="submit" className="primary-btn w-full">
+							<button
+								type="submit"
+								className="primary-btn w-full"
+								style={{
+									backgroundColor: settings?.colors?.primary,
+									color: settings?.colors?.primary_text,
+								}}
+							>
 								Send OTP
 							</button>
 						</div>

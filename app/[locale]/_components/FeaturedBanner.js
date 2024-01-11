@@ -4,10 +4,10 @@ import { fetchData } from "@/lib/fetch-data";
 import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Iocns
-const FeaturedBanner = async () => {
+const FeaturedBanner = async ({ settings }) => {
 	const { data: featuredBanner = [] } = await fetchData({ api: "banners" });
 	if (!featuredBanner?.length) return null;
-	// console.log(featuredBanner);
+	// console.log(settings);
 	return (
 		<>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -23,12 +23,16 @@ const FeaturedBanner = async () => {
 							/>
 						</div>
 						<div className="content w-full text-center p-5">
-							<h1 className="mb-4 text-sm font-thin text-primary font-serif">
+							<h1 className="mb-4 text-sm font-thin font-serif">
 								{banner.title}
 							</h1>
 							<Link
 								href={banner.url}
-								className="border border-primary hover:border-secondary rounded px-2 pb-1 font-semibold font-title hover:text-secondary"
+								className="border rounded px-2 pb-1 font-semibold font-title"
+								style={{
+									borderColor: settings?.colors?.primary,
+									color: settings?.colors?.primary,
+								}}
 							>
 								Shop Now
 							</Link>

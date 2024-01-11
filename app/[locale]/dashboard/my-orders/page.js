@@ -8,12 +8,13 @@ import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 import { getFormattedDate } from "@/utils/format-date";
 import Link from "next/link";
 import handleSSLOrderPayLater from "@/lib/ssl-pay";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 // import { AiFillEye } from "react-icons/ai";
 
 const MyOrders = () => {
 	const { data: ordersData, isLoading } = useGetOrdersQuery();
+	const { settings } = useSelector((state) => state.common);
 	const myOrders = ordersData?.data || [];
 	const dispatch = useDispatch();
 	// console.log(myOrders);
@@ -39,7 +40,13 @@ const MyOrders = () => {
 							<div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
 								<div class="overflow-hidden">
 									<table class="min-w-full border text-center text-sm font-light">
-										<thead class="border-b bg-primary font-medium text-white">
+										<thead
+											class="border-b font-medium"
+											style={{
+												backgroundColor: settings?.colors?.primary,
+												color: settings?.colors?.primary_text,
+											}}
+										>
 											<tr>
 												<th scope="col" class="border-r px-6 py-3">
 													SL

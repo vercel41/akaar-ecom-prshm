@@ -4,17 +4,28 @@ import NewArrival from "./_components/NewArrival";
 import VideoBanner from "./_components/VideoBanner";
 import FeaturedBanner from "./_components/FeaturedBanner";
 import HomeCategoryProducts from "./_components/HomeCategoryProducts";
+import { fetchData } from "@/lib/fetch-data";
 
-export default function Home() {
+export default async function Home() {
+	const [settingsRes, transRes] = await Promise.allSettled([
+		fetchData({ api: `info/basic` }),
+		fetchData({ api: "translations" }),
+	]);
+
+	const settings =
+		settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+	const translations =
+		transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+
 	return (
 		<>
 			<section className="banner">
-				<Intro />
+				<Intro settings={settings} />
 			</section>
 
 			<section className="banners pt-14">
 				<div className="container">
-					<FeaturedBanner />
+					<FeaturedBanner settings={settings} />
 				</div>
 			</section>
 

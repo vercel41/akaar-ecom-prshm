@@ -17,6 +17,7 @@ import { IoLogOut } from "react-icons/io5";
 const MyProfile = () => {
 	const dispatch = useDispatch();
 	const { user, isLoading } = useSelector((state) => state.auth);
+	const { settings } = useSelector((state) => state.common);
 	const [editMode, setEditMode] = useState(false);
 	const [profileImageFile, setProfileImageFile] = useState(null);
 	const [selectedCountry, setSelectedCountry] = useState({
@@ -358,7 +359,11 @@ const MyProfile = () => {
 						<button
 							type="button"
 							onClick={() => setEditMode((prevMode) => !prevMode)}
-							className="text-white bg-primary py-2 px-4 active:scale-95"
+							className="py-2 px-4 active:scale-95"
+							style={{
+								backgroundColor: settings?.colors?.primary,
+								color: settings?.colors?.primary_text,
+							}}
 						>
 							{editMode ? "Cancel" : "Edit"}
 						</button>
@@ -366,8 +371,12 @@ const MyProfile = () => {
 					{!editMode && (
 						<div className="form-control">
 							<button
-								className="flex items-center space-x-3 text-white bg-primary py-2 px-4 active:scale-95"
+								className="flex items-center space-x-3 py-2 px-4 active:scale-95"
 								onClick={() => dispatch(logoutUser())}
+								style={{
+									backgroundColor: settings?.colors?.primary,
+									color: settings?.colors?.primary_text,
+								}}
 							>
 								<IoLogOut /> Logout
 							</button>
@@ -378,7 +387,11 @@ const MyProfile = () => {
 							<label></label>
 							<button
 								type="submit"
-								className="bg-primary py-2 text-white px-4 active:scale-95"
+								className="py-2  px-4 active:scale-95"
+								style={{
+									backgroundColor: settings?.colors?.primary,
+									color: settings?.colors?.primary_text,
+								}}
 							>
 								Update Now
 							</button>

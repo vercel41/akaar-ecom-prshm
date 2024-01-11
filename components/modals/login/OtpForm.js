@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useVerifyOtpMutation } from "@/store/features/api/authAPI";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/store/features/authSlice";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 
 const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
+	const { settings } = useSelector((state) => state.common);
 	const [otp, setOtp] = useState(Array(6).fill(""));
 	const [verifyOTP, { isSuccess, isLoading, data: user, isError }] =
 		useVerifyOtpMutation();
@@ -117,6 +118,10 @@ const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
 				type="submit"
 				onClick={handleOTPVerification}
 				className="primary-btn w-full"
+				style={{
+					backgroundColor: settings?.colors?.primary,
+					color: settings?.colors?.primary_text,
+				}}
 			>
 				Confirm OTP
 			</button>

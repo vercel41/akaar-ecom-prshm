@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // import { HiArrowLongLeft } from "react-icons/hi2";
 import { FaCloudDownloadAlt } from "react-icons/fa";
@@ -18,6 +18,7 @@ import { siteConfig } from "@/config/site";
 
 const OrderDetail = ({ params }) => {
 	const { order_id, locale } = params;
+	const { settings } = useSelector((state) => state.common);
 	const { data: orderData, isLoading } = useGetOrderByIdQuery({
 		order_id,
 		locale,
@@ -153,7 +154,11 @@ const OrderDetail = ({ params }) => {
 									<a
 										target="_blank"
 										href={`${process.env.serverBaseUrl}/in/${sale.customer?.id}/${sale.id}/sale`}
-										className="border border-primary p-3 block text-center hover:text-secondary mb-3 mt-5"
+										className="p-3 block text-center mb-3 mt-5"
+										style={{
+											border: `1px solid ${settings?.colors?.primary}`,
+											color: settings?.colors?.primary,
+										}}
 									>
 										<FaCloudDownloadAlt size={24} className="mr-2" /> Download
 										Invoice
