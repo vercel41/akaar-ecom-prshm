@@ -315,3 +315,31 @@
 .flex-end {
 	@apply flex justify-end items-center;
 }
+
+/*Dynamic View HTML Adjustments*/
+.view-html {
+	@apply overflow-hidden;
+}
+.view-html h1,
+.view-html h2,
+.view-html h3,
+.view-html h4,
+.view-html h5,
+.view-html h6,
+.view-html p,
+.view-html ul,
+.view-html ol {
+	all: revert;
+}
+.view-html table {
+	@apply table-auto border-slate-100 border-spacing-0 border border-separate min-w-full leading-normal;
+}
+.view-html thead {
+	@apply bg-slate-200 text-slate-900;
+}
+.view-html th {
+	@apply px-5 text-left font-bold text-xl uppercase tracking-wider;
+}
+.view-html td {
+	@apply px-5 border-b border-gray-200 bg-white text-sm;
+}

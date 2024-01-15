@@ -13,6 +13,7 @@ export default function ProductVariantSelect({
 	const [selectedColor, setSelectedColor] = useState(null);
 	const [showSizeChart, setShowSizeChart] = useState(false);
 	// const [selectedVariant, setSelectedVariant] = useState(null);
+	console.log(sizeChart);
 
 	//updated color select
 	const handleColorChange = (colorProp) => {
@@ -60,18 +61,6 @@ export default function ProductVariantSelect({
 				) : null}
 			</div>
 			<div className="product-size mt-4">
-				<div className="flex justify-between font-normal items-center py-3">
-          <h4 className="text-slate-900">Size:</h4>
-          {sizeChart && (
-            <button
-            className="text-secondary-700 flex items-center gap-x-1"
-            onClick={() => setShowSizeChart((show) => !show)}
-            >
-            <span>সাইজ চার্ট দেখুন</span>
-            <MdArrowForwardIos />
-            </button>
-            )}
-          </div>
 				{colors[selectedColor]?.length ? (
 					<div className="flex gap-2 flex-wrap items-center">
 						<h4 className="text-slate-900">Size:</h4>
@@ -90,6 +79,17 @@ export default function ProductVariantSelect({
 						))}
 					</div>
 				) : null}
+				{sizeChart && (
+					<div className="mt-4 lg:mt-7">
+						<button
+							className="inline-flex gap-2 items-center"
+							onClick={() => setShowSizeChart((show) => !show)}
+						>
+							<span>See size chart</span>
+							<MdArrowForwardIos />
+						</button>
+					</div>
+				)}
 			</div>
 			{/* <div className="product-size mt-8">
 				<h4 className="text-slate-900">
