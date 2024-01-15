@@ -8,7 +8,7 @@ const SizeChartModal = ({ showModal, setShowModal, sizeChart }) => {
     <Modal
       showModal={showModal}
       setShowModal={setShowModal}
-      title={"সাইজ চার্ট"}
+      title={"Size Chart"}
     >
       <div className="min-w-[27rem] text-slate-600">
         <ViewHTML htmlText={sizeChart} />

@@ -7,52 +7,57 @@ import HomeCategoryProducts from "./_components/HomeCategoryProducts";
 import { fetchData } from "@/lib/fetch-data";
 
 export default async function Home() {
-	const [settingsRes, transRes] = await Promise.allSettled([
-		fetchData({ api: `info/basic` }),
-		fetchData({ api: "translations" }),
-	]);
+  const [settingsRes, transRes] = await Promise.allSettled([
+    fetchData({ api: `info/basic` }),
+    fetchData({ api: "translations" }),
+  ]);
 
-	const settings =
-		settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
-	const translations =
-		transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+  const settings =
+    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+  const translations =
+    transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
 
-	return (
-		<>
-			<section className="banner">
-				<Intro settings={settings} />
-			</section>
+  return (
+    <>
+      <section className="banner">
+        <Intro settings={settings} />
+      </section>
 
-			<section className="banners pt-14">
-				<div className="container">
-					<FeaturedBanner settings={settings} />
-				</div>
-			</section>
+      <section className="banners pt-14">
+        <div className="container">
+          <FeaturedBanner settings={settings} />
+        </div>
+      </section>
 
-			<section className="flash-sale mt-10">
-				<div className="container">
-					<FlashSale />
-				</div>
-			</section>
+      <section className="flash-sale mt-10">
+        <div className="container">
+          <FlashSale />
+        </div>
+      </section>
 
-			<section className="video-banner">
-				<VideoBanner />
-			</section>
+      <section className="video-banner">
+        <VideoBanner />
+      </section>
 
-			<section className="new-products">
-				<div className="container">
-					<div className="py-10 text-center">
-						<h2 className="sec-title pb-3">New Arrival</h2>
-						<p className="underline">Browse Our New Collections</p>
-					</div>
+      <section className="new-products">
+        <div className="container">
+          <div className="py-10 text-center">
+            <h2 className="sec-title pb-3">
+              {translations["new-arrival"] || "নতুন কালেকশন"}
+            </h2>
+            <p className="underline">
+              {translations["browse-our-new-collections"] ||
+                "আমাদের নতুন কালেকশন ব্রাউজ করুন"}
+            </p>
+          </div>
 
-					<div className="">
-						<NewArrival />
-					</div>
-				</div>
-			</section>
+          <div className="">
+            <NewArrival />
+          </div>
+        </div>
+      </section>
 
-			{/* <section className="all-category mt-28">
+      {/* <section className="all-category mt-28">
 				<div
 					className="container py-6"
 					style={{
@@ -71,7 +76,7 @@ export default async function Home() {
 				</div>
 			</section> */}
 
-			{/* <section className="best-sell bg-slate-50 py-14">
+      {/* <section className="best-sell bg-slate-50 py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">
@@ -95,7 +100,7 @@ export default async function Home() {
         </div>
       </section> */}
 
-			{/* <section className="all-products py-14">
+      {/* <section className="all-products py-14">
         <div className="container">
           <div className="sec-heading w-full flex justify-between items-center border-b border-slate-200 pb-3">
             <h2 className="sec-title">সকল প্রডাক্ট</h2>
@@ -110,9 +115,9 @@ export default async function Home() {
         </div>
       </section> */}
 
-			<section className="home-category-products mb-10">
-				<HomeCategoryProducts />
-			</section>
-		</>
-	);
+      <section className="home-category-products mb-10">
+        <HomeCategoryProducts />
+      </section>
+    </>
+  );
 }

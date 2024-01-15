@@ -16,10 +16,6 @@ export default function CategoriesNav({ categories = [], settings = {} }) {
 
 		subMenuCategories = temp?.child_categories;
 	}
-	// else {
-	//   subMenuCategories = categories[0]?.child_categories;
-	// }
-	//
 
 	if (!subMenuCategories || !subMenuCategories.length) return null;
 

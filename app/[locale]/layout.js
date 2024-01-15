@@ -27,69 +27,69 @@ import ServerDataProvider from "@/components/utility/ServerDataProvider";
 import { fetchData } from "@/lib/fetch-data";
 
 export const generateMetadata = async () => {
-	let settings = {};
-	let appName = "E-commerce app";
-	let favicon = "/favicon.ico";
-	try {
-		settings = await fetchData({ api: `info/basic` });
-		appName = settings?.data?.name;
-		favicon = settings?.data?.favicon;
-		// console.log(favicon);
-	} catch (error) {
-		console.log(error);
-		return {
-			title: appName,
-			applicationName: appName,
-		};
-	}
+  let settings = {};
+  let appName = "E-commerce app";
+  let favicon = "/favicon.ico";
+  try {
+    settings = await fetchData({ api: `info/basic` });
+    appName = settings?.data?.name;
+    favicon = settings?.data?.favicon;
+    // console.log(favicon);
+  } catch (error) {
+    console.log(error);
+    return {
+      title: appName,
+      applicationName: appName,
+    };
+  }
 
-	return {
-		title: {
-			default: `${appName}`,
-			template: `%s || ${appName}`,
-		},
-		description: {
-			default: `Discover Elegance, Shop with Confidence at ${appName}`,
-			template: `%s of ${appName}`,
-		},
-		applicationName: appName,
-		icons: {
-			icon: [
-				{
-					type: "image/x-icon",
-					sizes: "64x73",
-					url: favicon || `/favicon.ico`,
-				},
-			],
-			// apple: [],
-		},
-	};
+  return {
+    title: {
+      default: `${appName}`,
+      template: `%s || ${appName}`,
+    },
+    description: {
+      default: `Discover Elegance, Shop with Confidence at ${appName}`,
+      template: `%s of ${appName}`,
+    },
+    applicationName: appName,
+    icons: {
+      icon: [
+        {
+          type: "image/x-icon",
+          sizes: "64x73",
+          url: favicon || `/favicon.ico`,
+        },
+      ],
+      // apple: [],
+    },
+  };
 };
 
 export default function RootLayout({ children, params }) {
-	const locale = useLocale();
-	// Show a 404 error if the user requests an unknown locale
-	if (params.locale !== locale) {
-		notFound();
-	}
+  const locale = useLocale();
+  // Show a 404 error if the user requests an unknown locale
+  if (params.locale !== locale) {
+    notFound();
+  }
 
-	return (
-		<html lang={locale}>
-			<body>
-				<ReduxProvider>
-					<Header />
-					<main>
-						<CheckConnection>{children}</CheckConnection>
-					</main>
-					<Footer />
-					<CartTray />
-					<Cart />
-					<ProductSelect />
-					<PersistUser />
-					<GlobalLoader />
-					<ServerDataProvider />
-				</ReduxProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang={locale}>
+      <body>
+        <ReduxProvider>
+          <Header />
+          <main className="pt-[60px]">
+            <CheckConnection>{children}</CheckConnection>
+          </main>
+          <Footer />
+          <CartTray />
+          <Cart />
+          <ProductSelect />
+          <PersistUser />
+          <GlobalLoader />
+          <ServerDataProvider />
+        </ReduxProvider>
+      </body>
+    </html>
+  );
 }

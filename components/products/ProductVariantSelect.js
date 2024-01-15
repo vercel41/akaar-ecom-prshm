@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SizeChartModal from "../modals/SizeChartModal";
+import { MdArrowForwardIos } from "react-icons/md";
 
 export default function ProductVariantSelect({
 	productVariants,
@@ -59,7 +60,7 @@ export default function ProductVariantSelect({
 				) : null}
 			</div>
 			<div className="product-size mt-4">
-				{/* <div className="flex justify-between font-normal items-center py-3">
+				<div className="flex justify-between font-normal items-center py-3">
           <h4 className="text-slate-900">Size:</h4>
           {sizeChart && (
             <button
@@ -70,7 +71,7 @@ export default function ProductVariantSelect({
             <MdArrowForwardIos />
             </button>
             )}
-          </div> */}
+          </div>
 				{colors[selectedColor]?.length ? (
 					<div className="flex gap-2 flex-wrap items-center">
 						<h4 className="text-slate-900">Size:</h4>

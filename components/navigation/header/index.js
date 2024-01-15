@@ -4,24 +4,24 @@ import MainNav from "./main-nav";
 import { fetchData } from "@/lib/fetch-data";
 
 const Header = async () => {
-	const [settingsRes, categoriesRes] = await Promise.allSettled([
-		fetchData({ api: `info/basic` }),
-		fetchData({ api: "categories" }),
-	]);
+  const [settingsRes, categoriesRes] = await Promise.allSettled([
+    fetchData({ api: `info/basic` }),
+    fetchData({ api: "categories" }),
+  ]);
 
-	const settings =
-		settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
-	const categories =
-		categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
-	return (
-		<>
-			<header className="header">
-				<MainNav settings={settings} categories={categories} />
-				<CategoriesNav categories={categories} settings={settings} />
-				{/* <Offer /> */}
-			</header>
-		</>
-	);
+  const settings =
+    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+  const categories =
+    categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
+  return (
+    <>
+      <header className="header fixed z-30 w-full">
+        <MainNav settings={settings} categories={categories} />
+        <CategoriesNav categories={categories} settings={settings} />
+        {/* <Offer /> */}
+      </header>
+    </>
+  );
 };
 
 export default Header;
