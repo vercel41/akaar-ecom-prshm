@@ -5,6 +5,11 @@ import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Iocns
 const FeaturedBanner = async ({ settings }) => {
+	const [transRes] = await Promise.allSettled([
+    fetchData({ api: "translations" }),
+  ]);
+  const translations =
+    transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
 	const { data: featuredBanner = [] } = await fetchData({ api: "banners" });
 	if (!featuredBanner?.length) return null;
 	// console.log(settings);
@@ -34,7 +39,7 @@ const FeaturedBanner = async ({ settings }) => {
 									color: settings?.colors?.primary,
 								}}
 							>
-								Shop Now
+								{translations["shop-now"] || "Shop Now"}
 							</Link>
 						</div>
 					</div>

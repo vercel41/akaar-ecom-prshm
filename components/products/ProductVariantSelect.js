@@ -13,7 +13,7 @@ export default function ProductVariantSelect({
 	const [selectedColor, setSelectedColor] = useState(null);
 	const [showSizeChart, setShowSizeChart] = useState(false);
 	// const [selectedVariant, setSelectedVariant] = useState(null);
-	console.log(sizeChart);
+
 
 	//updated color select
 	const handleColorChange = (colorProp) => {

@@ -43,11 +43,11 @@ export default async function Home() {
         <div className="container">
           <div className="py-10 text-center">
             <h2 className="sec-title pb-3">
-              {translations["new-arrival"] || "নতুন কালেকশন"}
+              {translations["new-arrival"] || "New Collection"}
             </h2>
             <p className="underline">
               {translations["browse-our-new-collections"] ||
-                "আমাদের নতুন কালেকশন ব্রাউজ করুন"}
+                "Browse our new collections"}
             </p>
           </div>
 

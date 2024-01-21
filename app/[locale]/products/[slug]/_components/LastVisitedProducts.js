@@ -10,6 +10,8 @@ import {
 import ProductCard from "@/components/cards/ProductCard";
 
 const LastVisitedProducts = ({ visitedProductId }) => {
+	const { translations } = useSelector((state) => state.common);
+
 	const { locale } = useParams();
 	const { user } = useSelector((state) => state.auth);
 	const [addToVisited] = useAddToVisitedMutation();
@@ -38,7 +40,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
 	return (
 		<section id="visit-history">
 			<div className="container py-8 lg:py-14">
-				<h2 className="sec-title text-center mb-8">Recently Viewed</h2>
+				<h2 className="sec-title text-center mb-8">{translations["recently-viewed"] || "Recently Viewed"}</h2>
 				<div className="category-products"></div>
 				<div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-5">
 					{visitedProducts?.map((product, i) => (

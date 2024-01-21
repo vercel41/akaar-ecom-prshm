@@ -22,7 +22,7 @@ import ProductViewSlider from "./ProductViewSlider";
 import { siteConfig } from "@/config/site";
 import { IoIosFlash } from "react-icons/io";
 
-const ProductDetails = ({ product, settings }) => {
+const ProductDetails = ({ product, settings, translations }) => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -145,7 +145,6 @@ const ProductDetails = ({ product, settings }) => {
                     selectedVariant={selectedVariant}
                     setSelectedVariant={setSelectedVariant}
                     sizeChart={product?.size_chart}
-
                   />
                 ) : null
                 // <div className="product-size mt-8">
@@ -158,22 +157,23 @@ const ProductDetails = ({ product, settings }) => {
               {product?.coupons?.length ? (
                 <div className="mt-5 mb-8">
                   <p className="font-semibold font-title text-slate-900 mb-2">
-                    Offer <TbTag size={24} className="text-primary mb-1" />
+                    {translations["offer"] || "Offer"}{" "}
+                    <TbTag size={24} className="text-primary mb-1" />
                   </p>
                   <ul className="coupon-info">
                     <li className="relative text-slate-900 pl-4">
-                      Coupon Discount:{" "}
+                      {translations["coupon-discount"] || "Coupon Discount"}:{" "}
                       <span className="font-semibold text-title text-secondary-700">
                         &#2547;
                         {getCouponDiscount(
                           product?.coupons[0],
                           product.new_price
                         )}{" "}
-                        Discount!
+                        {translations["discount"] || "Discount"}!
                       </span>
                     </li>
                     <li className="relative text-slate-900 pl-4 my-2 before:!top-3">
-                      Coupon Code:{" "}
+                      {translations["coupon-code"] || "Coupon Code"}:{" "}
                       <span className="inline-block text-primary border border-dashed border-primary rounded px-2 py-1 ml-1">
                         {product.coupons[0].code}{" "}
                         <CopyToClipboard
@@ -188,8 +188,12 @@ const ProductDetails = ({ product, settings }) => {
                       </span>
                     </li>
                     <li className="relative text-slate-900 pl-4 mb-3">
-                      Applicable: ৳{product.coupons[0].max_discount} Above
-                      orders (Only first purchase)
+                      {translations["applicable"] || "Applicable"}: ৳
+                      {product.coupons[0].max_discount}{" "}
+                      {translations["above-orders"] || "Above orders"} (
+                      {translations["only-on-first-purchase"] ||
+                        " Only on first purchase"}
+                      )
                     </li>
                   </ul>
                 </div>
@@ -200,25 +204,30 @@ const ProductDetails = ({ product, settings }) => {
             <div className="py-4">
               <div className="product-actions my-6 flex gap-4 justify-between items-center">
                 <button
-                  className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95"
+                  className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
                   onClick={handleAddToCart}
                   style={{
                     backgroundColor: settings?.colors?.primary,
-                    color: settings?.colors?.secondary_text,
+                    color: settings?.colors?.primary_text,
                   }}
                 >
                   <HiOutlineShoppingCart size={24} />
-                  <span className="ml-2">Add to Cart</span>
+                  <span className="ml-2">
+                    {translations["add-to-cart"] || "Add to cart"}
+                  </span>
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95"
+                  className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
                   style={{
                     backgroundColor: settings?.colors?.primary,
-                    color: settings?.colors?.secondary_text,
+                    color: settings?.colors?.primary_text,
                   }}
                 >
-                  <IoIosFlash size={24} /> <span className="mr-2">Buy Now</span>
+                  <IoIosFlash size={24} />{" "}
+                  <span className="mr-2">
+                    {translations["buy-now"] || "Buy now"}
+                  </span>
                 </button>
               </div>
             </div>
@@ -227,14 +236,14 @@ const ProductDetails = ({ product, settings }) => {
             <div className="pt-8 pb-4">
               <div className="description">
                 <h4 className="text-2xl font-bold font-title text-slate-900">
-                  Description:
+                  {translations["product-description"] || "Description"}:
                 </h4>
                 <ViewHTML htmlText={product?.details} />
               </div>
               {product.includedProducts?.length ? (
                 <div className="mt-8">
                   <h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
-                    Product Included
+                    {translations["product-included"] || "Product Included"}
                   </h4>
                   <Image
                     src={product.includedProducts[0]?.image}
@@ -248,7 +257,7 @@ const ProductDetails = ({ product, settings }) => {
               {product?.review_video && (
                 <div className="mt-8">
                   <h4 className="text-2xl font-bold font-title text-slate-900">
-                    Review Video
+                    {translations["review-video"] || "Review Video"}
                   </h4>
                   {/* [&>div>iframe]:rounded-xl relative */}
                   <div className="slider-imag mt-4 [&>div>iframe]:w-full">
@@ -259,10 +268,13 @@ const ProductDetails = ({ product, settings }) => {
 
               <div className="contact mt-8 bg-amber-200  border p-4 mb-4 text-center">
                 <h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
-                  Contact for more details
+                  {translations["contact-for-more-details"] ||
+                    "Contact for more details"}
                 </h5>
                 <p className="flex justify-center items-center gap-4">
-                  <span className="text-base text-slate-900">Call Now:</span>{" "}
+                  <span className="text-base text-slate-900">
+                    {translations["call-now"] || "Call Now"}:
+                  </span>{" "}
                   <Link
                     href={`tel:${settings?.phone[0]}`}
                     className="text-2xl font-bold font-title text-primary"

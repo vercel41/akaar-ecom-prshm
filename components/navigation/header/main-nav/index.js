@@ -85,7 +85,7 @@ export default function MainNav({ settings, categories }) {
 								<HiOutlineHeart size={24} />
 								{wishlistCount ? (
 									<span
-										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full"
+										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
 										style={{
 											border: `1px solid ${settings?.colors?.primary_text}`,
 										}}
@@ -110,7 +110,7 @@ export default function MainNav({ settings, categories }) {
 									</span>
 								) : null}
 							</button>
-							{/* <LanguageSelector locale={locale} /> */}
+							<LanguageSelector locale={locale} />
 						</div>
 					</div>
 				</div>

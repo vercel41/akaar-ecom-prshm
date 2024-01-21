@@ -10,76 +10,97 @@ import { HiHeart } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 
 const DashboardLayout = ({ children, params }) => {
-	const { settings } = useSelector((state) => state.common);
-	const { locale } = params;
-	const pathname = usePathname();
-	const navItems = [
-		{ text: "My Details", icon: <FaUser />, path: "/dashboard" },
-		{
-			text: "Order History",
-			icon: <FaClipboardList />,
-			path: "/dashboard/my-orders",
-		},
-		{
-			text: "My Wishlist",
-			icon: <HiHeart />,
-			path: "/dashboard/my-wishlist",
-		},
-	];
+  const { translations } = useSelector((state) => state.common);
+  const { settings } = useSelector((state) => state.common);
+  const { locale } = params;
+  const pathname = usePathname();
+  const navItems = [
+    {
+      text: `${translations["my-details"] || "My Details"}`,
+      icon: <FaUser />,
+      path: "/dashboard",
+    },
+    {
+      text: `${translations["order-history"] || "Order History"}`,
+      icon: <FaClipboardList />,
+      path: "/dashboard/my-orders",
+    },
+    {
+      text: `${translations["my-wish-list"] || "My Wishlist"}`,
+      icon: <HiHeart />,
+      path: "/dashboard/my-wishlist",
+    },
+  ];
 
-	return (
-		<div className="bg-slate-100">
-			<div className="container">
-				{/* <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3> */}
-				<div className="bg-white border-b border-slate-200">
-					<h3 className="text-center text-2xl lg:text-3xl pt-8">My Account</h3>
-					<div className="flex flex-col items-center text-center lg:text-start gap-4 md:flex-row md:justify-between mt-4 px-4">
-						<div className="text-sm text-slate-600">
-							<p className="my-1">Hello Customer</p>
-							<p className="my-1">Welcome to your account.</p>
-						</div>
-						<Link
-							href={"/products"}
-							className="border px-3 py-2 active:scale-95"
-							style={{
-								border: `1px solid ${settings?.colors?.primary}`,
-								color: settings?.colors?.primary,
-							}}
-						>
-							Go to shopping
-						</Link>
-					</div>
-					<nav className="text-slate-500 border-y border-slate-200 mt-8 lg:mt-6">
-						<ul className="w-full flex justify-evenly md:justify-around">
-							{navItems.map((item) => (
-								<li
-									key={item.path}
-									className={`py-1 px-2`}
-									style={{
-										backgroundColor:
-											pathname === item.path ||
-											pathname.split(locale)[1] === item.path
-												? settings?.colors?.primary
-												: "transparent",
-										color:
-											pathname === item.path ||
-											pathname.split(locale)[1] === item.path
-												? settings?.colors?.primary_text
-												: "black",
-									}}
-								>
-									<Link href={item.path}>
-										<span>{item.text}</span>
-									</Link>
-								</li>
-							))}
-						</ul>
-					</nav>
-					<div className="md:min-h-[70vh]">{children}</div>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="bg-slate-100">
+      <div className="container">
+        {/* <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3> */}
+        <div className="bg-white border-b border-slate-200">
+          <div className="grid grid-cols-2 md:grid-cols-3">
+            <div className="hidden md:block"></div>
+            <div className="text col-span-1 px-3 py-3 md:py-0">
+              <h3 className="md:text-center text-2xl lg:text-3xl md:pt-8">
+                {translations["my-profile"] || "My Profile"}
+              </h3>
+              <div className="text-sm text-slate-600">
+                <p className="md:text-center">
+                  {translations["welcome-to-your-account"] ||
+                    "Welcome to your account"}
+                </p>
+              </div>
+            </div>
+
+            <div className="justify-self-end flex items-center mr-3">
+              <Link
+                href={"/products"}
+                className="px-2 py-3 bg text-center rounded"
+                style={{
+                  // border: `1px solid ${settings?.colors?.primary}`,
+                  color: settings?.colors?.primary_text,
+                  backgroundColor: settings?.colors?.primary,
+                }}
+              >
+                {translations["go-to-shopping"] || "Go to shopping"}
+              </Link>
+            </div>
+          </div>
+
+          <div className="md:flex  min-h-[700px]">
+            <nav className=" shadow-md m-2 p-2 rounded">
+              <ul className="md:w-[200px] flex md:flex-col justify-evenly md:justify-around">
+                {navItems.map((item) => (
+                  <li
+                    key={item.path}
+                    className={`px-3 rounded md:mb-3 py-3 cursor-pointer hover:bg`}
+                    style={{
+                      backgroundColor:
+                        pathname === item.path ||
+                        pathname.split(locale)[1] === item.path
+                          ? settings?.colors?.primary
+                          : "transparent",
+                      color:
+                        pathname === item.path ||
+                        pathname.split(locale)[1] === item.path
+                          ? settings?.colors?.primary_text
+                          : "black",
+                    }}
+                  >
+                    <Link href={item.path}>
+                      <span>{item.text}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="w-full shadow-md m-2 overflow-auto scrollbar-hide rounded max-h-[700px]">
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default RequireAuth(DashboardLayout);

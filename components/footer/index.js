@@ -7,6 +7,8 @@ import SocialIcon from "../elements/SocialIcon";
 import ScrollToTopButton from "../ScrollToTopButton";
 
 const Footer = async () => {
+  const translationData = await fetchData({ api: "translations" });
+  const translations = translationData?.data || {};
   const { data: settings = {} } = await fetchData({ api: "info/basic" });
 
   const footerPage = settings?.footer_page || {};
@@ -23,18 +25,18 @@ const Footer = async () => {
       <div className="container">
         <div className="text-center">
           <h2 className="text-3xl/[40px] font-title font-medium my-5">
-            Treat Your Inbox
+            {translations["treat-your-inbox"] || "Treat your inbox"}
           </h2>
           <p className="mb-8 text-sm/6 font-light">
-            Receive our newsletter on the latest deals and happenings. You can
-            unsubscribe any time you want.
+            {translations["receive-newsletter"] ||
+              "Receive our newsletter on the latest deals and happenings. You can unsubscribe any time you want."}
           </p>
           <SubscriptionForm settings={settings} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 justify-between gap-5 mt-8">
           <div className="text-sm/6 font-light">
             <h6 className="mb-4 font-title uppercase font-medium">
-              CUSTOMER SERVICE
+              {translations["customer-service"] || "CUSTOMER SERVICE"}
             </h6>
             <ul className="widget-list">
               <li>
@@ -42,12 +44,13 @@ const Footer = async () => {
                   className="hover:text-secondary"
                   href={"/help/contact-us"}
                 >
-                  Contact Us
+                  {translations["contact"] || "Contact Us"}
                 </Link>
               </li>
               <li>
                 <Link className="hover:text-secondary" href={"/help/qna"}>
-                  Question and Answer
+                  {translations["questions-and-queries"] ||
+                    "Questions and Answer"}
                 </Link>
               </li>
               {Object.keys(helpPage).map((key) => (
@@ -60,7 +63,7 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="text-sm/6 font-light">
-            <h6 className="mb-4 font-title uppercase font-medium">Company</h6>
+            <h6 className="mb-4 font-title uppercase font-medium">{translations["company"] || "COMPANY"}</h6>
             <ul className="widget-list">
               {Object.keys(footerPage).map((key) => (
                 <li key={key}>
