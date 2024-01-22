@@ -6,8 +6,10 @@ import { useParams, useRouter } from "next/navigation";
 
 import { HiMenuAlt1 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 export default function ResponsiveMenu({ settings, categories }) {
+	const { translations } = useSelector((state) => state.common);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const { category_slug } = useParams();
@@ -100,7 +102,7 @@ export default function ResponsiveMenu({ settings, categories }) {
               className="inline-block mt-[2px] font-title font-bold uppercase"
               style={{ color: settings?.colors?.primary_text }}
             >
-              All Categories
+              {translations["all-categories"] || "All Categories"}
             </Link>
           </li>
         )}

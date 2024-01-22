@@ -34,7 +34,7 @@ const Cart = () => {
 
   return (
     <DrawerRight
-      title={`Cart: (${cart.length} Items)`}
+      title={`${translations["cart"] || "Cart"}: (${cart.length} ${translations["item"] || "item"})`}
       show={isCartOpen}
       setShow={closeCart}
     >

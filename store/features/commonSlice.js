@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isGlobalLoading: false,
   locale: "en",
-  isFilterPanelOpen: false,
+  isFilterPanelOpen: true,
   settings: null,
   translations: {},
   activeCategory: null, //subcategories for navbar

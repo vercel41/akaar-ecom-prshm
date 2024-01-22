@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleFilterPanel } from "@/store/features/commonSlice";
 // import { HiOutlineFilter } from "react-icons/hi";
 import { BsFilterSquare } from "react-icons/bs";
 
 export default function FilterAction() {
+  const { translations } = useSelector((state) => state.common);
   const dispatch = useDispatch();
   const toggleFilter = () => {
     dispatch(toggleFilterPanel());
@@ -16,7 +17,7 @@ export default function FilterAction() {
       onClick={toggleFilter}
     >
       <BsFilterSquare size={24} />
-      <span className="text-base">Filter</span>
+      <span className="text-base">{translations["filter"] || "Filter"}</span>
     </div>
   );
 }
