@@ -52,7 +52,7 @@ const ProductViewSlider = ({ product }) => {
 										alt=""
 										width={64}
 										height={64}
-										className="border border-transparent h-16 w-16 cursor-pointer mb-3"
+										className="border object-contain h-16 w-16 cursor-pointer mb-3"
 									/>
 								</div>
 							</SwiperSlide>

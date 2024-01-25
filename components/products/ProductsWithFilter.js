@@ -18,8 +18,8 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 	const meta = productResponse?.meta || {};
 
 	return (
-		<div className="container mb-20">
-			<div className="actions-bar flex justify-between items-center mb-8">
+		<div className="container mb-3 md:mb-20">
+			<div className="actions-bar flex justify-between items-center mb-3 md:mb-8">
 				<div className="">
 					<FilterAction />
 					{/* <FilterPanel category={category} /> */}

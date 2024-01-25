@@ -150,6 +150,7 @@
 
 .nav-search input {
 	width: calc(100% - 48px);
+	@apply text-black;
 }
 
 .header-actions .single-action {
@@ -229,6 +230,9 @@
 	@apply w-full max-w-full min-w-0 max-h-max min-h-0;
 }
 
+.thumb-slider .swiper-slide-thumb img {
+	@apply border-slate-100;
+}
 .thumb-slider .swiper-slide-thumb-active img {
 	@apply border-primary;
 }
