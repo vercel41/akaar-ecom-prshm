@@ -30,6 +30,13 @@
 		@apply relative appearance-none w-5 h-5 border-slate-300 rounded p-0 cursor-pointer after:absolute after:content-[''] after:w-full after:h-full after:top-[-50%] after:left-1/2 after:translate-x-[-25%] after:translate-y-1/4 checked:after:content-[url('/assets/images/icons/chk.svg')]  checked:bg-primary checked:border-primary;
 	}
 
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+		-moz-appearance: textfield !important;
+	}
+
 	/* input[type="checkbox"]::after {
     @apply absolute top-0 left-[1/2] hidden text-sm text-white translate-x-[-50%]
   } */

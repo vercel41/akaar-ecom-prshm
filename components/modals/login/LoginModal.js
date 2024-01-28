@@ -102,9 +102,9 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
 					<form className="" onSubmit={handleSubmit(onSubmit)}>
 						<div className="mb-8">
 							<label className="block text-base mb-2">Phone</label>
-							<div className="flex items-center">
+							<div className="flex items-center group">
 								<select
-									className="h-12 text-base font-title font-normal px-2 border border-gray-300 focus:outline-none focus:border-primary"
+									className="h-12 text-base font-title font-normal px-2 border border-gray-300 focus:outline-none group-focus-within:border-primary group-focus-within:border-r-gray-300"
 									{...register("dial_code")}
 								>
 									{countries.map((country) => (
@@ -119,7 +119,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
 								</select>
 								<input
 									type="number"
-									className="w-full rounded-s-none border border-l-0 border-gray-300 focus:outline-none focus:border-primary"
+									className="w-full rounded-s-none border border-l-0 border-gray-300 focus:outline-none group-focus-within:border-primary"
 									name="phone"
 									placeholder="Your mobile number"
 									{...register("phone", {
