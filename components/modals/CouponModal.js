@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import Modal from "../elements/Modal";
@@ -9,8 +9,9 @@ import axiosInstance from "@/lib/axios-instance";
 import { addDiscountInfo } from "@/store/features/cartSlice";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 
-const CouponModal = ({ showModal, setShowModal, title }) => {
-	const [error, setError] = useState(false);
+const CouponModal = ({ showModal, setShowModal }) => {
+	const { translations } = useSelector((state) => state.common);
+	const [error, setError] = useState("");
 	const dispatch = useDispatch();
 	const {
 		register,
@@ -20,26 +21,32 @@ const CouponModal = ({ showModal, setShowModal, title }) => {
 
 	const onSubmit = async (data, event) => {
 		event.preventDefault();
-		setError(false);
+		setError("");
 		dispatch(setGlobalLoader(true));
 		try {
 			const coupon = data.coupon_code;
 			const response = await axiosInstance.get(`coupons/${coupon}`);
 			dispatch(setGlobalLoader(false));
 			if (response.status === 200) {
-				toast.success("coupon discount applied");
 				dispatch(addDiscountInfo(response.data.data));
+				toast.success(
+					`Coupon added, Applicable for minimum order amount ${response.data.data.minimum_order}`
+				);
 				setShowModal(false); //closing coupon modal
 			} else {
-				setError(true);
+				setError("Invalid coupon code");
 			}
 		} catch (error) {
-			setError(true);
+			setError(error?.response?.data?.message || "Invalid coupon code");
 			dispatch(setGlobalLoader(false));
 		}
 	};
 	return (
-		<Modal showModal={showModal} setShowModal={setShowModal} title={title}>
+		<Modal
+			showModal={showModal}
+			setShowModal={setShowModal}
+			title={translations["coupon"] || "Coupon"}
+		>
 			<div className="w-full lg:w-[27rem] text-slate-500">
 				<form className="" onSubmit={handleSubmit(onSubmit)}>
 					<div className="mt-6 mb-8 form-control">
