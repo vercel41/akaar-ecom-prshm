@@ -16,6 +16,7 @@ import { siteConfig } from "@/config/site";
 
 const ProductSelect = () => {
 	const { selectedProduct } = useSelector((state) => state.cart);
+	const { settings, translations } = useSelector((state) => state.common);
 	const [selectedVariant, setSelectedVariant] = useState(null);
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -99,18 +100,33 @@ const ProductSelect = () => {
 				) : null}
 				<div className="product-actions my-6 flex gap-4 justify-between items-center">
 					<button
-						className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
+						className="py-3 w-full px-3 sm:px-6text-center active:scale-95"
 						onClick={handleAddToCart}
+						style={{
+							backgroundColor: settings?.colors?.primary,
+							color: settings?.colors?.primary_text,
+						}}
 					>
-						<HiOutlineShoppingCart size={24} />
-						<span className="ml-2">Add to Cart</span>
+						<HiOutlineShoppingCart
+							size={24}
+							className="hidden sm:inline-block"
+						/>
+						<span className="ml-2 sm:ml-0">
+							{translations["add-to-cart"] || "Add to Cart"}
+						</span>
 					</button>
 					<button
 						onClick={handleBuyNow}
-						className="bg-primary py-3 w-full px-6 text-white  text-center active:scale-95"
+						className="py-3 w-full px-3 sm:px-6 text-center active:scale-95"
+						style={{
+							backgroundColor: settings?.colors?.primary,
+							color: settings?.colors?.primary_text,
+						}}
 					>
-						<span className="mr-2">Buy Now</span>
-						<HiArrowLongRight size={20} />
+						<span className="mr-2 sm:mr-0">
+							{translations["buy-now"] || "Buy Now"}
+						</span>
+						<HiArrowLongRight size={20} className="hidden sm:inline-block" />
 					</button>
 				</div>
 			</div>
