@@ -18,7 +18,6 @@ import CouponModal from "@/components/modals/CouponModal";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import RequireAuth from "@/components/hoks/RequireAuth";
 import FieldsetInput from "@/components/elements/FieldsetInput";
-import { setGlobalLoader } from "@/store/features/commonSlice";
 
 //Icons
 import { FiPlus } from "react-icons/fi";
@@ -50,7 +49,6 @@ const Checkout = () => {
 	const [showModal, setShowModal] = useState(false);
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
 	const { user, isLoading } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
 	const { handleOrderPlace } = useOrderPlace(); //custom hook for separating order place business logics
 	const { data: paymentMethodsData } = useGetPaymentMethodsQuery();
 	const paymentMethods = paymentMethodsData?.data || {};
@@ -86,14 +84,20 @@ const Checkout = () => {
 
 	// console.log(isDeliveryCharge);
 
-	const handleCheckoutSubmit = async (data, event) => {
-		dispatch(setGlobalLoader(true));
+	const handleCheckoutSubmit = async (data) => {
+		let phone = data?.phone;
+		let alt_phone = data?.phone;
 
+		//for authorized u
+		if (!settings?.guest_checkout) {
+			alt_phone =
+				siteConfig.phone.countryCode + user?.phone || user?.alt_phone_no;
+		}
 		const newOrder = {
 			name: data.name,
 			alt_name: data.name,
-			phone: user?.country_code + user?.phone,
-			alt_phone: user?.country_code + user?.alt_phone_no,
+			phone: phone,
+			alt_phone: alt_phone,
 			address: data.addressLine + ", " + data.city, // + ", " + data.country,
 			alt_address: data.addressLine + ", " + data.city, // + ", " + data.country,
 			order_items: getOrderFormattedCartItems(cart),
@@ -183,7 +187,10 @@ const Checkout = () => {
 												label={dm.title}
 												// onClick={() => setDeliveryMethod(dm)}
 											/>
-											<p>{dm.charges}tk</p>
+											<p>
+												{siteConfig.currency.sign}
+												{dm.charges}
+											</p>
 										</button>
 									))}
 								</div>
@@ -282,20 +289,26 @@ const Checkout = () => {
 									</div>
 
 									<div className="form-control mb-6">
-										<input
-											type="phone"
-											name="phone"
-											defaultValue={user?.country_code + user?.phone}
-											placeholder={
+										<FieldsetInput
+											label={`${
 												translations["phone-number"] || "Phone Number"
-											}
-											{...register("phone", {})}
-											disabled={true}
-											className="cursor-not-allowed bg-slate-100"
+											}`}
+											name="phone"
+											defaultValue={user?.phone || user?.alt_phone_no}
+											register={register("phone", {
+												required: "Phone number is required.",
+												pattern: {
+													value: siteConfig.phone.patternWithCode,
+													message: "Please enter a valid bangladeshi number",
+												},
+											})}
+											type="tel"
+											disabled={!settings?.guest_checkout}
 										/>
-										{/* {errors.phone && (
-                    <p className="errorMsg">{errors.phone.message}</p>
-                  )} */}
+
+										{errors.phone && (
+											<p className="errorMsg">{errors.phone.message}</p>
+										)}
 									</div>
 									<div className="form-control mb-6">
 										<FieldsetInput

@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 import getToken from "@/utils/token";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { clearCart, clearDiscountInfo } from "@/store/features/cartSlice";
 import { setGlobalLoader } from "@/store/features/commonSlice";
@@ -9,12 +9,22 @@ import { usePlaceAnOrderMutation } from "@/store/features/api/orderAPI";
 
 const useOrderPlace = () => {
 	const [placeAnOrder] = usePlaceAnOrderMutation();
+	const { settings } = useSelector((state) => state.common);
+	const isGuestCheckout = !!settings?.guest_checkout;
 	const dispatch = useDispatch();
 	const router = useRouter();
+
 	const handleOrderPlace = async (newOrder) => {
 		// console.log(newOrder);
-		// "Online Payment"
+
+		if (newOrder.payment_type !== "COD" && isGuestCheckout) {
+			toast.error("Guest Payment Option is not available yet");
+			return;
+		}
+
+		dispatch(setGlobalLoader(true));
 		if (newOrder.payment_type !== "COD") {
+			// "Online Payment"
 			//currently getting payment_type "Online Payment" but checkout accepts "Online"
 			newOrder.payment_type = "Online"; //forcing to use payment type Online
 			try {
@@ -24,7 +34,10 @@ const useOrderPlace = () => {
 						"Content-Type": "application/json",
 						authorization: `Bearer ${getToken()}`,
 					},
-					body: JSON.stringify(newOrder),
+					body: JSON.stringify({
+						newOrder,
+						isGuestCheckout,
+					}),
 				});
 				const data = await res.json();
 				dispatch(setGlobalLoader(false));
@@ -42,7 +55,7 @@ const useOrderPlace = () => {
 				toast.error("Something went wrong...", error);
 			}
 		} else {
-			placeAnOrder(newOrder)
+			placeAnOrder({ newOrder, isGuestCheckout })
 				.unwrap()
 				.then((response) => {
 					// Handle the successful response if necessary
@@ -51,7 +64,14 @@ const useOrderPlace = () => {
 					dispatch(clearCart());
 					dispatch(setGlobalLoader(false));
 					toast.success("Order successful");
-					router.push(`checkout/success/${response?.sale?.id}`);
+					if (isGuestCheckout) {
+						const { sale } = response || {};
+						router.push(
+							`checkout/guest/success/${sale?.id}/${sale?.invoice_no}/${sale?.due_amount}/${sale?.customer?.id}`
+						);
+					} else {
+						router.push(`checkout/success/${sale?.id}`);
+					}
 				})
 				.catch((error) => {
 					// Handle the error if necessary

@@ -39,9 +39,6 @@ const ProductCard = ({ product, isFlashSale }) => {
 		slug,
 		image,
 		product_name,
-		brand,
-		averate_rating,
-		total_rating,
 		new_price,
 		old_price,
 		discount_percentage,
@@ -79,7 +76,6 @@ const ProductCard = ({ product, isFlashSale }) => {
 			dispatch(addToSelected(product));
 		} else {
 			dispatch(addToCart(product));
-			toast.success("Added to cart");
 			router.push("/checkout");
 		}
 	};
@@ -108,27 +104,29 @@ const ProductCard = ({ product, isFlashSale }) => {
 									</span>
 								</div>
 							)}
-							<div className="absolute top-2 right-2 z-20">
-								<button
-									aria-label="Add To Wishlist"
-									className={`border px-1 active:scale-90 rounded`}
-									style={{
-										backgroundColor: isInWishlist
-											? settings?.colors?.primary
-											: "white",
-										color: isInWishlist
-											? settings?.colors?.primary_text
-											: settings?.colors?.primary,
-									}}
-									onClick={(e) =>
-										!isInWishlist
-											? handleAddToWishlist(id)
-											: handleRemoveFromWishlist(id)
-									}
-								>
-									<HiOutlineHeart />
-								</button>
-							</div>
+							{!settings?.guest_checkout ? (
+								<div className="absolute top-2 right-2 z-20">
+									<button
+										aria-label="Add To Wishlist"
+										className={`border px-1 active:scale-90 rounded`}
+										style={{
+											backgroundColor: isInWishlist
+												? settings?.colors?.primary
+												: "white",
+											color: isInWishlist
+												? settings?.colors?.primary_text
+												: settings?.colors?.primary,
+										}}
+										onClick={(e) =>
+											!isInWishlist
+												? handleAddToWishlist(id)
+												: handleRemoveFromWishlist(id)
+										}
+									>
+										<HiOutlineHeart />
+									</button>
+								</div>
+							) : null}
 							<div
 								className={`product-img overflow-hidden h-[180px] @[200px]:h-[270px] @[250px]:h-[340px]`}
 							>

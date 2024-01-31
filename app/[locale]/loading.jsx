@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Loading() {
 	return (
-		<div className="flex h-screen w-screen justify-center items-center">
+		<div className="flex h-screen w-screen justify-center items-center -mt-16">
 			<Image
 				className={`h-[300px] w-[300px]`}
 				src={"/assets/images/loading-snail.gif"}

@@ -4,7 +4,7 @@ import { postData } from "@/lib/post-data";
 import { handleOrderSSLPay } from "./SSLPayment";
 
 export async function POST(request) {
-	const newOrder = await request.json();
+	const { newOrder, isGuestCheckout } = await request.json();
 
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
@@ -12,7 +12,10 @@ export async function POST(request) {
 
 	try {
 		const order = await postData(
-			{ api: "checkout", authorization: bearerToken },
+			{
+				api: !isGuestCheckout ? "checkout" : "guest-checkout",
+				authorization: bearerToken,
+			},
 			newOrder
 		);
 		if (order?.status === false) {

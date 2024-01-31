@@ -50,6 +50,7 @@ export default function MainNav({ settings, categories }) {
 	}, [scroll]);
 
 	const wishlistCount = getWishlistCount();
+
 	return (
 		<div
 			className={cn(`relative py-2 lg:py-0`)}
@@ -62,46 +63,50 @@ export default function MainNav({ settings, categories }) {
 					<div className="header-right flex justify-between items-center ml-4 gap-6">
 						<ResponsiveSearch settings={settings} />
 						<div
-							className="header-actions flex gap-4"
+							className="header-actions flex gap-3"
 							style={{ color: settings?.colors?.primary_text }}
 						>
-							<button onClick={handleModalOpen} className="single-action">
-								{user?.image ? (
-									<Image
-										src={user.image}
-										alt="Profile"
-										height={32}
-										width={32}
-										className="h-full w-full rounded-full"
-									/>
-								) : (
-									<HiOutlineUser size={24} />
-								)}
-							</button>
-							<button
-								onClick={() => router.push("/dashboard/my-wishlist")}
-								className="inline-block relative"
-							>
-								<HiOutlineHeart size={24} />
-								{wishlistCount ? (
-									<span
-										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
-										style={{
-											border: `1px solid ${settings?.colors?.primary_text}`,
-										}}
+							{!settings?.guest_checkout ? (
+								<>
+									<button onClick={handleModalOpen} className="single-action">
+										{user?.image ? (
+											<Image
+												src={user.image}
+												alt="Profile"
+												height={32}
+												width={32}
+												className="h-full w-full rounded-full"
+											/>
+										) : (
+											<HiOutlineUser size={24} />
+										)}
+									</button>
+									<button
+										onClick={() => router.push("/dashboard/my-wishlist")}
+										className="inline-block relative"
 									>
-										{wishlistCount}
-									</span>
-								) : null}
-							</button>
+										<HiOutlineHeart size={24} />
+										{wishlistCount ? (
+											<span
+												className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
+												style={{
+													border: `1px solid ${settings?.colors?.primary_text}`,
+												}}
+											>
+												{wishlistCount}
+											</span>
+										) : null}
+									</button>
+								</>
+							) : null}
 							<button
 								onClick={() => dispatch(toggleCart())}
-								className="group relative"
+								className="group relative single-action"
 							>
 								<HiOutlineShoppingCart size={24} />
 								{cart?.length ? (
 									<span
-										className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full"
+										className="absolute -right-1 -top-1 border text-[10px] px-1 text-center rounded-full"
 										style={{
 											border: `1px solid ${settings?.colors?.primary_text}`,
 										}}

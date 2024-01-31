@@ -161,7 +161,7 @@
 }
 
 .header-actions .single-action {
-	@apply inline-flex justify-center items-center w-10 h-10  rounded-full ease-in duration-100;
+	@apply w-10 h-10  rounded-full ease-in duration-100;
 }
 
 /* Service Features */

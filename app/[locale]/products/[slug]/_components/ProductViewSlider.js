@@ -10,7 +10,7 @@ import noImage from "@/public/assets/images/no-image.png";
 import { HiOutlineHeart } from "react-icons/hi2";
 import useWishList from "@/hooks/useWishList";
 
-const ProductViewSlider = ({ product }) => {
+const ProductViewSlider = ({ product, settings }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const {
 		handleAddToWishlist,
@@ -109,23 +109,25 @@ const ProductViewSlider = ({ product }) => {
 							</SwiperSlide>
 						))}
 					</Swiper>
-					<div className="product-action absolute top-4 right-5 z-10">
-						<button
-							aria-label="Add To Wishlist"
-							className={`action-btn inline-flex justify-center items-center w-8 h-8 border ${
-								isInWishlist
-									? "bg-primary text-white"
-									: "border-primary bg-white text-primary"
-							}`}
-							onClick={(e) =>
-								!isInWishlist
-									? handleAddToWishlist(product?.id)
-									: handleRemoveFromWishlist(product?.id)
-							}
-						>
-							<HiOutlineHeart size={18} />
-						</button>
-					</div>
+					{!settings?.guest_checkout ? (
+						<div className="product-action absolute top-4 right-5 z-10">
+							<button
+								aria-label="Add To Wishlist"
+								className={`action-btn inline-flex justify-center items-center w-8 h-8 border ${
+									isInWishlist
+										? "bg-primary text-white"
+										: "border-primary bg-white text-primary"
+								}`}
+								onClick={(e) =>
+									!isInWishlist
+										? handleAddToWishlist(product?.id)
+										: handleRemoveFromWishlist(product?.id)
+								}
+							>
+								<HiOutlineHeart size={18} />
+							</button>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</>

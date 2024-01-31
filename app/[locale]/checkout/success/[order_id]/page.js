@@ -18,8 +18,8 @@ const OrderSuccess = ({ params }) => {
 	const order = orderData?.sale || null;
 	// console.log(order);
 	return (
-		<div className="container min-h-screen">
-			<div className="w-full md:w-[540px] mx-auto mt-12 lg:mt-28  mb-12 p-5 border border-slate-200">
+		<div className="container">
+			<div className="w-full md:w-[540px] mx-auto my-12 md:my-28 p-5 border border-slate-200">
 				<div className="text-center font-bold">
 					<div className="flex-center h-28">
 						<Lottie
