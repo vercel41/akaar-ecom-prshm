@@ -64,8 +64,8 @@ const useOrderPlace = () => {
 					dispatch(clearCart());
 					dispatch(setGlobalLoader(false));
 					toast.success("Order successful");
+					const { sale } = response || {};
 					if (isGuestCheckout) {
-						const { sale } = response || {};
 						router.push(
 							`checkout/guest/success/${sale?.id}/${sale?.invoice_no}/${sale?.due_amount}/${sale?.customer?.id}`
 						);

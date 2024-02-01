@@ -11,7 +11,7 @@
 	}
 
 	input {
-		@apply h-12 text-base font-title font-normal border border-slate-300 py-3 px-4 focus:outline-0 focus:border-primary;
+		@apply h-12 text-base font-title font-normal border border-slate-300 py-2.5 px-4 focus:outline-0 focus:border-primary;
 	}
 
 	textarea {

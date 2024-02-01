@@ -7,8 +7,9 @@ import { useVerifyOtpMutation } from "@/store/features/api/authAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/store/features/authSlice";
 import { setGlobalLoader } from "@/store/features/commonSlice";
+import { siteConfig } from "@/config/site";
 
-const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
+const OtpForm = ({ phone, setShowModal, setOtpSent, translations }) => {
 	const { settings } = useSelector((state) => state.common);
 	const [otp, setOtp] = useState(Array(6).fill(""));
 	const [verifyOTP, { isSuccess, isLoading, data: user, isError }] =
@@ -58,7 +59,7 @@ const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
 		} else {
 			const optData = {
 				phone_no: phone,
-				country: selectedCountry?.name,
+				country: siteConfig.phone.country,
 				code: jointedOtp,
 			};
 			// console.log(optData, "Otp data");
@@ -123,7 +124,7 @@ const OtpForm = ({ selectedCountry, phone, setShowModal, setOtpSent }) => {
 					color: settings?.colors?.primary_text,
 				}}
 			>
-				Confirm OTP
+				{translations["confirm-code"] || "Confirm OTP"}
 			</button>
 		</div>
 	);

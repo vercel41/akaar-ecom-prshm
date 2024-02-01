@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
 	getCartTotal,
@@ -25,6 +25,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
 import { siteConfig } from "@/config/site";
 import useOrderPlace from "@/hooks/useOrderPlace";
+import useProfileUpdate from "@/hooks/useProfileUpdate";
 
 const Checkout = () => {
 	// Dynamic delivery charges
@@ -50,6 +51,8 @@ const Checkout = () => {
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
 	const { user, isLoading } = useSelector((state) => state.auth);
 	const { handleOrderPlace } = useOrderPlace(); //custom hook for separating order place business logics
+	const { handleUserUpdate } = useProfileUpdate(); //custom hook for separating profile update business logics
+
 	const { data: paymentMethodsData } = useGetPaymentMethodsQuery();
 	const paymentMethods = paymentMethodsData?.data || {};
 
@@ -87,6 +90,7 @@ const Checkout = () => {
 	const handleCheckoutSubmit = async (data) => {
 		let phone = data?.phone;
 		let alt_phone = data?.phone;
+		let fullAddress = data.address + ", " + data.city;
 
 		//for authorized u
 		if (!settings?.guest_checkout) {
@@ -98,8 +102,8 @@ const Checkout = () => {
 			alt_name: data.name,
 			phone: phone,
 			alt_phone: alt_phone,
-			address: data.addressLine + ", " + data.city, // + ", " + data.country,
-			alt_address: data.addressLine + ", " + data.city, // + ", " + data.country,
+			address: fullAddress,
+			alt_address: fullAddress,
 			order_items: getOrderFormattedCartItems(cart),
 			payment_type: selectedPayMethod
 				? selectedPayMethod.key
@@ -117,6 +121,20 @@ const Checkout = () => {
 		};
 		// console.log(newOrder);
 		handleOrderPlace(newOrder);
+
+		// updating user for the first time only not applicable for guest checkout
+		if (
+			((!user?.phone && !user?.alt_phone_no) || !user?.address) &&
+			!settings?.guest_checkout
+		) {
+			handleUserUpdate({
+				...user,
+				alt_phone_no: user?.alt_phone_no || data?.phone,
+				address: user.address || data?.address,
+				city: data?.city,
+			});
+		}
+		// else alert("user not updated");
 	};
 
 	return (
@@ -303,7 +321,7 @@ const Checkout = () => {
 												},
 											})}
 											type="tel"
-											disabled={!settings?.guest_checkout}
+											// disabled={!settings?.guest_checkout}
 										/>
 
 										{errors.phone && (
@@ -313,14 +331,14 @@ const Checkout = () => {
 									<div className="form-control mb-6">
 										<FieldsetInput
 											label={translations["address"] || "Address"}
-											name="addressLine"
+											name="address"
 											defaultValue={user?.address}
-											register={register("addressLine", {
+											register={register("address", {
 												required: "Address line is required.",
 											})}
 										/>
-										{errors.addressLine && (
-											<p className="errorMsg">{errors.addressLine.message}</p>
+										{errors.address && (
+											<p className="errorMsg">{errors.address.message}</p>
 										)}
 									</div>
 									<div className="form-control mb-6">
@@ -383,7 +401,7 @@ const Checkout = () => {
 														height={32}
 														width={150}
 														alt="icon"
-														className="h-8 w-full"
+														className="h-8 w-fit max-w-[150px]"
 													/>
 												</div>
 											</div>
