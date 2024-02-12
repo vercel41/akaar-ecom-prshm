@@ -14,7 +14,7 @@ export async function POST(request) {
 		const order = await postData(
 			{
 				api: !isGuestCheckout ? "checkout" : "guest-checkout",
-				authorization: bearerToken,
+				authorization: `Bearer ${bearerToken}`,
 			},
 			newOrder
 		);

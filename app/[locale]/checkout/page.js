@@ -105,9 +105,9 @@ const Checkout = () => {
 			address: fullAddress,
 			alt_address: fullAddress,
 			order_items: getOrderFormattedCartItems(cart),
-			payment_type: selectedPayMethod
-				? selectedPayMethod.key
-				: Object.values(paymentMethods)[0]?.key,
+			payment_method: selectedPayMethod
+				? selectedPayMethod
+				: Object.values(paymentMethods)[0],
 			delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
 			delivery_charge: isDeliveryCharge ? deliveryMethod.charges : 0,
 			coupon: discountCoupon?.code || null,
@@ -389,8 +389,8 @@ const Checkout = () => {
 												<CustomRadio
 													isChecked={
 														selectedPayMethod
-															? paymentMethods[method].key ===
-															  selectedPayMethod.key
+															? paymentMethods[method].title ===
+															  selectedPayMethod.title
 															: index === 0
 													}
 													label={paymentMethods[method].title}

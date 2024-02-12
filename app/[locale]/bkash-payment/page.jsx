@@ -26,8 +26,8 @@ export default function Home() {
 		console.log(result);
 		if (result?.status) {
 			toast.success("Online payment is processing please wait");
-			console.log(result?.data);
-			window.location.replace(result?.data?.bkashURL);
+			console.log(result?.GatewayPageURL);
+			window.location.replace(result?.GatewayPageURL);
 		} else {
 			toast.error("Something went wrong");
 		}

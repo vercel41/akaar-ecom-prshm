@@ -14,25 +14,36 @@ const useOrderPlace = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
+	const getPaymentUriByTitle = (title) => {
+		switch (title) {
+			case "Bkash Payment":
+				return "/api/payments/bkash";
+			case "SSL Payment":
+				return "/api/payments/sslcz";
+			default:
+				return null;
+		}
+	};
+
 	const handleOrderPlace = async (newOrder) => {
 		// console.log(newOrder);
 
-		if (newOrder.payment_type !== "COD" && isGuestCheckout) {
+		if (newOrder.payment_method?.key !== "COD" && isGuestCheckout) {
 			toast.error("Guest Payment Option is not available yet");
 			return;
 		}
 
 		dispatch(setGlobalLoader(true));
-		if (newOrder.payment_type !== "COD") {
-			// "Online Payment"
-			//currently getting payment_type "Online Payment" but checkout accepts "Online"
+		if (newOrder.payment_method?.key !== "COD") {
 			newOrder.payment_type = "Online"; //forcing to use payment type Online
+			let paymentUri = getPaymentUriByTitle(newOrder.payment_method?.title);
+			delete newOrder.payment_method;
 			try {
-				const res = await fetch("/api/payments/sslcz", {
+				const res = await fetch(paymentUri, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						authorization: `Bearer ${getToken()}`,
+						authorization: getToken(),
 					},
 					body: JSON.stringify({
 						newOrder,
@@ -55,6 +66,8 @@ const useOrderPlace = () => {
 				toast.error("Something went wrong...", error);
 			}
 		} else {
+			newOrder.payment_type = "COD"; //forcing to use payment type COD
+			delete newOrder.payment_method;
 			placeAnOrder({ newOrder, isGuestCheckout })
 				.unwrap()
 				.then((response) => {

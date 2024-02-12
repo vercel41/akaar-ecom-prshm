@@ -20,7 +20,10 @@ export async function POST(request) {
 
 	//Updating payment info of order
 	const result = await postData(
-		{ api: "online-payment-status-change", authorization: bearerToken },
+		{
+			api: "online-payment-status-change",
+			authorization: `Bearer ${bearerToken}`,
+		},
 		paymentData
 	);
 
