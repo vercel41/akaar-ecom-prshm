@@ -27,7 +27,7 @@ export const handleOrderSSLPay = async (order, bearerToken) => {
 		tran_id: tranId, // use unique tran_id for each api call
 		success_url: `${nextBaseUrl}/api/payments/sslcz/success?${successParams.toString()}`,
 		fail_url: `${nextBaseUrl}/api/payments/sslcz/fail?order=${sale.id}`,
-		cancel_url: `${nextBaseUrl}/api/payments/sslcz/cancel`,
+		cancel_url: `${nextBaseUrl}/api/payments/sslcz/fail?order=${sale.id}`,
 		ipn_url: `${nextBaseUrl}/api/payments/sslcz/ipn`,
 		shipping_method: "Courier",
 		product_name: "Computer.",

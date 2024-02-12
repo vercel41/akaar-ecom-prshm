@@ -6,7 +6,7 @@ import { getAuthHeaders } from "./helpers/bkash-headers";
 import { postData } from "@/lib/post-data";
 
 let bkashGrantToken = null;
-let orderId = null;
+let orderIdForError = null;
 
 export async function POST(request) {
 	// Call grantToken to generate the token before proceeding
@@ -17,19 +17,35 @@ export async function POST(request) {
 
 	bkashGrantToken = grantToken; // set the global token
 	const { origin: baseUrl } = new URL(request.url);
-	const { newOrder, isGuestCheckout } = await request.json();
+	const { orderId, newOrder, isGuestCheckout } = await request.json();
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
+	let order = null;
 
 	try {
-		const order = await postData(
-			{
-				api: !isGuestCheckout ? "checkout" : "guest-checkout",
-				authorization: `Bearer ${bearerToken}`,
-			},
-			newOrder
-		);
-		if (order?.status === false) {
+		if (orderId) {
+			//getting existing order
+			const res = await fetch(`${process.env.server}/order/show/${orderId}`, {
+				headers: {
+					AmsPublickey: process.env.AMS_PUBLIC_KEY,
+					AmsPrivateKey: process.env.AMS_PRIVATE_KEY,
+					authorization: `Bearer ${bearerToken}`,
+				},
+			});
+			order = await res.json();
+			// console.log(order);
+		} else {
+			//creating new order
+			order = await postData(
+				{
+					api: !isGuestCheckout ? "checkout" : "guest-checkout",
+					authorization: `Bearer ${bearerToken}`,
+				},
+				newOrder
+			);
+			// console.log(order);
+		}
+		if (!order || order?.status === false) {
 			console.log(order, "order creation response in bkash");
 			return NextResponse.error(
 				{ message: "Order Creation failed" },
@@ -38,7 +54,7 @@ export async function POST(request) {
 		}
 		// after order creation we need to initialize bkash payment
 		const { sale } = order;
-		orderId = sale.id; // set the global order id for failed payment
+		orderIdForError = sale.id; // set the global order id for failed payment
 
 		const result = await fetch(`${process.env.BKASH_BASE_URL}/create`, {
 			method: "POST",
@@ -82,7 +98,6 @@ export async function GET(request) {
 	const { searchParams, origin: baseUrl } = new URL(request.url);
 	const paymentID = searchParams.get("paymentID");
 	const status = searchParams.get("status");
-	// console.log(orderId, "orderId");
 
 	try {
 		if (status === "success") {
@@ -134,7 +149,7 @@ export async function GET(request) {
 				console.log("Payment Failed !!!");
 
 				return NextResponse.redirect(
-					`${baseUrl}/checkout/fail/${result.merchantInvoiceNumber}`,
+					`${baseUrl}/checkout/fail/${orderIdForError}`,
 					{
 						status: 301,
 					}
@@ -143,15 +158,21 @@ export async function GET(request) {
 		} else {
 			console.log("Payment cancelled !!!");
 
-			return NextResponse.redirect(`${baseUrl}/checkout/fail/${orderId}`, {
-				status: 301,
-			});
+			return NextResponse.redirect(
+				`${baseUrl}/checkout/fail/${orderIdForError}`,
+				{
+					status: 301,
+				}
+			);
 		}
 	} catch (e) {
 		console.error("Error occurred during payment:", e); // Log the error
 		// return res.redirect(baseUrl)/payment-fail;
-		return NextResponse.redirect(`${baseUrl}/checkout/fail/${orderId}`, {
-			status: 301,
-		});
+		return NextResponse.redirect(
+			`${baseUrl}/checkout/fail/${orderIdForError}`,
+			{
+				status: 301,
+			}
+		);
 	}
 }
