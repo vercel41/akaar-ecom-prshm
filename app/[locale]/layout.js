@@ -25,6 +25,7 @@ import PersistUser from "@/components/utility/PersistUser";
 import GlobalLoader from "@/components/utility/GlobalLoader";
 import ServerDataProvider from "@/components/utility/ServerDataProvider";
 import { fetchData } from "@/lib/fetch-data";
+import FacebookPixel from "@/components/utility/FacebookPixel";
 
 export const generateMetadata = async () => {
 	let settings = {};
@@ -89,6 +90,7 @@ export default function RootLayout({ children, params }) {
 					<GlobalLoader />
 					<ServerDataProvider />
 				</ReduxProvider>
+				<FacebookPixel />
 			</body>
 		</html>
 	);
