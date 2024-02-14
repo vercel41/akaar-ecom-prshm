@@ -90,7 +90,7 @@ const MyProfile = () => {
 						</label>
 						{!editMode ? (
 							<p>
-								{user?.birth_date ? (
+								{user?.birth_date && user?.birth_date !== "0000-00-00" ? (
 									getFormattedDate(user?.birth_date)
 								) : (
 									<span className="text-slate-300">
