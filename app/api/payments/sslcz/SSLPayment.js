@@ -5,7 +5,7 @@ const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASS;
 const is_live = process.env.IS_LIVE === "YES" ? true : false;
 
-export const handleOrderSSLPay = async (order, bearerToken) => {
+export const handleOrderSSLPay = async (order) => {
 	const headersList = headers();
 	const protocol = headersList.get("x-forwarded-proto") || "http";
 	const host = headersList.get("host");
@@ -18,7 +18,6 @@ export const handleOrderSSLPay = async (order, bearerToken) => {
 		order: sale.id,
 		tran: tranId,
 		amount: sale.due_amount,
-		auth: bearerToken,
 	});
 
 	const sslPaymentData = {
@@ -41,7 +40,7 @@ export const handleOrderSSLPay = async (order, bearerToken) => {
 		cus_state: "Dhaka",
 		cus_postcode: "1000",
 		cus_country: "Bangladesh",
-		cus_phone: sale.customer.mobile,
+		cus_phone: sale.customer.mobile || sale.shipping.phone,
 		// cus_fax: "01711111111",
 		ship_name: sale.shipping.name,
 		ship_add1: sale.shipping.address,

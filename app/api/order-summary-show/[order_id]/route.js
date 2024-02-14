@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import { handleOrderSSLPay } from "../SSLPayment";
 
 export async function GET(request, { params }) {
 	const { order_id } = params;
-	// const headersList = headers();
-	// const bearerToken = headersList.get("authorization");
 
 	try {
 		// getting order detail using id
@@ -18,24 +15,25 @@ export async function GET(request, { params }) {
 		const order = await res.json();
 		// console.log(order);
 
-		if (order?.status === false) {
-			console.log(order, "Could not found the order");
-			return NextResponse.error(
-				{ message: "Could not found the order" },
-				{ status: 404 }
-			);
+		if (order?.status === false || res.status !== 200) {
+			// console.log(order, "Could not found the order");
+			return NextResponse.error(order, { status: 404 });
 		}
-		// console.log(order);
-		//Initializing SSL payment using order data
-		const sslResponse = await handleOrderSSLPay(order);
 
-		return NextResponse.json(
-			{
-				GatewayPageURL: sslResponse.GatewayPageURL,
-				status: true,
-			},
-			{ status: 200 }
-		);
+		const { sale } = order || {};
+		//creating order summary
+		const orderSummary = {
+			id: sale?.id,
+			invoice_no: sale?.invoice_no,
+			status: sale?.status,
+			total_amount: sale?.total_amount,
+			due_amount: sale?.due_amount,
+			paid_amount: sale?.paid_amount,
+			customer: sale?.customer,
+			sale_date: sale?.sale_date,
+		};
+
+		return NextResponse.json(orderSummary, { status: 200 });
 	} catch (error) {
 		console.error("An error occurred:", error);
 		return NextResponse.error(

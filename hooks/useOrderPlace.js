@@ -28,10 +28,10 @@ const useOrderPlace = () => {
 	const handleOrderPlace = async (newOrder) => {
 		// console.log(newOrder);
 
-		if (newOrder.payment_method?.key !== "COD" && isGuestCheckout) {
-			toast.error("Guest Payment Option is not available yet");
-			return;
-		}
+		// if (newOrder.payment_method?.key !== "COD" && isGuestCheckout) {
+		// 	toast.error("Guest Payment Option is not available yet");
+		// 	return;
+		// }
 
 		dispatch(setGlobalLoader(true));
 		if (newOrder.payment_method?.key !== "COD") {
@@ -78,13 +78,7 @@ const useOrderPlace = () => {
 					dispatch(setGlobalLoader(false));
 					toast.success("Order successful");
 					const { sale } = response || {};
-					if (isGuestCheckout) {
-						router.push(
-							`checkout/guest/success/${sale?.id}/${sale?.invoice_no}/${sale?.due_amount}/${sale?.customer?.id}`
-						);
-					} else {
-						router.push(`checkout/success/${sale?.id}`);
-					}
+					router.push(`checkout/success/${sale?.id}`);
 				})
 				.catch((error) => {
 					// Handle the error if necessary

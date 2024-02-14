@@ -5,7 +5,6 @@ import { handleOrderSSLPay } from "./SSLPayment";
 
 export async function POST(request) {
 	const { newOrder, isGuestCheckout } = await request.json();
-
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
 	// console.log(bearerToken);
@@ -13,7 +12,7 @@ export async function POST(request) {
 	try {
 		const order = await postData(
 			{
-				api: !isGuestCheckout ? "checkout" : "guest-checkout",
+				api: isGuestCheckout ? "guest-checkout" : "checkout",
 				authorization: `Bearer ${bearerToken}`,
 			},
 			newOrder
@@ -27,7 +26,7 @@ export async function POST(request) {
 		}
 		// console.log(order);
 		//Initializing SSL payment using order data
-		const sslResponse = await handleOrderSSLPay(order, bearerToken);
+		const sslResponse = await handleOrderSSLPay(order);
 
 		return NextResponse.json(
 			{

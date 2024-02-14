@@ -21,16 +21,17 @@ export async function POST(request) {
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
 	let order = null;
+	console.log(isGuestCheckout);
 
 	try {
 		if (orderId) {
 			//getting existing order
-			const res = await fetch(`${process.env.server}/order/show/${orderId}`, {
+			const res = await fetch(`${process.env.server}/sale/details/${orderId}`, {
 				headers: {
-					AmsPublickey: process.env.AMS_PUBLIC_KEY,
+					AmsPublickey: process.env.AMS_PUBLIC_KEY, //will be removed
 					AmsPrivateKey: process.env.AMS_PRIVATE_KEY,
-					authorization: `Bearer ${bearerToken}`,
 				},
+				cache: "no-store", //this is important
 			});
 			order = await res.json();
 			// console.log(order);
@@ -38,7 +39,7 @@ export async function POST(request) {
 			//creating new order
 			order = await postData(
 				{
-					api: !isGuestCheckout ? "checkout" : "guest-checkout",
+					api: isGuestCheckout ? "guest-checkout" : "checkout",
 					authorization: `Bearer ${bearerToken}`,
 				},
 				newOrder
@@ -65,7 +66,8 @@ export async function POST(request) {
 			body: JSON.stringify({
 				mode: "0011",
 				// payerReference: sale.customer.mobile,
-				payerReference: bearerToken,
+				// payerReference:  bearerToken,
+				payerReference: sale.customer.id,
 				callbackURL: `${baseUrl}/api/payments/bkash`,
 				amount: sale.due_amount,
 				currency: "BDT",
@@ -74,7 +76,7 @@ export async function POST(request) {
 			}),
 		});
 		const data = await result.json();
-		// console.log(data, "data");
+		// console.log(data, "create payment data");
 
 		if (!data || data?.bkashURL === null) {
 			return NextResponse.json({
@@ -132,7 +134,7 @@ export async function GET(request) {
 				const paymentUpdateResult = await postData(
 					{
 						api: "online-payment-status-change",
-						authorization: `Bearer ${result.payerReference}`,
+						// authorization: `Bearer ${result.payerReference}`,
 					},
 					paymentData
 				);
