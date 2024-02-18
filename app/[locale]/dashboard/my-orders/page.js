@@ -95,7 +95,7 @@ const MyOrders = () => {
 																>
 																	Online{" "}
 																	<span className="text-red-500 text-xs">
-																		(Payment Failed)
+																		(Payment Incomplete)
 																	</span>
 																</button>
 															) : (

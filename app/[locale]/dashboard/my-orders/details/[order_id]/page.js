@@ -108,16 +108,31 @@ const OrderDetail = ({ params }) => {
 									</p>
 								</div>
 								<div className="flex-between my-2">
-									<p>Delivery Charge</p>
+									<p>
+										Delivery Charge{" "}
+										{sale.due_amount !== sale?.total_amount &&
+											sale.due_amount !== 0 && (
+												<span className={`px-2 text-green-500 bg-green-100`}>
+													Paid
+												</span>
+											)}
+									</p>
 									<p>
 										{siteConfig.currency.shortForm}
 										{sale.shipping?.delivery_charge}
 									</p>
 								</div>
+								<div className="flex-between my-2">
+									<p>Grand Total</p>
+									<p>
+										{siteConfig.currency.shortForm}
+										{sale.total_amount}
+									</p>
+								</div>
 								<div className="border-b border-slate-900 my-2"></div>
 								<div className="flex-between my-2 font-bold">
 									<p>
-										Grand Total{" "}
+										{sale.due_amount > 0 ? "Amount Payable" : "Amount Paid"}{" "}
 										<span
 											className={`px-2 ${
 												sale.due_amount > 0
@@ -127,14 +142,14 @@ const OrderDetail = ({ params }) => {
 										>
 											{sale.due_amount > 0
 												? sale.payment_type !== "COD"
-													? "Payment Failed"
-													: "Due"
+													? "Due"
+													: "COD"
 												: "Paid"}
 										</span>
 									</p>
 									<p>
 										{siteConfig.currency.shortForm}
-										{sale.due_amount ? sale.due_amount : sale.total_amount}
+										{sale.due_amount ? sale.due_amount : sale.paid_amount}
 									</p>
 								</div>
 								<div className="actions mt-14 flex justify-center  items-center">

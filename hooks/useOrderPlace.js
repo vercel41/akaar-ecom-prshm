@@ -26,18 +26,26 @@ const useOrderPlace = () => {
 	};
 
 	const handleOrderPlace = async (newOrder) => {
-		// console.log(newOrder);
+		console.log(newOrder);
 
 		// if (newOrder.payment_method?.key !== "COD" && isGuestCheckout) {
 		// 	toast.error("Guest Payment Option is not available yet");
 		// 	return;
 		// }
 
-		dispatch(setGlobalLoader(true));
+		// dispatch(setGlobalLoader(true));
 		if (newOrder.payment_method?.key !== "COD") {
 			newOrder.payment_type = "Online"; //forcing to use payment type Online
 			let paymentUri = getPaymentUriByTitle(newOrder.payment_method?.title);
+			let isDeliveryChargePayment =
+				newOrder?.paymentOption?.key === "delivery_charge_payment" &&
+				newOrder?.delivery_charge
+					? true
+					: false;
 			delete newOrder.payment_method;
+			delete newOrder.paymentOption;
+			// console.log(newOrder);
+			// console.log(isDeliveryChargePayment);
 			try {
 				const res = await fetch(paymentUri, {
 					method: "POST",
@@ -48,6 +56,7 @@ const useOrderPlace = () => {
 					body: JSON.stringify({
 						newOrder,
 						isGuestCheckout,
+						isDeliveryChargePayment,
 					}),
 				});
 				const data = await res.json();

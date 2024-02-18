@@ -17,11 +17,12 @@ export async function POST(request) {
 
 	bkashGrantToken = grantToken; // set the global token
 	const { origin: baseUrl } = new URL(request.url);
-	const { orderId, newOrder, isGuestCheckout } = await request.json();
+	const { orderId, newOrder, isGuestCheckout, isDeliveryChargePayment } =
+		await request.json();
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
 	let order = null;
-	console.log(isGuestCheckout);
+	// console.log(isGuestCheckout);
 
 	try {
 		if (orderId) {
@@ -69,7 +70,9 @@ export async function POST(request) {
 				// payerReference:  bearerToken,
 				payerReference: sale.customer.id,
 				callbackURL: `${baseUrl}/api/payments/bkash`,
-				amount: sale.due_amount,
+				amount: isDeliveryChargePayment
+					? sale?.shipping?.delivery_charge
+					: sale.due_amount,
 				currency: "BDT",
 				intent: "sale",
 				merchantInvoiceNumber: sale.id,

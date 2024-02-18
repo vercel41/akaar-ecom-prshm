@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -44,8 +44,8 @@ const Checkout = () => {
 		},
 	];
 
-	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
 	const [deliveryMethod, setDeliveryMethod] = useState(deliveryMethods[0]);
+	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
 	const [orderCollapsed, setOrderCollapsed] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
@@ -54,14 +54,13 @@ const Checkout = () => {
 	const { handleUserUpdate } = useProfileUpdate(); //custom hook for separating profile update business logics
 
 	const { data: paymentMethodsData } = useGetPaymentMethodsQuery();
-	const paymentMethods = paymentMethodsData?.data || {};
+	const paymentMethods = useMemo(
+		() => paymentMethodsData?.data || {},
+		[paymentMethodsData]
+	);
 
 	//slicing cart items based on orderCollapsed
 	const cartItems = orderCollapsed ? cart : cart.slice(0, 3);
-
-	const handleSelectedPayMethodChange = (payMethod) => {
-		setSelectedPayMethod(payMethod);
-	};
 
 	const {
 		register,
@@ -80,12 +79,51 @@ const Checkout = () => {
 	const discountedPrice = getCouponDiscount(discountCoupon, total);
 	const totalWithDiscount = total - discountedPrice;
 
-	//Handling free delivery
-	const isDeliveryCharge =
-		settings?.free_delivery_charges_limit === 0 ||
-		settings?.free_delivery_charges_limit > totalWithDiscount;
+	//Handling free delivery charge
+	const deliveryCharge =
+		settings?.free_delivery_charges_limit > totalWithDiscount
+			? deliveryMethod.charges
+			: 0;
+
+	const grandTotal = totalWithDiscount + deliveryCharge;
 
 	// console.log(isDeliveryCharge);
+
+	//auto select payment method
+	useEffect(() => {
+		if (Object.keys(paymentMethods).length > 0) {
+			let activePayments = Object.values(paymentMethods).filter(
+				(payMethod) => payMethod?.status === 1
+			);
+
+			if (
+				activePayments?.length > 1 &&
+				settings?.is_delivery_charge_required &&
+				activePayments[0].key === "COD" &&
+				deliveryCharge
+			) {
+				setSelectedPayMethod(activePayments[1]);
+			} else {
+				setSelectedPayMethod(activePayments[0]);
+			}
+		}
+	}, [paymentMethods, deliveryCharge, settings?.is_delivery_charge_required]);
+
+	const paymentOptions = [
+		{
+			key: "delivery_charge_payment",
+			title: `Pay delivery charge only`,
+			value: deliveryMethod.charges,
+		},
+		{
+			key: "total_payment",
+			title: `Pay total amount`,
+			value: grandTotal,
+		},
+	];
+	const [selectedPaymentOption, setSelectedPaymentOption] = useState(
+		settings?.is_delivery_charge_required ? paymentOptions[0] : null
+	);
 
 	const handleCheckoutSubmit = async (data) => {
 		let phone = data?.phone;
@@ -105,18 +143,15 @@ const Checkout = () => {
 			address: fullAddress,
 			alt_address: fullAddress,
 			order_items: getOrderFormattedCartItems(cart),
-			payment_method: selectedPayMethod
-				? selectedPayMethod
-				: Object.values(paymentMethods)[0],
-			delivery_type: isDeliveryCharge ? deliveryMethod.key : "free delivery",
-			delivery_charge: isDeliveryCharge ? deliveryMethod.charges : 0,
+			payment_method: selectedPayMethod,
+			delivery_type: deliveryCharge ? deliveryMethod.key : "free delivery",
+			delivery_charge: deliveryCharge,
 			coupon: discountCoupon?.code || null,
 			coupon_discount: discountedPrice,
 			subtotal: total,
 			after_discount: totalWithDiscount,
-			grand_total: isDeliveryCharge
-				? deliveryMethod.charges + totalWithDiscount
-				: totalWithDiscount,
+			grand_total: grandTotal,
+			paymentOption: selectedPaymentOption,
 			// note: "",
 		};
 		// console.log(newOrder);
@@ -188,7 +223,7 @@ const Checkout = () => {
 						</div>
 					</div>
 					<div className="px-5">
-						{isDeliveryCharge ? (
+						{settings?.free_delivery_charges_limit > totalWithDiscount ? (
 							<div className="p-4">
 								<h4 className="text-slate-700 font-bold">
 									{translations["delivery-options"] || "Delivery Options"}
@@ -252,24 +287,27 @@ const Checkout = () => {
 									{totalWithDiscount}
 								</p>
 							</div>
-							{isDeliveryCharge && (
-								<div className="flex-between my-2">
-									<p>{translations["delivery-charge"] || "Delivery Charge"}</p>
-									<p>
-										{siteConfig.currency.shortForm}
-										{deliveryMethod.charges}
-									</p>
-								</div>
-							)}
+							<div className="flex-between my-2">
+								<p>
+									{translations["delivery-charge"] || "Delivery Charge"}{" "}
+									{!deliveryCharge && (
+										<span className="bg-green-100 px-2 text-green-500">
+											Free
+										</span>
+									)}
+								</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{deliveryCharge}
+								</p>
+							</div>
 							<div className="border-b border-slate-900 my-2"></div>
 							<div className="flex-between my-2 font-bold">
 								<p>{translations["grand-total"] || "Grand Total"}</p>
 
 								<p>
 									{siteConfig.currency.shortForm}
-									{isDeliveryCharge
-										? deliveryMethod.charges + totalWithDiscount
-										: totalWithDiscount}
+									{grandTotal}
 								</p>
 							</div>
 						</div>
@@ -278,7 +316,7 @@ const Checkout = () => {
 				<div
 				// className="border border-slate-200"
 				>
-					<div className=" text-center lg:text-left pb-8">
+					<div className="text-center lg:text-left pb-5">
 						<h3 className="text-xl">
 							{translations["shipping-address"] || "Shipping Address"}
 						</h3>
@@ -354,62 +392,84 @@ const Checkout = () => {
 											<p className="errorMsg">{errors.city.message}</p>
 										)}
 									</div>
-									{/* <div className="form-control mb-6">
-                    <FieldsetInput
-                      label={"Country"}
-                      name="country"
-                      defaultValue={user.country || "Bangladesh"}
-                      register={register("country", {
-                        required: "Country is required.",
-                      })}
-                    />
-                    {errors.country && (
-                      <p className="errorMsg">{errors.country.message}</p>
-                    )}
-                  </div> */}
 								</>
 							)}
-							<div className="form-control my-8">
+							<div className="form-control my-6">
 								<div className="border-b-2 border-slate-300 border-dashed"></div>
 							</div>
-							<div className="form-control">
-								<h4 className="text-slate-700 font-bold">
-									{translations["delivery-options"] || "Delivery Options"}
-								</h4>
-								<div className="flex flex-col gap-3 mt-3">
-									{Object.keys(paymentMethods).map((method, index) =>
-										paymentMethods[method].status === 1 ? (
-											<div
-												key={index}
-												onClick={() =>
-													handleSelectedPayMethodChange(paymentMethods[method])
-												}
-												className="flex items-center justify-between border border-slate-200 p-3"
+							{settings?.is_delivery_charge_required && deliveryCharge ? (
+								<div className="form-control">
+									<h4 className="text-slate-700 font-bold">
+										{translations["payment-options"] || "Payment Options"}
+									</h4>
+									<div className="flex flex-col gap-3 pt-3">
+										{paymentOptions.map((payOption) => (
+											<button
+												key={payOption.key}
+												type="button"
+												className="flex gap-2 items-center border border-slate-200 p-3"
+												onClick={() => setSelectedPaymentOption(payOption)}
 											>
 												<CustomRadio
 													isChecked={
-														selectedPayMethod
-															? paymentMethods[method].title ===
-															  selectedPayMethod.title
-															: index === 0
+														selectedPaymentOption.key === payOption.key
 													}
-													label={paymentMethods[method].title}
+													label={payOption.title}
+													// onClick={() => setDeliveryMethod(pt)}
 												/>
-												<div className="">
-													<Image
-														src={paymentMethods[method].icon}
-														height={32}
-														width={150}
-														alt="icon"
-														className="h-8 w-fit max-w-[150px]"
-													/>
-												</div>
-											</div>
-										) : null
-									)}
+												<p>
+													{siteConfig.currency.sign}
+													{payOption.value}
+												</p>
+											</button>
+										))}
+									</div>
 								</div>
-							</div>
-							<div className="form-control mt-11">
+							) : null}
+							{selectedPayMethod && (
+								<div className="form-control mt-4">
+									<h4 className="text-slate-700 font-bold">
+										{translations["payment-method"] || "Payment Method"}
+									</h4>
+									<div className="flex flex-col gap-3 mt-3">
+										{Object.keys(paymentMethods).map((method, index) =>
+											paymentMethods[method].status === 1 &&
+											!(
+												settings?.is_delivery_charge_required &&
+												paymentMethods[method].key === "COD" &&
+												deliveryCharge
+											) ? (
+												<div
+													key={index}
+													type="button"
+													onClick={() =>
+														setSelectedPayMethod(paymentMethods[method])
+													}
+													className="flex items-center justify-between border border-slate-200 p-3 cursor-pointer"
+												>
+													<CustomRadio
+														isChecked={
+															paymentMethods[method].title ===
+															selectedPayMethod.title
+														}
+														label={paymentMethods[method].title}
+													/>
+													<div className="">
+														<Image
+															src={paymentMethods[method].icon}
+															height={32}
+															width={150}
+															alt="icon"
+															className="h-8 w-fit max-w-[150px]"
+														/>
+													</div>
+												</div>
+											) : null
+										)}
+									</div>
+								</div>
+							)}
+							<div className="form-control mt-7">
 								<button
 									disabled={!cart?.length}
 									type="submit"

@@ -31,7 +31,7 @@ const PaymentFail = ({ params }) => {
 							/>
 						</div>
 						<h1 className="text-red-500 text-4xl mt-2 font-bold">
-							Payment Failed
+							Payment Incomplete
 						</h1>
 						<h3 className="text-slate-600 mt-2 text-xl">
 							Your order has been confirmed, but payment not complete
@@ -45,6 +45,13 @@ const PaymentFail = ({ params }) => {
 								<div className="flex-between my-2">
 									<p>Invoice No</p>
 									<p>{order?.invoice_no}</p>
+								</div>
+								<div className="flex-between my-2">
+									<p>Total Amount</p>
+									<p>
+										{siteConfig.currency.shortForm}
+										{order?.total_amount}
+									</p>
 								</div>
 								<div className="flex-between my-2">
 									<p>Due Amount</p>
