@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import { getFormattedDate } from "@/utils/format-date";
 import locationImage from "@/public/assets/images/locationImage.png";
 import { siteConfig } from "@/config/site";
 import PaymentModal from "@/components/modals/PaymentModal";
+import { HiArrowLongLeft } from "react-icons/hi2";
 
 const OrderDetail = ({ params }) => {
 	const { order_id, locale } = params;
@@ -27,13 +29,19 @@ const OrderDetail = ({ params }) => {
 
 	return (
 		<>
-			<div className="md:px-10 py-6">
-				<h2 className="text-slate-600 text-2xl text-center md:text-start">
-					Order View
-				</h2>
+			<div className="px-3 md:px-10 py-3 md:py-6">
+				<div className="">
+					<Link
+						href={"/dashboard/my-orders"}
+						className="icon-btn py-3 hover:text-primary capitalize text-lg md:text-2xl"
+					>
+						<HiArrowLongLeft className="mr-r" />
+						Order View
+					</Link>
+				</div>
 				<div className="content text-slate-700">
 					{/* <OrderTracking orderData={orderData} isLoading={isLoading} /> */}
-					<div className="bg-white py-4 mt-5">
+					<div className="bg-white py-4 md:mt-5">
 						<h3 className="text-xl font-bold font-title mb-4">Products</h3>
 						{isLoading ? (
 							<ItemsListLoader numItems={2} viewBoxWidth={900} />
@@ -51,12 +59,12 @@ const OrderDetail = ({ params }) => {
 							<ItemsListLoader numItems={1} viewBoxWidth={900} />
 						) : (
 							<div className="flex gap-6">
-								<div className="bg-slate-100 flex justify-center items-center p-2">
+								<div className="bg-slate-100 flex justify-center items-center h-16 w-16 p-2">
 									<Image
 										src={locationImage}
-										height={44}
-										width={44}
-										className="h-11 w-11"
+										height={64}
+										width={64}
+										className="h-14 w-14"
 										alt="location-icon"
 									/>
 								</div>
@@ -152,7 +160,7 @@ const OrderDetail = ({ params }) => {
 										{sale.due_amount ? sale.due_amount : sale.paid_amount}
 									</p>
 								</div>
-								<div className="actions mt-14 flex justify-center  items-center">
+								<div className="actions mt-5 md:mt-14 flex justify-center  items-center">
 									{sale.due_amount > 0 && sale.payment_type !== "COD" ? (
 										<button
 											onClick={() => setSelectedOrder(sale)}
