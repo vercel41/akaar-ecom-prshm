@@ -71,7 +71,7 @@ const PaymentFail = ({ params }) => {
 									</Link>
 								)}
 								<button
-									onClick={() => setSelectedOrder(order?.id)}
+									onClick={() => setSelectedOrder(order)}
 									className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
 								>
 									Make payment

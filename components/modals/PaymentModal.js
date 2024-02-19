@@ -7,53 +7,123 @@ import CustomRadio from "../elements/CustomRadio";
 import ItemsListLoader from "../elements/loaders/ItemsListLoader";
 import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
 import { setGlobalLoader } from "@/store/features/commonSlice";
-import handleOrderPayLater from "@/lib/order-pay";
+import { handleOrderPayLater } from "@/lib/order-pay";
+import { siteConfig } from "@/config/site";
 
 const PaymentModal = ({ selectedOrder, setSelectedOrder }) => {
-	const { translations } = useSelector((state) => state.common);
+	const { translations, settings } = useSelector((state) => state.common);
 	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
 	const { data: paymentMethodsData, isLoading } = useGetPaymentMethodsQuery();
 	const paymentMethods = paymentMethodsData?.data || {};
 	const dispatch = useDispatch();
+	const isPaymentOptions =
+		selectedOrder?.due_amount !== 0 &&
+		selectedOrder?.due_amount === selectedOrder?.total_amount &&
+		settings?.is_delivery_charge_required;
+	// isDeliveryChargePayment
+
+	const paymentOptions = [
+		{
+			key: "delivery_charge_payment",
+			title: `Pay delivery charge only`,
+			value: selectedOrder?.shipping?.delivery_charge,
+		},
+		{
+			key: "total_payment",
+			title: `Pay total amount`,
+			value: selectedOrder?.due_amount,
+		},
+	];
+	const [selectedPaymentOption, setSelectedPaymentOption] = useState(
+		isPaymentOptions ? paymentOptions[0] : null
+	);
 
 	return (
 		<Modal
 			showModal={!!selectedOrder}
 			setShowModal={() => setSelectedOrder(null)}
-			title={translations["sdsd"] || "Payment Options"}
+			title={translations["sdsd"] || "Online Payment"}
 		>
 			<div className="md:w-[500px]">
+				<div className="order-info bg-slate-50 px-3 py-2 border-y border-slate-200">
+					<div className="flex-between my-2">
+						<p>Invoice No:</p>
+						<p>{selectedOrder?.invoice_no}</p>
+					</div>
+					<div className="flex-between my-2">
+						<p>Paying Amount:</p>
+						<p>
+							{siteConfig.currency.shortForm}
+							{isPaymentOptions
+								? selectedPaymentOption?.value
+								: selectedOrder?.due_amount}
+						</p>
+					</div>
+				</div>
+				{isPaymentOptions ? (
+					<div className="form-control">
+						<h4 className="text-slate-700 font-semibold pt-3">
+							{translations["payment-options"] || "Payment Options"}
+						</h4>
+						<div className="flex flex-col gap-3 pt-2">
+							{paymentOptions.map((payOption) => (
+								<button
+									key={payOption.key}
+									type="button"
+									className="flex gap-2 items-center border border-slate-200 p-3"
+									onClick={() => setSelectedPaymentOption(payOption)}
+								>
+									<CustomRadio
+										isChecked={selectedPaymentOption.key === payOption.key}
+										label={payOption.title}
+										// onClick={() => setDeliveryMethod(pt)}
+									/>
+									<p>
+										{siteConfig.currency.sign}
+										{payOption.value}
+									</p>
+								</button>
+							))}
+						</div>
+					</div>
+				) : null}
 				{isLoading ? (
 					<ItemsListLoader noImage={true} numItems={2} />
 				) : (
-					<div className="flex flex-col gap-3 mt-3">
-						{Object.keys(paymentMethods).map((method, index) =>
-							paymentMethods[method].status === 1 &&
-							paymentMethods[method].key !== "COD" ? (
-								<div
-									key={index}
-									onClick={() => setSelectedPayMethod(paymentMethods[method])}
-									className="flex items-center justify-between border border-slate-200 p-3"
-								>
-									<CustomRadio
-										isChecked={
-											paymentMethods[method].title === selectedPayMethod?.title
-										}
-										label={paymentMethods[method].title}
-									/>
-									<div className="">
-										<Image
-											src={paymentMethods[method].icon}
-											height={32}
-											width={150}
-											alt="icon"
-											className="h-8 w-fit max-w-[150px]"
+					<>
+						<h4 className="text-slate-700 font-semibold mt-3">
+							{translations["payment-method"] || "Payment Method"}
+						</h4>
+						<div className="flex flex-col gap-3 mt-2">
+							{Object.keys(paymentMethods).map((method, index) =>
+								paymentMethods[method].status === 1 &&
+								paymentMethods[method].key !== "COD" ? (
+									<div
+										key={index}
+										onClick={() => setSelectedPayMethod(paymentMethods[method])}
+										className="flex items-center justify-between border border-slate-200 p-3"
+									>
+										<CustomRadio
+											isChecked={
+												paymentMethods[method].title ===
+												selectedPayMethod?.title
+											}
+											label={paymentMethods[method].title}
 										/>
+										<div className="">
+											<Image
+												src={paymentMethods[method].icon}
+												height={32}
+												width={150}
+												alt="icon"
+												className="h-8 w-fit max-w-[150px]"
+											/>
+										</div>
 									</div>
-								</div>
-							) : null
-						)}
-					</div>
+								) : null
+							)}
+						</div>
+					</>
 				)}
 				<div className="order-actions mt-6 flex flex-col md:flex-row gap-4 justify-between items-center">
 					<button
@@ -65,8 +135,9 @@ const PaymentModal = ({ selectedOrder, setSelectedOrder }) => {
 					<button
 						onClick={() =>
 							handleOrderPayLater(
-								selectedOrder,
-								selectedPayMethod?.title,
+								selectedOrder?.id,
+								selectedPaymentOption,
+								selectedPayMethod,
 								(loading) => dispatch(setGlobalLoader(loading))
 							)
 						}

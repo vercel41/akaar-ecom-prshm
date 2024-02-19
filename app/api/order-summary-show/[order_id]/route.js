@@ -29,6 +29,9 @@ export async function GET(request, { params }) {
 			total_amount: sale?.total_amount,
 			due_amount: sale?.due_amount,
 			paid_amount: sale?.paid_amount,
+			shipping: {
+				delivery_charge: sale?.shipping?.delivery_charge,
+			},
 			customer: sale?.customer,
 			sale_date: sale?.sale_date,
 		};

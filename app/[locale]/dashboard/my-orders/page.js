@@ -9,6 +9,7 @@ import { getFormattedDate } from "@/utils/format-date";
 import PaymentModal from "@/components/modals/PaymentModal";
 import { useGetOrdersQuery } from "@/store/features/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
+import { MdOutlinePageview } from "react-icons/md";
 
 const MyOrders = () => {
 	const [selectedOrder, setSelectedOrder] = useState(null);
@@ -62,6 +63,9 @@ const MyOrders = () => {
 													<th scope="col" class="border-r px-6 py-3">
 														{translations["payment-type"] || "Payment Type"}
 													</th>
+													<th scope="col" class="border-r px-6 py-3">
+														{translations["actions"] || "Actions"}
+													</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -75,7 +79,8 @@ const MyOrders = () => {
 																href={`/dashboard/my-orders/details/${order.id}`}
 																className="text-secondary"
 															>
-																#{order.invoice_no}
+																<MdOutlinePageview size={20} /> #
+																{order.invoice_no}
 															</Link>
 														</td>
 														<td class="whitespace-nowrap border-r px-6 py-4">
@@ -86,21 +91,50 @@ const MyOrders = () => {
 																? "Product on the way to shipment"
 																: order.status}
 														</td>
-														<td class="whitespace-nowrap border-r px-6 py-4">
-															{order.payment_type === "COD" ? (
-																"Cash on Delivery"
-															) : order.due_amount > 0 ? (
-																<button
-																	onClick={() => setSelectedOrder(order?.id)}
-																>
-																	Online{" "}
-																	<span className="text-red-500 text-xs">
-																		(Payment Incomplete)
-																	</span>
-																</button>
-															) : (
-																"Online"
+														<td className="whitespace-nowrap border-r px-6 py-4">
+															{order.payment_type === "COD" &&
+																"Cash on Delivery"}
+															{order.payment_type !== "COD" && (
+																<>
+																	{order.due_amount !== order.total_amount &&
+																		order.due_amount > 0 && (
+																			<p>
+																				Online{" "}
+																				<span className="text-yellow-500 text-xs">
+																					(Deliver Charge Paid)
+																				</span>
+																			</p>
+																		)}
+																	{order.due_amount === order.total_amount && (
+																		<p>
+																			Online{" "}
+																			<span className="text-red-500 text-xs">
+																				(Payment Incomplete)
+																			</span>
+																		</p>
+																	)}
+																	{!order.due_amount && (
+																		<p>
+																			Online{" "}
+																			<span className="text-green-500 text-xs">
+																				(Paid)
+																			</span>
+																		</p>
+																	)}
+																</>
 															)}
+														</td>
+														<td>
+															<button
+																disabled={
+																	order.payment_type === "COD" ||
+																	!order.due_amount
+																}
+																onClick={() => setSelectedOrder(order)}
+																className="disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed bg-secondary text-white px-4 py-2 rounded-md"
+															>
+																Pay Now
+															</button>
 														</td>
 													</tr>
 												))}

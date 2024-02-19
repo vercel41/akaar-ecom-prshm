@@ -155,8 +155,8 @@ const OrderDetail = ({ params }) => {
 								<div className="actions mt-14 flex justify-center  items-center">
 									{sale.due_amount > 0 && sale.payment_type !== "COD" ? (
 										<button
-											onClick={() => setSelectedOrder(sale?.id)}
-											className="border border-primary py-2 px-4 mb-3 mt-5 text-center active:scale-95"
+											onClick={() => setSelectedOrder(sale)}
+											className="bg-secondary text-white px-4 py-2 rounded-md active:scale-95"
 										>
 											Make Payment
 										</button>

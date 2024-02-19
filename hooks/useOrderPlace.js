@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { clearCart, clearDiscountInfo } from "@/store/features/cartSlice";
 import { setGlobalLoader } from "@/store/features/commonSlice";
 import { usePlaceAnOrderMutation } from "@/store/features/api/orderAPI";
+import { getPaymentUriByTitle } from "@/lib/order-pay";
 
 const useOrderPlace = () => {
 	const [placeAnOrder] = usePlaceAnOrderMutation();
@@ -14,19 +15,8 @@ const useOrderPlace = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
 
-	const getPaymentUriByTitle = (title) => {
-		switch (title) {
-			case "Bkash Payment":
-				return "/api/payments/bkash";
-			case "SSL Payment":
-				return "/api/payments/sslcz";
-			default:
-				return null;
-		}
-	};
-
 	const handleOrderPlace = async (newOrder) => {
-		console.log(newOrder);
+		// console.log(newOrder);
 
 		// if (newOrder.payment_method?.key !== "COD" && isGuestCheckout) {
 		// 	toast.error("Guest Payment Option is not available yet");
