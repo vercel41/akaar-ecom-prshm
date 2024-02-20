@@ -12,6 +12,7 @@ import ProductVariantSelect from "../products/ProductVariantSelect";
 import noImage from "@/public/assets/images/no-image.png";
 import { toast } from "react-toastify";
 import { siteConfig } from "@/config/site";
+import * as pixel from "/lib/fpixel";
 // import { getFractionFixed } from "@/utils/formatNumber";
 
 const ProductSelect = () => {
@@ -37,6 +38,18 @@ const ProductSelect = () => {
 		};
 		// console.log(variantProduct);
 		dispatch(addToCart(variantProduct));
+		// //Pixel Add to cart event
+		pixel.event("AddToCart", {
+			value: selectedProduct.new_price, // Individual product price in BDT
+			currency: "BDT",
+			content_id: selectedProduct.id,
+			content_type: "product",
+			content_name: selectedProduct.product_name,
+			content_quantity: 1,
+			// content_url: "https://your-product-page.com",
+			content_image_url: selectedProduct.image,
+			// Add other optional properties if needed
+		});
 	};
 
 	const closeDrawer = (param) => {

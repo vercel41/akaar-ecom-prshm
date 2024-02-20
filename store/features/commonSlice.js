@@ -7,6 +7,7 @@ const initialState = {
 	settings: null,
 	translations: {},
 	activeCategory: null, //subcategories for navbar
+	isFbPixelInitialized: false,
 };
 
 const commonSlice = createSlice({
@@ -28,7 +29,9 @@ const commonSlice = createSlice({
 		setLocale: (state, action) => {
 			state.locale = action.payload;
 		},
-
+		setFbPixelInitialized: (state, action) => {
+			state.isFbPixelInitialized = action.payload;
+		},
 		setActiveCategory: (state, action) => {
 			state.activeCategory = action.payload;
 		},
@@ -42,6 +45,7 @@ export const {
 	setTranslations,
 	setLocale,
 	setActiveCategory,
+	setFbPixelInitialized,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;

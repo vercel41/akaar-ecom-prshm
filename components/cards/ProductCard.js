@@ -11,6 +11,7 @@ import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { getDaysSinceCreation } from "@/utils/format-date";
 import { getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
+import * as pixel from "/lib/fpixel";
 
 import {
 	HiOutlineHeart,
@@ -54,6 +55,21 @@ const ProductCard = ({ product, isFlashSale }) => {
 		}
 	}, [product]);
 
+	const handleAddCartFbPixel = () => {
+		// //Pixel Add to cart event
+		pixel.event("AddToCart", {
+			value: product.new_price, // Individual product price in BDT
+			currency: "BDT",
+			content_id: product.id,
+			content_type: "product",
+			content_name: product.product_name,
+			content_quantity: 1,
+			// content_url: "https://your-product-page.com",
+			content_image_url: product.image,
+			// Add other optional properties if needed
+		});
+	};
+
 	const handleAddToCart = (product) => {
 		if (!stock_qty || stock_qty <= 0) {
 			toast.error("stock out");
@@ -63,6 +79,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 			dispatch(addToSelected(product));
 		} else {
 			dispatch(addToCart(product));
+			handleAddCartFbPixel();
 		}
 	};
 
@@ -76,6 +93,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 			dispatch(addToSelected(product));
 		} else {
 			dispatch(addToCart(product));
+			handleAddCartFbPixel();
 			router.push("/checkout");
 		}
 	};

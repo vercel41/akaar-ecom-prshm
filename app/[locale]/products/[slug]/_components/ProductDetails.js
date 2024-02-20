@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { getCouponDiscount } from "@/lib/checkout";
 import { getSlicedText } from "@/utils/format-text";
 import ViewHTML from "@/components/elements/ViewHTML";
 import { addToCart } from "@/store/features/cartSlice";
 import ProductVariantSelect from "@/components/products/ProductVariantSelect";
+import * as pixel from "/lib/fpixel";
 
 // ** Import Icon
 import { HiOutlineShoppingCart } from "react-icons/hi2";
@@ -24,8 +25,10 @@ import { IoIosFlash } from "react-icons/io";
 
 const ProductDetails = ({ product, settings, translations }) => {
 	const [selectedVariant, setSelectedVariant] = useState(null);
+	const { isFbPixelInitialized } = useSelector((state) => state.common);
 	const dispatch = useDispatch();
 	const router = useRouter();
+	const flag = useRef(true);
 
 	const handleAddToCart = () => {
 		if (!product?.stock_qty || product?.stock_qty <= 0) {
@@ -51,6 +54,19 @@ const ProductDetails = ({ product, settings, translations }) => {
 		} else {
 			dispatch(addToCart(product));
 		}
+		// console.log(product);
+		// //Pixel Add to cart event
+		pixel.event("AddToCart", {
+			value: product.new_price, // Individual product price in BDT
+			currency: "BDT",
+			content_id: product.id,
+			content_type: "product",
+			content_name: product.product_name,
+			content_quantity: 1,
+			// content_url: "https://your-product-page.com",
+			content_image_url: product.image,
+			// Add other optional properties if needed
+		});
 	};
 
 	const handleBuyNow = () => {
@@ -61,6 +77,22 @@ const ProductDetails = ({ product, settings, translations }) => {
 		handleAddToCart();
 		router.push("/checkout");
 	};
+
+	// //Facebook Pixel view content event
+	useEffect(() => {
+		// Check if product ID exists to avoid errors
+		if (product && isFbPixelInitialized && flag.current) {
+			pixel.event("ViewContent", {
+				value: product.new_price, // Individual product price in BDT
+				currency: "BDT",
+				content_id: product.id,
+				content_type: "product",
+				content_name: product.product_name,
+				content_image_url: product.image,
+			});
+			flag.current = false;
+		}
+	}, [product, isFbPixelInitialized]);
 
 	return (
 		<>

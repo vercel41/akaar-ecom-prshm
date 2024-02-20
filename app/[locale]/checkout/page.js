@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -18,6 +18,7 @@ import CouponModal from "@/components/modals/CouponModal";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import RequireAuth from "@/components/hoks/RequireAuth";
 import FieldsetInput from "@/components/elements/FieldsetInput";
+import * as pixel from "/lib/fpixel";
 
 //Icons
 import { FiPlus } from "react-icons/fi";
@@ -29,7 +30,10 @@ import useProfileUpdate from "@/hooks/useProfileUpdate";
 
 const Checkout = () => {
 	// Dynamic delivery charges
-	const { settings, translations } = useSelector((state) => state.common);
+	const { settings, translations, isFbPixelInitialized } = useSelector(
+		(state) => state.common
+	);
+	const flag = useRef(true);
 	// console.log(settings);
 	const deliveryMethods = [
 		{
@@ -171,6 +175,34 @@ const Checkout = () => {
 		}
 		// else alert("user not updated");
 	};
+
+	// //Facebook Pixel view content event
+	useEffect(() => {
+		// Check if product ID exists to avoid errors
+		if (isFbPixelInitialized && flag.current && cart.length > 0) {
+			const productContents = cart.map((item) => ({
+				id: item.id,
+				name: item.product_name,
+				quantity: item.quantity,
+				price: item.new_price,
+				content_image_url: item.image,
+				// category: item.category,
+				// Add other optional properties if needed
+			}));
+
+			// console.log(productContents);
+
+			pixel.event("InitiateCheckout", {
+				value: total, // Total order value in BDT
+				currency: "BDT",
+				content_ids: cart.map((item) => item.id),
+				content_type: "product",
+				contents: productContents,
+				num_items: cart.length,
+			});
+			flag.current = false;
+		}
+	}, [cart, total, isFbPixelInitialized]);
 
 	return (
 		<section className="container pb-8">
