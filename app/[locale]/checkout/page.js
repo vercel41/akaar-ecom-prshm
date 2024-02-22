@@ -180,26 +180,10 @@ const Checkout = () => {
 	useEffect(() => {
 		// Check if product ID exists to avoid errors
 		if (isFbPixelInitialized && flag.current && cart.length > 0) {
-			const productContents = cart.map((item) => ({
-				id: item.id,
-				name: item.product_name,
-				quantity: item.quantity,
-				price: item.new_price,
-				content_image_url: item.image,
-				// category: item.category,
-				// Add other optional properties if needed
-			}));
-
-			// console.log(productContents);
-
-			pixel.event("InitiateCheckout", {
-				value: total, // Total order value in BDT
-				currency: "BDT",
-				content_ids: cart.map((item) => item.id),
-				content_type: "product",
-				contents: productContents,
-				num_items: cart.length,
-			});
+			pixel.event(
+				"InitiateCheckout",
+				pixel.getPurchaseItemsPixelData(cart, total)
+			);
 			flag.current = false;
 		}
 	}, [cart, total, isFbPixelInitialized]);

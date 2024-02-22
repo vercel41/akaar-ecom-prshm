@@ -54,19 +54,9 @@ const ProductDetails = ({ product, settings, translations }) => {
 		} else {
 			dispatch(addToCart(product));
 		}
-		// console.log(product);
+
 		// //Pixel Add to cart event
-		pixel.event("AddToCart", {
-			value: product.new_price, // Individual product price in BDT
-			currency: "BDT",
-			content_id: product.id,
-			content_type: "product",
-			content_name: product.product_name,
-			content_quantity: 1,
-			// content_url: "https://your-product-page.com",
-			content_image_url: product.image,
-			// Add other optional properties if needed
-		});
+		pixel.event("AddToCart", pixel.getProductPixelData(product));
 	};
 
 	const handleBuyNow = () => {
@@ -82,14 +72,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 	useEffect(() => {
 		// Check if product ID exists to avoid errors
 		if (product && isFbPixelInitialized && flag.current) {
-			pixel.event("ViewContent", {
-				value: product.new_price, // Individual product price in BDT
-				currency: "BDT",
-				content_id: product.id,
-				content_type: "product",
-				content_name: product.product_name,
-				content_image_url: product.image,
-			});
+			pixel.event("ViewContent", pixel.getProductPixelData(product));
 			flag.current = false;
 		}
 	}, [product, isFbPixelInitialized]);
