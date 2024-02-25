@@ -64,6 +64,7 @@ export const generateMetadata = async () => {
 			],
 			// apple: [],
 		},
+		metadataBase: new URL("https://software.akaarserver.xyz"),
 	};
 };
 

@@ -11,21 +11,23 @@ const ProductMicroData = ({ product }) => {
 	} = product || {};
 
 	return (
-		<article itemType="https://schema.org/Product" itemProp="item">
-			<meta itemProp="name" content={product_name} />
-			<meta itemProp="description" content={meta_description} />
-			<meta itemProp="brand" content={brand?.brand_name} />
-			<meta itemProp="image" content={image} />
+		<>
+			<article itemType="https://schema.org/Product" itemProp="item">
+				<meta itemProp="name" content={product_name} />
+				<meta itemProp="description" content={meta_description} />
+				<meta itemProp="brand" content={brand?.brand_name} />
+				<meta itemProp="image" content={image} />
 
-			<meta
-				itemProp="offers"
-				content={{
-					"@type": "Offer",
-					price: new_price,
-					priceCurrency: currency,
-				}}
-			/>
-		</article>
+				<meta
+					itemProp="offers"
+					content={{
+						"@type": "Offer",
+						price: new_price,
+						priceCurrency: currency,
+					}}
+				/>
+			</article>
+		</>
 	);
 };
 
