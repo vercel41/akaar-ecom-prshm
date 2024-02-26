@@ -1,34 +1,27 @@
 import React from "react";
 
 const ProductMicroData = ({ product }) => {
-	const {
-		product_name,
-		meta_description = "Product description",
-		new_price = 100,
-		currency = "BDT",
-		image,
-		brand = { brand_name: "no brand" },
-	} = product || {};
-
-	return (
-		<>
-			<article itemType="https://schema.org/Product" itemProp="item">
-				<meta itemProp="name" content={product_name} />
-				<meta itemProp="description" content={meta_description} />
-				<meta itemProp="brand" content={brand?.brand_name} />
-				<meta itemProp="image" content={image} />
-
-				<meta
-					itemProp="offers"
-					content={{
-						"@type": "Offer",
-						price: new_price,
-						priceCurrency: currency,
-					}}
-				/>
-			</article>
-		</>
-	);
+  return (
+    <>
+      <meta
+        property="product:brand"
+        content={product?.brand?.brand_name || "no-brand"}
+      />
+      <meta
+        property="product:category"
+        content={product?.category?.category_name}
+      />
+      <meta
+        property="product:availability"
+        content={product?.stock_qty > 0 ? "in stock" : "out of stock"}
+      />
+      <meta property="product:condition" content="new" />
+      <meta property="product:price:amount" content={product?.new_price} />
+      <meta property="product:price:currency" content="BDT" />
+      <meta property="product:retailer_item_id" content={product?.barcode} />
+      {/* <meta property="product:item_group_id" content="fb_tshirts" /> */}
+    </>
+  );
 };
 
 export default ProductMicroData;
