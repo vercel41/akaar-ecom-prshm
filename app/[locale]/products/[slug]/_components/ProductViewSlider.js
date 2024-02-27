@@ -118,7 +118,7 @@ const ProductViewSlider = ({ product, settings }) => {
 								}`}
 								onClick={(e) =>
 									!isInWishlist
-										? handleAddToWishlist(product?.id)
+										? handleAddToWishlist(product)
 										: handleRemoveFromWishlist(product?.id)
 								}
 							>

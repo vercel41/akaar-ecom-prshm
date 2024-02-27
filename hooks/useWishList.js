@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
+import * as pixel from "/lib/fpixel";
 import {
 	useAddToWishListMutation,
 	useGetWishListQuery,
@@ -29,13 +30,15 @@ const useWishList = () => {
 	 * wants to add to their wishlist.
 	 * @returns nothing (undefined).
 	 */
-	const handleAddToWishlist = async (productId) => {
+	const handleAddToWishlist = async (product) => {
 		if (!user) {
 			toast.error("You're not logged in");
 			return;
 		}
 		try {
-			await addToWishlist({ product_id: productId });
+			await addToWishlist({ product_id: product?.id });
+			// //Pixel Add to wishlist event
+			pixel.event("AddToWishlist", pixel.getProductPixelData(product));
 			toast.success("Product added to Wishlist!");
 		} catch (error) {
 			toast.error("Failed to add to wishlist");
