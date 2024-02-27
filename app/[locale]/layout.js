@@ -49,11 +49,20 @@ export const generateMetadata = async () => {
 			default: `${appName}`,
 			template: `%s || ${appName}`,
 		},
-		description: {
-			default: `Discover Elegance, Shop with Confidence at ${appName}`,
-			template: `%s of ${appName}`,
-		},
+		description:
+			settings?.data?.seo?.meta_description ||
+			`Discover Elegance, Shop with Confidence at ${appName}`,
 		applicationName: appName,
+		openGraph: {
+			title: `${appName}`,
+			description:
+				settings?.data?.seo?.meta_description ||
+				`Discover Elegance, Shop with Confidence at ${appName}`,
+			url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+			siteName: appName,
+			// images: [product?.data?.image],
+			type: "website",
+		},
 		icons: {
 			icon: [
 				{
@@ -65,6 +74,9 @@ export const generateMetadata = async () => {
 			// apple: [],
 		},
 		metadataBase: new URL("https://software.akaarserver.xyz"),
+		alternates: {
+			canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+		},
 	};
 };
 
