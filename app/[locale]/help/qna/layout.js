@@ -2,8 +2,13 @@ export async function generateMetadata({ params }) {
 	return {
 		title: "Question and Answer",
 		description: "Question and Answer",
+		openGraph: {
+			title: "Question and Answer",
+			description: "Question and Answer",
+			url: `/help/qna`,
+		},
 		alternates: {
-			canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/help/qna`,
+			canonical: `/help/qna`,
 		},
 	};
 }

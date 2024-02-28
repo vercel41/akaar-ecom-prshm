@@ -42,7 +42,7 @@ const ZoomExample = ({ image, zoomImage, productTitle }) => {
 			onMouseMove={handleMouseMove}
 		>
 			<Image
-				className="demo-trigger zoom-image__img !h-[100%] !object-cover"
+				className="demo-trigger zoom-image__img !h-[100%] !object-cover !object-top"
 				ref={imgRef}
 				data-zoom={zoomImage}
 				src={image}

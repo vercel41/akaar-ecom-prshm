@@ -135,7 +135,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 							>
 								<Link href="/products/[slug]" as={`/products/${slug}`}>
 									<Image
-										className="default-img h-full w-full object-cover hover:scale-125 transition-all duration-300 ease-in-out rounded-t"
+										className="default-img h-full w-full object-cover object-top hover:scale-125 transition-all duration-300 ease-in-out rounded-t"
 										src={image || noImage}
 										alt={product_name}
 										width={226}

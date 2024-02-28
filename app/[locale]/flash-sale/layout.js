@@ -1,8 +1,13 @@
 export const metadata = {
 	title: "Flash selling products",
 	description: "All flash selling products",
+	openGraph: {
+		title: "Flash selling products",
+		description: "Flash selling products",
+		url: `/flash-sale`,
+	},
 	alternates: {
-		canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/flash-sale`,
+		canonical: `/flash-sale`,
 	},
 };
 export default function FlashSellingProductsLayout({ children }) {

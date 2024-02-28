@@ -58,7 +58,7 @@ export const generateMetadata = async () => {
 			description:
 				settings?.data?.seo?.meta_description ||
 				`Discover Elegance, Shop with Confidence at ${appName}`,
-			url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+			url: `/`,
 			siteName: appName,
 			// images: [product?.data?.image],
 			type: "website",
@@ -73,9 +73,9 @@ export const generateMetadata = async () => {
 			],
 			// apple: [],
 		},
-		metadataBase: new URL("https://software.akaarserver.xyz"),
+		metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL),
 		alternates: {
-			canonical: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+			canonical: `/`,
 		},
 	};
 };

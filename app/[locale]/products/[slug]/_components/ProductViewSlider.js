@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, Autoplay } from "swiper/modules";
+import { Thumbs } from "swiper/modules";
 import noImage from "@/public/assets/images/no-image.png";
 import ImageZoom from "./ImageZoom";
 
@@ -29,10 +29,10 @@ const ProductViewSlider = ({ product, settings }) => {
 				<div className="thumb-slider">
 					<Swiper
 						onSwiper={setThumbsSwiper}
-						autoplay={{
-							delay: 2500,
-							disableOnInteraction: false,
-						}}
+						// autoplay={{
+						// 	delay: 2500,
+						// 	disableOnInteraction: false,
+						// }}
 						direction="vertical"
 						slidesPerView={"auto"}
 						breakpoints={{
@@ -43,7 +43,10 @@ const ProductViewSlider = ({ product, settings }) => {
 								direction: "vertical",
 							},
 						}}
-						modules={[Thumbs, Autoplay]}
+						modules={[
+							Thumbs,
+							// Autoplay
+						]}
 					>
 						{photos.map((slide, index) => (
 							<SwiperSlide key={index}>
@@ -68,10 +71,10 @@ const ProductViewSlider = ({ product, settings }) => {
 								thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
 						}}
 						direction="horizontal"
-						autoplay={{
-							delay: 5000,
-							disableOnInteraction: false,
-						}}
+						// autoplay={{
+						// 	delay: 5000,
+						// 	disableOnInteraction: false,
+						// }}
 						slidesPerView={1}
 						breakpoints={{
 							0: {
@@ -81,7 +84,10 @@ const ProductViewSlider = ({ product, settings }) => {
 								direction: "horizontal",
 							},
 						}}
-						modules={[Thumbs, Autoplay]}
+						modules={[
+							Thumbs,
+							//  Autoplay
+						]}
 					>
 						{photos.map((slide, index) => (
 							<SwiperSlide key={index}>

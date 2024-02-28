@@ -2,8 +2,13 @@ export async function generateMetadata({ params }) {
 	return {
 		title: "Contact Us",
 		description: "Contact Us",
+		openGraph: {
+			title: "Contact Us",
+			description: "Contact Us",
+			url: `/help/contact-us`,
+		},
 		alternates: {
-			canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/help/contact-us`,
+			canonical: `/help/contact-us`,
 		},
 	};
 }

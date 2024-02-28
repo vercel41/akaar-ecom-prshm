@@ -1,8 +1,13 @@
 export const metadata = {
 	title: "All Categories",
 	description: "All Categories",
+	openGraph: {
+		title: "All Categories",
+		description: "All Categories",
+		url: `/categories`,
+	},
 	alternates: {
-		canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/categories`,
+		canonical: `/categories`,
 	},
 };
 export default function CategoriesLayout({ children }) {

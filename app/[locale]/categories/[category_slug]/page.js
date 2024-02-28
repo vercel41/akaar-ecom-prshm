@@ -2,15 +2,6 @@ import Link from "next/link";
 import { fetchData } from "@/lib/fetch-data";
 import ProductsWithFilter from "@/components/products/ProductsWithFilter";
 
-export const generateMetadata = async ({ params }, parent) => {
-	const parentMetaData = await parent;
-	// console.log(parentMetaData);
-	return {
-		title: `${params.category_slug} || ${parentMetaData.applicationName}`,
-		description: `All ${params.category_slug} products of ${parentMetaData.applicationName}`,
-	};
-};
-
 const page = async ({ params, searchParams }) => {
 	const { category_slug } = params;
 	const [categoryResponse] = await Promise.allSettled([
