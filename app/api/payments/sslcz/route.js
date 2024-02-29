@@ -16,7 +16,7 @@ export async function POST(request) {
 			//getting existing order
 			const res = await fetch(`${process.env.server}/sale/details/${orderId}`, {
 				headers: {
-					AmsPublickey: process.env.AMS_PUBLIC_KEY, //will be removed
+					// AmsPublickey: process.env.AMS_PUBLIC_KEY, //will be removed
 					AmsPrivateKey: process.env.AMS_PRIVATE_KEY,
 				},
 				cache: "no-store", //this is important

@@ -23,6 +23,7 @@ export async function POST(request) {
 		{
 			api: "online-payment-status-change",
 			// authorization: `Bearer ${bearerToken}`,
+			isPrivate: true,
 		},
 		paymentData
 	);

@@ -7,7 +7,7 @@ export async function GET(request, { params }) {
 		// getting order detail using id
 		const res = await fetch(`${process.env.server}/sale/details/${order_id}`, {
 			headers: {
-				AmsPublickey: process.env.AMS_PUBLIC_KEY, //will be removed
+				// AmsPublickey: process.env.AMS_PUBLIC_KEY, //will be removed
 				AmsPrivateKey: process.env.AMS_PRIVATE_KEY,
 			},
 			cache: "no-store", //this is important

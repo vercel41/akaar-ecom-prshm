@@ -11,12 +11,12 @@ export const apiSlice = createApi({
 		prepareHeaders: (headers, { getState }) => {
 			// Retrieve the API keys from next config env variables
 			const publicKey = process.env.amsPublickey;
-			const privateKey = process.env.amsPrivateKey;
+			// const privateKey = process.env.amsPrivateKey;
 			const token = getToken();
 
 			// Set the API key headers
 			headers.set("AmsPublicKey", publicKey);
-			headers.set("AmsPrivateKey", privateKey);
+			// headers.set("AmsPrivateKey", privateKey);
 
 			// Set the lang key headers
 			// const locale = getState().common.locale;

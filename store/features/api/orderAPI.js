@@ -11,7 +11,7 @@ const orderAPI = apiSlice.injectEndpoints({
 			invalidatesTags: ["orders"],
 		}),
 		getOrders: builder.query({
-			query: () => `order/index`,
+			query: () => `order`,
 			providesTags: ["orders"],
 		}),
 		getOrderById: builder.query({
