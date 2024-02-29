@@ -23,7 +23,7 @@ import * as pixel from "/lib/fpixel";
 //Icons
 import { FiPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
+import { useGetPaymentMethodsQuery } from "@/store/api/paymentMethodsAPI";
 import { siteConfig } from "@/config/site";
 import useOrderPlace from "@/hooks/useOrderPlace";
 import useProfileUpdate from "@/hooks/useProfileUpdate";

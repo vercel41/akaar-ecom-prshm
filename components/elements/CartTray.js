@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // ** Import Icons
 // import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
-import { toggleCart } from "@/store/features/cartSlice";
+import { toggleCart } from "@/store/slices/cartSlice";
 // import cartImage from "@/public/assets/images/cart.gif";
 // import dynamic from "next/dynamic";
 import { BsCart3 } from "react-icons/bs";

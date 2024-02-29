@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser, setUserLoading } from "@/store/features/authSlice";
+import { setUser, setUserLoading } from "@/store/slices/authSlice";
 import axiosInstance from "@/lib/axios-instance";
 
 // The purpose of this component to get the logged user again after page load

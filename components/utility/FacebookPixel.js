@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useEffect, useState, useMemo } from "react";
 import * as pixel from "/lib/fpixel";
 import { useDispatch, useSelector } from "react-redux";
-import { setFbPixelInitialized } from "@/store/features/commonSlice";
+import { setFbPixelInitialized } from "@/store/slices/commonSlice";
 
 const FacebookPixel = ({ fbPixelId }) => {
 	const { isFbPixelInitialized } = useSelector((state) => state.common);

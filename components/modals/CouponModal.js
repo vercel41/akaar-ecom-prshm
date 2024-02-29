@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import Modal from "../elements/Modal";
 import { useForm } from "react-hook-form";
 import axiosInstance from "@/lib/axios-instance";
-import { addDiscountInfo } from "@/store/features/cartSlice";
-import { setGlobalLoader } from "@/store/features/commonSlice";
+import { addDiscountInfo } from "@/store/slices/cartSlice";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
 
 const CouponModal = ({ showModal, setShowModal }) => {
 	const { translations } = useSelector((state) => state.common);

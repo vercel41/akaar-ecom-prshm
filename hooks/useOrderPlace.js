@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import getToken from "@/utils/token";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { clearCart, clearDiscountInfo } from "@/store/features/cartSlice";
-import { setGlobalLoader } from "@/store/features/commonSlice";
-import { usePlaceAnOrderMutation } from "@/store/features/api/orderAPI";
+import { clearCart, clearDiscountInfo } from "@/store/slices/cartSlice";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
+import { usePlaceAnOrderMutation } from "@/store/api/orderAPI";
 import { getPaymentUriByTitle } from "@/lib/order-pay";
 import * as pixel from "/lib/fpixel";
 

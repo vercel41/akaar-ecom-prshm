@@ -1,17 +1,12 @@
 "use client";
-
-import Link from "next/link";
 import Image from "next/image";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "@/navigation";
+import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Loader from "../elements/loaders/Loader";
-import { addToCart, addToSelected } from "@/store/features/cartSlice";
 import { getDaysSinceCreation } from "@/utils/format-date";
-import { getSalePercent } from "@/utils/percent";
+import { getDiscountPercent, getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
-import * as pixel from "/lib/fpixel";
 
 import {
 	HiOutlineHeart,
@@ -21,19 +16,19 @@ import {
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
 import useHover from "@/hooks/useHover";
+import useCart from "@/hooks/useCart";
 
 const ProductCard = ({ product, isFlashSale }) => {
 	const { settings, translations } = useSelector((state) => state.common);
 	const [loading, setLoading] = useState(true);
 	const { isHovered: isHoveredElement1, bind: bindElement1 } = useHover();
 	const { isHovered: isHoveredElement2, bind: bindElement2 } = useHover();
+	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
 	const {
 		handleAddToWishlist,
 		handleWishListProductStatus,
 		handleRemoveFromWishlist,
 	} = useWishList();
-	const dispatch = useDispatch();
-	const router = useRouter();
 
 	const {
 		id,
@@ -42,8 +37,6 @@ const ProductCard = ({ product, isFlashSale }) => {
 		product_name,
 		new_price,
 		old_price,
-		discount_percentage,
-		productVariants,
 		stock_qty,
 		total_sale_qty,
 		created_at,
@@ -54,34 +47,6 @@ const ProductCard = ({ product, isFlashSale }) => {
 			setLoading(false);
 		}
 	}, [product]);
-
-	const handleAddToCart = (product) => {
-		if (!stock_qty || stock_qty <= 0) {
-			toast.error("stock out");
-			return;
-		}
-		if (productVariants?.length) {
-			dispatch(addToSelected(product));
-		} else {
-			dispatch(addToCart(product));
-			pixel.event("AddToCart", pixel.getProductPixelData(product)); // sending pixel data
-		}
-	};
-
-	// Buy Now action
-	const handleCheckout = (product) => {
-		if (!stock_qty || stock_qty <= 0) {
-			toast.error("stock out");
-			return;
-		}
-		if (productVariants.length) {
-			dispatch(addToSelected(product));
-		} else {
-			dispatch(addToCart(product));
-			pixel.event("AddToCart", pixel.getProductPixelData(product)); // sending pixel data
-			router.push("/checkout");
-		}
-	};
 
 	const isInWishlist = handleWishListProductStatus(id);
 
@@ -153,30 +118,22 @@ const ProductCard = ({ product, isFlashSale }) => {
 									{product_name}
 								</Link>
 							</h2>
-							<div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2 md:justify-between">
+							<div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2">
 								<span className="font-semibold ">
 									{siteConfig.currency.shortForm}
 									{new_price}
-									{typeof discount_percentage === "number" &&
-									discount_percentage > 0 ? (
-										<>
-											<del className="pl-2 old-price font-normal text-slate-400">
-												{siteConfig.currency.shortForm}
-												{old_price}
-											</del>
-											{/* <span className="discount inline-block text-xs text-white bg-red-500 rounded-md py-1 px-1 ml-2">
-                        -{getFractionFixed(discount_percentage)}%
-                      </span> */}
-										</>
-									) : null}
 								</span>
-								{/* <h3 className="">
-									{stock_qty ? (
-										`Stock: ${stock_qty}`
-									) : (
-										<span className="text-red-300 font-title">Stock Out</span>
-									)}
-								</h3> */}
+								{old_price > new_price ? (
+									<div className="hidden md:flex items-center gap-2">
+										<del className="old-price text-sm font-normal text-slate-400">
+											{siteConfig.currency.shortForm}
+											{old_price}
+										</del>
+										<span className="discount-badge ml-1 !text-[12px]">
+											{getDiscountPercent(old_price, new_price)}% OFF
+										</span>
+									</div>
+								) : null}
 							</div>
 
 							<div className="product-actions flex justify-between items-center gap-1 sm:gap-2">
@@ -201,7 +158,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 									/>
 								</button>
 								<button
-									onClick={() => handleCheckout(product)}
+									onClick={() => handleAddAndCheckout(product)}
 									{...bindElement2}
 									className="action-btn p-1 text-sm lg:text-lg lg:px-4 py-1 w-full rounded"
 									style={{

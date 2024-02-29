@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import NoItems from "../_components/NoItems";
 import { getFormattedDate } from "@/utils/format-date";
 import PaymentModal from "@/components/modals/PaymentModal";
-import { useGetOrdersQuery } from "@/store/features/api/orderAPI";
+import { useGetOrdersQuery } from "@/store/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 import { MdOutlinePageview } from "react-icons/md";
 

@@ -6,7 +6,7 @@ import {
 	useAddToWishListMutation,
 	useGetWishListQuery,
 	useRemoveFromWishListMutation,
-} from "@/store/features/api/wishListAPI";
+} from "@/store/api/wishListAPI";
 
 /**
  * The `useWishList` function is a custom hook that provides methods for adding and removing products

@@ -3,7 +3,13 @@ import useLockedBody from "@/hooks/useLockedBody";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
-export default function Modal({ showModal, setShowModal, title, children }) {
+export default function Modal({
+	showModal,
+	setShowModal,
+	title,
+	children,
+	bodyOnly = false,
+}) {
 	const { settings } = useSelector((state) => state.common);
 
 	useLockedBody(showModal); // Lock the body when the drawer is open
@@ -12,7 +18,16 @@ export default function Modal({ showModal, setShowModal, title, children }) {
 		<>
 			{showModal ? (
 				<>
-					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+					{/* Backdrop */}
+					<div
+						onClick={() => bodyOnly && setShowModal(false)}
+						className={`w-full h-full opacity-40 fixed z-40 inset-0 bg-black ${
+							bodyOnly ? "cursor-pointer" : ""
+						}`}
+					></div>
+					{/* Backdrop */}
+					{/* Modal  */}
+					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none">
 						<div className="relative w-auto p-5 mx-auto max-w-4xl">
 							{/*content*/}
 							<div className="border-0 shadow-md relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-hidden">
@@ -45,7 +60,6 @@ export default function Modal({ showModal, setShowModal, title, children }) {
 							</div>
 						</div>
 					</div>
-					<div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
 				</>
 			) : null}
 		</>

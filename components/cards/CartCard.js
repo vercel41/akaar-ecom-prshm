@@ -1,34 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import * as cartActions from "@/store/features/cartSlice";
+import * as cartActions from "@/store/slices/cartSlice";
 import noImage from "@/public/assets/images/no-image.png";
-// import { getFractionFixed } from "@/utils/formatNumber";
-import Link from "next/link";
-import { useState } from "react";
+import { Link } from "@/navigation";
 import { AiOutlineClose } from "react-icons/ai";
 import { siteConfig } from "@/config/site";
+import { getAppropriatePhoto } from "@/lib/cart";
+import { BsChevronDown } from "react-icons/bs";
+import { getDiscountPercent } from "@/utils/percent";
 
 const CartCard = ({ item }) => {
-	const [imageError, setImageError] = useState(false);
 	const {
 		slug,
 		brand,
 		product_name,
-		new_price,
-		old_price,
-		image,
-		// productVariants,
-		discount_percentage,
 		quantity,
-		cartId,
-		variantId,
-		selectedVariant,
-		wholesale_price,
-		minimum_wholesale_quantity,
-		// sizes,
+		// barcodes,
+		barcodeId,
+		selectedBarCode,
+		availableSizes,
+		// wholesale_price,
+		// minimum_wholesale_quantity,
 	} = item;
 
 	const dispatch = useDispatch();
@@ -42,8 +37,7 @@ const CartCard = ({ item }) => {
 			</button>
 			<div className="flex gap-2">
 				<Image
-					src={imageError || !image ? noImage : image}
-					onError={() => setImageError(true)}
+					src={getAppropriatePhoto(item, selectedBarCode.color) || noImage}
 					alt="product"
 					height={80}
 					width={80}
@@ -60,57 +54,81 @@ const CartCard = ({ item }) => {
 						</Link>
 					</h2>
 					<div className="flex gap-3 products-center items-center">
-						{minimum_wholesale_quantity &&
+						{/* {minimum_wholesale_quantity &&
 						quantity >= minimum_wholesale_quantity ? (
 							<h3 className="">
 								{siteConfig.currency.shortForm}
 								{wholesale_price} -{" "}
 								<span className="text-green-600">(wholesale)</span>
 							</h3>
-						) : (
-							<>
-								<h3 className="text-xl">
-									{siteConfig.currency.shortForm}
-									{new_price}
-								</h3>
-								{typeof discount_percentage === "number" &&
-								discount_percentage > 0 ? (
-									<del className="text-xl text-slate-300">
-										{siteConfig.currency.shortForm}
-										{old_price}
+						) : ( */}
+						<>
+							<h3 className="text-xl">
+								{siteConfig.currency.shortForm}
+								{selectedBarCode.discount_selling_price}
+							</h3>
+							{selectedBarCode.discount_selling_price <
+							selectedBarCode.selling_price ? (
+								<>
+									<del className="text-sm text-slate-300">
+										{siteConfig.currency.sign} {selectedBarCode.selling_price}
 									</del>
-								) : null}
-							</>
-						)}
+									<div className="rounded-md px-1 text-xs py-0.5 text-white bg-red-500">
+										{getDiscountPercent(
+											selectedBarCode.selling_price,
+											selectedBarCode.discount_selling_price
+										)}
+										% OFF
+									</div>
+								</>
+							) : null}
+						</>
+						{/* )} */}
 					</div>
 				</div>
 			</div>
 			<div className="flex products-center justify-between text-sm mt-4">
 				<div className="flex products-center gap-3">
-					{variantId ? (
-						<>
-							<div className="px-2 border border-slate-300">
-								{selectedVariant?.color}
-							</div>
-							<div className="px-2 border border-slate-300">
-								{selectedVariant?.size}
-							</div>
-						</>
-					) : null}
+					{selectedBarCode.color && (
+						<p className="px-2 py-[1px] text-sm h-6 border border-slate-300 rounded-md">
+							{selectedBarCode?.color}
+						</p>
+					)}
+
+					{availableSizes?.length > 1
+						? selectedBarCode.size && (
+								<button
+									className="px-2 py-[1px] text-sm h-6 border border-slate-300 rounded-md cursor-pointer"
+									onClick={() => dispatch(cartActions.addToSizeChange(item))}
+								>
+									{selectedBarCode?.size}
+									<BsChevronDown className="ml-1 text-slate-900" />
+								</button>
+						  )
+						: selectedBarCode.size && (
+								<p className="px-2 py-[1px] text-sm h-6 border border-slate-300 rounded-md">
+									{selectedBarCode?.size}
+								</p>
+						  )}
 				</div>
 				<div className="flex items-center products-center gap-3 text-slate-900">
 					<button
-						className="bg-transparent border border-primary px-1"
-						onClick={() => dispatch(cartActions.removeQuantity(cartId))}
+						disabled={quantity <= 1}
+						className={`bg-transparent border ${
+							quantity <= 1
+								? "border-slate-300 cursor-not-allowed text-slate-300"
+								: "border-primary"
+						} rounded w-7 h-7`}
+						onClick={() => dispatch(cartActions.removeQuantity(barcodeId))}
 					>
-						<FiMinus />
+						<FiMinus size={20} />
 					</button>
 					<div className="mx-1 font-bold">{quantity || 1}</div>
 					<button
-						className="bg-transparent border border-primary px-1"
-						onClick={() => dispatch(cartActions.addQuantity(cartId))}
+						className="bg-transparent border border-primary rounded w-7 h-7"
+						onClick={() => dispatch(cartActions.addQuantity(barcodeId))}
 					>
-						<FiPlus />
+						<FiPlus size={20} />
 					</button>
 				</div>
 			</div>

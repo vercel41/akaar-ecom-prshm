@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCart } from "@/store/features/cartSlice";
-import { setLoginModalOpen } from "@/store/features/authSlice";
+import { toggleCart } from "@/store/slices/cartSlice";
+import { setLoginModalOpen } from "@/store/slices/authSlice";
 const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
 	ssr: false,
 });

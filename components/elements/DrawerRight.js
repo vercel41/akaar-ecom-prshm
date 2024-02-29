@@ -9,14 +9,14 @@ const DrawerRight = ({ title, children, show, setShow }) => {
 			{/* Backdrop */}
 			{show && (
 				<div
-					className="fixed top-0 left-0 z-30 w-full h-full bg-black opacity-50"
+					className="fixed top-0 left-0 z-30 w-full h-full bg-black opacity-30"
 					onClick={() => setShow(false)}
 				/>
 			)}
 
 			{/* Drawer */}
 			<div
-				className={`fixed top-0 right-0 z-50 w-[90vw] lg:w-[31rem] h-[100dvh] overflow-y-auto transition-transform ease-in-out duration-300 transform ${
+				className={`fixed top-0 right-0 z-40 w-[90vw] lg:w-[31rem] h-[100dvh] overflow-y-auto transition-transform ease-in-out duration-300 transform ${
 					show ? "translate-x-0" : "translate-x-full"
 				} bg-white`}
 				tabIndex="-1"

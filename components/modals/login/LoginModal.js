@@ -8,9 +8,9 @@ import OtpForm from "./OtpForm";
 import Modal from "@/components/elements/Modal";
 
 //Hooks
-import { useOtpLoginMutation } from "@/store/features/api/authAPI";
+import { useOtpLoginMutation } from "@/store/api/authAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { setGlobalLoader } from "@/store/features/commonSlice";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
 import { siteConfig } from "@/config/site";
 
 const LoginModal = ({ showModal, setShowModal, title }) => {

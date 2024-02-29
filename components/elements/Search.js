@@ -2,7 +2,7 @@ import {
 	useGetPopularSearchQuery,
 	useGetSearchHistoriesQuery,
 	useRemoveSearchHistoryMutation,
-} from "@/store/features/api/searchAPI";
+} from "@/store/api/searchAPI";
 import { getSlicedText } from "@/utils/format-text";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

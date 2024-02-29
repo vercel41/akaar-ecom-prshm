@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { siteConfig } from "@/config/site";
 import axiosInstance from "@/lib/axios-instance";
-import { setUser } from "@/store/features/authSlice";
-import { useUpdateProfileMutation } from "@/store/features/api/authAPI";
+import { setUser } from "@/store/slices/authSlice";
+import { useUpdateProfileMutation } from "@/store/api/authAPI";
 
 const useProfileUpdate = () => {
 	const dispatch = useDispatch();

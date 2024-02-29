@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import SaleProductCard from "./_components/SaleProductCard";
-import { useGetOrderByIdQuery } from "@/store/features/api/orderAPI";
+import { useGetOrderByIdQuery } from "@/store/api/orderAPI";
 import ItemsListLoader from "@/components/elements/loaders/ItemsListLoader";
 import { getFormattedDate } from "@/utils/format-date";
 

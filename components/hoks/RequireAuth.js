@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import LoaderOverlay from "../elements/loaders/LoaderOverlay";
-import { setLoginModalOpen } from "@/store/features/authSlice";
+import { setLoginModalOpen } from "@/store/slices/authSlice";
 
 const RequireAuth = (WrappedComponent) => {
 	const AuthComponent = (props) => {

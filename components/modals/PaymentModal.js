@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomRadio from "../elements/CustomRadio";
 import ItemsListLoader from "../elements/loaders/ItemsListLoader";
-import { useGetPaymentMethodsQuery } from "@/store/features/api/paymentMethodsAPI";
-import { setGlobalLoader } from "@/store/features/commonSlice";
+import { useGetPaymentMethodsQuery } from "@/store/api/paymentMethodsAPI";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
 import { handleOrderPayLater } from "@/lib/order-pay";
 import { siteConfig } from "@/config/site";
 

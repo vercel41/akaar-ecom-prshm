@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useAddReviewReactMutation } from "@/store/features/api/productReviewAPI";
+import { useAddReviewReactMutation } from "@/store/api/productReviewAPI";
 
 /**
  * The `useAddReviewReaction` function is a custom hook that handles adding reactions to reviews and
@@ -8,32 +8,32 @@ import { useAddReviewReactMutation } from "@/store/features/api/productReviewAPI
  * `handleReviewReact`, which is a function.
  */
 const useAddReviewReaction = () => {
-  const { user } = useSelector((state) => state.auth);
-  const [addReviewReact] = useAddReviewReactMutation();
+	const { user } = useSelector((state) => state.auth);
+	const [addReviewReact] = useAddReviewReactMutation();
 
-  const handleReviewReact = (type, commentId) => {
-    if (!user) {
-      toast.error("You're not logged in");
-      return;
-    }
-    const newReact = {
-      comment_id: commentId,
-      type,
-    };
-    addReviewReact(newReact)
-      .unwrap()
-      .then((response) => {
-        // console.log(response);
-        // toast.success("React Success!");
-      })
-      .catch((error) => {
-        // toast.error("Failed to React");
-        console.log(error);
-      });
-  };
-  return {
-    handleReviewReact,
-  };
+	const handleReviewReact = (type, commentId) => {
+		if (!user) {
+			toast.error("You're not logged in");
+			return;
+		}
+		const newReact = {
+			comment_id: commentId,
+			type,
+		};
+		addReviewReact(newReact)
+			.unwrap()
+			.then((response) => {
+				// console.log(response);
+				// toast.success("React Success!");
+			})
+			.catch((error) => {
+				// toast.error("Failed to React");
+				console.log(error);
+			});
+	};
+	return {
+		handleReviewReact,
+	};
 };
 
 export default useAddReviewReaction;

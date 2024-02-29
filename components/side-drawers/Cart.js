@@ -4,11 +4,11 @@ import CartCard from "../cards/CartCard";
 import { siteConfig } from "@/config/site";
 import { getCartTotal } from "@/lib/checkout";
 import DrawerRight from "@/components/elements/DrawerRight";
-import { toggleCart } from "@/store/features/cartSlice";
+import { toggleCart } from "@/store/slices/cartSlice";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import useSelectURLQuery from "@/hooks/useSelectURLQuery";
-import { setLoginModalOpen } from "@/store/features/authSlice";
+import { setLoginModalOpen } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
 
 const Cart = () => {

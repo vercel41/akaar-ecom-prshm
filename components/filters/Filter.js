@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useGetFilterOptionsByCategoryQuery } from "@/store/features/api/filterOptionsAPI";
+import { useGetFilterOptionsByCategoryQuery } from "@/store/api/filterOptionsAPI";
 
 import BrandFilter from "../filters/BrandFilter";
 import ColorFilter from "../filters/ColorFilter";

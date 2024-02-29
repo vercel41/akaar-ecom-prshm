@@ -6,7 +6,7 @@ import Modal from "../elements/Modal";
 import ReviewImageSlider from "../elements/sliders/ReviewImageSlider";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { getFormattedDate } from "@/utils/format-date";
-import { useGetReviewDetailsQuery } from "@/store/features/api/productReviewAPI";
+import { useGetReviewDetailsQuery } from "@/store/api/productReviewAPI";
 import ItemsListLoader from "../elements/loaders/ItemsListLoader";
 import useAddReviewReaction from "@/hooks/useAddReviewReaction";
 import { useSelector } from "react-redux";

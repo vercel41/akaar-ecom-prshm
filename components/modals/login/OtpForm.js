@@ -3,10 +3,10 @@ import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { useVerifyOtpMutation } from "@/store/features/api/authAPI";
+import { useVerifyOtpMutation } from "@/store/api/authAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/store/features/authSlice";
-import { setGlobalLoader } from "@/store/features/commonSlice";
+import { setUser } from "@/store/slices/authSlice";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
 import { siteConfig } from "@/config/site";
 
 const OtpForm = ({ phone, setShowModal, setOtpSent, translations }) => {

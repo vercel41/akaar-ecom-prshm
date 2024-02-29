@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { siteConfig } from "@/config/site";
 import { getFormattedDate } from "@/utils/format-date";
-import { logoutUser } from "@/store/features/authSlice";
+import { logoutUser } from "@/store/slices/authSlice";
 import useProfileUpdate from "@/hooks/useProfileUpdate";
 import ProfileImageUpload from "./_components/ProfileImageUpload";
 

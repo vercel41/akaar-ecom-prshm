@@ -2,15 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { getCouponDiscount } from "@/lib/checkout";
 import { getSlicedText } from "@/utils/format-text";
 import ViewHTML from "@/components/elements/ViewHTML";
-import { addToCart } from "@/store/features/cartSlice";
 import ProductVariantSelect from "@/components/products/ProductVariantSelect";
 import * as pixel from "/lib/fpixel";
 
@@ -22,51 +18,22 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import ProductViewSlider from "./ProductViewSlider";
 import { siteConfig } from "@/config/site";
 import { IoIosFlash } from "react-icons/io";
+import { getDiscountPercent } from "@/utils/percent";
+import useCart from "@/hooks/useCart";
+import { useSelector } from "react-redux";
+import VideoPlayer from "@/components/elements/VideoPlayer";
 
 const ProductDetails = ({ product, settings, translations }) => {
+	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
 	const [selectedVariant, setSelectedVariant] = useState(null);
+	const [selectedColor, setSelectedColor] = useState("");
+	const productViewSwiperRef = useRef(null);
+	const newPrice =
+		selectedVariant?.discount_selling_price || product?.new_price;
+	const oldPrice = selectedVariant?.selling_price || product?.old_price;
+
 	const { isFbPixelInitialized } = useSelector((state) => state.common);
-	const dispatch = useDispatch();
-	const router = useRouter();
 	const flag = useRef(true);
-
-	const handleAddToCart = () => {
-		if (!product?.stock_qty || product?.stock_qty <= 0) {
-			toast.error("stock out");
-			return;
-		}
-		if (product?.productVariants?.length) {
-			if (
-				!selectedVariant?.stock_quantity ||
-				selectedVariant?.stock_quantity <= 0
-			) {
-				toast.error("No more stock for this variant");
-				return;
-			}
-			const variantProduct = {
-				...product,
-				variantId: selectedVariant?.id,
-				selectedVariant,
-				// sizes: colors[selectedColor],
-			};
-			// console.log(variantProduct);
-			dispatch(addToCart(variantProduct));
-		} else {
-			dispatch(addToCart(product));
-		}
-
-		// //Pixel Add to cart event
-		pixel.event("AddToCart", pixel.getProductPixelData(product));
-	};
-
-	const handleBuyNow = () => {
-		if (!product?.stock_qty || product?.stock_qty <= 0) {
-			toast.error("stock out");
-			return;
-		}
-		handleAddToCart();
-		router.push("/checkout");
-	};
 
 	// //Facebook Pixel view content event
 	useEffect(() => {
@@ -82,8 +49,12 @@ const ProductDetails = ({ product, settings, translations }) => {
 			<div className="relative product-details">
 				<div className="flex flex-col lg:flex-row gap-10">
 					<div className="lg:w-1/2">
-						<div className="sticky top-4">
-							<ProductViewSlider product={product} settings={settings} />
+						<div className="sticky top-20">
+							<ProductViewSlider
+								product={product}
+								ref={productViewSwiperRef}
+								selectedColor={selectedColor}
+							/>
 						</div>
 					</div>
 					<div className="lg:w-1/2">
@@ -94,21 +65,23 @@ const ProductDetails = ({ product, settings, translations }) => {
 							<h5 className="text-2xl font-title font-bold text-slate-900">
 								{getSlicedText(product?.product_name, 100)}
 							</h5>
-							<div className="product-price flex items-center gap-4 pt-4">
-								<span className="text-xl font-title text-slate-900">
-									{siteConfig.currency.shortForm}
-									{product?.new_price || "0.00"}{" "}
+							{/* Product Dynamic Pricing Area  */}
+							<div className="product-price flex items-center gap-4 lg:border-b border-slate-200 py-4 lg:py-5">
+								<span className="text-2xl lg:text-3xl/[48px] font-bold font-title text-slate-900">
+									{siteConfig.currency.sign} {newPrice || "0.00"}{" "}
 								</span>
-								{product?.discount_percentage > 0 ? (
+								{oldPrice > newPrice ? (
 									<>
-										<del className="old-price text-lg/[24px] font-normal text-slate-400">
-											{siteConfig.currency.shortForm}
-											{product?.old_price ? `${product?.old_price}` : "0.00"}
+										<del className="old-price text-base lg:text-lg/[24px] font-normal text-slate-400">
+											{siteConfig.currency.sign} {oldPrice ? oldPrice : "0.00"}
 										</del>
+										<span className="discount inline-block text-base/[22px] font-semibold font-title text-white bg-red-500 rounded-md py-1 px-2">
+											{getDiscountPercent(oldPrice, newPrice)}% OFF
+										</span>
 									</>
 								) : null}
 							</div>
-							{product?.minimum_wholesale_quantity > 0 && (
+							{/* {product?.minimum_wholesale_quantity > 0 && (
 								<div className="product-price flex items-center gap-4 pt-4">
 									<span className="text-xl font-title text-slate-900">
 										Wholesale Price {siteConfig.currency.shortForm}
@@ -118,82 +91,60 @@ const ProductDetails = ({ product, settings, translations }) => {
 										(MOQ: {product?.minimum_wholesale_quantity})
 									</span>
 								</div>
-							)}
+							)} */}
 							<div className="flex items-center gap-2 py-4 font-title text-lg">
 								<span className="text-slate-900">SKU:</span>
 								<span className="text-secondary">{product?.sku}</span>
 							</div>
-
-							{/* Rating Review and Share section  */}
-							{/* <div className="meta-data flex items-center gap-8 my-2">
-                <div className="flex gap-1 items-center">
-                  <Rating
-                    initialValue={product?.averate_rating || 5}
-                    allowFraction
-                    readonly
-                    size={24}
-                    fillColor="#F59E0B"
-                  />
-                  <span>{getFractionFixed(product?.averate_rating || 5)}</span>
-                </div>
-                <p>{formatLongNumber(product?.total_rating)} রেটিং</p>
-                <p>
-                  <HiChatBubbleLeftRight
-                    size={20}
-                    className="text-secondary-700"
-                  />{" "}
-                  {formatLongNumber(product?.toptal_question_answer || 0)}{" "}
-                  প্রশ্ন এবং উত্তর
-                </p>
-                <SocialShare />
-              </div> */}
 							{/* short description  */}
 							<ViewHTML
 								htmlText={product?.product_short_description}
 								className={"desc"}
 							/>
-
-							{
-								product?.productVariants?.length ? (
+							<div className="px-3 lg:px-0">
+								{!(
+									product.barcodes?.length === 1 &&
+									product.barcodes[0].size === "" &&
+									product.barcodes[0].color === ""
+								) ? (
 									<ProductVariantSelect
-										productVariants={product?.productVariants}
+										photos={product?.photos}
+										productBarCodes={product?.barcodes}
 										selectedVariant={selectedVariant}
 										setSelectedVariant={setSelectedVariant}
 										sizeChart={product?.size_chart}
+										translations={translations}
+										ref={productViewSwiperRef}
+										setSelectedColor={setSelectedColor}
+										selectedColor={selectedColor}
 									/>
-								) : null
-								// <div className="product-size mt-8">
-								// 	<h4 className="text-slate-900">
-								// 		In-Stock: {product?.stock_qty || 0}
-								// 	</h4>
-								// </div>
-							}
-
-							{product?.coupons?.length ? (
+								) : null}
+							</div>
+							{product?.coupons.length ? (
 								<div className="mt-5 mb-8">
 									<p className="font-semibold font-title text-slate-900 mb-2">
-										{translations["offer"] || "Offer"}{" "}
+										{translations["best-offer"] || "সেরা অফার"}{" "}
 										<TbTag size={24} className="text-primary mb-1" />
 									</p>
 									<ul className="coupon-info">
 										<li className="relative text-slate-900 pl-4">
-											{translations["coupon-discount"] || "Coupon Discount"}:{" "}
+											{translations["coupon-discount"] || "কুপন ডিসকাউন্ট"}:{" "}
 											<span className="font-semibold text-title text-secondary-700">
 												&#2547;
 												{getCouponDiscount(
 													product?.coupons[0],
 													product.new_price
 												)}{" "}
-												{translations["discount"] || "Discount"}!
+												{translations["off!"] || "ছাড়!"}
 											</span>
 										</li>
 										<li className="relative text-slate-900 pl-4 my-2 before:!top-3">
-											{translations["coupon-code"] || "Coupon Code"}:{" "}
+											{translations["coupon-code"] || "কুপন কোড"}:{" "}
 											<span className="inline-block text-primary border border-dashed border-primary rounded px-2 py-1 ml-1">
 												{product.coupons[0].code}{" "}
 												<CopyToClipboard
 													text={product.coupons[0].code}
-													// onCopy={() => alert("copied")}
+													onCopy={() => toast.success("copied")}
 												>
 													<IoCopy
 														size={20}
@@ -203,14 +154,17 @@ const ProductDetails = ({ product, settings, translations }) => {
 											</span>
 										</li>
 										<li className="relative text-slate-900 pl-4 mb-3">
-											{translations["applicable"] || "Applicable"}: ৳
+											{translations["applicable"] || "প্রযোজ্য"}:{" "}
+											{siteConfig.currency.sign}
 											{product.coupons[0].max_discount}{" "}
-											{translations["above-orders"] || "Above orders"} (
-											{translations["only-on-first-purchase"] ||
-												" Only on first purchase"}
-											)
+											{translations["amount-above-order"] ||
+												"উপরে অর্ডারে (শুধুমাত্র প্রথম কেনাকাটায়)"}
 										</li>
 									</ul>
+									<Link href="#" className="text-secondary-700 underline">
+										{translations["see-all-products-on-offer"] ||
+											"অফারের সকল প্রডাক্ট দেখুন"}
+									</Link>
 								</div>
 							) : null}
 						</div>
@@ -220,7 +174,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 							<div className="product-actions my-6 flex gap-4 justify-between items-center">
 								<button
 									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
-									onClick={handleAddToCart}
+									onClick={() => handleAddToCart(product, selectedVariant)}
 									style={{
 										backgroundColor: settings?.colors?.primary,
 										color: settings?.colors?.primary_text,
@@ -232,7 +186,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									</span>
 								</button>
 								<button
-									onClick={handleBuyNow}
+									onClick={() => handleAddAndCheckout(product, selectedVariant)}
 									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
 									style={{
 										backgroundColor: settings?.colors?.primary,
@@ -253,7 +207,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 								<h4 className="text-2xl font-bold font-title text-slate-900">
 									{translations["product-description"] || "Description"}:
 								</h4>
-								<ViewHTML htmlText={product?.details} />
+								<ViewHTML htmlText={product?.product_description} />
 							</div>
 							{product.includedProducts?.length ? (
 								<div className="mt-8">
@@ -269,14 +223,21 @@ const ProductDetails = ({ product, settings, translations }) => {
 									/>
 								</div>
 							) : null}
+							{/* ) : null} */}
 							{product?.review_video && (
-								<div className="mt-8">
+								<div className="mt-6 lg:mt-8">
 									<h4 className="text-2xl font-bold font-title text-slate-900">
-										{translations["review-video"] || "Review Video"}
+										{translations["review-video"] || "রিভিউ ভিডিও"}
 									</h4>
-									{/* [&>div>iframe]:rounded-xl relative */}
-									<div className="slider-imag mt-4 [&>div>iframe]:w-full">
-										<ViewHTML htmlText={product?.review_video} />
+									<div className="mt-3">
+										<VideoPlayer
+											url={product?.review_video}
+											loop={true}
+											muted={true}
+											// playing={true}
+											controls={true}
+											className={"h-[12rem] md:h-[21.875rem]"}
+										/>
 									</div>
 								</div>
 							)}

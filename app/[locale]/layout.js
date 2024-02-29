@@ -1,8 +1,6 @@
 import "rc-slider/assets/index.css";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
-// ** int18n
-import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 
 // ** Import Components
@@ -25,14 +23,16 @@ import PersistUser from "@/components/utility/PersistUser";
 import GlobalLoader from "@/components/utility/GlobalLoader";
 import ServerDataProvider from "@/components/utility/ServerDataProvider";
 import { fetchData } from "@/lib/fetch-data";
+import VideoPlayerModal from "@/components/modals/VideoPlayerModal";
+import SizeChangeModal from "@/components/modals/SizeChangeModal";
 // import FacebookPixel from "@/components/utility/FacebookPixel";
 
-export const generateMetadata = async () => {
+export const generateMetadata = async ({ params }) => {
 	let settings = {};
 	let appName = "E-commerce app";
 	let favicon = "/favicon.ico";
 	try {
-		settings = await fetchData({ api: `info/basic` });
+		settings = await fetchData({ api: `info/basic`, locale: params?.locale });
 		appName = settings?.data?.name;
 		favicon = settings?.data?.favicon;
 		// console.log(favicon);
@@ -80,15 +80,25 @@ export const generateMetadata = async () => {
 	};
 };
 
+const locales = ["en", "bn"];
+// export function generateStaticParams() {
+// 	return locales.map((locale) => ({ locale }));
+// }
+
 export default function RootLayout({ children, params }) {
-	const locale = useLocale();
-	// Show a 404 error if the user requests an unknown locale
-	if (params.locale !== locale) {
-		notFound();
-	}
+	// const locale = useLocale();
+	// // Show a 404 error if the user requests an unknown locale
+	// if (params.locale !== locale) {
+	// 	notFound();
+	// }
+
+	const isValidLocale = locales.some((cur) => cur === params.locale);
+	if (!isValidLocale) notFound();
+
+	// unstable_setRequestLocale(params.locale);
 
 	return (
-		<html lang={locale}>
+		<html lang={params.locale}>
 			<body>
 				<ReduxProvider>
 					<Header />
@@ -99,6 +109,8 @@ export default function RootLayout({ children, params }) {
 					<CartTray />
 					<Cart />
 					<ProductSelect />
+					<SizeChangeModal />
+					<VideoPlayerModal />
 					<PersistUser />
 					<GlobalLoader />
 					<ServerDataProvider />

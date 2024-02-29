@@ -1,4 +1,4 @@
-import { generateUniqueId } from "@/utils/get-unique";
+import { getFilteredByKeyValue } from "@/utils/filter-items";
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,7 @@ const loadCartItemsFromLocalStorage = () => {
 const initialState = {
 	isCartOpen: false,
 	selectedProduct: null,
+	sizeChangeProduct: null,
 	cart: loadCartItemsFromLocalStorage() || [], // Initialize with local storage data or an empty array
 	discountCoupon: null,
 };
@@ -37,96 +38,78 @@ const cartSlice = createSlice({
 		removeFromSelected: (state) => {
 			state.selectedProduct = null;
 		},
+		addToSizeChange: (state, action) => {
+			state.sizeChangeProduct = action.payload;
+		},
+		removeFromSizeChange: (state) => {
+			state.sizeChangeProduct = null;
+		},
 
 		//Adding new item to the cart
 		addToCart: (state, action) => {
-			const product = { ...action.payload };
+			const { product, selectedBarCode } = action.payload;
+			const index = state.cart
+				.map((item) => item.barcodeId)
+				.indexOf(selectedBarCode.id);
 
-			const findProductWithVariant = (cart, product) => {
-				return cart.find(
-					(item) =>
-						item.id === product.id && item.variantId === product.variantId
+			if (index === -1) {
+				const newCartItem = { ...product }; //creating new item for each variant
+				newCartItem.barcodeId = selectedBarCode.id;
+				newCartItem.selectedBarCode = selectedBarCode;
+				//filtering available sizes for selected color
+				newCartItem.availableSizes = getFilteredByKeyValue(
+					product.barcodes,
+					"color",
+					selectedBarCode.color
 				);
-			};
-
-			if (product.variantId) {
-				// Variant Item
-				const variantProduct = findProductWithVariant(state.cart, product);
-				if (variantProduct) {
-					//checking available stock
-					if (
-						variantProduct.quantity >= product?.selectedVariant?.stock_quantity
-					) {
-						toast.error("No more stock for this variant");
-						return;
-					}
-					const cartId = variantProduct.cartId;
-					const index = state.cart.map((item) => item.cartId).indexOf(cartId);
-
-					//Updating item
-					const item = state.cart[index];
-					item.quantity++;
-					state.cart.splice(index, 1, item);
-				} else {
-					product.cartId = generateUniqueId();
-					product.quantity = 1;
-					state.cart.push(product);
-				}
+				newCartItem.quantity = 1;
+				state.cart.push(newCartItem);
+				toast.success("Product added");
 			} else {
-				// Non Variant Item
-				const index = state.cart.map((item) => item.id).indexOf(product.id);
-				if (index === -1) {
-					product.cartId = generateUniqueId();
-					product.quantity = 1;
-					state.cart.push(product);
-				} else {
-					//Incrementing quantity for existing items
-					const existingProduct = state.cart[index];
+				const existingProduct = state.cart[index];
 
-					//checking available stock
-					if (existingProduct.quantity >= product?.stock_qty) {
-						toast.error("No more products");
-						return;
-					}
-
-					existingProduct.quantity++;
-					state.cart.splice(index, 1, existingProduct);
+				//checking available stock
+				if (
+					existingProduct.quantity >=
+					existingProduct?.selectedBarCode?.stock_qty
+				) {
+					const { color, size } = existingProduct.selectedBarCode;
+					let message =
+						color || size
+							? `No more stock for ${color} ${size}`
+							: "No more stock";
+					toast.error(message);
+					return;
 				}
+
+				//Incrementing quantity for existing items
+				existingProduct.quantity++;
+				state.cart.splice(index, 1, existingProduct);
+				toast.success("Product added");
 			}
-			toast.success("Added to cart");
 		},
 
 		// Increasing Item Quantity
 		addQuantity: (state, action) => {
-			const cartId = action.payload;
-			const index = state.cart.map((item) => item.cartId).indexOf(cartId);
-
-			//Updating item
+			const barcodeId = action.payload;
+			const index = state.cart.map((item) => item.barcodeId).indexOf(barcodeId);
 			const item = state.cart[index];
 
-			//checking available stock for regular products
-			if (item.quantity >= item.stock_qty) {
-				toast.error("No more products");
+			//checking available stock
+			if (item.quantity >= item?.selectedBarCode?.stock_qty) {
+				toast.error("No more stock");
 				return;
 			}
 
-			//checking available stock for variant products
-			if (
-				item.variantId &&
-				item.quantity >= item?.selectedVariant?.stock_quantity
-			) {
-				toast.error("No more stock for this variant");
-				return;
-			}
-
+			//Updating item
 			item.quantity++;
 			state.cart.splice(index, 1, item);
 		},
 
 		// Decreasing Item Quantity
 		removeQuantity: (state, action) => {
-			const cartId = action.payload;
-			const index = state.cart.map((item) => item.cartId).indexOf(cartId);
+			const barcodeId = action.payload;
+			const index = state.cart.map((item) => item.barcodeId).indexOf(barcodeId);
 
 			//Updating item
 			const item = state.cart[index];
@@ -140,8 +123,8 @@ const cartSlice = createSlice({
 
 		//Removing item from cart
 		removeFromCart: (state, action) => {
-			const cartId = action.payload;
-			const index = state.cart.map((item) => item.cartId).indexOf(cartId);
+			const barcodeId = action.payload;
+			const index = state.cart.map((item) => item.barcodeId).indexOf(barcodeId);
 			state.cart.splice(index, 1);
 		},
 
@@ -168,6 +151,8 @@ export const {
 	toggleCart,
 	addToSelected,
 	removeFromSelected,
+	addToSizeChange,
+	removeFromSizeChange,
 	addToCart,
 	addQuantity,
 	removeQuantity,

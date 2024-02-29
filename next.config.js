@@ -8,16 +8,6 @@ const nextConfig = {
 		// amsPrivateKey: process.env.AMS_PRIVATE_KEY,
 		serverBaseUrl: process.env.API_BASE_URL.split("/api")[0],
 	},
-	// images: {
-	// 	remotePatterns: [
-	// 		{
-	// 			protocol: "https",
-	// 			hostname: process.env.IMAGE_HOSTNAME,
-	// 			// port: '',
-	// 			// pathname: '/account123/**',
-	// 		},
-	// 	],
-	// },
 	images: {
 		unoptimized: true,
 	},

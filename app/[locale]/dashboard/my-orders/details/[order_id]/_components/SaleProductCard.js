@@ -1,10 +1,11 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
+import { Link } from "@/navigation";
 import noImage from "@/public/assets/images/no-image.png";
 import { siteConfig } from "@/config/site";
 
 const SaleProductCard = ({ saleProduct }) => {
+	// console.log(saleProduct);
 	return (
 		<div className="px-3 py-2 bg-white border-b border-slate-200">
 			<div className={`flex gap-4`}>
@@ -27,16 +28,18 @@ const SaleProductCard = ({ saleProduct }) => {
 							{/* - (sku: {saleProduct?.product?.sku}) */}
 						</Link>
 					</h2>
-					{saleProduct?.product_variant && (
-						<div className="flex text-sm items-center gap-3">
+					<div className="flex text-sm items-center gap-3">
+						{saleProduct.barcode?.color && (
 							<div className="px-2 border border-slate-300 rounded-md">
-								{saleProduct?.product_variant.color}
+								{saleProduct?.barcode?.color}
 							</div>
+						)}
+						{saleProduct.barcode?.size && (
 							<div className="px-2 border border-slate-300 rounded-md">
-								{saleProduct?.product_variant.size}
+								{saleProduct?.barcode?.size}
 							</div>
-						</div>
-					)}
+						)}
+					</div>
 					<div className="flex products-center justify-between text-sm">
 						<h3 className="text-lg">
 							{siteConfig.currency.shortForm} {saleProduct.price} x{" "}

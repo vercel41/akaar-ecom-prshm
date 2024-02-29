@@ -7,6 +7,7 @@ const initialState = {
 	settings: null,
 	translations: {},
 	activeCategory: null, //subcategories for navbar
+	videoPlayerConfig: { url: "", className: "" }, //All react player config is supported
 	isFbPixelInitialized: false,
 };
 
@@ -35,6 +36,12 @@ const commonSlice = createSlice({
 		setActiveCategory: (state, action) => {
 			state.activeCategory = action.payload;
 		},
+		startVideoPlayer: (state, action) => {
+			state.videoPlayerConfig = action.payload;
+		},
+		closeVideoPlayer: (state, action) => {
+			state.videoPlayerConfig = action.payload;
+		},
 	},
 });
 
@@ -46,6 +53,8 @@ export const {
 	setLocale,
 	setActiveCategory,
 	setFbPixelInitialized,
+	startVideoPlayer,
+	closeVideoPlayer,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
