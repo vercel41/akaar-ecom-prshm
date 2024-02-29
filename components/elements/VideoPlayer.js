@@ -8,7 +8,7 @@ const VideoPlayer = ({ url, className, ...props }) => {
 		<div className={twMerge("video-player", className)}>
 			<ReactPlayer
 				url={url}
-				className="rounded-xl overflow-hidden"
+				className="overflow-hidden"
 				{...props}
 				width="100%"
 				height="100%"
