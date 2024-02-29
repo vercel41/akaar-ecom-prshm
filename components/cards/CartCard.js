@@ -31,7 +31,7 @@ const CartCard = ({ item }) => {
 		<div className="relative cart-card p-4 bg-white border-b border-slate-200 mb-3">
 			<button
 				className="absolute right-4 top-4 bg-transparent text-primary"
-				onClick={() => dispatch(cartActions.removeFromCart(cartId))}
+				onClick={() => dispatch(cartActions.removeFromCart(barcodeId))}
 			>
 				<AiOutlineClose size={20} />
 			</button>
