@@ -33,7 +33,7 @@ export default function Modal({
 							<div className="border-0 shadow-md relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-hidden">
 								{/*header*/}
 								<div className="flex items-center justify-between px-5 py-1">
-									<h3 className="text-xl font-title font-semibold text-slate-900">
+									<h3 className="text-[18px]/[28px] md:text-2xl font-title font-semibold text-slate-900 line-clamp-1">
 										{title ? title : null}
 									</h3>
 									<button

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { forwardRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, Pagination, Mousewheel } from "swiper/modules";
+import { Thumbs, Pagination, Mousewheel, Navigation } from "swiper/modules";
 import useWishList from "@/hooks/useWishList";
 import noImage from "@/public/assets/images/no-image.png";
 import ImageZoom from "./ImageZoom";
@@ -12,6 +12,7 @@ import ImageZoom from "./ImageZoom";
 import { HiOutlineHeart, HiPlayCircle } from "react-icons/hi2";
 import HeartRedIcon from "@/components/elements/svg/HeartRedIcon";
 import { startVideoPlayer } from "@/store/slices/commonSlice";
+import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 
 const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 	const dispatch = useDispatch();
@@ -93,6 +94,10 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 							dynamicMainBullets: 3,
 							dynamicBullets: true,
 						}}
+						navigation={{
+							prevEl: `.custom_prev_product-preview`,
+							nextEl: `.custom_next_product-preview`,
+						}}
 						breakpoints={{
 							0: {
 								direction: "horizontal",
@@ -103,7 +108,7 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 								pagination: false,
 							},
 						}}
-						modules={[Thumbs, Pagination]}
+						modules={[Thumbs, Pagination, Navigation]}
 					>
 						{slides.map((slide, index) => (
 							<SwiperSlide
@@ -158,6 +163,19 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 							</SwiperSlide>
 						))}
 					</Swiper>
+					<div className="slider-arrow md:hidden">
+						<span
+							className={`slider-btn slider-prev slick-arrow custom_prev_product-preview !left-1`}
+						>
+							<TfiAngleLeft />
+						</span>
+						<span
+							className={`slider-btn slider-next slick-arrow custom_next_product-preview !right-1`}
+						>
+							<TfiAngleRight />
+						</span>
+					</div>
+					{/* Wishlist  */}
 					<div className="product-action top-2 md:top-4 right-2 lg:right-4 absolute z-10 ">
 						<button
 							aria-label="Add To Wishlist"

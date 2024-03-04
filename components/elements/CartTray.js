@@ -10,6 +10,7 @@ import { toggleCart } from "@/store/slices/cartSlice";
 // import dynamic from "next/dynamic";
 import { BsCart3 } from "react-icons/bs";
 import { getCartTotal } from "@/lib/checkout";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 // const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 //   ssr: false,
 // });
@@ -17,7 +18,12 @@ import { getCartTotal } from "@/lib/checkout";
 const CartTray = () => {
 	const { cart } = useSelector((state) => state.cart);
 	const { settings, translations } = useSelector((state) => state.common);
+	const isMobile = useMediaQuery("(max-width: 768px)");
 	const dispatch = useDispatch();
+
+	if (isMobile) {
+		return null;
+	}
 
 	const handleCart = () => {
 		dispatch(toggleCart());
@@ -26,7 +32,7 @@ const CartTray = () => {
 	return (
 		<>
 			<div
-				className="cart fixed top-1/2 translate-y-[-50%] right-0 cursor-pointer z-20"
+				className="hidden md:block cart fixed top-1/2 translate-y-[-50%] right-0 cursor-pointer z-20"
 				onClick={handleCart}
 				style={{ color: settings?.colors?.primary_text }}
 			>
