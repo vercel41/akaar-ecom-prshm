@@ -85,7 +85,8 @@ const Checkout = () => {
 
 	//Handling free delivery charge
 	const deliveryCharge =
-		settings?.free_delivery_charges_limit > totalWithDiscount
+		settings?.free_delivery_charges_limit > totalWithDiscount ||
+		settings?.free_delivery_charges_limit <= 0
 			? deliveryMethod.charges
 			: 0;
 
@@ -239,7 +240,8 @@ const Checkout = () => {
 						</div>
 					</div>
 					<div className="px-5">
-						{settings?.free_delivery_charges_limit > totalWithDiscount ? (
+						{settings?.free_delivery_charges_limit > totalWithDiscount ||
+						settings?.free_delivery_charges_limit <= 0 ? (
 							<div className="p-4">
 								<h4 className="text-slate-700 font-bold">
 									{translations["delivery-options"] || "Delivery Options"}

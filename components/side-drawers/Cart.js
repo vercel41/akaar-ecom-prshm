@@ -42,7 +42,7 @@ const Cart = () => {
 			show={isCartOpen}
 			setShow={closeCart}
 		>
-			{settings?.free_delivery_charges_limit ? (
+			{settings?.free_delivery_charges_limit > 0 ? (
 				<div
 					className="p-4"
 					style={{
