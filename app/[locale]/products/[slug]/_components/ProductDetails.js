@@ -47,7 +47,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 	return (
 		<>
 			<div className="relative product-details">
-				<div className="flex flex-col lg:flex-row gap-10">
+				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10">
 					<div className="lg:w-1/2">
 						<div className="sticky top-20">
 							<ProductViewSlider
@@ -59,14 +59,14 @@ const ProductDetails = ({ product, settings, translations }) => {
 					</div>
 					<div className="lg:w-1/2">
 						<div className="product-content-wrap">
-							<p className="text-sm font-bold text-primary capitalize mb-2">
+							<p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
 								{product?.brand?.brand_name || "No Brand"}
 							</p>
 							<h5 className="text-2xl font-title font-bold text-slate-900">
 								{getSlicedText(product?.product_name, 100)}
 							</h5>
 							{/* Product Dynamic Pricing Area  */}
-							<div className="product-price flex items-center gap-4 lg:border-b border-slate-200 py-4 lg:py-5">
+							<div className="product-price flex items-center gap-4 lg:border-b border-slate-200 py-3 lg:py-5">
 								<span className="text-2xl lg:text-3xl/[48px] font-bold font-title text-slate-900">
 									{siteConfig.currency.sign} {newPrice || "0.00"}{" "}
 								</span>
@@ -92,7 +92,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									</span>
 								</div>
 							)} */}
-							<div className="flex items-center gap-2 py-4 font-title text-lg">
+							<div className="flex items-center gap-2 lg:py-3 font-title text-lg">
 								<span className="text-slate-900">SKU:</span>
 								<span className="text-secondary">{product?.sku}</span>
 							</div>
@@ -170,8 +170,8 @@ const ProductDetails = ({ product, settings, translations }) => {
 						</div>
 
 						{/* Add to cart section  */}
-						<div className="py-4">
-							<div className="product-actions my-6 flex gap-4 justify-between items-center">
+						<div className="py-2 lg:py-4">
+							<div className="product-actions  lg:my-6 flex gap-4 justify-between items-center">
 								<button
 									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
 									onClick={() => handleAddToCart(product, selectedVariant)}
@@ -202,7 +202,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 						</div>
 
 						{/* Product Descriptions */}
-						<div className="pt-8 pb-4">
+						<div className="pt-3 lg:pt-8 pb-2 lg:pb-4">
 							<div className="description">
 								<h4 className="text-2xl font-bold font-title text-slate-900">
 									{translations["product-description"] || "Description"}:
@@ -210,7 +210,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 								<ViewHTML htmlText={product?.product_description} />
 							</div>
 							{product.includedProducts?.length ? (
-								<div className="mt-8">
+								<div className="mt-4 lg:mt-8">
 									<h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
 										{translations["product-included"] || "Product Included"}
 									</h4>

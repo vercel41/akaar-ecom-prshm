@@ -24,7 +24,7 @@ const CartTray = () => {
 					color: settings?.colors?.primary_text,
 					border: `1px solid ${settings?.colors?.primary}`,
 				}}
-				className="cart fixed top-1/2 translate-y-[-50%] right-0 cursor-pointer z-20 rounded-s-md overflow-hidden"
+				className="cart fixed top-1/2 mt-16 md:mt-0 right-0 cursor-pointer z-20 rounded-s-md overflow-hidden"
 				onClick={handleCart}
 			>
 				<div
