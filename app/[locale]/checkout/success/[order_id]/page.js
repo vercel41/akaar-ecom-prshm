@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { getFormattedDate } from "@/utils/format-date";
@@ -9,12 +9,29 @@ import successAnimation from "@/public/assets/lottie/success_2.json";
 import { siteConfig } from "@/config/site";
 import useOrderSummary from "@/hooks/useOrderSummary";
 import { useSelector } from "react-redux";
+import * as pixel from "/lib/fpixel";
 
 const OrderSuccess = ({ params }) => {
 	const { order_id } = params;
 	const { order, loading, error } = useOrderSummary(order_id);
-	const { settings } = useSelector((state) => state.common);
+	const { settings, isFbPixelInitialized } = useSelector(
+		(state) => state.common
+	);
 	const isGuestCheckout = !!settings?.guest_checkout;
+	const flag = useRef(true);
+
+	// Facebook Pixel Initiate Checkout Event
+	useEffect(() => {
+		// Check if product ID exists to avoid errors
+		if (isFbPixelInitialized && flag.current && order?.id) {
+			pixel.event(
+				"Purchase",
+				pixel.getPurchasedItemsPixelData(order.ordered_items, order.sub_total)
+			);
+			console.log("purchase complete");
+			flag.current = false;
+		}
+	}, [order, isFbPixelInitialized]);
 
 	return (
 		<>

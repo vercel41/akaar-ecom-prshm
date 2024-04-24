@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getPixelFormattedOrderItems } from "./helpers/format-items";
 
 export async function GET(request, { params }) {
 	const { order_id } = params;
@@ -21,14 +22,17 @@ export async function GET(request, { params }) {
 		}
 
 		const { sale } = order || {};
+
 		//creating order summary
 		const orderSummary = {
 			id: sale?.id,
 			invoice_no: sale?.invoice_no,
 			status: sale?.status,
+			sub_total: sale?.sub_total,
 			total_amount: sale?.total_amount,
 			due_amount: sale?.due_amount,
 			paid_amount: sale?.paid_amount,
+			ordered_items: getPixelFormattedOrderItems(order?.saleProducts),
 			shipping: {
 				delivery_charge: sale?.shipping?.delivery_charge,
 			},

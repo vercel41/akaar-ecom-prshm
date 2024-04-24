@@ -177,13 +177,13 @@ const Checkout = () => {
 		// else alert("user not updated");
 	};
 
-	// //Facebook Pixel view content event
+	// Facebook Pixel Initiate Checkout Event
 	useEffect(() => {
 		// Check if product ID exists to avoid errors
 		if (isFbPixelInitialized && flag.current && cart.length > 0) {
 			pixel.event(
 				"InitiateCheckout",
-				pixel.getPurchaseItemsPixelData(cart, total)
+				pixel.getInitiateCheckoutPixelData(cart, total)
 			);
 			flag.current = false;
 		}

@@ -7,7 +7,7 @@ import { clearCart, clearDiscountInfo } from "@/store/slices/cartSlice";
 import { setGlobalLoader } from "@/store/slices/commonSlice";
 import { usePlaceAnOrderMutation } from "@/store/api/orderAPI";
 import { getPaymentUriByTitle } from "@/lib/order-pay";
-import * as pixel from "/lib/fpixel";
+// import * as pixel from "/lib/fpixel";
 
 const useOrderPlace = () => {
 	const [placeAnOrder] = usePlaceAnOrderMutation();
@@ -56,10 +56,10 @@ const useOrderPlace = () => {
 				// console.log(data);
 				if (data?.GatewayPageURL) {
 					//for fb pixel purchase event
-					pixel.event(
-						"Purchase",
-						pixel.getPurchaseItemsPixelData(cart, newOrder.subtotal)
-					);
+					// pixel.event(
+					// 	"Purchase",
+					// 	pixel.getInitiateCheckoutPixelData(cart, newOrder.subtotal)
+					// );
 
 					toast.success("Online payment is processing please wait");
 					dispatch(clearDiscountInfo());
@@ -82,10 +82,10 @@ const useOrderPlace = () => {
 					// console.log(response);
 
 					//for fb pixel purchase event
-					pixel.event(
-						"Purchase",
-						pixel.getPurchaseItemsPixelData(cart, newOrder.subtotal)
-					);
+					// pixel.event(
+					// 	"Purchase",
+					// 	pixel.getInitiateCheckoutPixelData(cart, newOrder.subtotal)
+					// );
 
 					dispatch(clearDiscountInfo());
 					dispatch(setGlobalLoader(false));
