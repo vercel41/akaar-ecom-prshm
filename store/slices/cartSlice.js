@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const loadCartItemsFromLocalStorage = () => {
 	if (typeof window !== "undefined") {
 		try {
-			const cartItems = localStorage.getItem("cartItems");
+			const cartItems = localStorage.getItem("cart_items");
 			if (cartItems) {
 				return JSON.parse(cartItems);
 			}

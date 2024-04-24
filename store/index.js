@@ -19,7 +19,7 @@ const store = configureStore({
 store.subscribe(() => {
 	const cartItems = store.getState().cart.cart;
 	try {
-		localStorage.setItem("cartItems", JSON.stringify(cartItems));
+		localStorage.setItem("cart_items", JSON.stringify(cartItems));
 	} catch (error) {
 		console.error("Error saving cart items to local storage:", error);
 	}
