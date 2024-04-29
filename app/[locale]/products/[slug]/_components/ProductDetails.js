@@ -22,9 +22,12 @@ import { getDiscountPercent } from "@/utils/percent";
 import useCart from "@/hooks/useCart";
 import { useSelector } from "react-redux";
 import VideoPlayer from "@/components/elements/VideoPlayer";
+import { MdArrowForwardIos } from "react-icons/md";
+import SizeChartModal from "@/components/modals/SizeChartModal";
 
 const ProductDetails = ({ product, settings, translations }) => {
 	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
+	const [showSizeChart, setShowSizeChart] = useState(false);
 	const [selectedVariant, setSelectedVariant] = useState(null);
 	const [selectedColor, setSelectedColor] = useState("");
 	const productViewSwiperRef = useRef(null);
@@ -43,6 +46,8 @@ const ProductDetails = ({ product, settings, translations }) => {
 			flag.current = false;
 		}
 	}, [product, isFbPixelInitialized]);
+
+	// console.log(product);
 
 	return (
 		<>
@@ -112,7 +117,6 @@ const ProductDetails = ({ product, settings, translations }) => {
 										productBarCodes={product?.barcodes}
 										selectedVariant={selectedVariant}
 										setSelectedVariant={setSelectedVariant}
-										sizeChart={product?.size_chart}
 										translations={translations}
 										ref={productViewSwiperRef}
 										setSelectedColor={setSelectedColor}
@@ -169,9 +173,21 @@ const ProductDetails = ({ product, settings, translations }) => {
 							) : null}
 						</div>
 
+						{/* size chart section */}
+						{product?.size_chart && (
+							<button
+								className="text-secondary-700 mt-4 flex items-center gap-x-1 text-sm lg:text-base"
+								onClick={() => setShowSizeChart((show) => !show)}
+							>
+								<span>
+									{translations["see-size-chart"] || "See Size Chart"}
+								</span>
+								<MdArrowForwardIos />
+							</button>
+						)}
 						{/* Add to cart section  */}
-						<div className="py-2 lg:py-4">
-							<div className="product-actions  lg:my-6 flex gap-4 justify-between items-center">
+						<div className="py-2 lg:pt-8 lg:pb-4">
+							<div className="product-actions flex gap-4 justify-between items-center">
 								<button
 									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
 									onClick={() => handleAddToCart(product, selectedVariant)}
@@ -202,30 +218,32 @@ const ProductDetails = ({ product, settings, translations }) => {
 						</div>
 
 						{/* Product Descriptions */}
-						<div className="pt-3 lg:pt-8 pb-2 lg:pb-4">
-							<div className="description">
-								<h4 className="text-2xl font-bold font-title text-slate-900">
-									{translations["product-description"] || "Description"}:
-								</h4>
-								<ViewHTML htmlText={product?.product_description} />
-							</div>
+						<div className="pt-3 lg:pt-4 pb-2 lg:pb-4">
+							{product?.details && (
+								<div className="description">
+									<h4 className="text-2xl font-bold font-title text-slate-900">
+										{translations["product-description"] || "Description"}:
+									</h4>
+									<ViewHTML htmlText={product?.details} />
+								</div>
+							)}
 							{product.includedProducts?.length ? (
-								<div className="mt-4 lg:mt-8">
-									<h4 className="text-2xl font-bold font-title text-slate-900 mb-4">
-										{translations["product-included"] || "Product Included"}
+								<div className="mt-4 lg:mt-5">
+									<h4 className="text-2xl font-bold font-title text-slate-900 mb-4 capitalize">
+										{translations["product-included"] || "Product Included"}:
 									</h4>
 									<Image
 										src={product.includedProducts[0]?.image}
 										alt="Insta 360"
 										width={628}
 										height={510}
-										className="w-full h-[300px] lg:h-[510px]"
+										className="w-full h-[300px] lg:h-[510px] rounded-lg"
 									/>
 								</div>
 							) : null}
-							{/* ) : null} */}
+
 							{product?.review_video && (
-								<div className="mt-6 lg:mt-8">
+								<div className="mt-4 lg:mt-5">
 									<h4 className="text-2xl font-bold font-title text-slate-900">
 										{translations["review-video"] || "রিভিউ ভিডিও"}
 									</h4>
@@ -242,7 +260,19 @@ const ProductDetails = ({ product, settings, translations }) => {
 								</div>
 							)}
 
-							<div className="contact mt-8 bg-amber-200  border p-4 mb-4 text-center">
+							{/* product-specifications */}
+							{product?.specification && (
+								<div id="product-specifications" className="mt-4 lg:mt-5">
+									<h4 className="text-2xl font-bold font-title text-slate-900">
+										{translations["specifications"] || "Specifications"}:
+									</h4>
+									<div class="-mx-4 sm:-mx-8 px-4 sm:px-8 mt-3 overflow-x-auto">
+										<ViewHTML htmlText={product?.specification} />
+									</div>
+								</div>
+							)}
+
+							<div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center">
 								<h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
 									{translations["contact-for-more-details"] ||
 										"Contact for more details"}
@@ -263,6 +293,13 @@ const ProductDetails = ({ product, settings, translations }) => {
 					</div>
 				</div>
 			</div>
+			{product?.size_chart && showSizeChart && (
+				<SizeChartModal
+					showModal={showSizeChart}
+					setShowModal={setShowSizeChart}
+					sizeChart={product?.size_chart}
+				/>
+			)}
 		</>
 	);
 };

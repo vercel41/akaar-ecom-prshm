@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { forwardRef, useEffect, useState } from "react";
-import { MdArrowForwardIos } from "react-icons/md";
-import SizeChartModal from "../modals/SizeChartModal";
 import { groupByKey } from "@/utils/format-list";
 import { toast } from "react-toastify";
 
@@ -13,7 +11,6 @@ const ProductVariantSelect = forwardRef(
 			photos = [],
 			selectedVariant,
 			setSelectedVariant,
-			sizeChart,
 			translations,
 			selectedColor,
 			setSelectedColor,
@@ -21,7 +18,6 @@ const ProductVariantSelect = forwardRef(
 		ref
 	) => {
 		const [colorsGroup, setColorsGroup] = useState({});
-		const [showSizeChart, setShowSizeChart] = useState(false);
 		const colors = Object.keys(colorsGroup);
 
 		const handleVariantSelect = (variantProp) => {
@@ -144,21 +140,10 @@ const ProductVariantSelect = forwardRef(
 
 				{colorsGroup[selectedColor]?.length > 1 ? (
 					<div className="product-size mt-4">
-						<div className="flex justify-between font-normal items-center">
+						<div className="font-normal">
 							<h4 className="text-slate-900 text-sm lg:text-base">
 								{translations["select-variant"] || "Select Variant"}:
 							</h4>
-							{sizeChart && (
-								<button
-									className="text-secondary-700 flex items-center gap-x-1 text-sm lg:text-base"
-									onClick={() => setShowSizeChart((show) => !show)}
-								>
-									<span>
-										{translations["see-size-chart"] || "See Size Chart"}
-									</span>
-									<MdArrowForwardIos />
-								</button>
-							)}
 						</div>
 						<div className="flex gap-2 lg:gap-3 flex-wrap mt-2 lg:mt-3">
 							{colorsGroup[selectedColor]?.map((variant) => (
@@ -181,13 +166,6 @@ const ProductVariantSelect = forwardRef(
 						</div>
 					</div>
 				) : null}
-				{sizeChart && showSizeChart && (
-					<SizeChartModal
-						showModal={showSizeChart}
-						setShowModal={setShowSizeChart}
-						sizeChart={sizeChart}
-					/>
-				)}
 			</>
 		);
 	}
