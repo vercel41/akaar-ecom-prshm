@@ -32,10 +32,14 @@ export const generateMetadata = async ({ params }) => {
 	let appName = "E-commerce app";
 	let favicon = "/favicon.ico";
 	try {
-		settings = await fetchData({ api: `info/basic`, locale: params?.locale });
-		appName = settings?.data?.name;
-		favicon = settings?.data?.favicon;
-		// console.log(favicon);
+		const settingsRes = await fetchData({
+			api: `info/basic`,
+			locale: params?.locale,
+		});
+		settings = settingsRes?.data || {};
+		appName = settings?.name;
+		favicon = settings?.favicon;
+		// console.log(settings);
 	} catch (error) {
 		console.log(error);
 		return {
@@ -50,13 +54,13 @@ export const generateMetadata = async ({ params }) => {
 			template: `%s || ${appName}`,
 		},
 		description:
-			settings?.data?.seo?.meta_description ||
+			settings?.seo?.meta_description ||
 			`Discover Elegance, Shop with Confidence at ${appName}`,
 		applicationName: appName,
 		openGraph: {
 			title: `${appName}`,
 			description:
-				settings?.data?.seo?.meta_description ||
+				settings?.seo?.meta_description ||
 				`Discover Elegance, Shop with Confidence at ${appName}`,
 			url: `/`,
 			siteName: appName,
@@ -77,6 +81,16 @@ export const generateMetadata = async ({ params }) => {
 		alternates: {
 			canonical: `/`,
 		},
+		verification: {
+			// google: "google",
+			other: {
+				// me: ["my-email", "my-link"],
+				"facebook-domain-verification": settings.fb_domain_verification,
+			},
+		},
+		// other: {
+		// 	"custom_meta_name": "meta_content",
+		// },
 	};
 };
 
