@@ -58,10 +58,10 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 					<Swiper
 						onSwiper={setThumbsSwiper}
 						direction="vertical"
-						slidesPerView={7}
+						slidesPerView={9}
 						mousewheel={true}
 						modules={[Thumbs, Mousewheel]}
-						className="!h-[33rem]"
+						className="!h-[42rem]"
 					>
 						{slides.map((slide, index) => (
 							<SwiperSlide key={index}>
@@ -113,7 +113,7 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 						{slides.map((slide, index) => (
 							<SwiperSlide
 								key={index}
-								className="!h-[100vw] md:!h-[32.75rem] md:!w-[32.75rem]"
+								className="!h-[115vw] md:!h-[41.1875rem] md:!w-[32.75rem]"
 							>
 								<div className="slider-imag h-full w-full">
 									{/*                   <Image
@@ -132,7 +132,7 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 												src={slide?.image}
 												alt=""
 												width={524}
-												height={524}
+												height={659}
 												className="object-contain h-full w-full"
 											/>
 

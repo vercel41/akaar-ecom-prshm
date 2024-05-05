@@ -124,7 +124,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									/>
 								) : null}
 							</div>
-							{product?.coupons.length ? (
+							{product?.coupons?.length ? (
 								<div className="mt-5 mb-8">
 									<p className="font-semibold font-title text-slate-900 mb-2">
 										{translations["best-offer"] || "সেরা অফার"}{" "}
