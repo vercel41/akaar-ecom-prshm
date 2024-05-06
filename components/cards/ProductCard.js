@@ -96,7 +96,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 								</div>
 							) : null}
 							<div
-								className={`product-img overflow-hidden h-[180px] @[200px]:h-[270px] @[250px]:h-[340px]`}
+								className={`product-img overflow-hidden h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[115vw]`}
 							>
 								<Link href="/products/[slug]" as={`/products/${slug}`}>
 									<Image
