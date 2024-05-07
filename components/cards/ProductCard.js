@@ -21,6 +21,7 @@ import useCart from "@/hooks/useCart";
 const ProductCard = ({ product, isFlashSale }) => {
 	const { settings, translations } = useSelector((state) => state.common);
 	const [loading, setLoading] = useState(true);
+	const [hovered, setHovered] = useState(false);
 	const { isHovered: isHoveredElement1, bind: bindElement1 } = useHover();
 	const { isHovered: isHoveredElement2, bind: bindElement2 } = useHover();
 	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -40,6 +41,7 @@ const ProductCard = ({ product, isFlashSale }) => {
 		stock_qty,
 		total_sale_qty,
 		created_at,
+		hover_image,
 	} = product;
 
 	useEffect(() => {
@@ -100,11 +102,17 @@ const ProductCard = ({ product, isFlashSale }) => {
 							>
 								<Link href="/products/[slug]" as={`/products/${slug}`}>
 									<Image
-										className="default-img h-full w-full object-cover object-top hover:scale-125 transition-all duration-300 ease-in-out rounded-t"
-										src={image || noImage}
+										className="default-img h-full w-full object-cover object-top hover:scale-125 transition-transform duration-300 ease-in-out rounded-t"
+										src={
+											hovered
+												? hover_image || image || noImage
+												: image || noImage
+										}
 										alt={product_name}
 										width={226}
 										height={400}
+										onMouseEnter={() => setHovered(true)}
+										onMouseLeave={() => setHovered(false)}
 									/>
 								</Link>
 							</div>
