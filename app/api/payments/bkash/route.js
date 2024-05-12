@@ -79,7 +79,7 @@ export async function POST(request) {
 			}),
 		});
 		const data = await result.json();
-		// console.log(data, "create payment data");
+		// console.log(data, "create payment data"); // need to verify sandbox testing (convert it to json format then paste it)
 
 		if (!data || data?.bkashURL === null) {
 			return NextResponse.json({
@@ -121,7 +121,7 @@ export async function GET(request) {
 				}
 			);
 			const result = await executeResponse.json();
-			// console.log("callback execute result", result);
+			// console.log("callback execute result", result); // need to verify sandbox testing (convert it to json format then paste it)
 			if (result.statusCode && result.statusCode === "0000") {
 				console.log("Payment Successful !!! ");
 				// save response in your db
