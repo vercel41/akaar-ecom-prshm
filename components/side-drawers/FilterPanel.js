@@ -4,23 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import DrawerLeft from "../elements/DrawerLeft";
 import { toggleFilterPanel } from "@/store/slices/commonSlice";
 import Filter from "../filters/Filter";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const FilterPanel = ({ category }) => {
+	const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 	//Drawer logics
+	const { isFilterPanelOpen, translations } = useSelector(
+		(state) => state.common
+	);
 	const dispatch = useDispatch();
-	const { isFilterPanelOpen } = useSelector((state) => state.common);
-	const closeFilterPanel = () => {
-		dispatch(toggleFilterPanel());
-	};
+	const isMobileFilterPanelOpen = !isFilterPanelOpen; // reverse the state for mobile
+
+	if (!isMobile) return null; // will work on mobile only
 
 	return (
 		<DrawerLeft
-			title={`ফিল্টার করুন`}
-			show={isFilterPanelOpen}
-			setShow={closeFilterPanel}
+			title={translations["filter"] || "Filter"}
+			show={isMobileFilterPanelOpen}
+			setShow={() => dispatch(toggleFilterPanel())}
 		>
 			<div className="p-4 flex flex-col h-[77%]">
-				{isFilterPanelOpen && <Filter category={category} />}
+				{isMobileFilterPanelOpen && <Filter category={category} />}
 			</div>
 		</DrawerLeft>
 	);

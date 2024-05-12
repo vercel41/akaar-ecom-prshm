@@ -5,7 +5,7 @@ import { toggleFilterPanel } from "@/store/slices/commonSlice";
 // import { HiOutlineFilter } from "react-icons/hi";
 import { BsFilterSquare } from "react-icons/bs";
 
-export default function FilterAction() {
+export default function FilterMenu() {
 	const { translations } = useSelector((state) => state.common);
 	const dispatch = useDispatch();
 	const toggleFilter = () => {
