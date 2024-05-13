@@ -25,6 +25,9 @@ import ServerDataProvider from "@/components/utility/ServerDataProvider";
 import { fetchData } from "@/lib/fetch-data";
 import VideoPlayerModal from "@/components/modals/VideoPlayerModal";
 import SizeChangeModal from "@/components/modals/SizeChangeModal";
+import ScriptLoader from "@/components/elements/ScriptLoader";
+// import NoScriptLoader from "@/components/elements/NoScriptLoader";
+import ViewHTML from "@/components/elements/ViewHTML";
 // import FacebookPixel from "@/components/utility/FacebookPixel";
 
 export const generateMetadata = async ({ params }) => {
@@ -99,7 +102,7 @@ const locales = ["en", "bn"];
 // 	return locales.map((locale) => ({ locale }));
 // }
 
-export default function RootLayout({ children, params }) {
+export default async function RootLayout({ children, params }) {
 	// const locale = useLocale();
 	// // Show a 404 error if the user requests an unknown locale
 	// if (params.locale !== locale) {
@@ -110,6 +113,18 @@ export default function RootLayout({ children, params }) {
 	if (!isValidLocale) notFound();
 
 	// unstable_setRequestLocale(params.locale);
+
+	const settingsRes = await fetchData({
+		api: `info/basic`,
+		locale: params?.locale,
+	});
+	const settings = settingsRes?.data || {};
+	// console.log(settings);
+	const headerScript = settings?.custom_script?.header_custom_script || null;
+	const footerScript = settings?.custom_script?.footer_custom_script || null;
+
+	// console.log(headerScript);
+	// console.log(footerScript);
 
 	return (
 		<html lang={params.locale}>
@@ -130,6 +145,9 @@ export default function RootLayout({ children, params }) {
 					<ServerDataProvider />
 				</ReduxProvider>
 				{/* <FacebookPixel /> */}
+				<ScriptLoader scriptId={"header-script"} scriptBody={headerScript} />
+				{/* <NoScriptLoader scriptId={"no-script-test"} scriptBody={footerScript} /> */}
+				<ViewHTML htmlText={footerScript} />
 			</body>
 		</html>
 	);
