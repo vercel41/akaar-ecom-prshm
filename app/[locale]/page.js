@@ -19,15 +19,19 @@ export default async function Home() {
 
   return (
     <>
-      <section className="banner">
-        <Intro settings={settings} />
-      </section>
+      {settings?.slider_section ? (
+        <section className="banner">
+          <Intro settings={settings} />
+        </section>
+      ) : null}
 
-      <section className="banners pt-14">
-        <div className="container">
-          <FeaturedBanner settings={settings} />
-        </div>
-      </section>
+      {settings?.category_section ? (
+        <section className="banners pt-14">
+          <div className="container">
+            <FeaturedBanner settings={settings} />
+          </div>
+        </section>
+      ) : null}
 
       <section className="flash-sale mt-10">
         <div className="container">
@@ -35,27 +39,31 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="video-banner">
-        <VideoBanner />
-      </section>
+      {settings?.video_section ? (
+        <section className="video-banner">
+          <VideoBanner />
+        </section>
+      ) : null}
 
-      <section className="new-products">
-        <div className="container">
-          <div className="py-10 text-center">
-            <h2 className="sec-title pb-3">
-              {translations["new-arrival"] || "New Collection"}
-            </h2>
-            <p className="underline">
-              {translations["browse-our-new-collections"] ||
-                "Browse our new collections"}
-            </p>
-          </div>
+      {settings?.shop_section ? (
+        <section className="new-products">
+          <div className="container">
+            <div className="py-10 text-center">
+              <h2 className="sec-title pb-3">
+                {translations["new-arrival"] || "New Collection"}
+              </h2>
+              <p className="underline">
+                {translations["browse-our-new-collections"] ||
+                  "Browse our new collections"}
+              </p>
+            </div>
 
-          <div className="">
-            <NewArrival />
+            <div className="">
+              <NewArrival />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* <section className="all-category mt-28">
 				<div
