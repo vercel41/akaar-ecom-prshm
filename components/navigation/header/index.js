@@ -1,27 +1,33 @@
-// import Offer from "../Offer";
-import CategoriesNav from "./CategoriesNav";
+// import CategoriesNav from "./CategoriesNav";
+import CategoriesMegaMenu from "./CategoriesMegaMenu";
+import TopBar from "./TopBar";
 import MainNav from "./main-nav";
 import { fetchData } from "@/lib/fetch-data";
+// import OfferSliderNav from "./offer-slider-nav";
 
 const Header = async () => {
-  const [settingsRes, categoriesRes] = await Promise.allSettled([
-    fetchData({ api: `info/basic` }),
-    fetchData({ api: "categories" }),
-  ]);
+	const [settingsRes, categoriesRes] = await Promise.allSettled([
+		fetchData({ api: `info/basic` }),
+		fetchData({ api: "categories" }),
+	]);
 
-  const settings =
-    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
-  const categories =
-    categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
-  return (
-    <>
-      <header className="header fixed z-30 w-full">
-        <MainNav settings={settings} categories={categories} />
-        <CategoriesNav categories={categories} settings={settings} />
-        {/* <Offer /> */}
-      </header>
-    </>
-  );
+	const settings =
+		settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+	const categories =
+		categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
+	return (
+		<>
+			<header className="header fixed z-30 w-full">
+				{settings?.offer_massage && (
+					<TopBar offerMassage={settings?.offer_massage} />
+				)}
+				<MainNav settings={settings} categories={categories} />
+				<CategoriesMegaMenu settings={settings} categories={categories} />
+				{/* <CategoriesNav categories={categories} settings={settings} /> */}
+				{/* <OfferSliderNav /> */}
+			</header>
+		</>
+	);
 };
 
 export default Header;

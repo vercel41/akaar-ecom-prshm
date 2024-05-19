@@ -14,7 +14,7 @@ const offers = [
 		text: "* For First Order",
 	},
 ];
-export default function Offer() {
+export default function OfferSliderNav() {
 	return (
 		<div className="offer bg-[#f5e7cc] py-3">
 			<div className="container">

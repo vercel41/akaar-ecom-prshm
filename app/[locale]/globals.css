@@ -66,11 +66,20 @@
 	@apply text-3xl font-bold font-title text-slate-900;
 }
 
+.nav-search {
+	width: 25rem;
+}
+
+.nav-search input {
+	width: calc(100% - 48px);
+	@apply text-black;
+}
+
 .search-input {
-	@apply border-r-0 rounded-l-lg focus:border-slate-300 py-0 h-9;
+	@apply border-r-0 rounded-l-full focus:border-slate-300 py-2.5;
 }
 .search-btn {
-	@apply absolute w-12 h-9 bg-transparent text-secondary rounded-e-lg outline-none text-center;
+	@apply absolute w-12 py-3 bg-transparent text-secondary rounded-e-lg outline-none text-center;
 }
 
 .all-btn {
@@ -149,15 +158,6 @@
 }
 .nav-nested-menu li:hover > a svg {
 	transform: rotate(-270deg);
-}
-
-.nav-search {
-	width: 20rem;
-}
-
-.nav-search input {
-	width: calc(100% - 48px);
-	@apply text-black;
 }
 
 .header-actions .single-action {

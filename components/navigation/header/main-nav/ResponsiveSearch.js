@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-// import { HiMenuAlt1 } from "react-icons/hi";
 import Search from "../../../elements/Search";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineClose } from "react-icons/ai";
@@ -32,9 +31,6 @@ export default function ResponsiveSearch({ settings }) {
 
 	return (
 		<div style={{ color: settings?.colors?.primary_text }}>
-			<span className="hidden lg:block">
-				<Search />
-			</span>
 			{!searchOpen ? (
 				<button
 					onClick={() => setSearchOpen(!searchOpen)}

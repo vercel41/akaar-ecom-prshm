@@ -111,7 +111,7 @@ const Search = () => {
 
 	return (
 		<div className="nav-search relative">
-			<div className="bg-slate-200 rounded-lg">
+			<div className="rounded-full bg-white">
 				<input
 					value={searchTerm}
 					onKeyDown={handleInput}
@@ -119,7 +119,7 @@ const Search = () => {
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 					type="text"
-					placeholder={"search for your desired product"}
+					placeholder={"search"}
 					className="search-input"
 				/>
 
