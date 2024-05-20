@@ -17,6 +17,8 @@ const CartTray = () => {
 		dispatch(toggleCart());
 	};
 
+	// console.log(settings?.colors);
+
 	return (
 		<>
 			<div
@@ -30,7 +32,7 @@ const CartTray = () => {
 				<div
 					className="icon bg-white border border-r-0 px-1 text-center "
 					style={{
-						color: settings?.colors?.primary,
+						color: settings?.colors?.default_text,
 					}}
 				>
 					<BsCart3 size={28} className="m-1" />

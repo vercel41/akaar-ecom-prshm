@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/store/slices/cartSlice";
 import { setLoginModalOpen } from "@/store/slices/authSlice";
 import ResponsiveSearch from "./ResponsiveSearch";
-import { useParams, useRouter } from "next/navigation";
 import useWishList from "@/hooks/useWishList";
 import LanguageSelector from "./LanguageSelector";
+import SidebarMenu from "@/components/side-drawers/SidebarMenu";
+import { useRouter } from "@/navigation";
 const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
 	ssr: false,
 });
@@ -27,13 +28,12 @@ import Search from "@/components/elements/Search";
 import { IoCall } from "react-icons/io5";
 
 export default function MainNav({ settings, categories }) {
-	const { locale } = useParams();
 	const { cart } = useSelector((state) => state.cart);
 	const { user, isLoginModalOpen } = useSelector((state) => state.auth);
 	const { getWishlistCount } = useWishList();
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const [menuOpen, setMenuOpen] = useState(false);
+	const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
 	const handleModalOpen = () => {
 		if (user) {
@@ -54,18 +54,16 @@ export default function MainNav({ settings, categories }) {
 		>
 			<div className="main-nav container">
 				<div className="header-left flex items-center justify-between gap-x-2">
-					{!menuOpen ? (
-						<button
-							onClick={() => setMenuOpen(!menuOpen)}
-							className=" md:hidden"
-						>
+					<button
+						onClick={() => setSideMenuOpen(!sideMenuOpen)}
+						className=" md:hidden"
+					>
+						{!sideMenuOpen ? (
 							<HiMenuAlt1 size={24} />
-						</button>
-					) : (
-						<span className=" md:hidden">
+						) : (
 							<AiOutlineClose size={24} />
-						</span>
-					)}
+						)}
+					</button>
 					<Link
 						href="/"
 						className="logo h-[45px] lg:h-[68px] max-w-[250px] -mr-10 sm:-mr-12 md:mr-0"
@@ -142,7 +140,7 @@ export default function MainNav({ settings, categories }) {
 							) : null}
 						</button>
 						<span className="hidden md:block">
-							<LanguageSelector locale={locale} />
+							<LanguageSelector />
 						</span>
 					</div>
 				</div>
@@ -152,6 +150,14 @@ export default function MainNav({ settings, categories }) {
 					showModal={isLoginModalOpen}
 					setShowModal={(show) => dispatch(setLoginModalOpen(show))}
 					title={"welcome"}
+				/>
+			)}
+			{sideMenuOpen && (
+				<SidebarMenu
+					categories={categories}
+					sidebarToggle={() => setSideMenuOpen(!sideMenuOpen)}
+					isSideBarOpen={sideMenuOpen}
+					settings={settings}
 				/>
 			)}
 		</div>

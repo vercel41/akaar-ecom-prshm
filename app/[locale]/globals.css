@@ -79,7 +79,7 @@
 	@apply border-r-0 rounded-l-full focus:border-slate-300 py-2.5;
 }
 .search-btn {
-	@apply absolute w-12 py-3 bg-transparent text-secondary rounded-e-lg outline-none text-center;
+	@apply absolute w-12 py-[11px] bg-transparent text-secondary border border-slate-300 rounded-e-full outline-none text-center;
 }
 
 .all-btn {

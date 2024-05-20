@@ -54,7 +54,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 			<div className="relative product-details">
 				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10">
 					<div className="lg:w-1/2">
-						<div className="sticky top-20">
+						<div className="sticky top-32">
 							<ProductViewSlider
 								product={product}
 								ref={productViewSwiperRef}
@@ -266,7 +266,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									<h4 className="text-2xl font-bold font-title text-slate-900">
 										{translations["specifications"] || "Specifications"}:
 									</h4>
-									<div class="-mx-4 sm:-mx-8 px-4 sm:px-8 mt-3 overflow-x-auto">
+									<div className="-mx-4 sm:-mx-8 px-4 sm:px-8 mt-3 overflow-x-auto">
 										<ViewHTML htmlText={product?.specification} />
 									</div>
 								</div>

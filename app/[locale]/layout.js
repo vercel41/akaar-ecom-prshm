@@ -131,7 +131,13 @@ export default async function RootLayout({ children, params }) {
 			<body>
 				<ReduxProvider>
 					<Header />
-					<main className="pt-[60px]">
+					<main
+						className={`${
+							settings?.offer_massage
+								? "pt-[89px] md:pt-[145px]"
+								: "pt-[57px] md:pt-[113px]"
+						}`}
+					>
 						<CheckConnection>{children}</CheckConnection>
 					</main>
 					<Footer />

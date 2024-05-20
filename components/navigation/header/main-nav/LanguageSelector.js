@@ -2,19 +2,25 @@
 import { useState, useRef, useEffect } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { Link, usePathname } from "@/navigation";
+import { useParams } from "next/navigation";
+import UnitedKingdomFlag from "@/components/elements/svg/UnitedKingdomFlag";
+import BangladeshiFlag from "@/components/elements/svg/BangladeshiFlag";
 
 const languages = [
 	{
 		code: "en",
 		name: "EN",
+		fullName: "English",
 	},
 	{
 		code: "bn",
 		name: "BN",
+		fullName: "বাংলা",
 	},
 ];
 
-const LanguageSelector = ({ locale }) => {
+const LanguageSelector = ({ isFullName }) => {
+	const { locale } = useParams();
 	// const [selectedLanguage, setSelectedLanguage] = useState(locale); // Default language
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown visibility state
 	const dropdownRef = useRef(null);
@@ -39,30 +45,45 @@ const LanguageSelector = ({ locale }) => {
 	}, []);
 
 	return (
-		<div className="relative inline-flex" ref={dropdownRef}>
+		<div className="relative" ref={dropdownRef}>
 			<button
 				type="button"
-				className="inline-flex items-center justify-center gap-1 font-title rounded-md text-sm font-medium text-white"
+				className="inline-flex items-center justify-center gap-1 font-title rounded-md text-sm font-medium"
 				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 			>
-				<span className="uppercase">{locale}</span>
-				<FiChevronDown className="" />
+				{locale === "en" ? (
+					<span className="flex justify-center items-center">
+						<UnitedKingdomFlag />{" "}
+						<p className={`ml-2  !font-normal`}>
+							{isFullName ? "English" : "EN"}
+						</p>
+					</span>
+				) : (
+					<span className="flex justify-center items-center">
+						<BangladeshiFlag />{" "}
+						<p className={`ml-2  !font-normal`}>
+							{isFullName ? "বাংলা" : "BN"}
+						</p>
+					</span>
+				)}
+
+				<FiChevronDown />
 			</button>
 			{isDropdownOpen && (
-				<ul className="absolute w-full z-10 top-full bg-white rounded shadow-lg divide-y divide-gray-200">
+				<div className="absolute w-full z-10 top-full bg-white rounded shadow-lg divide-y divide-gray-200 text-black">
 					{languages.map((lang) => (
-						<li key={lang.code}>
+						<div key={lang.code} className="text-center">
 							<Link
 								href={pathname}
-								className=" text-black pl-1"
 								onClick={() => handleLanguageChange(lang.code)}
 								locale={lang.code}
+								className="w-full p-1"
 							>
-								<span className="">{lang.name}</span>
+								{isFullName ? lang.fullName : lang.name}
 							</Link>
-						</li>
+						</div>
 					))}
-				</ul>
+				</div>
 			)}
 		</div>
 	);
