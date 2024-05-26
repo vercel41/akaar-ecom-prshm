@@ -91,10 +91,11 @@ const ProductSelect = () => {
 			/>
 			<div className="product-actions mt-8 lg:mt-10 mb-3 lg:my-6 flex gap-3 text-sm md:text-base lg:gap-4 justify-between items-center">
 				<button
-					className="py-2 md:py-3 w-full px-1 md:px-3 text-center active:scale-95"
+					className="py-2 md:py-3 w-full px-1 md:px-3 text-center active:scale-95 rounded-lg"
 					style={{
 						backgroundColor: settings?.colors?.primary,
 						color: settings?.colors?.primary_text,
+						border: `1px solid ${settings?.colors?.primary_text}`,
 					}}
 					onClick={() => handleAddAndClose()}
 				>
@@ -107,10 +108,11 @@ const ProductSelect = () => {
 					onClick={() =>
 						handleAddAndCheckout(selectedProduct, selectedVariant, true)
 					}
-					className="py-2 md:py-3 w-full px-1 md:px-3 text-center active:scale-95"
+					className="py-2 md:py-3 w-full px-1 md:px-3 text-center active:scale-95 rounded-lg"
 					style={{
 						backgroundColor: settings?.colors?.primary,
 						color: settings?.colors?.primary_text,
+						border: `1px solid ${settings?.colors?.primary_text}`,
 					}}
 				>
 					<span className="mr-2">{translations["buy-now"] || "Buy Now"}</span>

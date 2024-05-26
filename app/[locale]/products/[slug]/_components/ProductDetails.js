@@ -189,7 +189,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 						<div className="py-2 lg:pt-8 lg:pb-4">
 							<div className="product-actions flex gap-4 justify-between items-center">
 								<button
-									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
+									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded-lg"
 									onClick={() => handleAddToCart(product, selectedVariant)}
 									style={{
 										backgroundColor: settings?.colors?.primary,
@@ -204,7 +204,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 								</button>
 								<button
 									onClick={() => handleAddAndCheckout(product, selectedVariant)}
-									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded"
+									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded-lg"
 									style={{
 										backgroundColor: settings?.colors?.primary,
 										color: settings?.colors?.primary_text,

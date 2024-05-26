@@ -71,7 +71,7 @@ const Cart = () => {
 				</div>
 				<button
 					onClick={handleCheckoutNavigate}
-					className="py-3 px-3 md:px-6 w-full md:w-[276px] text-center active:scale-95"
+					className="py-3 px-3 md:px-6 w-full md:w-[276px] text-center active:scale-95 rounded-lg"
 					style={{
 						backgroundColor: settings?.colors?.primary,
 						color: settings?.colors?.primary_text,
