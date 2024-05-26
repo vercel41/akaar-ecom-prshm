@@ -54,9 +54,9 @@ const DashboardLayout = ({ children, params }) => {
 						<div className="justify-self-end flex items-center mr-3">
 							<Link
 								href={"/products"}
-								className="px-2 py-3 bg text-center rounded"
+								className="px-2 py-3 bg text-center rounded shadow-around"
 								style={{
-									// border: `1px solid ${settings?.colors?.primary}`,
+									// border: `1px solid ${settings?.colors?.primary_text}`,
 									color: settings?.colors?.primary_text,
 									backgroundColor: settings?.colors?.primary,
 								}}
@@ -72,7 +72,12 @@ const DashboardLayout = ({ children, params }) => {
 								{navItems.map((item, index) => (
 									<li
 										key={item.path}
-										className={`px-3 rounded md:mb-3 py-3 cursor-pointer hover:bg`}
+										className={`px-3 rounded md:mb-3 py-3 cursor-pointer hover:bg ${
+											activeSegment === item.path ||
+											(!activeSegment && index === 0)
+												? "shadow-around"
+												: ""
+										} `}
 										style={{
 											backgroundColor:
 												activeSegment === item.path ||
@@ -84,6 +89,13 @@ const DashboardLayout = ({ children, params }) => {
 												(!activeSegment && index === 0)
 													? settings?.colors?.primary_text
 													: "black",
+
+											// border: `1px solid ${
+											// 	activeSegment === item.path ||
+											// 	(!activeSegment && index === 0)
+											// 		? settings?.colors?.primary_text
+											// 		: "transparent"
+											// }`,
 										}}
 									>
 										<Link href={`/dashboard/${item.path}`}>

@@ -64,10 +64,10 @@ const IntroSlider = ({ sliders, settings }) => {
 									{slide?.url && (
 										<Link
 											href={slide?.url}
-											className="inline-block px-4 text-center leading-[40px]"
+											className="inline-block px-4 text-center leading-[40px] rounded-lg"
 											style={{
 												backgroundColor: settings?.colors?.primary,
-												color: "white",
+												color: settings?.colors?.primary_text,
 											}}
 										>
 											{translations["see-all"] || "See All"}{" "}

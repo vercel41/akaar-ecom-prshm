@@ -174,8 +174,8 @@ const OrderDetail = ({ params }) => {
 											href={`${process.env.serverBaseUrl}/in/${sale.customer?.id}/${sale.id}/sale`}
 											className="p-3 block text-center mb-3 mt-5"
 											style={{
-												border: `1px solid ${settings?.colors?.primary}`,
-												color: settings?.colors?.primary,
+												border: `1px solid ${settings?.colors?.default_text}`,
+												color: settings?.colors?.default_text,
 											}}
 										>
 											<FaCloudDownloadAlt size={24} className="mr-2" /> Download

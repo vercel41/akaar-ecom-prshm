@@ -352,10 +352,11 @@ const MyProfile = () => {
 						<button
 							type="button"
 							onClick={() => setEditMode((prevMode) => !prevMode)}
-							className="py-2 px-4 active:scale-95 rounded"
+							className="py-2 px-4 active:scale-95 rounded shadow-around"
 							style={{
 								backgroundColor: settings?.colors?.primary,
 								color: settings?.colors?.primary_text,
+								// border: `1px solid ${settings?.colors?.primary_text}`,
 							}}
 						>
 							{editMode
@@ -366,11 +367,12 @@ const MyProfile = () => {
 					{!editMode && (
 						<div className="form-control">
 							<button
-								className="flex items-center space-x-3 py-2 px-4 active:scale-95 rounded"
+								className="flex items-center space-x-3 py-2 px-4 active:scale-95 rounded shadow-around"
 								onClick={() => dispatch(logoutUser())}
 								style={{
 									backgroundColor: settings?.colors?.primary,
 									color: settings?.colors?.primary_text,
+									// border: `1px solid ${settings?.colors?.primary_text}`,
 								}}
 							>
 								<IoLogOut /> {translations["logout"] || "Logout"}
@@ -382,10 +384,11 @@ const MyProfile = () => {
 							<label></label>
 							<button
 								type="submit"
-								className="py-2  px-4 active:scale-95 rounded"
+								className="py-2  px-4 active:scale-95 rounded shadow-around"
 								style={{
 									backgroundColor: settings?.colors?.primary,
 									color: settings?.colors?.primary_text,
+									// border: `1px solid ${settings?.colors?.primary_text}`,
 								}}
 							>
 								{translations["update-now"] || "Update Now"}

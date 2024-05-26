@@ -15,6 +15,9 @@ module.exports = {
 				title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
 				// title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
 			},
+			boxShadow: {
+				around: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+			},
 			screens: {
 				sm: "576px",
 				md: "768px",

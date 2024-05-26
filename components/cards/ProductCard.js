@@ -12,6 +12,7 @@ import {
 	HiOutlineHeart,
 	HiOutlineShoppingCart,
 	HiArrowLongRight,
+	HiHeart,
 } from "react-icons/hi2";
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
@@ -64,10 +65,10 @@ const ProductCard = ({ product, isFlashSale }) => {
 							{getDaysSinceCreation(created_at) < 8 && (
 								<div className="absolute top-2 left-2 z-20">
 									<span
-										className="text-sm px-1  active:scale-90"
+										className="text-sm px-1  active:scale-90 rounded"
 										style={{
-											backgroundColor: settings?.colors?.primary,
-											color: settings?.colors?.primary_text,
+											backgroundColor: settings?.colors?.secondary,
+											color: settings?.colors?.secondary_text,
 										}}
 									>
 										New
@@ -78,22 +79,24 @@ const ProductCard = ({ product, isFlashSale }) => {
 								<div className="absolute top-2 right-2 z-20">
 									<button
 										aria-label="Add To Wishlist"
-										className={`border px-1 active:scale-90 rounded`}
-										style={{
-											backgroundColor: isInWishlist
-												? settings?.colors?.primary
-												: "white",
-											color: isInWishlist
-												? settings?.colors?.primary_text
-												: settings?.colors?.primary,
-										}}
+										className={`bg-white px-1 active:scale-90 rounded ${
+											isInWishlist ? "text-red-500" : "text-gray-500"
+										}`}
+										// style={{
+										// 	backgroundColor: isInWishlist
+										// 		? settings?.colors?.secondary
+										// 		: "white",
+										// 	color: isInWishlist
+										// 		? settings?.colors?.secondary_text
+										// 		: settings?.colors?.secondary,
+										// }}
 										onClick={(e) =>
 											!isInWishlist
 												? handleAddToWishlist(product)
 												: handleRemoveFromWishlist(id)
 										}
 									>
-										<HiOutlineHeart />
+										{isInWishlist ? <HiHeart /> : <HiOutlineHeart />}
 									</button>
 								</div>
 							) : null}
@@ -151,13 +154,17 @@ const ProductCard = ({ product, isFlashSale }) => {
 									onClick={(e) => handleAddToCart(product)}
 									{...bindElement1}
 									style={{
-										border: `1px solid ${settings?.colors?.primary}`,
+										border: `1px solid ${
+											isHoveredElement1
+												? settings?.colors?.primary_text
+												: settings?.colors?.default_text
+										}`,
 										backgroundColor: isHoveredElement1
 											? settings?.colors?.primary
 											: "transparent",
 										color: isHoveredElement1
 											? settings?.colors?.primary_text
-											: settings?.colors?.primary,
+											: settings?.colors?.default_text,
 									}}
 								>
 									<HiOutlineShoppingCart
@@ -170,13 +177,17 @@ const ProductCard = ({ product, isFlashSale }) => {
 									{...bindElement2}
 									className="action-btn p-1 text-sm lg:text-lg lg:px-4 py-1 w-full rounded"
 									style={{
-										border: `1px solid ${settings?.colors?.primary}`,
+										border: `1px solid ${
+											isHoveredElement2
+												? settings?.colors?.primary_text
+												: settings?.colors?.default_text
+										}`,
 										backgroundColor: isHoveredElement2
 											? settings?.colors?.primary
 											: "transparent",
 										color: isHoveredElement2
 											? settings?.colors?.primary_text
-											: settings?.colors?.primary,
+											: settings?.colors?.default_text,
 									}}
 								>
 									{translations["buy-now"] || "Buy Now"}{" "}

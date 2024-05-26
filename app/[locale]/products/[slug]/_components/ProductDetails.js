@@ -194,6 +194,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									style={{
 										backgroundColor: settings?.colors?.primary,
 										color: settings?.colors?.primary_text,
+										border: `1px solid ${settings?.colors?.primary_text}`,
 									}}
 								>
 									<HiOutlineShoppingCart size={24} />
@@ -207,6 +208,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 									style={{
 										backgroundColor: settings?.colors?.primary,
 										color: settings?.colors?.primary_text,
+										border: `1px solid ${settings?.colors?.primary_text}`,
 									}}
 								>
 									<IoIosFlash size={24} />{" "}

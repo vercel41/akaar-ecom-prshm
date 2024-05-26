@@ -115,6 +115,7 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
 								style={{
 									backgroundColor: settings?.colors?.primary,
 									color: settings?.colors?.primary_text,
+									border: `1px solid ${settings?.colors?.primary_text}`,
 								}}
 							>
 								Send OTP

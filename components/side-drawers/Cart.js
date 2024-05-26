@@ -44,7 +44,7 @@ const Cart = () => {
 		>
 			{settings?.free_delivery_charges_limit > 0 ? (
 				<div
-					className="p-4"
+					className="p-4 shadow-sm"
 					style={{
 						backgroundColor: settings?.colors?.primary,
 						color: settings?.colors?.primary_text,
@@ -75,6 +75,7 @@ const Cart = () => {
 					style={{
 						backgroundColor: settings?.colors?.primary,
 						color: settings?.colors?.primary_text,
+						border: `1px solid ${settings?.colors?.primary_text}`,
 					}}
 				>
 					<span className="mr-2">

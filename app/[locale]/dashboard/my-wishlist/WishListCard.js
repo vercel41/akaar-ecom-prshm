@@ -49,7 +49,9 @@ const WishListCard = ({ product }) => {
 				<div className="flex flex-col justify-between w-full">
 					<span
 						// href={`/brands/${brand?.id}`}
-						className={`text-primary ${stockOut ? "opacity-50" : ""}`}
+						className={`text-sm text-orange-200 ${
+							stockOut ? "opacity-50" : ""
+						}`}
 					>
 						{brand?.brand_name || "No Brand"}
 					</span>
@@ -84,7 +86,7 @@ const WishListCard = ({ product }) => {
 						</div>
 						{!stockOut ? (
 							<button
-								className="py-2 px-3 text-center active:scale-95 rounded"
+								className="py-2 px-3 text-center active:scale-95 rounded shadow-around"
 								onClick={() => handleAddToCart(product)}
 								style={{
 									backgroundColor: settings?.colors?.primary,

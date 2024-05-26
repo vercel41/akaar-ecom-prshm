@@ -78,41 +78,8 @@ export default function MainNav({ settings, categories }) {
 							</div>
 						)}
 					</div>
-					<div className="header-actions items-center flex gap-1 lg:gap-3">
+					<div className="header-actions items-center flex gap-2 lg:gap-4">
 						<ResponsiveSearch settings={settings} />
-						{!settings?.guest_checkout ? (
-							<>
-								<button onClick={handleModalOpen} className="single-action">
-									{user?.image ? (
-										<Image
-											src={user.image}
-											alt="Profile"
-											height={32}
-											width={32}
-											className="h-full w-full rounded-full"
-										/>
-									) : (
-										<HiOutlineUser size={24} />
-									)}
-								</button>
-								<button
-									onClick={() => router.push("/dashboard/my-wishlist")}
-									className="inline-block relative"
-								>
-									<HiOutlineHeart size={24} />
-									{wishlistCount ? (
-										<span
-											className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
-											style={{
-												border: `1px solid ${settings?.colors?.primary_text}`,
-											}}
-										>
-											{wishlistCount}
-										</span>
-									) : null}
-								</button>
-							</>
-						) : null}
 						<button
 							onClick={() => dispatch(toggleCart())}
 							className="group relative single-action hidden lg:block"
@@ -129,12 +96,47 @@ export default function MainNav({ settings, categories }) {
 								</span>
 							) : null}
 						</button>
+						{!settings?.guest_checkout ? (
+							<>
+								<button
+									onClick={() => router.push("/dashboard/my-wishlist")}
+									className="inline-block relative"
+								>
+									<HiOutlineHeart size={24} />
+									{wishlistCount ? (
+										<span
+											className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
+											style={{
+												border: `1px solid ${settings?.colors?.primary_text}`,
+												backgroundColor: settings?.colors?.primary,
+											}}
+										>
+											{wishlistCount}
+										</span>
+									) : null}
+								</button>
+								<button onClick={handleModalOpen} className="single-action">
+									{user?.image ? (
+										<Image
+											src={user.image}
+											alt="Profile"
+											height={32}
+											width={32}
+											className="h-full w-full rounded-full"
+										/>
+									) : (
+										<HiOutlineUser size={24} />
+									)}
+								</button>
+							</>
+						) : null}
+
 						<span className="hidden md:block">
 							<LanguageSelector />
 						</span>
 						<button
 							onClick={() => setSideMenuOpen(!sideMenuOpen)}
-							className=" md:hidden ml-1"
+							className=" md:hidden"
 						>
 							{!sideMenuOpen ? (
 								<HiMenuAlt1 size={24} />

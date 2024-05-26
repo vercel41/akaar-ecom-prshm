@@ -39,7 +39,9 @@ export default function Modal({
 									<button
 										className="icon-btn text-4xl"
 										onClick={() => setShowModal(false)}
-										style={{ color: settings?.colors?.primary }}
+										style={{
+											color: settings?.colors?.default_text,
+										}}
 									>
 										<RiCloseCircleFill />
 									</button>

@@ -445,6 +445,7 @@ const Checkout = () => {
 							style={{
 								backgroundColor: settings?.colors?.primary,
 								color: settings?.colors?.primary_text,
+								border: `1px solid ${settings?.colors?.primary_text}`,
 							}}
 						>
 							{translations["order-now"] || "Order Now"}

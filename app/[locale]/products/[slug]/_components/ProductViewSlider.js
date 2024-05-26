@@ -179,7 +179,7 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 					<div className="product-action top-2 md:top-4 right-2 lg:right-4 absolute z-10 ">
 						<button
 							aria-label="Add To Wishlist"
-							className="wishlist-action-btn-product-details inline-flex justify-center items-center"
+							className="inline-flex justify-center items-center bg-white w-8 h-8 rounded-lg"
 							onClick={(e) =>
 								isInWishList
 									? handleRemoveFromWishlist(product.id)
@@ -190,7 +190,7 @@ const ProductViewSlider = forwardRef(({ product, selectedColor }, ref) => {
 								<HeartRedIcon />
 							) : (
 								<>
-									<span className="">
+									<span className="text-slate-400">
 										<HiOutlineHeart />
 									</span>
 								</>

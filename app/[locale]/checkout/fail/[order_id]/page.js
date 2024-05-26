@@ -65,14 +65,23 @@ const PaymentFail = ({ params }) => {
 								{!isGuestCheckout && (
 									<Link
 										href={`/dashboard/my-orders/details/${order_id}`}
-										className="border border-primary py-3 w-full px-6 text-center active:scale-95"
+										className="border py-3 w-full px-6 text-center active:scale-95"
+										style={{
+											border: `1px solid ${settings?.colors?.primary_text}`,
+											color: settings?.colors?.primary_text,
+										}}
 									>
 										View Order
 									</Link>
 								)}
 								<button
 									onClick={() => setSelectedOrder(order)}
-									className="bg-primary py-3 w-full px-6 text-white text-center active:scale-95"
+									className="py-3 w-full px-6 text-center active:scale-95"
+									style={{
+										background: settings?.colors?.primary,
+										border: `1px solid ${settings?.colors?.primary_text}`,
+										color: settings?.colors?.primary_text,
+									}}
 								>
 									Make payment
 								</button>
