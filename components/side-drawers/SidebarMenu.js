@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import DrawerLeft from "../elements/DrawerLeft";
+// import DrawerLeft from "../elements/DrawerLeft";
 import CategoriesMenuList from "../navigation/header/main-nav/CategoriesMenuList";
 import LanguageSelector from "../navigation/header/main-nav/LanguageSelector";
+import DrawerRight from "../elements/DrawerRight";
 
 const SidebarMenu = ({
 	sidebarToggle = () => {},
@@ -11,7 +12,7 @@ const SidebarMenu = ({
 	settings,
 }) => {
 	return (
-		<DrawerLeft
+		<DrawerRight
 			title={"Menu"}
 			show={isSideBarOpen}
 			className={"w-[70vw]"}
@@ -28,7 +29,7 @@ const SidebarMenu = ({
 					</div>
 				</div>
 			)}
-		</DrawerLeft>
+		</DrawerRight>
 	);
 };
 

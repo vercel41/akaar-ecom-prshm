@@ -46,27 +46,17 @@ export default function MainNav({ settings, categories }) {
 
 	return (
 		<div
-			className={cn(`relative py-1.5`)}
+			className={cn(`relative py-1.5 shadow-sm md:shadow-none`)}
 			style={{
 				backgroundColor: settings?.colors?.primary,
 				color: settings?.colors?.primary_text,
 			}}
 		>
 			<div className="main-nav container">
-				<div className="header-left flex items-center justify-between gap-x-2">
-					<button
-						onClick={() => setSideMenuOpen(!sideMenuOpen)}
-						className=" md:hidden"
-					>
-						{!sideMenuOpen ? (
-							<HiMenuAlt1 size={24} />
-						) : (
-							<AiOutlineClose size={24} />
-						)}
-					</button>
+				<div className="flex items-center justify-between gap-x-2">
 					<Link
 						href="/"
-						className="logo h-[45px] lg:h-[68px] max-w-[250px] -mr-10 sm:-mr-12 md:mr-0"
+						className="logo h-[45px] lg:h-[68px] max-w-[150px] lg:max-w-[250px] -mr-10 sm:-mr-12 md:mr-0"
 					>
 						<Image
 							src={settings?.logo}
@@ -88,7 +78,7 @@ export default function MainNav({ settings, categories }) {
 							</div>
 						)}
 					</div>
-					<div className="header-actions items-center flex gap-3">
+					<div className="header-actions items-center flex gap-1 lg:gap-3">
 						<ResponsiveSearch settings={settings} />
 						{!settings?.guest_checkout ? (
 							<>
@@ -125,7 +115,7 @@ export default function MainNav({ settings, categories }) {
 						) : null}
 						<button
 							onClick={() => dispatch(toggleCart())}
-							className="group relative single-action"
+							className="group relative single-action hidden lg:block"
 						>
 							<HiOutlineShoppingCart size={24} />
 							{cart?.length ? (
@@ -142,6 +132,16 @@ export default function MainNav({ settings, categories }) {
 						<span className="hidden md:block">
 							<LanguageSelector />
 						</span>
+						<button
+							onClick={() => setSideMenuOpen(!sideMenuOpen)}
+							className=" md:hidden ml-1"
+						>
+							{!sideMenuOpen ? (
+								<HiMenuAlt1 size={24} />
+							) : (
+								<AiOutlineClose size={24} />
+							)}
+						</button>
 					</div>
 				</div>
 			</div>

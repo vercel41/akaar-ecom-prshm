@@ -7,7 +7,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 	const [selectedCategory, setSelectedCategory] = React.useState({});
 	return (
 		<div
-			className="hidden lg:block"
+			className="hidden lg:block shadow-sm"
 			style={{
 				backgroundColor: settings?.colors?.primary,
 				color: settings?.colors?.primary_text,
