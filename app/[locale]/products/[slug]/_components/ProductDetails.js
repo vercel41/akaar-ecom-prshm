@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import VideoPlayer from "@/components/elements/VideoPlayer";
 import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "@/components/modals/SizeChartModal";
+import { getFirstVariantOfColor } from "@/lib/product-variant";
 
 const ProductDetails = ({ product, settings, translations }) => {
 	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -31,9 +32,22 @@ const ProductDetails = ({ product, settings, translations }) => {
 	const [selectedVariant, setSelectedVariant] = useState(null);
 	const [selectedColor, setSelectedColor] = useState("");
 	const productViewSwiperRef = useRef(null);
+
+	//used this to get first variant of selected color to display first variant prices
+	// const firstVariantOfColor = null;
+	const firstVariantOfColor = getFirstVariantOfColor(
+		selectedColor,
+		product?.barcodes
+	);
+
 	const newPrice =
-		selectedVariant?.discount_selling_price || product?.new_price;
-	const oldPrice = selectedVariant?.selling_price || product?.old_price;
+		selectedVariant?.discount_selling_price ||
+		firstVariantOfColor?.discount_selling_price ||
+		product?.new_price;
+	const oldPrice =
+		selectedVariant?.selling_price ||
+		firstVariantOfColor?.selling_price ||
+		product?.old_price;
 
 	const { isFbPixelInitialized } = useSelector((state) => state.common);
 	const flag = useRef(true);

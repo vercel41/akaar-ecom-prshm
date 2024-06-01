@@ -18,9 +18,7 @@ const Header = async () => {
 	return (
 		<>
 			<header className="header fixed z-30 w-full">
-				{settings?.offer_massage && (
-					<TopBar offerMassage={settings?.offer_massage} />
-				)}
+				{settings?.offer_massage && <TopBar settings={settings} />}
 				<MainNav settings={settings} categories={categories} />
 				<CategoriesMegaMenu settings={settings} categories={categories} />
 				{/* <CategoriesNav categories={categories} settings={settings} /> */}
