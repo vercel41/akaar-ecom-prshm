@@ -29,6 +29,7 @@ import ScriptLoader from "@/components/elements/ScriptLoader";
 // import NoScriptLoader from "@/components/elements/NoScriptLoader";
 import ViewHTML from "@/components/elements/ViewHTML";
 // import FacebookPixel from "@/components/utility/FacebookPixel";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const generateMetadata = async ({ params }) => {
 	let settings = {};
@@ -126,8 +127,13 @@ export default async function RootLayout({ children, params }) {
 	// console.log(headerScript);
 	// console.log(footerScript);
 
+	const GTM_ID = settings?.gtm_id || process.env.NEXT_PUBLIC_GTM_ID;
+	// console.log(GTM_ID);
+
 	return (
 		<html lang={params.locale}>
+			{/* Google Tag Manager  */}
+			{GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
 			<body>
 				<ReduxProvider>
 					<Header />
