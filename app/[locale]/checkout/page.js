@@ -42,11 +42,11 @@ const Checkout = () => {
 			title: `Inside ${settings?.delivery_region || "Dhaka"}`,
 			charges: settings?.inside_dhaka_delivery_charges,
 		},
-		{
-			key: "sub dhaka",
-			title: `Sub ${settings?.delivery_region || "Dhaka"}`,
-			charges: settings?.sub_dhaka_delivery_charges,
-		},
+		// {
+		// 	key: "sub dhaka",
+		// 	title: `Sub ${settings?.delivery_region || "Dhaka"}`,
+		// 	charges: settings?.sub_dhaka_delivery_charges,
+		// },
 		{
 			key: "outside dhaka",
 			title: `Outside ${settings?.delivery_region || "Dhaka"}`,
