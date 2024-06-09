@@ -30,7 +30,7 @@ const useOrderPlace = () => {
 			newOrder.payment_type = "Online"; //forcing to use payment type Online
 			let paymentUri = getPaymentUriByTitle(newOrder.payment_method?.title);
 			let isDeliveryChargePayment =
-				newOrder?.paymentOption?.key === "delivery_charge_payment" &&
+				newOrder?.paymentOption === "delivery_charge_payment" &&
 				newOrder?.delivery_charge
 					? true
 					: false;

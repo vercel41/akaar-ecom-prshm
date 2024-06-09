@@ -33,6 +33,8 @@ const OrderSuccess = ({ params }) => {
 		}
 	}, [order, isFbPixelInitialized]);
 
+	console.log(settings);
+
 	return (
 		<>
 			<div className="container">
@@ -104,8 +106,8 @@ const OrderSuccess = ({ params }) => {
 										href={`${process.env.serverBaseUrl}/in/${order?.customer?.id}/${order?.id}/sale`}
 										className="border py-3 w-full px-6 text-center active:scale-95"
 										style={{
-											border: `1px solid ${settings?.colors?.primary_text}`,
-											color: settings?.colors?.primary_text,
+											border: `1px solid ${settings?.colors?.default_text}`,
+											color: settings?.colors?.default_text,
 										}}
 									>
 										Download Invoice

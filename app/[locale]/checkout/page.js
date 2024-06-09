@@ -27,6 +27,7 @@ import useOrderPlace from "@/hooks/useOrderPlace";
 import useProfileUpdate from "@/hooks/useProfileUpdate";
 import ShippingForm from "./ShippingForm";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
 	// Dynamic delivery charges
@@ -35,20 +36,27 @@ const Checkout = () => {
 	);
 	const flag = useRef(true);
 	// console.log(settings);
-	const deliveryMethods = [
+	const deliveryAreas = [
 		{
-			key: "inside dhaka",
-			title: `${translations["inside-dhaka"] || "Inside Dhaka"}`,
+			key: `inside dhaka`,
+			title: `Inside ${settings?.delivery_region || "Dhaka"}`,
 			charges: settings?.inside_dhaka_delivery_charges,
 		},
 		{
+			key: "sub dhaka",
+			title: `Sub ${settings?.delivery_region || "Dhaka"}`,
+			charges: settings?.sub_dhaka_delivery_charges,
+		},
+		{
 			key: "outside dhaka",
-			title: `${translations["outside-dhaka"] || "Outside Dhaka"}`,
+			title: `Outside ${settings?.delivery_region || "Dhaka"}`,
 			charges: settings?.outside_dhaka_delivery_charges,
 		},
 	];
 
-	const [deliveryMethod, setDeliveryMethod] = useState(deliveryMethods[0]);
+	const [deliveryArea, setDeliveryArea] = useState(null); // default delivery area removed
+	const [isDeliveryChargeRequired, setIsDeliveryChargeRequired] =
+		useState(false);
 	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
 	const [orderCollapsed, setOrderCollapsed] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -88,10 +96,35 @@ const Checkout = () => {
 	const deliveryCharge =
 		settings?.free_delivery_charges_limit > totalWithDiscount ||
 		settings?.free_delivery_charges_limit <= 0
-			? deliveryMethod.charges
+			? deliveryArea?.charges || 0
 			: 0;
 
 	const grandTotal = totalWithDiscount + deliveryCharge;
+
+	//Handling delivery area and delivery charge Required
+	const handleDeliveryAreaChange = (area) => {
+		setDeliveryArea(area);
+		switch (area?.key) {
+			case "inside dhaka":
+				settings?.is_delivery_charge_required_for_inside
+					? setIsDeliveryChargeRequired(true)
+					: setIsDeliveryChargeRequired(false);
+				break;
+			case "sub dhaka":
+				settings?.is_delivery_charge_required_for_sub_region
+					? setIsDeliveryChargeRequired(true)
+					: setIsDeliveryChargeRequired(false);
+				break;
+			case "outside dhaka":
+				settings?.is_delivery_charge_required_for_outside
+					? setIsDeliveryChargeRequired(true)
+					: setIsDeliveryChargeRequired(false);
+				break;
+			default:
+				setIsDeliveryChargeRequired(false);
+				break;
+		}
+	};
 
 	// console.log(isDeliveryCharge);
 
@@ -104,7 +137,7 @@ const Checkout = () => {
 
 			if (
 				activePayments?.length > 1 &&
-				settings?.is_delivery_charge_required &&
+				isDeliveryChargeRequired &&
 				activePayments[0].key === "COD" &&
 				deliveryCharge
 			) {
@@ -113,13 +146,13 @@ const Checkout = () => {
 				setSelectedPayMethod(activePayments[0]);
 			}
 		}
-	}, [paymentMethods, deliveryCharge, settings?.is_delivery_charge_required]);
+	}, [paymentMethods, deliveryCharge, isDeliveryChargeRequired]);
 
 	const paymentOptions = [
 		{
 			key: "delivery_charge_payment",
 			title: `Pay delivery charge only`,
-			value: deliveryMethod.charges,
+			value: deliveryArea?.charges || 0,
 		},
 		{
 			key: "total_payment",
@@ -128,10 +161,16 @@ const Checkout = () => {
 		},
 	];
 	const [selectedPaymentOption, setSelectedPaymentOption] = useState(
-		settings?.is_delivery_charge_required ? paymentOptions[0] : null
+		"delivery_charge_payment"
 	);
 
 	const handleCheckoutSubmit = async (data) => {
+		if (!deliveryArea) {
+			document.getElementById("deliveryAreaError").classList.remove("hidden");
+			toast.error("Please select delivery area");
+			return;
+		}
+
 		let phone = data?.phone;
 		let alt_phone = data?.phone;
 		let fullAddress = data.address + ", " + data.city;
@@ -150,14 +189,17 @@ const Checkout = () => {
 			alt_address: fullAddress,
 			order_items: getOrderFormattedCartItems(cart),
 			payment_method: selectedPayMethod,
-			delivery_type: deliveryCharge ? deliveryMethod.key : "free delivery",
+			delivery_type: deliveryCharge ? deliveryArea.key : "free delivery",
 			delivery_charge: deliveryCharge,
 			coupon: discountCoupon?.code || null,
 			coupon_discount: discountedPrice,
 			subtotal: total,
 			after_discount: totalWithDiscount,
 			grand_total: grandTotal,
-			paymentOption: selectedPaymentOption,
+			paymentOption:
+				isDeliveryChargeRequired && deliveryCharge
+					? selectedPaymentOption
+					: "total_payment",
 			// note: "",
 		};
 		// console.log(newOrder);
@@ -232,27 +274,32 @@ const Checkout = () => {
 					settings?.free_delivery_charges_limit <= 0 ? (
 						<div className="lg:order-2 px-3 lg:px-9 py-4">
 							<h4 className="text-slate-700 font-bold">
-								{translations["delivery-options"] || "Delivery Options"}
+								{translations["select-delivery-area"] || "Select Delivery Area"}
 							</h4>
 							<div className="flex flex-col gap-3 pt-3">
-								{deliveryMethods.map((dm) => (
+								{deliveryAreas.map((area) => (
 									<button
-										key={dm.key}
+										key={area.key}
 										className="flex gap-2 items-center border border-slate-200 p-3"
-										onClick={() => setDeliveryMethod(dm)}
+										onClick={() => handleDeliveryAreaChange(area)}
 									>
 										<CustomRadio
-											isChecked={deliveryMethod.key === dm.key}
-											label={dm.title}
-											// onClick={() => setDeliveryMethod(dm)}
+											isChecked={deliveryArea?.key === area.key}
+											label={area.title}
+											// onClick={() => setDeliveryArea(area)}
 										/>
 										<p>
 											{siteConfig.currency.sign}
-											{dm.charges}
+											{area.charges}
 										</p>
 									</button>
 								))}
 							</div>
+							{!deliveryArea && (
+								<p id="deliveryAreaError" className="hidden errorMsg">
+									You must select delivery area
+								</p>
+							)}
 						</div>
 					) : null}
 					{/* Cart Items  */}
@@ -326,18 +373,22 @@ const Checkout = () => {
 								{totalWithDiscount}
 							</p>
 						</div>
-						<div className="flex-between my-2">
-							<p>
-								{translations["delivery-charge"] || "Delivery Charge"}{" "}
-								{!deliveryCharge && (
-									<span className="bg-green-100 px-2 text-green-500">Free</span>
-								)}
-							</p>
-							<p>
-								{siteConfig.currency.shortForm}
-								{deliveryCharge}
-							</p>
-						</div>
+						{deliveryArea && (
+							<div className="flex-between my-2">
+								<p>
+									{translations["delivery-charge"] || "Delivery Charge"}{" "}
+									{!deliveryCharge && (
+										<span className="bg-green-100 px-2 text-green-500">
+											Free
+										</span>
+									)}
+								</p>
+								<p>
+									{siteConfig.currency.shortForm}
+									{deliveryCharge}
+								</p>
+							</div>
+						)}
 						<div className="border-b border-slate-900 my-2"></div>
 						<div className="flex-between my-2 font-bold">
 							<p>{translations["grand-total"] || "Grand Total"}</p>
@@ -364,7 +415,7 @@ const Checkout = () => {
 					)}
 					{/* Payment Area  */}
 					<div>
-						{settings?.is_delivery_charge_required && deliveryCharge ? (
+						{isDeliveryChargeRequired && deliveryCharge ? (
 							<div className="form-control">
 								<h4 className="text-slate-700 font-bold">
 									{translations["payment-options"] || "Payment Options"}
@@ -375,12 +426,12 @@ const Checkout = () => {
 											key={payOption.key}
 											type="button"
 											className="flex gap-2 items-center border border-slate-200 p-3"
-											onClick={() => setSelectedPaymentOption(payOption)}
+											onClick={() => setSelectedPaymentOption(payOption.key)}
 										>
 											<CustomRadio
-												isChecked={selectedPaymentOption.key === payOption.key}
+												isChecked={payOption.key === selectedPaymentOption}
 												label={payOption.title}
-												// onClick={() => setDeliveryMethod(pt)}
+												// onClick={() => setDeliveryArea(pt)}
 											/>
 											<p>
 												{siteConfig.currency.sign}
@@ -400,7 +451,7 @@ const Checkout = () => {
 									{Object.keys(paymentMethods).map((method, index) =>
 										paymentMethods[method].status === 1 &&
 										!(
-											settings?.is_delivery_charge_required &&
+											isDeliveryChargeRequired &&
 											paymentMethods[method].key === "COD" &&
 											deliveryCharge
 										) ? (
