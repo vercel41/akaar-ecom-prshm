@@ -26,7 +26,7 @@ const useOrderPlace = () => {
 		// }
 
 		dispatch(setGlobalLoader(true));
-		if (newOrder.payment_method?.key !== "COD") {
+		if (newOrder.paymentOption !== "no_payment") {
 			newOrder.payment_type = "Online"; //forcing to use payment type Online
 			let paymentUri = getPaymentUriByTitle(newOrder.payment_method?.title);
 			let isDeliveryChargePayment =
