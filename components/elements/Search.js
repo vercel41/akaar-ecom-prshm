@@ -111,7 +111,7 @@ const Search = () => {
 
 	return (
 		<div className="nav-search relative">
-			<div className="rounded-full bg-white">
+			<div className="rounded-full">
 				<input
 					value={searchTerm}
 					onKeyDown={handleInput}
@@ -119,7 +119,7 @@ const Search = () => {
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 					type="text"
-					placeholder={"search"}
+					placeholder={"Search"}
 					className="search-input"
 				/>
 
@@ -128,7 +128,7 @@ const Search = () => {
 					onClick={() => handleSearch(searchTerm)}
 					className="search-btn"
 				>
-					<HiMagnifyingGlass size={24} />
+					<HiMagnifyingGlass size={20} />
 				</button>
 			</div>
 			{showSuggestionResults && (searchHistory?.length || popular?.length) ? (

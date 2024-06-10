@@ -16,17 +16,17 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 		>
 			<div className="container">
 				<div
-					className="border-t border-white !opacity-30"
+					className="border-t border-white !opacity-10"
 					style={{ borderColor: settings?.colors?.primary_text }}
 				></div>
-				<div className="py-2">
-					<div className="flex items-center gap-4 text-sm font-normal">
+				<div className="py-3">
+					<div className="flex items-center gap-4 text-sm font-semibold !opacity-90">
 						{categories?.slice(0, 9)?.map((category, mainIndex) => (
 							<Link
 								href={`/categories/${category.slug}`}
 								key={mainIndex}
 								onMouseEnter={() => setSelectedCategory(category)}
-								className={`capitalize ${
+								className={`uppercase ${
 									category?.child_categories?.length
 										? "flex items-center gap-1.5"
 										: ""
@@ -59,7 +59,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 									<div className="transform hover:translate-x-1 transition-transform ease-in-out duration-300">
 										<Link
 											href={`/categories/${subCategory.slug}`}
-											className="font-medium text-xs capitalize"
+											className="font-medium text-xs uppercase"
 										>
 											{subCategory?.category_name}
 										</Link>
@@ -74,7 +74,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 												>
 													<Link
 														href={`/categories/${childCategory.slug}`}
-														className="mt-2 font-light text-xs opacity-80 capitalize"
+														className="mt-2 font-light text-xs opacity-90 uppercase"
 													>
 														{childCategory?.category_name}
 													</Link>

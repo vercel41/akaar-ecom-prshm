@@ -71,7 +71,7 @@ export default function MainNav({ settings, categories }) {
 						{settings?.phone[0] && (
 							<div className="flex items-center gap-2">
 								<IoCall size={24} />
-								<div className="text-xs">
+								<div className="text-xs capitalize">
 									<p>Call us now</p>
 									<p>{settings?.phone[0] || ""}</p>
 								</div>

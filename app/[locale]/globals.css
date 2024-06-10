@@ -76,10 +76,10 @@
 }
 
 .search-input {
-	@apply border-r-0 rounded-l-full focus:border-slate-300 py-2.5;
+	@apply rounded-l-full border-none outline-none bg-[#f6f7f8] text-sm h-auto py-2.5;
 }
 .search-btn {
-	@apply absolute w-12 py-[11px] bg-transparent text-secondary border border-slate-300 rounded-e-full outline-none text-center;
+	@apply ml-0.5 absolute w-12 py-2 bg-[#f6f7f8] text-[#212529] border-none rounded-e-full outline-none text-center;
 }
 
 .all-btn {

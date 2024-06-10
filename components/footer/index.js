@@ -111,7 +111,7 @@ const Footer = async () => {
 					</div>
 				</div>
 			</div>
-			<ScrollToTopButton />
+			<ScrollToTopButton settings={settings} />
 		</footer>
 	);
 };
