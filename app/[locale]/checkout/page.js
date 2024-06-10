@@ -57,6 +57,7 @@ const Checkout = () => {
 	const [deliveryArea, setDeliveryArea] = useState(null); // default delivery area removed
 	const [isDeliveryChargeRequired, setIsDeliveryChargeRequired] =
 		useState(false);
+	const [activePaymentMethods, setActivePaymentMethods] = useState(null);
 	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
 	const [orderCollapsed, setOrderCollapsed] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -135,39 +136,49 @@ const Checkout = () => {
 				(payMethod) => payMethod?.status === 1
 			);
 
-			if (
-				activePayments?.length > 1 &&
-				isDeliveryChargeRequired &&
-				activePayments[0].key === "COD" &&
-				deliveryCharge
-			) {
+			if (activePayments?.length > 1 && activePayments[0].key === "COD") {
 				setSelectedPayMethod(activePayments[1]);
 			} else {
 				setSelectedPayMethod(activePayments[0]);
 			}
+			setActivePaymentMethods(activePayments);
 		}
-	}, [paymentMethods, deliveryCharge, isDeliveryChargeRequired]);
+	}, [paymentMethods]);
 
 	const paymentOptions = [
 		{
-			key: "delivery_charge_payment",
-			title: `Pay delivery charge only`,
-			value: deliveryArea?.charges || 0,
-		},
-		{
-			key: "total_payment",
-			title: `Pay total amount`,
+			key: "no_payment",
+			title: `Cash on delivery`,
 			value: grandTotal,
 		},
-	];
-	const [selectedPaymentOption, setSelectedPaymentOption] = useState(
-		"delivery_charge_payment"
-	);
+		activePaymentMethods?.length > 1 && deliveryArea?.charges
+			? {
+					key: "delivery_charge_payment",
+					title: `Pay delivery charge only`,
+					value: deliveryArea.charges,
+			  }
+			: null,
+		activePaymentMethods?.length > 1
+			? {
+					key: "total_payment",
+					title: `Pay total amount`,
+					value: grandTotal,
+			  }
+			: null,
+	].filter((option) => option !== null);
+
+	const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 
 	const handleCheckoutSubmit = async (data) => {
 		if (!deliveryArea) {
 			document.getElementById("deliveryAreaError").classList.remove("hidden");
 			toast.error("Please select delivery area");
+			return;
+		}
+
+		if (!selectedPaymentOption) {
+			document.getElementById("paymentOptionError").classList.remove("hidden");
+			toast.error("Please select payment option");
 			return;
 		}
 
@@ -196,10 +207,7 @@ const Checkout = () => {
 			subtotal: total,
 			after_discount: totalWithDiscount,
 			grand_total: grandTotal,
-			paymentOption:
-				isDeliveryChargeRequired && deliveryCharge
-					? selectedPaymentOption
-					: "total_payment",
+			paymentOption: selectedPaymentOption,
 			// note: "",
 		};
 		// console.log(newOrder);
@@ -415,34 +423,46 @@ const Checkout = () => {
 					)}
 					{/* Payment Area  */}
 					<div>
-						{isDeliveryChargeRequired && deliveryCharge ? (
+						{/* Payment Options Area */}
+						{deliveryArea ? (
 							<div className="form-control">
 								<h4 className="text-slate-700 font-bold">
 									{translations["payment-options"] || "Payment Options"}
 								</h4>
 								<div className="flex flex-col gap-3 pt-3">
-									{paymentOptions.map((payOption) => (
-										<button
-											key={payOption.key}
-											type="button"
-											className="flex gap-2 items-center border border-slate-200 p-3"
-											onClick={() => setSelectedPaymentOption(payOption.key)}
-										>
-											<CustomRadio
-												isChecked={payOption.key === selectedPaymentOption}
-												label={payOption.title}
-												// onClick={() => setDeliveryArea(pt)}
-											/>
-											<p>
-												{siteConfig.currency.sign}
-												{payOption.value}
-											</p>
-										</button>
-									))}
+									{paymentOptions.map((payOption) =>
+										payOption.key === "no_payment" &&
+										isDeliveryChargeRequired &&
+										activePaymentMethods?.length > 1 ? null : (
+											<button
+												key={payOption.key}
+												type="button"
+												className="flex gap-2 items-center border border-slate-200 p-3"
+												onClick={() => setSelectedPaymentOption(payOption.key)}
+											>
+												<CustomRadio
+													isChecked={payOption.key === selectedPaymentOption}
+													label={payOption.title}
+													// onClick={() => setDeliveryArea(pt)}
+												/>
+												<p>
+													{siteConfig.currency.sign}
+													{payOption.value}
+												</p>
+											</button>
+										)
+									)}
 								</div>
+								{!selectedPaymentOption && (
+									<p id="paymentOptionError" className="hidden errorMsg">
+										You must select a payment option
+									</p>
+								)}
 							</div>
 						) : null}
-						{selectedPayMethod && (
+						{/* Payment Methods Area */}
+						{(selectedPaymentOption === "delivery_charge_payment" ||
+							selectedPaymentOption === "total_payment") && (
 							<div className="form-control mt-4">
 								<h4 className="text-slate-700 font-bold">
 									{translations["payment-method"] || "Payment Method"}
@@ -450,11 +470,7 @@ const Checkout = () => {
 								<div className="flex flex-col gap-3 mt-3">
 									{Object.keys(paymentMethods).map((method, index) =>
 										paymentMethods[method].status === 1 &&
-										!(
-											isDeliveryChargeRequired &&
-											paymentMethods[method].key === "COD" &&
-											deliveryCharge
-										) ? (
+										!(paymentMethods[method].key === "COD") ? (
 											<div
 												key={index}
 												type="button"
@@ -466,7 +482,7 @@ const Checkout = () => {
 												<CustomRadio
 													isChecked={
 														paymentMethods[method].title ===
-														selectedPayMethod.title
+														selectedPayMethod?.title
 													}
 													label={paymentMethods[method].title}
 												/>
