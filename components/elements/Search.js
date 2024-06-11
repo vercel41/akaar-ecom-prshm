@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 const Search = () => {
 	const [showSuggestionResults, setShowSuggestionResults] = useState(false);
 	const { user } = useSelector((state) => state.auth);
-	// const { translations } = useSelector((state) => state.common);
+	// const { settings } = useSelector((state) => state.common);
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const { data: popularSearch } = useGetPopularSearchQuery(null, {
@@ -111,7 +111,7 @@ const Search = () => {
 
 	return (
 		<div className="nav-search relative">
-			<div className="rounded-full">
+			<div className="rounded-full group">
 				<input
 					value={searchTerm}
 					onKeyDown={handleInput}
