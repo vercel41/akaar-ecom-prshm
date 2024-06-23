@@ -2,23 +2,25 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Timer from "@/components/elements/Timer";
-import ProductSlider from "@/components/ProductSlider";
+// import ProductSlider from "@/components/ProductSlider";
 import { useGetProductFlashSaleQuery } from "@/store/api/productFlashSaleAPI";
 import { useSelector } from "react-redux";
+import ProductList from "@/components/products/ProductList";
 
 const FlashSale = () => {
 	const { locale } = useParams();
 	const { translations } = useSelector((state) => state.common);
 	const { data: flashSaleData, isLoading } = useGetProductFlashSaleQuery({
 		locale,
+		searchQuery: `per_page=4`,
 	});
 	const flashSaleInfo = flashSaleData?.flashSale || {};
-	const saleProducts = flashSaleData?.data || [];
+	const products = flashSaleData?.data || [];
 	if (flashSaleData?.status === false || isLoading || !flashSaleData)
 		return null;
 
 	return (
-		<div className="relative">
+		<div className="relative mt-16">
 			<div className="sec-heading absolute top-[-30px] left-0 w-full flex flex-col lg:flex-row justify-center lg:justify-between items-center">
 				<div className=" bg-white">
 					<h2 className="sec-title">
@@ -36,11 +38,12 @@ const FlashSale = () => {
 				</div>
 			</div>
 			<div className="flashSale-slider pt-32 lg:pt-16">
-				<ProductSlider
-					products={saleProducts}
+				{/* <ProductSlider
+					products={products}
 					sliderId="flash-sale"
 					isFlashSale
-				/>
+				/> */}
+				<ProductList products={products} isFlashSale={true} />
 			</div>
 		</div>
 	);

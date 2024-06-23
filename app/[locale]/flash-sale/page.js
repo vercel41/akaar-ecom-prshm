@@ -45,7 +45,7 @@ const FlashSellingProducts = async ({ searchParams }) => {
 			</div>
 
 			<div className="container lg:mb-20">
-				<div className="toolbar flex justify-between items-center bg-slate-50 rounded-xl py-3 my-5">
+				<div className="toolbar flex justify-between items-center bg-slate-50 rounded-xl p-3 my-5">
 					<p>Total {products?.length} products</p>
 					<Suspense fallback={<SearchBarFallback />}>
 						<SortSelect />

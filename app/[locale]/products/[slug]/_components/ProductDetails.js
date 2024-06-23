@@ -78,9 +78,11 @@ const ProductDetails = ({ product, settings, translations }) => {
 					</div>
 					<div className="lg:w-1/2">
 						<div className="product-content-wrap">
-							<p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
-								{product?.brand?.brand_name || "No Brand"}
-							</p>
+							{product?.brand?.brand_name && (
+								<p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
+									{product.brand.brand_name}
+								</p>
+							)}
 							<h5 className="text-2xl font-title font-bold text-slate-900">
 								{getSlicedText(product?.product_name, 100)}
 							</h5>
