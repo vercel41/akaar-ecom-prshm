@@ -116,7 +116,7 @@ const Footer = async () => {
 			</div>
 			<ScrollToTopButton settings={settings} />
 			<Link
-					className="fixed z-30 bottom-20 right-6 text-blue-500"
+					className="fixed z-30 bottom-[75px] right-5 text-blue-500"
 					target="_blank"
 					href={`https://m.me/${messengerUser}`}
 				>

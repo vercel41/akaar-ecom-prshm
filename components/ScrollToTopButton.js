@@ -28,7 +28,7 @@ const ScrollToTopButton = ({ settings }) => {
 		<>
 			{isVisible && (
 				<div
-					className="scroll-to-top-button z-50 fixed right-5 bottom-5 rounded-full shadow-lg h-14 w-14 inline-flex justify-center items-center cursor-pointer"
+					className="scroll-to-top-button z-50 fixed right-5 bottom-5 rounded-full shadow-lg h-[43px] w-[43px] inline-flex justify-center items-center cursor-pointer"
 					onClick={scrollToTop}
 					style={{
 						backgroundColor: settings?.colors?.primary,
