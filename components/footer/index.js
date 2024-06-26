@@ -5,6 +5,7 @@ import SubscriptionForm from "./SubscriptionForm";
 // ** Import Icons
 import SocialIcon from "../elements/SocialIcon";
 import ScrollToTopButton from "../ScrollToTopButton";
+import { FaFacebookMessenger } from "react-icons/fa";
 
 const Footer = async () => {
 	const translationData = await fetchData({ api: "translations" });
@@ -13,6 +14,8 @@ const Footer = async () => {
 
 	const footerPage = settings?.footer_page || [];
 	const helpPage = settings?.help_page || [];
+
+	const messengerUser = settings?.facebook_link?.split("/")[3] || "no-user";
 
 	return (
 		<footer
@@ -112,6 +115,13 @@ const Footer = async () => {
 				</div>
 			</div>
 			<ScrollToTopButton settings={settings} />
+			<Link
+					className="fixed z-30 bottom-20 right-6 text-blue-500"
+					target="_blank"
+					href={`https://m.me/${messengerUser}`}
+				>
+					<FaFacebookMessenger size={45} />
+				</Link>
 		</footer>
 	);
 };
