@@ -67,8 +67,8 @@ const PaymentFail = ({ params }) => {
 										href={`/dashboard/my-orders/details/${order_id}`}
 										className="border py-3 w-full px-6 text-center active:scale-95"
 										style={{
-											border: `1px solid ${settings?.colors?.primary_text}`,
-											color: settings?.colors?.primary_text,
+											border: `1px solid ${settings?.colors?.default_text}`,
+											color: settings?.colors?.default_text,
 										}}
 									>
 										View Order

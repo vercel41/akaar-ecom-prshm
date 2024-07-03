@@ -28,6 +28,7 @@ import useProfileUpdate from "@/hooks/useProfileUpdate";
 import ShippingForm from "./ShippingForm";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { toast } from "react-toastify";
+import { cn } from "@/utils";
 
 const Checkout = () => {
 	// Dynamic delivery charges
@@ -59,6 +60,7 @@ const Checkout = () => {
 		useState(false);
 	const [activePaymentMethods, setActivePaymentMethods] = useState(null);
 	const [selectedPayMethod, setSelectedPayMethod] = useState(null);
+	const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 	const [orderCollapsed, setOrderCollapsed] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
@@ -105,6 +107,7 @@ const Checkout = () => {
 	//Handling delivery area and delivery charge Required
 	const handleDeliveryAreaChange = (area) => {
 		setDeliveryArea(area);
+		setSelectedPaymentOption(null);
 		switch (area?.key) {
 			case "inside dhaka":
 				settings?.is_delivery_charge_required_for_inside
@@ -166,8 +169,6 @@ const Checkout = () => {
 			  }
 			: null,
 	].filter((option) => option !== null);
-
-	const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 
 	const handleCheckoutSubmit = async (data) => {
 		if (!deliveryArea) {
@@ -278,38 +279,41 @@ const Checkout = () => {
 					className="border border-slate-200 grid grid-cols-1"
 				>
 					{/* Delivery Options  */}
-					{settings?.free_delivery_charges_limit > totalWithDiscount ||
-					settings?.free_delivery_charges_limit <= 0 ? (
-						<div className="lg:order-2 px-3 lg:px-9 py-4">
-							<h4 className="text-slate-700 font-bold">
-								{translations["select-delivery-area"] || "Select Delivery Area"}
-							</h4>
-							<div className="flex flex-col gap-3 pt-3">
-								{deliveryAreas.map((area) => (
-									<button
-										key={area.key}
-										className="flex gap-2 items-center border border-slate-200 p-3"
-										onClick={() => handleDeliveryAreaChange(area)}
+					<div className="lg:order-2 px-3 lg:px-9 py-4">
+						<h4 className="text-slate-700 font-bold">
+							{translations["select-delivery-area"] || "Select Delivery Area"}
+						</h4>
+						<div className="flex flex-col gap-3 pt-3">
+							{deliveryAreas.map((area) => (
+								<button
+									key={area.key}
+									className="flex gap-2 items-center border border-slate-200 p-3"
+									onClick={() => handleDeliveryAreaChange(area)}
+								>
+									<CustomRadio
+										isChecked={deliveryArea?.key === area.key}
+										label={area.title}
+										// onClick={() => setDeliveryArea(area)}
+									/>
+									<p
+										className={cn(
+											`font-semibold`,
+											!deliveryCharge && deliveryArea && "line-through"
+										)}
 									>
-										<CustomRadio
-											isChecked={deliveryArea?.key === area.key}
-											label={area.title}
-											// onClick={() => setDeliveryArea(area)}
-										/>
-										<p>
-											{siteConfig.currency.sign}
-											{area.charges}
-										</p>
-									</button>
-								))}
-							</div>
-							{!deliveryArea && (
-								<p id="deliveryAreaError" className="hidden errorMsg">
-									You must select delivery area
-								</p>
-							)}
+										{siteConfig.currency.sign}
+										{area.charges}
+									</p>
+								</button>
+							))}
 						</div>
-					) : null}
+						{!deliveryArea && (
+							<p id="deliveryAreaError" className="hidden errorMsg">
+								You must select delivery area
+							</p>
+						)}
+					</div>
+
 					{/* Cart Items  */}
 					<div className="lg:order-1">
 						<div className="border-b border-slate-200 text-left p-3 lg:p-5">

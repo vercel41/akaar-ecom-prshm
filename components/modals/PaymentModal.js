@@ -18,9 +18,7 @@ const PaymentModal = ({ selectedOrder, setSelectedOrder }) => {
 	const dispatch = useDispatch();
 	const isPaymentOptions =
 		selectedOrder?.due_amount !== 0 &&
-		selectedOrder?.due_amount === selectedOrder?.total_amount &&
-		settings?.is_delivery_charge_required;
-	// isDeliveryChargePayment
+		selectedOrder?.due_amount === selectedOrder?.total_amount;
 
 	const paymentOptions = [
 		{

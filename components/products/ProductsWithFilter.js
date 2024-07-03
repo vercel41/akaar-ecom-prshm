@@ -7,11 +7,12 @@ import NoProducts from "./NoProducts";
 import FilterMenu from "../elements/FilterMenu";
 import ProductFilters from "./ProductFilters";
 import FilterPanel from "../side-drawers/FilterPanel";
+import PageSize from "../elements/PageSize";
 
 const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 	const params = new URLSearchParams(customSearchParams);
 	const productResponse = await fetchData({
-		api: `products?per_page=20&${params.toString()}`,
+		api: `products?per_page=30&${params.toString()}`,
 	});
 	const products = productResponse?.data || [];
 	const meta = productResponse?.meta || {};
@@ -20,10 +21,13 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 		<>
 			<div className="container mb-3 md:mb-20">
 				<div className="actions-bar flex justify-between items-center mb-3 md:mb-8">
-					<div className="">
-						<FilterMenu />
-						{/* <FilterPanel category={category} /> */}
-						{/* <p>Total {meta?.total} products found</p> */}
+					<div className="flex items-center gap-48 w-1/2">
+						<div>
+							<FilterMenu />
+						</div>
+						<div className="hidden lg:block">
+							<PageSize />
+						</div>
 					</div>
 					<div className="">
 						<SortSelect />
