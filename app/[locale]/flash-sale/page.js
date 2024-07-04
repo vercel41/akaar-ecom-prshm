@@ -17,7 +17,7 @@ const FlashSellingProducts = async ({ searchParams }) => {
 	const params = new URLSearchParams(searchParams);
 	// console.log(searchParams);
 	const flashSaleResponse = await fetchData({
-		api: `product-flash-sale?per_page=20&${params.toString()}`,
+		api: `product-flash-sale?per_page=30&${params.toString()}`,
 	});
 	const flashSaleInfo = flashSaleResponse?.flashSale || {};
 	const products = flashSaleResponse?.data || [];

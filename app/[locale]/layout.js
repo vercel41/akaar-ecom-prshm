@@ -140,7 +140,7 @@ export default async function RootLayout({ children, params }) {
 					<main
 						className={`${
 							settings?.offer_massage
-								? "pt-[89px] md:pt-[145px]"
+								? "pt-[89px] md:pt-[157px]"
 								: "pt-[57px] md:pt-[113px]"
 						}`}
 					>

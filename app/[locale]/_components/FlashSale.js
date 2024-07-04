@@ -14,6 +14,7 @@ const FlashSale = () => {
 		locale,
 		searchQuery: `per_page=4`,
 	});
+
 	const flashSaleInfo = flashSaleData?.flashSale || {};
 	const products = flashSaleData?.data || [];
 	if (flashSaleData?.status === false || isLoading || !flashSaleData)
