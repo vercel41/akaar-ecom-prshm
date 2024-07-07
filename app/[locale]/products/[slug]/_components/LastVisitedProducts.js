@@ -44,7 +44,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
 					{translations["recently-viewed"] || "Recently Viewed"}
 				</h2>
 				<div className="category-products"></div>
-				<div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-5">
+				<div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-5">
 					{visitedProducts?.map((product, i) => (
 						<div key={i}>
 							<ProductCard product={product} />

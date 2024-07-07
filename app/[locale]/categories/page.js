@@ -29,7 +29,7 @@ const page = async () => {
 			</div>
 
 			<div className="container mt-4 md:mt-8 mb-4 md:mb-24">
-				<div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-3 md:gap-5 mb-12">
+				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6  gap-3 md:gap-5 mb-12">
 					{categories?.map((category, i) => (
 						<div
 							className="category flex flex-col justify-center items-center border p-3 lg:p-4"
@@ -45,7 +45,7 @@ const page = async () => {
 									width={180}
 									height={200}
 									// style={{ width: "auto", height: "auto" }}
-									className="h-full w-full object-cover hover:scale-105 ease-in-out duration-300"
+									className="h-full w-full object-cover object-top hover:scale-105 ease-in-out duration-300"
 								/>
 							</Link>
 							<Link

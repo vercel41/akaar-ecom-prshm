@@ -30,7 +30,7 @@ const HomeCategoryProducts = async () => {
 					{/* <div className="">
             <ProductSlider products={products} sliderId={index} />
           </div> */}
-					<ProductList products={products?.slice(0, 4)} />
+					<ProductList products={products?.slice(0, 5)} fixedItems={true} />
 				</div>
 		  ))
 		: null;

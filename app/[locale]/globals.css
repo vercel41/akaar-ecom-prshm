@@ -56,8 +56,8 @@
 
 @layer components {
 	.container {
-		@apply md:px-5 2xl:max-w-[1276px];
-		/* @apply md:px-5 max-w-[1440px]; */
+		/* @apply md:px-5 2xl:max-w-[1276px]; */
+		@apply md:px-5 2xl:max-w-[1536px];
 	}
 }
 
@@ -68,7 +68,8 @@
 }
 
 .nav-search {
-	width: 25rem;
+	/* width: 25rem; */
+	@apply w-[25rem] relative 2xl:w-[35rem];
 }
 
 .nav-search input {

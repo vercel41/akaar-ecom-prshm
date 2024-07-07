@@ -44,7 +44,7 @@ const FlashSale = () => {
 					sliderId="flash-sale"
 					isFlashSale
 				/> */}
-				<ProductList products={products} isFlashSale={true} />
+				<ProductList products={products} isFlashSale={true} fixedItems={true}/>
 			</div>
 		</div>
 	);

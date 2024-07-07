@@ -66,7 +66,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 	return (
 		<>
 			<div className="relative product-details">
-				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10">
+				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10 2xl:gap-3">
 					<div className="lg:w-1/2">
 						<div className="sticky top-32">
 							<ProductViewSlider
