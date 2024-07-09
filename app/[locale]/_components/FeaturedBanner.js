@@ -15,7 +15,7 @@ const FeaturedBanner = async ({ settings }) => {
 	// console.log(settings);
 	return (
 		<>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 2xl:gap-8">
 				{featuredBanner.map((banner) => (
 					<div key={banner.id}>
 						<Link href={banner.url || "#"} className="banner-img">
@@ -24,7 +24,7 @@ const FeaturedBanner = async ({ settings }) => {
 								alt="Banner"
 								width={400}
 								height={500}
-								className="w-full h-[500px] lg:h-[600px] object-cover rounded hover:-translate-y-2 transition-transform duration-300 ease-in-out"
+								className="w-full h-[500px] lg:h-[600px] 2xl:h-[700px] object-cover object-top rounded hover:-translate-y-2 transition-transform duration-300 ease-in-out"
 							/>
 						</Link>
 						<div className="content w-full text-center p-5">
