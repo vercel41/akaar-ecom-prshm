@@ -30,7 +30,7 @@ const IntroSlider = ({ sliders, settings }) => {
         {sliders.map((slide, i) => (
           <SwiperSlide key={i}>
             <div
-              className={`single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center ${
+              className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center ${
                 settings?.offer_massage
                   ? "h-[203px] md:h-[353px] lg:h-[85vh]"
                   : "h-[213px] md:h-[363px] lg:h-[88vh]"
@@ -44,14 +44,14 @@ const IntroSlider = ({ sliders, settings }) => {
               <div className="">
                 <div
                   className={cn(
-                    "hero-slider-content p-4 lg:px-12 py-6",
+                    "hero-slider-content p-4 lg:px-12 py-6"
                     // isBackdrop(slide) ? "backdrop-blur-sm" : ""
                   )}
-				  style={{
-					// backgroundColor: settings?.colors?.primary,
-					// color: settings?.colors?.default_text,
-					color: settings?.colors?.primary_text,
-				  }}
+                  style={{
+                    // backgroundColor: settings?.colors?.primary,
+                    // color: settings?.colors?.default_text,
+                    color: settings?.colors?.primary_text,
+                  }}
                 >
                   {slide?.title && (
                     <p className="text-sm lg:text-lg/[24px] font-normal font-body lg:mb-4">
@@ -77,12 +77,18 @@ const IntroSlider = ({ sliders, settings }) => {
                         color: settings?.colors?.primary_text,
                       }}
                     >
-                      {translations["shop-now"] || "Shop Now"}{" "}
-                      <HiChevronRight size={20} className="inline align-sub" />
+                      {translations["shop-now"] || "Shop Now"}
+                      {/* <HiChevronRight size={20} className="inline align-sub" /> */}
                     </Link>
                   )}
                 </div>
               </div>
+              {slide.url && (
+                <Link
+                  href={slide?.url}
+                  className="absolute h-full w-full flex items-center justify-center"
+                ></Link>
+              )}
             </div>
           </SwiperSlide>
         ))}
