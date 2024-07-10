@@ -25,32 +25,32 @@ export default function Modal({
 							bodyOnly ? "cursor-pointer" : ""
 						}`}
 					></div>
-					{/* Backdrop */}
-					{/* Modal  */}
-					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none">
-						<div className="relative w-auto p-5 mx-auto max-w-5xl ">
+					{/* Modal */}
+					<div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto">
+						<div className={`relative w-auto mx-auto ${bodyOnly ? "p-0" : "p-5"} max-w-5xl`}>
 							{/*content*/}
-							<div className="rounded-lg border-0 shadow-md relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-hidden">
-								{/*header*/}
-								<div className="flex items-center justify-between px-2 md:px-5 py-0 md:py-1">
-									<h3 className="text-[18px]/[28px] md:text-2xl font-title font-semibold text-slate-900 line-clamp-1">
-										{title ? title : null}
-									</h3>
-									<button
-										className="icon-btn text-4xl"
-										onClick={() => setShowModal(false)}
-										style={{
-											color: settings?.colors?.default_text,
-										}}
-									>
-										<RiCloseCircleFill />
-									</button>
-								</div>
-								{/*body*/}
-								<div
-									className="relative px-3 md:px-6 pb-0 md:pb-6 overflow-y-auto max-h-[80vh] after:content-[attr(data-spacer)] after:block after:h-6"
-									data-spacer=""
+							<div className={`relative flex flex-col w-full bg-white outline-none ${bodyOnly ? "" : "rounded-lg shadow-md border-0"} overflow-hidden`}>
+								{/* Close button */}
+								<button
+									className="absolute top-0 right-0 text-4xl p-2"
+									onClick={() => setShowModal(false)}
+									style={{
+									
+										color: bodyOnly ? settings?.colors?.primary : settings?.colors?.default_text,
+									}}
 								>
+									<RiCloseCircleFill className="text-3xl md:text-4xl" />
+								</button>
+								{/*header*/}
+								{!bodyOnly && (
+									<div className="flex items-center justify-between px-2 md:px-5 py-3 md:py-3.5 mb-2">
+										<h3 className="text-[18px]/[28px] md:text-2xl font-title font-semibold text-slate-900 line-clamp-1">
+											{title ? title : null}
+										</h3>
+									</div>
+								)}
+								{/*body*/}
+								<div className={`${bodyOnly ? "" : "px-3 md:px-6 pb-3 md:pb-6"} overflow-y-auto max-h-[80vh]`}>
 									{children ? (
 										children
 									) : (

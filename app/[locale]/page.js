@@ -2,11 +2,12 @@ import Intro from "./_components/intro";
 import FlashSale from "./_components/FlashSale";
 import NewArrival from "./_components/NewArrival";
 import VideoBanner from "./_components/VideoBanner";
-import FeaturedBanner from "./_components/FeaturedBanner";
+import CategoryBanners from "./_components/CategoryBanners";
 import HomeCategoryProducts from "./_components/HomeCategoryProducts";
 import { fetchData } from "@/lib/fetch-data";
 import { Link } from "@/navigation";
 import Featured from "./_components/Featured";
+import Popup from "./_components/Popup";
 
 export default async function Home() {
   const [settingsRes, transRes] = await Promise.allSettled([
@@ -30,7 +31,7 @@ export default async function Home() {
       {settings?.category_section ? (
         <section className="banners pt-14">
           <div className="container">
-            <FeaturedBanner settings={settings} />
+            <CategoryBanners settings={settings} />
           </div>
         </section>
       ) : null}
@@ -89,6 +90,8 @@ export default async function Home() {
       <section className="home-category-products mb-10">
         <HomeCategoryProducts />
       </section>
+
+      <Popup popup={settings?.popup} />
     </>
   );
 }

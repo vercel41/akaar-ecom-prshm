@@ -4,19 +4,19 @@ import { fetchData } from "@/lib/fetch-data";
 import noImage from "@/public/assets/images/no-image.png";
 
 // ** Import Iocns
-const FeaturedBanner = async ({ settings }) => {
+const CategoryBanners = async ({ settings }) => {
 	const [transRes] = await Promise.allSettled([
 		fetchData({ api: "translations" }),
 	]);
 	const translations =
 		transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
-	const { data: featuredBanner = [] } = await fetchData({ api: "banners" });
-	if (!featuredBanner?.length) return null;
+	const { data: cBanners = [] } = await fetchData({ api: "banners" });
+	if (!cBanners?.length) return null;
 	// console.log(settings);
 	return (
 		<>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 2xl:gap-8">
-				{featuredBanner.map((banner) => (
+				{cBanners.map((banner) => (
 					<div key={banner.id}>
 						<Link href={banner.url || "#"} className="banner-img">
 							<Image
@@ -49,4 +49,4 @@ const FeaturedBanner = async ({ settings }) => {
 	);
 };
 
-export default FeaturedBanner;
+export default CategoryBanners;

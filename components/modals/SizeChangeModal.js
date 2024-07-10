@@ -138,7 +138,8 @@ const SizeChangeModal = () => {
 							onClick={handleSizeChangeAndClose}
 							className="bg-primary py-3 w-full px-2 text-white text-center active:scale-95"
 							style={{
-								backgroundColor: settings?.colors?.primary,
+								background: settings?.colors?.primary,
+								border: `1px solid ${settings?.colors?.primary_text}`,
 								color: settings?.colors?.primary_text,
 							}}
 						>
