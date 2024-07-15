@@ -25,6 +25,7 @@ import VideoPlayer from "@/components/elements/VideoPlayer";
 import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "@/components/modals/SizeChartModal";
 import { getFirstVariantOfColor } from "@/lib/product-variant";
+import SocialShare from "@/components/elements/SocialShare";
 
 const ProductDetails = ({ product, settings, translations }) => {
 	const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -234,6 +235,8 @@ const ProductDetails = ({ product, settings, translations }) => {
 								</button>
 							</div>
 						</div>
+
+						<SocialShare translations={translations} />
 
 						{/* Product Descriptions */}
 						<div className="pt-3 lg:pt-4 pb-2 lg:pb-4">
