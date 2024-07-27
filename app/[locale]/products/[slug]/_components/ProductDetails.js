@@ -67,8 +67,8 @@ const ProductDetails = ({ product, settings, translations }) => {
 	return (
 		<>
 			<div className="relative product-details">
-				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10 2xl:gap-3">
-					<div className="lg:w-1/2">
+				<div className="flex flex-col lg:flex-row gap-3 lg:gap-10">
+					<div className="lg:w-fit">
 						<div className="sticky top-32">
 							<ProductViewSlider
 								product={product}
@@ -77,7 +77,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 							/>
 						</div>
 					</div>
-					<div className="lg:w-1/2">
+					<div className="lg:w-full">
 						<div className="product-content-wrap">
 							{product?.brand?.brand_name && (
 								<p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
