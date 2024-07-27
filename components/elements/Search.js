@@ -1,24 +1,24 @@
 import {
 	useGetPopularSearchQuery,
 	useGetSearchHistoriesQuery,
+	useLazyGetSearchSuggestionsQuery,
 	useRemoveSearchHistoryMutation,
 } from "@/store/api/searchAPI";
 import { getSlicedText } from "@/utils/format-text";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-
-// ** Import Icons
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useDebounce } from "@/hooks/useDebounce";
+import Image from "next/image";
 
 const Search = () => {
 	const [showSuggestionResults, setShowSuggestionResults] = useState(false);
 	const { user } = useSelector((state) => state.auth);
-	// const { settings } = useSelector((state) => state.common);
-
 	const [searchTerm, setSearchTerm] = useState("");
+
 	const { data: popularSearch } = useGetPopularSearchQuery(null, {
 		skip: !showSuggestionResults,
 	});
@@ -29,13 +29,12 @@ const Search = () => {
 	});
 	let searchHistory = userSearch?.data || [];
 
-	//filtering suggestion based on search
 	if (searchHistory?.length && searchTerm) {
 		searchHistory = searchHistory.filter((keyword) =>
 			keyword.search_name.toLowerCase().includes(searchTerm.toLowerCase())
 		);
 	}
-	//filtering suggestion based on search
+
 	if (popular?.length && searchTerm) {
 		popular = popular.filter((keyword) =>
 			keyword.search_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -43,11 +42,9 @@ const Search = () => {
 	}
 
 	const [removeHistory] = useRemoveSearchHistoryMutation();
-
 	const router = useRouter();
 	const pathname = usePathname();
 
-	// Clear search term when route changes
 	useEffect(() => {
 		const pathArray = pathname.split("/");
 		if (pathArray[pathArray.length - 1] !== "products") {
@@ -70,44 +67,43 @@ const Search = () => {
 		}
 	};
 
-	let blurTimeout; // Variable to store the timeout
+	let blurTimeout;
 
 	const handleSuggestionsSelect = (suggestion) => {
-		// console.log(suggestion);
-		setSearchTerm(suggestion); // Set the selected suggestion as the search term
-		handleSearch(suggestion); // Perform the search
+		setSearchTerm(suggestion);
+		handleSearch(suggestion);
 	};
 
 	const handleBlur = () => {
-		// Use a timeout to delay hiding the results
 		blurTimeout = setTimeout(() => {
 			setShowSuggestionResults(false);
-		}, 200); // Adjust the delay time as needed
+		}, 200);
 	};
 
 	const handleFocus = () => {
-		clearTimeout(blurTimeout); // Clear the timeout if the input is focused again
+		clearTimeout(blurTimeout);
 		setShowSuggestionResults(true);
 	};
 
-	const handleDeleteHistoryItem = (itemId) => {
-		const payload = {
-			historyId: itemId,
-			userId: user.id,
-		};
-		removeHistory(payload)
-			.unwrap()
-			.then((response) => {
-				// Handle the successful response if necessary
-				console.log(response);
-				toast.success("Search history removed!");
-			})
-			.catch((error) => {
-				// Handle the error if necessary
-				toast.error("Failed to remove search history");
-				console.log(error);
-			});
+	const handleDeleteHistoryItem = async (itemId) => {
+		try {
+			await removeHistory({ historyId: itemId, userId: user.id });
+			toast.success("Search history removed!");
+		} catch (error) {
+			toast.error("Failed to remove search history");
+			console.log(error);
+		}
 	};
+
+	const debouncedSearchText = useDebounce(searchTerm, 300);
+	const [trigger, { data }] = useLazyGetSearchSuggestionsQuery();
+	const searchSuggestions = data?.data || [];
+
+	useEffect(() => {
+		if (debouncedSearchText) {
+			trigger(debouncedSearchText);
+		}
+	}, [debouncedSearchText, trigger]);
 
 	return (
 		<div className="nav-search relative">
@@ -131,9 +127,13 @@ const Search = () => {
 					<HiMagnifyingGlass size={20} />
 				</button>
 			</div>
-			{showSuggestionResults && (searchHistory?.length || popular?.length) ? (
+			{showSuggestionResults &&
+			(searchHistory?.length ||
+				popular?.length ||
+				searchSuggestions?.length) ? (
 				<div className="z-20 absolute font-title text-slate-600 mt-2 py-2 w-full overflow-hidden rounded-md bg-white">
-					{searchHistory?.length ? (
+					{searchHistory?.length &&
+					(!searchSuggestions?.length || !searchTerm) ? (
 						<div className="mx-2 mb-4">
 							<h3 className="mb-2 mx-2">Recently Searched</h3>
 							{searchHistory?.slice(0, 5)?.map((keyword) => (
@@ -181,7 +181,7 @@ const Search = () => {
 							))}
 						</div>
 					) : null}
-					{popular?.length ? (
+					{popular?.length && (!searchSuggestions?.length || !searchTerm) ? (
 						<div className="mx-2">
 							<h3 className="mb-2 mx-2">Popular Keywords</h3>
 							{popular?.slice(0, 5)?.map((keyword) => (
@@ -193,6 +193,32 @@ const Search = () => {
 									<FiSearch />
 									<p className="text-sm font-medium">
 										{getSlicedText(keyword.search_name, 40)}
+									</p>
+								</div>
+							))}
+						</div>
+					) : null}
+					{searchSuggestions?.length && searchTerm ? (
+						<div className="mx-2">
+							{searchSuggestions?.map((suggestion, index) => (
+								<div
+									key={index}
+									className="cursor-pointer px-2 py-2 flex gap-4 hover:bg-slate-100 rounded-lg"
+									onClick={() => handleSuggestionsSelect(suggestion.text)}
+								>
+									{suggestion.image ? (
+										<Image
+											src={suggestion.image}
+											alt={suggestion.text}
+											width={20}
+											height={20}
+											className="h-5 w-5 rounded-sm object-cover"
+										/>
+									) : (
+										<FiSearch />
+									)}
+									<p className="text-sm font-medium">
+										{getSlicedText(suggestion.text, 40)}
 									</p>
 								</div>
 							))}

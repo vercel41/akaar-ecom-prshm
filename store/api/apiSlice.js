@@ -48,6 +48,7 @@ export const apiSlice = createApi({
 		"product-reviews",
 		"user-review-show",
 		"popular-search",
+		"search-suggestions",
 		"brands",
 		"filter-options",
 		"review-summary",
