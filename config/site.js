@@ -18,4 +18,5 @@ export const siteConfig = {
 	email: {
 		pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
 	},
+	isSquareImage: process.env.NEXT_PUBLIC_IS_SQUARE_IMAGE === "YES" ? true : false,
 };

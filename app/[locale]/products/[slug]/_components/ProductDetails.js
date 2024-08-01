@@ -74,6 +74,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 								product={product}
 								ref={productViewSwiperRef}
 								selectedColor={selectedColor}
+								isSquareImage={siteConfig.isSquareImage}
 							/>
 						</div>
 					</div>
@@ -203,7 +204,7 @@ const ProductDetails = ({ product, settings, translations }) => {
 							</button>
 						)}
 						{/* Add to cart section  */}
-						<div className="py-2 lg:pt-8 lg:pb-4">
+						<div className="py-2 pt-6 lg:pt-8 lg:pb-4">
 							<div className="product-actions flex gap-4 justify-between items-center">
 								<button
 									className="bg-primary py-3 w-full px-2 lg:px-6 text-white  text-center active:scale-95 rounded-lg"
