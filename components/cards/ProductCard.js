@@ -118,7 +118,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </Link>
               </div>
             </div>
-            <div className="product-content-wrap">
+            <div className="product-content-wrap @container">
               <h2>
                 <Link
                   href={`/products/${slug}`}
@@ -189,7 +189,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                   }}
                 >
                   {translations["buy-now"] || "Buy Now"}{" "}
-                  <HiArrowLongRight className="" size={20} />
+                  <HiArrowLongRight className="hidden @[150px]:inline-block" size={20} />
                 </button>
               </div>
               {isFlashSale && (
