@@ -138,7 +138,8 @@ const ProductVariantSelect = forwardRef(
 					</div>
 				) : null}
 
-				{colorsGroup[selectedColor]?.length > 1 ? (
+				{/* size section */}
+				{colorsGroup[selectedColor]?.some(variant => variant.size !== "") ? (
 					<div className="product-size mt-4">
 						<div className="font-normal">
 							<h4 className="text-slate-900 text-sm lg:text-base">
