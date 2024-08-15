@@ -51,7 +51,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error("Error occurred:", error);
     return NextResponse.json(
       {
         revalidated: false,
