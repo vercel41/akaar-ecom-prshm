@@ -67,17 +67,18 @@ export default function MainNav({ settings, categories }) {
 						/>
 					</Link>
 					<div className="hidden lg:flex items-center gap-10">
-						<Search />
-						{settings?.phone[0] && (
-							<div className="flex items-center gap-2">
-								<IoCall size={24} />
-								<div className="text-xs capitalize">
-									<p>Call us now</p>
-									<p>{settings?.phone[0] || ""}</p>
-								</div>
-							</div>
-						)}
+					<Search />
+					{settings?.phone[0] && (
+						<a href={`tel:${settings.phone[0]}`} className="flex items-center gap-2">
+						<IoCall size={24} />
+						<div className="text-xs capitalize">
+							<p>Call us now</p>
+							<p>{settings.phone[0]}</p>
+						</div>
+						</a>
+					)}
 					</div>
+
 					<div className="header-actions items-center flex gap-2 lg:gap-4">
 						<ResponsiveSearch settings={settings} />
 						<button

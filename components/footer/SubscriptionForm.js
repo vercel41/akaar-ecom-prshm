@@ -36,13 +36,13 @@ const SubscriptionForm = ({ settings }) => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<div className="flex md:justify-center p-5 ">
-				<div className="w-full md:w-[500px] flex items-center ">
+			<div className="flex md:justify-center pt-2">
+				<div className="w-full flex items-center">
 					<input
 						style={{
 							border: `1px solid ${settings?.colors?.primary}`,
 						}}
-						className="rounded-l w-full"
+						className="rounded-l w-full h-10"
 						type="email"
 						name="email"
 						placeholder="example@email.com"
@@ -55,7 +55,7 @@ const SubscriptionForm = ({ settings }) => {
 						})}
 					/>
 					<button
-						className="inline-block px-4 py-1 border-none text-center leading-[40px] rounded-r"
+						className="inline-block h-10 px-4 py-1 border-none text-center rounded-r"
 						type="submit"
 						style={{
 							backgroundColor: settings?.colors?.primary,

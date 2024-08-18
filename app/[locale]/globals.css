@@ -303,27 +303,6 @@
   @apply absolute content-[url("/assets/images/ellipse.png")] top-[-75%] right-0 h-12 z-[-1];
 } */
 
-.footer-widget p,
-.footer-widget a {
-	@apply inline-block text-base font-normal font-body text-white mb-3 ease-in duration-100;
-}
-
-.footer-widget a {
-	@apply hover:text-secondary;
-}
-
-.footer-widget h5 {
-	@apply text-base/[16px] font-semibold font-title text-[#00B7C9] mt-5 mb-8;
-}
-
-.footer-widget .info-list li {
-	@apply flex items-center gap-4;
-}
-
-.footer-widget .info-list svg {
-	@apply text-white mb-3;
-}
-
 /* common classes */
 .ReactCollapse__collapse {
 	transition: height 300ms;
