@@ -26,7 +26,7 @@ const Footer = async () => {
 
   const messengerUser = settings?.facebook_link?.split("/")[3] || "no-user";
 
-//   console.log(settings);
+  //   console.log(settings);
 
   return (
     <footer
@@ -177,7 +177,7 @@ const Footer = async () => {
                     <SocialIcon
                       href={settings.whatsapp_link}
                       icon={"/assets/icons/social/whatsapp.svg"}
-                      iconclassName={"h-7 w-7"}
+                      iconClass={"w-7 h-7"}
                     />
                     <SocialIcon
                       href={settings.tiktok_link}
