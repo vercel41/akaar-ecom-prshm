@@ -138,8 +138,8 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="">
-            {settings?.ios_app_link || settings?.android_app_link ? (
-              <>
+            <>
+              {settings?.ios_app_link || settings?.android_app_link ? (
                 <div className="footer-app">
                   <p className="">Download our app now from stores</p>
                   <div className=" py-4 flex max-xl:items-center gap-4 xl:flex-col">
@@ -163,38 +163,38 @@ const Footer = async () => {
                     )}
                   </div>
                 </div>
-                <div className="social-links ">
-                  <p>Follow Us</p>
-                  <div className="text-center py-4 flex gap-3 items-center">
-                    <SocialIcon
-                      href={settings.facebook_link}
-                      icon={"/assets/icons/social/fb.svg"}
-                    />
-                    <SocialIcon
-                      href={settings.youtube_link}
-                      icon={"/assets/icons/social/YouTube.svg"}
-                    />
-                    <SocialIcon
-                      href={settings.whatsapp_link}
-                      icon={"/assets/icons/social/whatsapp.svg"}
-                      iconClass={"w-7 h-7"}
-                    />
-                    <SocialIcon
-                      href={settings.tiktok_link}
-                      icon={"/assets/icons/social/TikTok.svg"}
-                    />
-                    <SocialIcon
-                      href={settings.instagram_link}
-                      icon={"/assets/icons/social/instagram.svg"}
-                    />
-                    <SocialIcon
-                      href={settings.pinterest_link}
-                      icon={"/assets/icons/social/pinterest.svg"}
-                    />
-                  </div>
+              ) : null}
+              <div className="social-links ">
+                <p>Follow Us</p>
+                <div className="text-center py-4 flex gap-3 items-center">
+                  <SocialIcon
+                    href={settings.facebook_link}
+                    icon={"/assets/icons/social/fb.svg"}
+                  />
+                  <SocialIcon
+                    href={settings.youtube_link}
+                    icon={"/assets/icons/social/YouTube.svg"}
+                  />
+                  <SocialIcon
+                    href={settings.whatsapp_link}
+                    icon={"/assets/icons/social/whatsapp.svg"}
+                    iconClass={"w-7 h-7"}
+                  />
+                  <SocialIcon
+                    href={settings.tiktok_link}
+                    icon={"/assets/icons/social/TikTok.svg"}
+                  />
+                  <SocialIcon
+                    href={settings.instagram_link}
+                    icon={"/assets/icons/social/instagram.svg"}
+                  />
+                  <SocialIcon
+                    href={settings.pinterest_link}
+                    icon={"/assets/icons/social/pinterest.svg"}
+                  />
                 </div>
-              </>
-            ) : null}
+              </div>
+            </>
           </div>
         </div>
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-4">
