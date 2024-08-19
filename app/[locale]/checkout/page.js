@@ -63,6 +63,7 @@ const Checkout = () => {
 	const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 	const [orderCollapsed, setOrderCollapsed] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const [isTermChecked, setIsTermChecked] = useState(false);
 	const { cart, discountCoupon } = useSelector((state) => state.cart);
 	const { user, isLoading } = useSelector((state) => state.auth);
 	const { handleOrderPlace } = useOrderPlace(); //custom hook for separating order place business logics
@@ -508,15 +509,43 @@ const Checkout = () => {
 					</div>
 					{/* Order Now Button  */}
 					<div className="form-control mt-7">
+						<div className="grid grid-cols-[20px_1fr] items-start  mb-4">
+							<div className="flex items-center h-5 w-5">
+								<input
+									id="shipping-2"
+									aria-describedby="shipping-2"
+									type="checkbox"
+									className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+									checked={isTermChecked}
+									onChange={(e) => setIsTermChecked(e.target.checked)}
+								/>
+							</div>
+							<div className="text-sm ml-3">
+								<label htmlFor="shipping-2" className="font-medium text-gray-900">
+								I have read and agree to the website 
+								<Link  href="pages/terms-and-conditions" target="_blank" className="ml-1 text-blue-500 hover:underline">
+								terms and conditions
+								</Link>
+								 *
+								</label>
+								<div className="text-gray-500">
+								<span className="font-normal text-xs">
+								Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
+								</span>
+								</div>
+							</div>
+						</div>
+
 						<button
 							disabled={!cart?.length}
 							// type="submit"
 							onClick={() => handleSubmit(handleCheckoutSubmit)()}
 							className="primary-btn w-full disabled:bg-slate-300 disabled:cursor-not-allowed"
 							style={{
-								backgroundColor: settings?.colors?.primary,
+								backgroundColor: !cart?.length || !isTermChecked ?"#cccccc" : settings?.colors?.primary,
 								color: settings?.colors?.primary_text,
 								border: `1px solid ${settings?.colors?.primary_text}`,
+								opacity: !cart?.length || !isTermChecked ? 0.5 : 1,
 							}}
 						>
 							{translations["order-now"] || "Order Now"}
