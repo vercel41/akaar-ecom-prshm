@@ -21,7 +21,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
 						>
 							{category.category_name}
 						</Link>
-						{category.child_categories.length ? (
+						{category.child_categories?.length ? (
 							<span className="cursor-pointer">
 								{category.id === selectedCategory ? (
 									<LuMinus onClick={() => setSelectedCategory(null)} />
@@ -36,7 +36,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
 						<div
 							className={`shadow bg-white !w-full !h-full overflow-y-auto overflow-x-hidden`}
 						>
-							{category.child_categories.map((subCategory) => (
+							{category.child_categories?.map((subCategory) => (
 								<div className="second-sub-menu" key={subCategory.id}>
 									<div
 										className={`pl-6 hover:text-primary py-2  flex items-center justify-between px-3 text-md shadow mb-2 w-full ${
@@ -49,7 +49,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
 										>
 											{subCategory.category_name}
 										</Link>
-										{subCategory.child_categories.length ? (
+										{subCategory?.child_categories?.length ? (
 											<span className="cursor-pointer">
 												{subCategory.id === selectedSubCategory ? (
 													<LuMinus
@@ -69,7 +69,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
 										<div
 											className={`shadow bg-white !w-full !h-full overflow-y-auto overflow-x-hidden`}
 										>
-											{subCategory.child_categories.map((childCategory) => (
+											{subCategory.child_categories?.map((childCategory) => (
 												<div className="second-sub-menu" key={childCategory.id}>
 													<Link
 														onClick={() => setShow(false)}
