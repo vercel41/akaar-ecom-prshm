@@ -167,31 +167,45 @@ const Footer = async () => {
               <div className="social-links ">
                 <p>Follow Us</p>
                 <div className="text-center py-4 flex gap-3 items-center">
-                  <SocialIcon
-                    href={settings.facebook_link}
-                    icon={"/assets/icons/social/fb.svg"}
-                  />
-                  <SocialIcon
-                    href={settings.youtube_link}
-                    icon={"/assets/icons/social/YouTube.svg"}
-                  />
-                  <SocialIcon
-                    href={settings.whatsapp_link}
-                    icon={"/assets/icons/social/whatsapp.svg"}
-                    iconClass={"w-7 h-7"}
-                  />
-                  <SocialIcon
-                    href={settings.tiktok_link}
-                    icon={"/assets/icons/social/TikTok.svg"}
-                  />
-                  <SocialIcon
-                    href={settings.instagram_link}
-                    icon={"/assets/icons/social/instagram.svg"}
-                  />
-                  <SocialIcon
-                    href={settings.pinterest_link}
-                    icon={"/assets/icons/social/pinterest.svg"}
-                  />
+                  {settings.facebook_link && settings.facebook_link !== "#" && (
+                    <SocialIcon
+                      href={settings.facebook_link}
+                      icon={"/assets/icons/social/fb.svg"}
+                    />
+                  )}
+                  {settings.youtube_link && settings.youtube_link !== "#" && (
+                    <SocialIcon
+                      href={settings.youtube_link}
+                      icon={"/assets/icons/social/YouTube.svg"}
+                    />
+                  )}
+                  {settings.whatsapp_link && settings.whatsapp_link !== "#" && (
+                    <SocialIcon
+                      href={settings.whatsapp_link}
+                      icon={"/assets/icons/social/whatsapp.svg"}
+                      iconClass={"w-7 h-7"}
+                    />
+                  )}
+                  {settings.tiktok_link && settings.tiktok_link !== "#" && (
+                    <SocialIcon
+                      href={settings.tiktok_link}
+                      icon={"/assets/icons/social/TikTok.svg"}
+                    />
+                  )}
+                  {settings.instagram_link &&
+                    settings.instagram_link !== "#" && (
+                      <SocialIcon
+                        href={settings.instagram_link}
+                        icon={"/assets/icons/social/instagram.svg"}
+                      />
+                    )}
+                  {settings.pinterest_link &&
+                    settings.pinterest_link !== "#" && (
+                      <SocialIcon
+                        href={settings.pinterest_link}
+                        icon={"/assets/icons/social/pinterest.svg"}
+                      />
+                    )}
                 </div>
               </div>
             </>
