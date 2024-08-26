@@ -30,7 +30,7 @@ export default function ClientLoader({
 			try {
 				dispatch(setTranslations(translationsProp));
 			} catch (error) {
-				console.log(error);
+				// console.log(error); // translations not found
 			}
 		}
 
