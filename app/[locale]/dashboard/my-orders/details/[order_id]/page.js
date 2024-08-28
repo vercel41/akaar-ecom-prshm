@@ -171,7 +171,7 @@ const OrderDetail = ({ params }) => {
 									) : (
 										<a
 											target="_blank"
-											href={`${process.env.serverBaseUrl}/in/${sale.customer?.id}/${sale.id}/sale`}
+											href={sale?.invoice_url || "#"}
 											className="p-3 block text-center mb-3 mt-5"
 											style={{
 												border: `1px solid ${settings?.colors?.default_text}`,

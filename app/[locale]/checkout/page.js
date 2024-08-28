@@ -239,7 +239,9 @@ const Checkout = () => {
     }
   }, [cart, total, isFbPixelInitialized]);
 
-  const isDisabled = !!(!cart?.length || settings?.terms_and_condition_link
+  const isDisabled = !!(!cart?.length ||
+  (settings?.terms_and_condition_link &&
+    settings?.terms_and_condition_link !== "#")
     ? !isTermChecked
     : false);
 
@@ -510,7 +512,8 @@ const Checkout = () => {
           </div>
           {/* Order Now Button  */}
           <div className="form-control mt-7">
-            {settings?.terms_and_condition_link ? (
+            {settings?.terms_and_condition_link &&
+            settings?.terms_and_condition_link !== "#" ? (
               <div className="grid grid-cols-[20px_1fr] items-start  mb-4">
                 <div className="flex items-center h-5 w-5">
                   <input

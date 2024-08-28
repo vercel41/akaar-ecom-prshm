@@ -33,7 +33,7 @@ const OrderSuccess = ({ params }) => {
 		}
 	}, [order, isFbPixelInitialized]);
 
-
+	
 	return (
 		<>
 			<div className="container">
@@ -102,7 +102,7 @@ const OrderSuccess = ({ params }) => {
 								{isGuestCheckout ? (
 									<Link
 										target="_blank"
-										href={`${process.env.serverBaseUrl}/in/${order?.customer?.id}/${order?.id}/sale`}
+										href={order?.invoice_url || "#"}
 										className="border py-3 w-full px-6 text-center active:scale-95"
 										style={{
 											border: `1px solid ${settings?.colors?.default_text}`,
