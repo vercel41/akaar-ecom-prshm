@@ -7,6 +7,8 @@ import { Thumbs, Pagination, Mousewheel, Navigation } from "swiper/modules";
 import useWishList from "@/hooks/useWishList";
 import noImage from "@/public/assets/images/no-image.png";
 import ImageZoom from "./ImageZoom";
+import dynamic from "next/dynamic";
+const ProductZoomYetAnother = dynamic(() => import("./ProductZoomYetAnother"));
 
 // ** Import Icon
 import { HiOutlineHeart, HiPlayCircle } from "react-icons/hi2";
@@ -14,12 +16,16 @@ import HeartRedIcon from "@/components/elements/svg/HeartRedIcon";
 import { startVideoPlayer } from "@/store/slices/commonSlice";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 import { cn } from "@/utils";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const ProductViewSlider = forwardRef(
   ({ product, selectedColor, isSquareImage }, ref) => {
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	// const isLg = useMediaQuery("(max-width: 992px)"); // checking for mobile
+    const isMobile = useMediaQuery("(max-width: 768px)");
+    // const isLg = useMediaQuery("(max-width: 992px)"); // checking for mobile
     const {
       handleAddToWishlist,
       handleWishListProductStatus,
@@ -54,8 +60,22 @@ const ProductViewSlider = forwardRef(
 
     const isInWishList = handleWishListProductStatus(product.id);
 
+    const handleOpenZoom = (index) => {
+      setOpen(true);
+      setIndex(index);
+    };
+
     return (
       <>
+       {open && (
+          <ProductZoomYetAnother
+          open={open}
+          setIndex={setIndex}
+          index={index}
+          setOpen={setOpen}
+          images={slides}
+        />
+        )}
         <div className="lg:grid grid-cols-[66px_1fr] lg:gap-4 items-start">
           <div className="thumb-slider hidden lg:block">
             <Swiper
@@ -64,12 +84,15 @@ const ProductViewSlider = forwardRef(
               slidesPerView={isSquareImage ? 7 : 9}
               mousewheel={true}
               modules={[Thumbs, Mousewheel]}
-              className={cn(isSquareImage ? "!h-[33rem] 2xl:!h-[42rem]" : "!h-[42rem]")}
+              className={cn(
+                isSquareImage ? "!h-[33rem] 2xl:!h-[42rem]" : "!h-[42rem]"
+              )}
             >
               {slides.map((slide, index) => (
                 <SwiperSlide key={index}>
                   <div className="slider-image cursor-pointer border border-slate-100 rounded-lg">
                     <Image
+                      
                       src={slide?.image}
                       alt=""
                       width={64}
@@ -129,46 +152,54 @@ const ProductViewSlider = forwardRef(
                       : "!h-[115vw] md:!h-[41.1875rem] md:!w-[32.75rem]"
                   )}
                 >
-                  <div className="slider-imag h-full w-full">
-                    {(isFirstItem(slide?.color_name) || index === 0) &&
-                    slide?.video_link ? (
-                      <>
-                        <Image
-                          src={slide?.image}
-                          alt=""
-                          width={524}
-                          height={659}
-                          className="object-contain h-full w-full"
-                        />
+<div className="slider-imag h-full w-full">
+  {(isFirstItem(slide?.color_name) || index === 0) && slide?.video_link ? (
+    <>
+      <Image
+        src={slide?.image}
+        alt=""
+        width={524}
+        height={659}
+        className="object-contain h-full w-full"
+      />
 
-                        <button
-                          onClick={() =>
-                            dispatch(
-                              startVideoPlayer({
-                                url: slide?.video_link,
-                                playing: true,
-                                title: product.product_name,
-                                controls: true,
-                                // className: "md:h-[480px] md:w-[854px]",
-                              })
-                            )
-                          }
-                          className="z-20 vid-icon absolute inline-flex justify-center items-center top-1/2 left-1/2 w-[72px] h-[72px] rounded-full drop-shadow-[0_0px_60px_rgba(0,0,0,0.16)] translate-x-[-50%] translate-y-[-50%]"
-                        >
-                          <HiPlayCircle
-                            size={60}
-                            className="text-white hover:text-primary"
-                          />
-                        </button>
-                      </>
-                    ) : (
-                      <ImageZoom
-                        image={slide?.image}
-                        zoomImage={slide?.image}
-						isSquareImage={isSquareImage}
-                      />
-                    )}
-                  </div>
+      <button
+        onClick={() =>
+          dispatch(
+            startVideoPlayer({
+              url: slide?.video_link,
+              playing: true,
+              title: product.product_name,
+              controls: true,
+            })
+          )
+        }
+        className="z-20 vid-icon absolute inline-flex justify-center items-center top-1/2 left-1/2 w-[72px] h-[72px] rounded-full drop-shadow-[0_0px_60px_rgba(0,0,0,0.16)] translate-x-[-50%] translate-y-[-50%]"
+      >
+        <HiPlayCircle
+          size={60}
+          className="text-white hover:text-primary"
+        />
+      </button>
+    </>
+  ) : isMobile ? (
+    <Image
+      onClick={() => handleOpenZoom(index)}
+      src={slide?.image}
+      alt=""
+      width={524}
+      height={524}
+      className="object-cover h-full w-full cursor-zoom-in"
+    />
+  ) : (
+    <ImageZoom
+      image={slide?.image}
+      zoomImage={slide?.image}
+      isSquareImage={isSquareImage}
+    />
+  )}
+</div>
+
                 </SwiperSlide>
               ))}
             </Swiper>
