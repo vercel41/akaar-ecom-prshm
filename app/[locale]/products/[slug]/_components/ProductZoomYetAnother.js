@@ -10,9 +10,13 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-export default function ProductZoomYetAnother({ images, index, open, setOpen, setIndex }) {
-
-
+export default function ProductZoomYetAnother({
+  images,
+  index,
+  open,
+  setOpen,
+  setIndex,
+}) {
   return (
     <>
       <Lightbox
