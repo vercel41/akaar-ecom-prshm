@@ -245,6 +245,12 @@ const Checkout = () => {
     ? !isTermChecked
     : false);
 
+    useEffect(() => {
+      if (paymentOptions.length === 1) {
+        setSelectedPaymentOption(paymentOptions[0].key);
+      }
+    }, [paymentOptions]);
+
   return (
     <section className="container pb-8">
       <div className="breadcrumb breadcrumb-2 py-5">
