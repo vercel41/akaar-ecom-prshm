@@ -68,7 +68,7 @@ const IntroSlider = ({ sliders, settings }) => {
                       {slide?.text}
                     </h2>
                   )}
-                  {slide?.url && (
+                  {/* {slide?.url && (
                     <Link
                       href={slide?.url}
                       className="inline-block px-4 text-center leading-[40px] rounded-lg"
@@ -78,9 +78,8 @@ const IntroSlider = ({ sliders, settings }) => {
                       }}
                     >
                       {translations["shop-now"] || "Shop Now"}
-                      {/* <HiChevronRight size={20} className="inline align-sub" /> */}
                     </Link>
-                  )}
+                  )} */}
                 </div>
               </div>
               {slide.url && (
