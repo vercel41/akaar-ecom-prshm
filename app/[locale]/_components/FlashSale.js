@@ -12,7 +12,7 @@ const FlashSale = () => {
 	const { translations } = useSelector((state) => state.common);
 	const { data: flashSaleData, isLoading } = useGetProductFlashSaleQuery({
 		locale,
-		searchQuery: `per_page=4`,
+		searchQuery: `per_page=5`,
 	});
 
 	const flashSaleInfo = flashSaleData?.flashSale || {};
