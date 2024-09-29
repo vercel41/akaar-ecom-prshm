@@ -30,14 +30,14 @@ export default async function Home() {
 
       {settings?.category_section ? (
         <section className="banners pt-14">
-          <div className="container">
+          <div className="container-fluid">
             <CategoryBanners settings={settings} />
           </div>
         </section>
       ) : null}
 
       <section className="flash-sale mt-10">
-        <div className="container">
+        <div className="container-fluid">
           <FlashSale />
         </div>
       </section>
@@ -50,7 +50,7 @@ export default async function Home() {
 
       {settings?.shop_section ? (
         <section className="new-products">
-          <div className="container">
+          <div className="container-fluid">
             <div className="py-10 text-center">
               <h2 className="sec-title pb-3">
                 {translations["new-arrival"] || "New Collection"}
@@ -70,7 +70,7 @@ export default async function Home() {
 
       {settings?.featured_products_section ? (
         <section className="new-products">
-          <div className="container">
+          <div className="container-fluid">
             <div className="py-10 text-center">
               <h2 className="sec-title pb-3">
                 {translations["featured-products"] || "Featured Products"}

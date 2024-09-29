@@ -59,7 +59,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
       {!loading ? (
         <>
           <div
-            className="product-card-wrap bg-white rounded shadow p-3 mb-4"
+            className="product-card-wrap bg-white rounded shadow mb-4"
             // style={{ border: `1px solid ${settings?.colors?.primary}` }}
           >
             <div className="product-img-action-wrap relative @container">
@@ -98,22 +98,30 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                   `product-img overflow-hidden`,
                   isSquareImage
                     ? "h-[141.5px] @[160px]:h-[161px] @[200px]:h-[207px] @[220px]:h-[242px] @[250px]:h-[260px] @[260px]:h-[271px]  @[300px]:h-[95vw]"
-                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[115vw]"
+                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[420px]"
                 )}
               >
-                <Link href="/products/[slug]" as={`/products/${slug}`}>
+                <Link
+                  href="/products/[slug]"
+                  as={`/products/${slug}`}
+                  className="group relative block w-full h-full"
+                >
+                  {/* Default Image */}
                   <Image
-                    className="default-img h-full w-full object-cover object-top hover:scale-125 transition-transform duration-300 ease-in-out rounded-t"
-                    src={
-                      hovered
-                        ? hover_image || image || noImage
-                        : image || noImage
-                    }
+                    className="default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out rounded-t opacity-100 group-hover:opacity-0"
+                    src={image || noImage}
                     alt={product_name}
                     width={226}
                     height={400}
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
+                  />
+
+                  {/* Hover Image */}
+                  <Image
+                    className="hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out rounded-t opacity-0 group-hover:opacity-100"
+                    src={hover_image || noImage}
+                    alt={product_name}
+                    width={226}
+                    height={400}
                   />
                 </Link>
               </div>
@@ -189,7 +197,10 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                   }}
                 >
                   {translations["buy-now"] || "Buy Now"}{" "}
-                  <HiArrowLongRight className="hidden @[150px]:inline-block" size={20} />
+                  <HiArrowLongRight
+                    className="hidden @[150px]:inline-block"
+                    size={20}
+                  />
                 </button>
               </div>
               {isFlashSale && (

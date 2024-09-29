@@ -10,46 +10,46 @@ import FilterPanel from "../side-drawers/FilterPanel";
 import PageSize from "../elements/PageSize";
 
 const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
-	const params = new URLSearchParams(customSearchParams);
-	const productResponse = await fetchData({
-		api: `products?per_page=30&${params.toString()}`,
-	});
-	const products = productResponse?.data || [];
-	const meta = productResponse?.meta || {};
+  const params = new URLSearchParams(customSearchParams);
+  const productResponse = await fetchData({
+    api: `products?per_page=30&${params.toString()}`,
+  });
+  const products = productResponse?.data || [];
+  const meta = productResponse?.meta || {};
 
-	return (
-		<>
-			<div className="container mb-3 md:mb-20">
-				<div className="actions-bar flex justify-between items-center mb-3 md:mb-8">
-					<div className="flex items-center gap-48 w-1/2">
-						<div>
-							<FilterMenu />
-						</div>
-						<div className="hidden lg:block">
-							<PageSize />
-						</div>
-					</div>
-					<div className="">
-						<SortSelect />
-					</div>
-				</div>
-				<div className="lg:flex gap-4">
-					<div className="hidden md:block">
-						<ProductFilters category={category} />
-					</div>
-					{products?.length ? (
-						<ProductList products={products} />
-					) : (
-						<NoProducts />
-					)}
-				</div>
-				<PaginationWithSummery
-					meta={meta}
-					totalItemsShowing={products?.length}
-				/>
-			</div>
-			<FilterPanel category={category} />
-		</>
-	);
+  return (
+    <>
+      <div className="container-fluid mb-3 md:mb-20">
+        <div className="actions-bar flex justify-between items-center mb-3 md:mb-8">
+          <div className="flex items-center gap-48 w-1/2">
+            <div>
+              <FilterMenu />
+            </div>
+            <div className="hidden lg:block">
+              <PageSize />
+            </div>
+          </div>
+          <div className="">
+            <SortSelect />
+          </div>
+        </div>
+        <div className="lg:flex gap-4">
+          <div className="hidden md:block">
+            <ProductFilters category={category} />
+          </div>
+          {products?.length ? (
+            <ProductList products={products} />
+          ) : (
+            <NoProducts />
+          )}
+        </div>
+        <PaginationWithSummery
+          meta={meta}
+          totalItemsShowing={products?.length}
+        />
+      </div>
+      <FilterPanel category={category} />
+    </>
+  );
 };
 export default ProductsWithFilter;

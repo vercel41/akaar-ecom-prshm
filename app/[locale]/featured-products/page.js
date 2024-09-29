@@ -42,7 +42,7 @@ const FeaturedProducts = async ({ searchParams }) => {
           })`,
         }}
       >
-        <div className="container text-center">
+        <div className="container-fluid text-center">
           <h3 className="text-2xl font-nomal font-title text-slate-700 mb-3">
             All Featured Products
           </h3>
@@ -66,7 +66,7 @@ const FeaturedProducts = async ({ searchParams }) => {
         </div>
       </div>
 
-      <div className="container lg:mb-20">
+      <div className="container-fluid lg:mb-20">
         <div className="toolbar flex justify-between items-center bg-slate-50 rounded-xl p-3 my-5">
           <p>Total {products?.length} products</p>
           <Suspense fallback={<SearchBarFallback />}>
