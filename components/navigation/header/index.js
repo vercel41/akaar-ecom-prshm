@@ -1,5 +1,4 @@
 // import CategoriesNav from "./CategoriesNav";
-import CategoriesMegaMenu from "./CategoriesMegaMenu";
 import TopBar from "./TopBar";
 import MainNav from "./main-nav";
 import { fetchData } from "@/lib/fetch-data";
@@ -15,10 +14,10 @@ const Header = async () => {
     settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
   const categories =
     categoriesRes.status === "fulfilled" ? categoriesRes.value?.data || [] : [];
+
   return (
     <>
       <header className="header fixed z-30 w-full">
-        {settings?.offer_massage && <TopBar settings={settings} />}
         <MainNav settings={settings} categories={categories} />
 
         {/* <CategoriesMegaMenu settings={settings} categories={categories} /> */}

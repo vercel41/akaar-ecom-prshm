@@ -24,6 +24,8 @@ import useSticky from "@/hooks/useSticky";
 import CategoriesMegaMenu from "../CategoriesMegaMenu";
 import { cn } from "@/utils";
 import Searchbar from "@/components/side-drawers/Searchbar";
+import TopBar from "../TopBar";
+import { usePathname } from "next/navigation";
 
 const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
   ssr: false,
@@ -40,6 +42,7 @@ export default function MainNav({ settings, categories }) {
 
   const wishlistCount = getWishlistCount();
   const { sticky } = useSticky(150);
+  const pathname = usePathname();
 
   return (
     <div
@@ -131,7 +134,8 @@ export default function MainNav({ settings, categories }) {
                     </span>
                   ) : null}
                 </button>
-                <button onClick={handleModalOpen} className="single-action">
+                {/* <button onClick={handleModalOpen} className="single-action"> */}
+                <button className="single-action">
                   {user?.image ? (
                     <Image
                       src={user.image}
@@ -190,6 +194,10 @@ export default function MainNav({ settings, categories }) {
       >
         <CategoriesMegaMenu settings={settings} categories={categories} />
       </div>
+
+      {settings?.offer_massage && pathname !== "/" && (
+        <TopBar settings={settings} />
+      )}
     </div>
   );
 }
