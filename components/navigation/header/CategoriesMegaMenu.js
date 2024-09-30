@@ -1,4 +1,7 @@
 "use client";
+import useSticky from "@/hooks/useSticky";
+import { cn } from "@/utils";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -7,6 +10,8 @@ export default function CategoriesMegaMenu({ settings, categories }) {
   const [selectedCategory, setSelectedCategory] = useState({});
   const [isOverflowing, setIsOverflowing] = useState(false);
   const containerRef = useRef(null);
+
+  const { sticky } = useSticky(150);
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -25,62 +30,72 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 
   return (
     <div
-      className="hidden lg:block shadow-sm"
-      style={{
-        backgroundColor: settings?.colors?.primary,
-        color: settings?.colors?.primary_text,
-      }}
+      className={cn("")}
+      // style={{
+      //   backgroundColor: settings?.colors?.primary,
+      //   color: settings?.colors?.primary_text,
+      // }}
       onMouseLeave={() => setSelectedCategory({})}
     >
-      <div className="container">
+      <div className="container-fluid">
         <div
-          className="border-t border-white !opacity-10"
-          style={{ borderColor: settings?.colors?.primary_text }}
+          className="!opacity-10"
+          // style={{ borderColor: settings?.colors?.primary_text }}
         ></div>
-        <div className="py-3 grid grid-cols-[1fr_124px]">
-          <div
-            className="w-full flex items-center gap-4 text-sm font-semibold !opacity-90 overflow-hidden line-clamp-1 whitespace-nowrap"
-            ref={containerRef}
-          >
-            {categories?.map((category, mainIndex) => (
-              <Link
-                href={`/categories/${category.slug}`}
-                key={mainIndex}
-				title={category.category_name}
-                onMouseEnter={() => setSelectedCategory(category)}
-                className={`uppercase ${
-                  category?.child_categories?.length
-                    ? "flex items-center gap-1.5"
-                    : ""
-                }`}
-                style={{ flexShrink: 0 }}
-              >
-                {category.category_name}
-                {category?.child_categories?.length ? (
-                  selectedCategory?.slug === category.slug ? (
-                    <BsChevronUp />
-                  ) : (
-                    <BsChevronDown />
-                  )
-                ) : null}
-              </Link>
-            ))}
-            {isOverflowing && (
-              <span className="text-sm font-semibold !opacity-90">...</span>
-            )}
-          </div>
-          <div className="flex items-center gap-3">
-            {isOverflowing && (
-              <>
-                <span className="text-sm font-semibold !opacity-90">...</span>
+
+        {/* <div className="py-3 grid grid-cols-[1fr_124px]"> */}
+        <div className="flex justify-center">
+          <div className="flex justify-center">
+            <div
+              className="w-full flex justify-center items-center gap-5 text-sm font-medium !opacity-90 overflow-hidden line-clamp-1 whitespace-nowrap"
+              ref={containerRef}
+            >
+              {categories?.map((category, mainIndex) => (
                 <Link
-                  href="/categories"
-                  className="text-sm font-semibold !opacity-90"
+                  href={`/categories/${category.slug}`}
+                  key={mainIndex}
+                  title={category.category_name}
+                  onMouseEnter={() => setSelectedCategory(category)}
+                  className={`capitalize ${
+                    category?.child_categories?.length
+                      ? "flex items-center gap-1.5"
+                      : ""
+                  }`}
+                  style={{ flexShrink: 0 }}
                 >
-                  All Categories
+                  <span
+                    className={cn(
+                      "text-[.9rem] relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500 after:bg-black py-[6px] hover:-translate-y-[3px] transition-all duration-500 block"
+                    )}
+                  >
+                    {category.category_name}
+                  </span>
+                  {/* {category?.child_categories?.length ? (
+                    selectedCategory?.slug === category.slug ? (
+                      <BsChevronUp />
+                    ) : (
+                      <BsChevronDown />
+                    )
+                  ) : null} */}
                 </Link>
-              </>
-            )}
+              ))}
+              {isOverflowing && (
+                <span className="text-sm font-medium !opacity-90">...</span>
+              )}
+            </div>
+            <div className="flex items-center gap-3">
+              {isOverflowing && (
+                <>
+                  <span className="text-sm font-semibold !opacity-90">...</span>
+                  <Link
+                    href="/categories"
+                    className="text-sm font-semibold !opacity-90"
+                  >
+                    All Categories
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
         {selectedCategory?.child_categories?.length > 0 && (

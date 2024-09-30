@@ -74,7 +74,7 @@
 
 .nav-search {
   /* width: 25rem; */
-  @apply w-[25rem] relative 2xl:w-[35rem];
+  @apply max-w-[25rem] relative 2xl:max-w-[35rem];
 }
 
 .nav-search input {
@@ -353,6 +353,19 @@
   @apply px-5 border-b border-gray-200 bg-white text-sm;
 }
 
+.page-header.is-sticky,
+.page-header .is-sticky {
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
 .category-slider .swiper-pagination {
   position: relative;
   bottom: -0.313rem;
