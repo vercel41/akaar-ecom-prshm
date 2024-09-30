@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +9,6 @@
 @layer base {
   body {
     @apply font-arial box-border;
-
   }
 
   input {
@@ -353,4 +351,23 @@
 }
 .view-html td {
   @apply px-5 border-b border-gray-200 bg-white text-sm;
+}
+
+.category-slider .swiper-pagination {
+  position: relative;
+  bottom: -0.313rem;
+}
+
+.category-slider .swiper-pagination-bullet {
+  border-radius: 0 !important;
+  width: 30px;
+  height: 2px;
+  background: #bebaba !important;
+  transition: all 0.5s ease-in-out;
+}
+
+.category-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #000 !important;
+  width: 50px !important;
+  border-radius: 0 !important;
 }
