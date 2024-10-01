@@ -58,11 +58,11 @@
 @layer components {
   .container-fluid {
     /* @apply md:px-5 2xl:max-w-[1276px]; */
-    @apply md:px-5 2xl:max-w-[2000px] mx-auto;
+    @apply px-5 2xl:max-w-[2000px] mx-auto;
   }
   .container {
     /* @apply md:px-5 2xl:max-w-[1276px]; */
-    @apply md:px-5 2xl:max-w-[1536px] mx-auto;
+    @apply px-5 2xl:max-w-[1536px] mx-auto;
   }
 }
 

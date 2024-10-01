@@ -59,11 +59,11 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
       {!loading ? (
         <>
           <div
-            className="product-card-wrap bg-white rounded shadow mb-4"
+            className="product-card-wrap bg-white mb-4"
             // style={{ border: `1px solid ${settings?.colors?.primary}` }}
           >
             <div className="product-img-action-wrap relative @container">
-              {getDaysSinceCreation(created_at) < 8 && (
+              {/* {getDaysSinceCreation(created_at) < 8 && (
                 <div className="absolute top-2 left-2 z-20">
                   <span
                     className="text-sm px-1  active:scale-90 rounded"
@@ -75,8 +75,8 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                     New
                   </span>
                 </div>
-              )}
-              {!settings?.guest_checkout ? (
+              )} */}
+              {/* {!settings?.guest_checkout ? (
                 <div className="absolute top-2 right-2 z-20">
                   <button
                     aria-label="Add To Wishlist"
@@ -92,13 +92,13 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                     {isInWishlist ? <HiHeart /> : <HiOutlineHeart />}
                   </button>
                 </div>
-              ) : null}
+              ) : null} */}
               <div
                 className={cn(
                   `product-img overflow-hidden`,
                   isSquareImage
                     ? "h-[141.5px] @[160px]:h-[161px] @[200px]:h-[207px] @[220px]:h-[242px] @[250px]:h-[260px] @[260px]:h-[271px]  @[300px]:h-[95vw]"
-                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[420px]"
+                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[450px]"
                 )}
               >
                 <Link
@@ -108,7 +108,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 >
                   {/* Default Image */}
                   <Image
-                    className="default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out rounded-t opacity-100 group-hover:opacity-0"
+                    className="default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out opacity-100 group-hover:opacity-0"
                     src={image || noImage}
                     alt={product_name}
                     width={226}
@@ -117,7 +117,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
 
                   {/* Hover Image */}
                   <Image
-                    className="hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out rounded-t opacity-0 group-hover:opacity-100"
+                    className="hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
                     src={hover_image || noImage}
                     alt={product_name}
                     width={226}
@@ -126,83 +126,36 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </Link>
               </div>
             </div>
-            <div className="product-content-wrap @container">
+            <div className="product-content-wrap @container pt-2.5">
               <h2>
                 <Link
                   href={`/products/${slug}`}
-                  className="product-title text-base text-slate-900 font-body overflow-text"
+                  className="product-title text-[.9rem] text-slate-900 font-body font-normal overflow-text !my-0"
                 >
                   {product_name}
                 </Link>
               </h2>
+              <p className="text-[.85rem] text-[#8a8a8a]">
+                Product Code {product.id}
+              </p>
               <div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2">
                 <span className="font-semibold ">
                   {siteConfig.currency.shortForm}
                   {new_price}
                 </span>
                 {old_price > new_price ? (
-                  <div className="hidden md:flex items-center gap-2">
-                    <del className="old-price text-sm font-normal text-slate-400">
+                  <div className="hidden md:flex items-center gap-2 text-[.9rem]">
+                    <del className="old-price font-normal text-slate-400">
                       {siteConfig.currency.shortForm}
                       {old_price}
                     </del>
-                    <span className="discount-badge rounded text-white bg-red-500 px-1 ml-1 !text-[12px]">
+                    <span className="discount-badge rounded text-[#ff0000] font-medium ">
                       {getDiscountPercent(old_price, new_price)}% OFF
                     </span>
                   </div>
                 ) : null}
               </div>
 
-              <div className="product-actions flex justify-between items-center gap-1 sm:gap-2">
-                <button
-                  aria-label="Add To Cart"
-                  className="action-btn p-1 lg:px-2 text-sm lg:text-lg rounded "
-                  onClick={(e) => handleAddToCart(product)}
-                  {...bindElement1}
-                  style={{
-                    border: `1px solid ${
-                      isHoveredElement1
-                        ? settings?.colors?.primary_text
-                        : settings?.colors?.default_text
-                    }`,
-                    backgroundColor: isHoveredElement1
-                      ? settings?.colors?.primary
-                      : "transparent",
-                    color: isHoveredElement1
-                      ? settings?.colors?.primary_text
-                      : settings?.colors?.default_text,
-                  }}
-                >
-                  <HiOutlineShoppingCart
-                    size={20}
-                    className="active:scale-90"
-                  />
-                </button>
-                <button
-                  onClick={() => handleAddAndCheckout(product)}
-                  {...bindElement2}
-                  className="action-btn p-1 text-sm lg:text-lg lg:px-4 py-1 w-full rounded"
-                  style={{
-                    border: `1px solid ${
-                      isHoveredElement2
-                        ? settings?.colors?.primary_text
-                        : settings?.colors?.default_text
-                    }`,
-                    backgroundColor: isHoveredElement2
-                      ? settings?.colors?.primary
-                      : "transparent",
-                    color: isHoveredElement2
-                      ? settings?.colors?.primary_text
-                      : settings?.colors?.default_text,
-                  }}
-                >
-                  {translations["buy-now"] || "Buy Now"}{" "}
-                  <HiArrowLongRight
-                    className="hidden @[150px]:inline-block"
-                    size={20}
-                  />
-                </button>
-              </div>
               {isFlashSale && (
                 <div className="product-flash-counter mt-4">
                   <div className=" flex items-center gap-3">
