@@ -7,6 +7,7 @@ import Loader from "../elements/loaders/Loader";
 import { getDaysSinceCreation } from "@/utils/format-date";
 import { getDiscountPercent, getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
+import { motion } from "framer-motion";
 
 import {
   HiOutlineHeart,
@@ -54,14 +55,27 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
 
   const isInWishlist = handleWishListProductStatus(id);
 
+  const revealVariant = {
+    hidden: { filter: "blur(8px)", opacity: 0 },
+    visible: {
+      filter: "blur(0px)",
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <>
       {!loading ? (
         <>
-          <div
-            className="product-card-wrap bg-white mb-4"
-            // style={{ border: `1px solid ${settings?.colors?.primary}` }}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={revealVariant}
+            className="overflow-hidden"
           >
+            <div className="section-backdrop"></div>
             <div className="product-img-action-wrap relative @container">
               {/* {getDaysSinceCreation(created_at) < 8 && (
                 <div className="absolute top-2 left-2 z-20">
@@ -175,7 +189,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </>
       ) : (
         <Loader />

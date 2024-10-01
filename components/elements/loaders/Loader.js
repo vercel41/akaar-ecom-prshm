@@ -1,13 +1,16 @@
-import ContentLoader from "react-content-loader";
 const Loader = () => {
   return (
     <>
-      <ContentLoader viewBox="0 0 500 420" height={420} width={400}>
-        <rect x="16" y="17" rx="0" ry="0" width="360" height="200" />
-        <circle cx="35" cy="248" r="20" />
-        <rect x="69" y="229" rx="2" ry="2" width="275" height="15" />
-        <rect x="69" y="253" rx="2" ry="2" width="140" height="15" />
-      </ContentLoader>
+      <div role="status" className="animate-pulse @container w-full">
+        <div className="flex items-center justify-center h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[450px] mb-4 bg-gray-200">
+          <span className="loader"></span>
+        </div>
+        <div className="h-4 bg-gray-200 w-56 mb-4"></div>
+        <div className="h-4 w-44 bg-gray-200 mb-2.5"></div>
+        <div className="h-4 w-36 bg-gray-200 mb-2.5"></div>
+
+        <span className="sr-only">Loading...</span>
+      </div>
     </>
   );
 };

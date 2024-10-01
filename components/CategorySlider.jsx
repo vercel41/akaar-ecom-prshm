@@ -9,6 +9,7 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 import Link from "next/link";
 import Image from "next/image";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { motion } from "framer-motion";
 
 const CategorySlider = ({
   banners,
@@ -16,6 +17,15 @@ const CategorySlider = ({
   translations,
   settings,
 }) => {
+  const revealVariant = {
+    hidden: { filter: "blur(8px)", opacity: 0 },
+    visible: {
+      filter: "blur(0px)",
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="relative">
       <Swiper
@@ -49,7 +59,13 @@ const CategorySlider = ({
       >
         {banners?.map((banner, i) => (
           <SwiperSlide key={i}>
-            <div key={banner.id}>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={revealVariant}
+              key={banner.id}
+            >
               <Link href={banner.url || "#"} className="banner-img">
                 <Image
                   src={banner.image || noImage}
@@ -79,7 +95,7 @@ const CategorySlider = ({
                   </span>
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </SwiperSlide>
         ))}
       </Swiper>

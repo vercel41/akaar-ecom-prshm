@@ -4,6 +4,7 @@ import useSticky from "@/hooks/useSticky";
 import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useRef, useState, useEffect } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
@@ -12,6 +13,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const containerRef = useRef(null);
   const megaMenuRef = useRef(null);
+  const router = useRouter();
 
   const { sticky } = useSticky(150);
 
@@ -53,15 +55,15 @@ export default function CategoriesMegaMenu({ settings, categories }) {
               ref={containerRef}
             >
               {categories?.map((category, mainIndex) => (
-                <Link
-                  href={
-                    category.child_categories?.length > 0
-                      ? "javascript:void(0)"
-                      : `/categories/${category.slug}`
-                  }
+                <button
                   key={mainIndex}
                   title={category.category_name}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={(e) => {
+                    setSelectedCategory(category);
+                    category.child_categories?.length > 0
+                      ? e.preventDefault()
+                      : router.push(`/categories/${category.slug}`);
+                  }}
                   className={`capitalize ${
                     category?.child_categories?.length
                       ? "flex items-center gap-1.5"
@@ -76,7 +78,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                   >
                     {category.category_name}
                   </span>
-                </Link>
+                </button>
               ))}
               {isOverflowing && (
                 <span className="text-sm font-medium !opacity-90">...</span>
