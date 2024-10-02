@@ -117,6 +117,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
               <div className="w-full text-center mb-2">
                 <Link
                   href={`/categories/${subCategory.slug}`}
+                  onClick={() => setSelectedCategory({})}
                   className="font-bold uppercase block w-full hover:bg-black hover:text-white transition-all ease-in-out duration-500"
                 >
                   {subCategory?.category_name}
@@ -128,6 +129,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                   <div key={subIndex} className="w-full text-center">
                     <Link
                       href={`/categories/${childCategory.slug}`}
+                      onClick={() => setSelectedCategory({})}
                       className="mt-2 font-normal text-xs uppercase hover:bg-black hover:text-white transition-all ease-in-out duration-500 w-full block"
                     >
                       {childCategory?.category_name}
