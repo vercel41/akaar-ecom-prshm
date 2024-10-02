@@ -96,7 +96,7 @@ const ProductVariantSelect = forwardRef(
       }
     }, [productBarCodes, setSelectedColor, setSelectedVariant]);
 
-    console.log(selectedVariant);
+    // console.log(selectedVariant);
 
     return (
       <>

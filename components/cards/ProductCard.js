@@ -57,7 +57,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
 
   const isInWishlist = handleWishListProductStatus(id);
 
-  console.log(product);
+  // console.log(product);
 
   const revealVariant = {
     hidden: { filter: "blur(8px)", opacity: 0 },
