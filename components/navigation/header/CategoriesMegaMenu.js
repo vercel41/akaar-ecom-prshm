@@ -102,10 +102,11 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 
         <div
           className={cn(
-            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 absolute top-[180px] bg-white shadow-[0_0_3px_#3d3d3d] w-[95%] left-[2.5%] transition-all duration-500",
+            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 absolute  bg-white shadow-[0_0_3px_#3d3d3d] w-[95%] left-[2.5%] transition-all duration-500",
             selectedCategory?.child_categories?.length > 0
               ? "p-4 pt-[50px] min-h-[70vh] h-[570px]"
-              : "h-0 min-h-0"
+              : "h-0 min-h-0",
+            sticky ? "top-[60px]" : "top-[180px]"
           )}
         >
           {selectedCategory?.child_categories?.map((subCategory, index) => (

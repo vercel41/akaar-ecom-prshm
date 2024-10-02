@@ -47,15 +47,20 @@ export default function MainNav({ settings, categories }) {
   return (
     <div
       className={cn(
-        "relative shadow-sm md:shadow-none transition-all duration-500 ease-in-out page-header pt-4",
-        sticky && "is-sticky py-3"
+        "relative shadow-sm md:shadow-none transition-all duration-500 ease-in-out page-header ",
+        sticky && "is-sticky"
       )}
       style={{
         backgroundColor: settings?.colors?.primary,
         color: settings?.colors?.primary_text,
       }}
     >
-      <div className="main-nav container-fluid">
+      <div
+        className={cn(
+          "main-nav container-fluid",
+          sticky ? "py-3" : "sm:pt-4 sm:pb-0 py-4"
+        )}
+      >
         <div className="flex items-center justify-end gap-x-2 relative">
           <div
             className={cn(

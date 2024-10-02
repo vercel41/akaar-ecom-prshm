@@ -140,7 +140,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </Link>
               </div>
             </div>
-            <div className="product-content-wrap @container pt-2.5">
+            <div className="product-content-wrap @container pt-2.5 grid place-items-center sm:place-items-start text-center sm:text-left">
               <h2>
                 <Link
                   href={`/products/${slug}`}

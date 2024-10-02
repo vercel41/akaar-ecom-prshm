@@ -8,6 +8,7 @@ import { fetchData } from "@/lib/fetch-data";
 import { Link } from "@/navigation";
 import Featured from "./_components/Featured";
 import Popup from "./_components/Popup";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 export default async function Home() {
   const [settingsRes, transRes] = await Promise.allSettled([
@@ -36,7 +37,7 @@ export default async function Home() {
         </section>
       ) : null}
 
-      <section className="flash-sale mt-10">
+      <section className="flash-sale">
         <div className="container-fluid">
           <FlashSale />
         </div>
@@ -51,13 +52,25 @@ export default async function Home() {
       {settings?.shop_section ? (
         <section className="new-products">
           <div className="container-fluid">
-            <div className="py-10 text-center">
-              <h2 className="sec-title pb-3">
+            <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
+              <h2 className="sec-title">
                 {translations["new-arrival"] || "New Collection"}
               </h2>
-              <Link href="/products?sort_type=new" className="underline">
-                {translations["browse-our-new-collections"] ||
-                  "Browse our new collections"}
+
+              <Link
+                href="/products?sort_type=new"
+                className="rounded px-2 pb-1 font-medium font-title flex justify-center items-center gap-1 group capitalize text-lg"
+              >
+                <span className="group-hover:-translate-x-3 transition-transform duration-500">
+                  {translations["browse-our-new-collections"] ||
+                    "Browse our new collections"}{" "}
+                </span>
+                <span>
+                  <MdKeyboardDoubleArrowRight
+                    size={22}
+                    className="group-hover:translate-x-3 transition-transform duration-500"
+                  />
+                </span>
               </Link>
             </div>
 
