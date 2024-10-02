@@ -7,8 +7,9 @@ import Loader from "../elements/loaders/Loader";
 import { getDaysSinceCreation } from "@/utils/format-date";
 import { getDiscountPercent, getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
-import { motion } from "framer-motion";
-
+const MotionDiv = dynamic(() =>
+  import("framer-motion").then((mod) => mod.motion.div)
+);
 import {
   HiOutlineHeart,
   HiOutlineShoppingCart,
@@ -20,6 +21,7 @@ import useWishList from "@/hooks/useWishList";
 import useHover from "@/hooks/useHover";
 import useCart from "@/hooks/useCart";
 import { cn } from "@/utils";
+import dynamic from "next/dynamic";
 
 const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
   const { settings, translations } = useSelector((state) => state.common);
@@ -55,12 +57,14 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
 
   const isInWishlist = handleWishListProductStatus(id);
 
+  console.log(product);
+
   const revealVariant = {
     hidden: { filter: "blur(8px)", opacity: 0 },
     visible: {
       filter: "blur(0px)",
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 1, ease: "easeOut" },
     },
   };
 
@@ -68,7 +72,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
     <>
       {!loading ? (
         <>
-          <motion.div
+          <MotionDiv
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
@@ -109,7 +113,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
               ) : null} */}
               <div
                 className={cn(
-                  `product-img overflow-hidden`,
+                  `product-img overflow-hidden relative`,
                   isSquareImage
                     ? "h-[141.5px] @[160px]:h-[161px] @[200px]:h-[207px] @[220px]:h-[242px] @[250px]:h-[260px] @[260px]:h-[271px]  @[300px]:h-[95vw]"
                     : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[450px]"
@@ -138,6 +142,11 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                     height={400}
                   />
                 </Link>
+                {product.stock_qty === 0 && (
+                  <div className="absolute top-[45%] left-1/2 -translate-y-[45%] -translate-x-1/2 bg-white w-[60%] p-[.5rem] text-[.8rem] text-red-500 text-center">
+                    Out of stock
+                  </div>
+                )}
               </div>
             </div>
             <div className="product-content-wrap @container pt-2.5 grid place-items-center sm:place-items-start text-center sm:text-left">
@@ -189,7 +198,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </div>
               )}
             </div>
-          </motion.div>
+          </MotionDiv>
         </>
       ) : (
         <Loader />

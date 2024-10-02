@@ -40,10 +40,12 @@ const LastVisitedProducts = ({ visitedProductId }) => {
 
   return (
     <section id="visit-history">
-      <div className="container py-8 lg:py-14">
-        <h2 className="sec-title text-center mb-8">
-          {translations["recently-viewed"] || "Recently Viewed"}
-        </h2>
+      <div className="container-fluid pb-12">
+        <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
+          <h2 className="sec-title !text-xl">
+            {translations["recently-viewed"] || "Recently Viewed"}{" "}
+          </h2>
+        </div>
         <div className="category-products"></div>
         <div className="products-wpr grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 lg:gap-5">
           {visitedProducts?.map((product, i) => (

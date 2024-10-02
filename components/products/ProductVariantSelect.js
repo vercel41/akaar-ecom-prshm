@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { forwardRef, useEffect, useState } from "react";
 import { groupByKey } from "@/utils/format-list";
 import { toast } from "react-toastify";
+import { cn } from "@/utils";
 
 const ProductVariantSelect = forwardRef(
   (
@@ -28,7 +29,6 @@ const ProductVariantSelect = forwardRef(
       }
       setSelectedVariant(variantProp);
     };
-
     /**
      * The function `triggerColorImgToView` filters an array of photos based on a given color name and
      * selects the first image as the active slide in a slider.
@@ -86,7 +86,7 @@ const ProductVariantSelect = forwardRef(
 
         // Activate this block to auto variant select onload
         const tempColors = Object.keys(colorVariantsGroup);
-        
+
         if (tempColors.length === 1) {
           // handleColorSelect(tempColors[0]);
           const firstColor = tempColors[0];
@@ -96,11 +96,13 @@ const ProductVariantSelect = forwardRef(
       }
     }, [productBarCodes, setSelectedColor, setSelectedVariant]);
 
+    console.log(selectedVariant);
+
     return (
       <>
         {!(colors.length === 1 && colors[0] === "") ? (
-          <div className="product-color mt-4">
-            <h4 className="text-slate-900 text-sm lg:text-base font-normal">
+          <div className="product-color mt-4 border-b border-black pb-3">
+            <h4 className="text-[#0a0a0a] text-[.8rem] font-bold">
               {translations["select-color"] || "Select Color"}:
             </h4>
             <div className="flex gap-[10px] lg:gap-3 flex-wrap mt-2 lg:mt-3">
@@ -112,7 +114,7 @@ const ProductVariantSelect = forwardRef(
                 return (
                   <div
                     key={color}
-                    className={`md:p-1.5 h-[48px] lg:h-[52px] min-w-[48px] lg:min-w-[52px] w-fit box-content rounded-md border ${
+                    className={`md:p-1.5 h-[48px] lg:h-16 min-w-[48px] lg:min-w-[52px] w-fit box-content border ${
                       selectedColor === color
                         ? "border-2 border-primary"
                         : "border-slate-300"
@@ -126,7 +128,7 @@ const ProductVariantSelect = forwardRef(
                         height={52}
                         width={52}
                         title={color}
-                        className={`h-full w-12 lg:w-[52px] rounded-md object-contain`}
+                        className={`h-full w-12 lg:w-[52px] object-contain`}
                       />
                     ) : (
                       <span
@@ -145,25 +147,25 @@ const ProductVariantSelect = forwardRef(
 
         {/* size section */}
         {colorsGroup[selectedColor]?.some((variant) => variant.size !== "") ? (
-          <div className="product-size mt-4">
+          <div className="product-size mt-10 border-b border-black pb-2">
             <div className="font-normal">
-              <h4 className="text-slate-900 text-sm lg:text-base">
+              <h4 className="text-[#0a0a0a] text-[.8rem] font-bold">
                 {translations["select-variant"] || "Select Variant"}:
               </h4>
             </div>
-            <div className="flex gap-2 lg:gap-3 flex-wrap mt-2 lg:mt-3">
+            <div className="flex flex-wrap mt-2">
               {colorsGroup[selectedColor]?.map((variant) => (
                 <div
                   key={variant.id}
-                  className={`py-2 lg:py-3 px-4 rounded-lg border text-sm lg:text-base ${
-                    selectedVariant?.id === variant.id
-                      ? "border-2 border-primary"
-                      : "border-slate-300"
-                  } cursor-pointer  ${
+                  className={cn(
+                    `px-[3px] min-w-[30px] h-[30px] font-semibold text-[.7rem] m-1 cursor-pointer hover:bg-black hover:text-white grid place-items-center transition-colors duration-500 `,
                     variant.stock_qty <= 0
-                      ? "bg-slate-300 text-slate-400 cursor-not-allowed"
-                      : "text-slate-700"
-                  }`}
+                      ? "hover:bg-[#808080] hover:text-white text-[#808080] cursor-default line-through"
+                      : "text-black",
+                    selectedVariant &&
+                      selectedVariant.id === variant.id &&
+                      "bg-black text-white"
+                  )}
                   onClick={() => handleVariantSelect(variant)}
                 >
                   {variant.size}
@@ -172,6 +174,24 @@ const ProductVariantSelect = forwardRef(
             </div>
           </div>
         ) : null}
+        <p
+          className={cn(
+            `text-center text-sm font-bold mt-3 ${
+              ((selectedVariant && selectedVariant.stock_qty === 0) ||
+                (selectedVariant &&
+                  selectedVariant.stock_qty > 0 &&
+                  selectedVariant.stock_qty < 10)) &&
+              "text-red-500"
+            }`
+          )}
+        >
+          {selectedVariant && selectedVariant.stock_qty === 0 && "Out of stock"}
+          {selectedVariant &&
+            selectedVariant.stock_qty > 0 &&
+            selectedVariant.stock_qty < 10 &&
+            `Only ${selectedVariant.stock_qty} left`}
+          {selectedVariant && selectedVariant.stock_qty >= 10 && "In stock"}
+        </p>
       </>
     );
   }

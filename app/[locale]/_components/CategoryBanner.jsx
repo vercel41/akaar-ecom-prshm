@@ -1,10 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { motion } from "framer-motion";
-
+const MotionDiv = dynamic(() =>
+  import("framer-motion").then((mod) => mod.motion.div)
+);
 const CategoryBanner = ({ banner, settings }) => {
   const revealVariant = {
     hidden: { filter: "blur(8px)", opacity: 0 },
@@ -16,7 +18,7 @@ const CategoryBanner = ({ banner, settings }) => {
   };
 
   return (
-    <motion.div
+    <MotionDiv
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -51,7 +53,7 @@ const CategoryBanner = ({ banner, settings }) => {
           </span>
         </Link>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 

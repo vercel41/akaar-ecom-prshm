@@ -219,17 +219,17 @@
 
 /* Swiper Slider default Overrides/Adjustments  */
 
-.product-preview-slider > .swiper-pagination {
+/* .product-preview-slider > .swiper-pagination {
   @apply bg-white px-4 rounded-t-xl !py-1.5 !bottom-0 !left-1/2 -translate-x-1/2 lg:hidden;
-}
+} */
 
-.product-preview-slider .swiper-pagination-bullet {
+/* .product-preview-slider .swiper-pagination-bullet {
   @apply bg-primary;
 }
 
 .product-preview-slider .swiper-pagination-bullet-active {
   @apply w-6 rounded-lg;
-}
+} */
 
 .slider-btn {
   @apply absolute top-1/2 left-0 transform -translate-y-1/2 inline-flex justify-center items-center w-12 h-12 bg-[#F8FAFC] rounded-full z-10 cursor-pointer;
@@ -366,12 +366,12 @@
     transform: translateY(0);
   }
 }
-.category-slider .swiper-pagination {
-  position: relative;
+.slider-pagination .swiper-pagination {
+  position: relative !important;
   bottom: -0.313rem;
 }
 
-.category-slider .swiper-pagination-bullet {
+.slider-pagination .swiper-pagination-bullet {
   border-radius: 0 !important;
   width: 30px;
   height: 2px;
@@ -379,7 +379,7 @@
   transition: all 0.5s ease-in-out;
 }
 
-.category-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.slider-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: #000 !important;
   width: 50px !important;
   border-radius: 0 !important;

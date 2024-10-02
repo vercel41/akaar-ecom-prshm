@@ -83,7 +83,13 @@ export default function MainNav({ settings, categories }) {
                 className="h-full w-auto object-contain"
               />
             </Link>
-            <div className={cn("", sticky ? "sm:block hidden" : "hidden")}>
+            <div
+              style={{
+                backgroundColor: settings?.colors?.primary,
+                color: settings?.colors?.primary_text,
+              }}
+              className={cn("", sticky ? "sm:block hidden" : "hidden")}
+            >
               <CategoriesMegaMenu settings={settings} categories={categories} />
             </div>
           </div>
@@ -109,7 +115,7 @@ export default function MainNav({ settings, categories }) {
               className="group relative single-action hidden lg:block text-black hover:opacity-60 transition-all duration-500"
             >
               <HiOutlineShoppingCart size={24} />
-              {cart?.length ? (
+              {cart?.length && (
                 <span
                   className="absolute -right-1 -top-1 border text-[10px] px-1 text-center rounded-full"
                   style={{
@@ -118,43 +124,46 @@ export default function MainNav({ settings, categories }) {
                 >
                   {cart?.length}
                 </span>
-              ) : null}
+              )}
             </button>
-            {!settings?.guest_checkout ? (
-              <>
-                <button
-                  onClick={() => router.push("/dashboard/my-wishlist")}
-                  className="inline-block relative"
-                >
-                  <HiOutlineHeart size={24} />
-                  {wishlistCount ? (
-                    <span
-                      className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
-                      style={{
-                        border: `1px solid ${settings?.colors?.primary_text}`,
-                        backgroundColor: settings?.colors?.primary,
-                      }}
-                    >
-                      {wishlistCount}
-                    </span>
-                  ) : null}
-                </button>
-                {/* <button onClick={handleModalOpen} className="single-action"> */}
-                <button className="single-action">
-                  {user?.image ? (
-                    <Image
-                      src={user.image}
-                      alt="Profile"
-                      height={32}
-                      width={32}
-                      className="h-full w-full rounded-full"
-                    />
-                  ) : (
-                    <HiOutlineUser size={24} />
-                  )}
-                </button>
-              </>
-            ) : null}
+            {
+              !settings?.guest_checkout && (
+                <>
+                  <button
+                    onClick={() => router.push("/dashboard/my-wishlist")}
+                    className="inline-block relative"
+                  >
+                    <HiOutlineHeart size={24} />
+                    {wishlistCount && (
+                      <span
+                        className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
+                        style={{
+                          border: `1px solid ${settings?.colors?.primary_text}`,
+                          backgroundColor: settings?.colors?.primary,
+                        }}
+                      >
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </button>
+                  {/* <button onClick={handleModalOpen} className="single-action"> */}
+                  <button className="single-action">
+                    {user?.image ? (
+                      <Image
+                        src={user.image}
+                        alt="Profile"
+                        height={32}
+                        width={32}
+                        className="h-full w-full rounded-full"
+                      />
+                    ) : (
+                      <HiOutlineUser size={24} />
+                    )}
+                  </button>
+                </>
+              )
+              /* The `) : null}` part in the code snippet is a conditional rendering pattern in React. */
+            }
 
             <span className="hidden md:block">
               <LanguageSelector />
@@ -192,10 +201,11 @@ export default function MainNav({ settings, categories }) {
         isSearchbarOpen={searchbarOpen}
       />
       <div
-        className={cn(
-          "!bg-[#F4EBE2] w-full",
-          sticky ? "hidden" : "sm:block hidden mt-4"
-        )}
+        style={{
+          backgroundColor: settings?.colors?.primary,
+          color: settings?.colors?.primary_text,
+        }}
+        className={cn("w-full", sticky ? "hidden" : "sm:block hidden mt-4")}
       >
         <CategoriesMegaMenu settings={settings} categories={categories} />
       </div>

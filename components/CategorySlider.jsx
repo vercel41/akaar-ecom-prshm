@@ -9,8 +9,10 @@ import { TfiAngleRight, TfiAngleLeft } from "react-icons/tfi";
 import Link from "next/link";
 import Image from "next/image";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { motion } from "framer-motion";
-
+import dynamic from "next/dynamic";
+const MotionDiv = dynamic(() =>
+  import("framer-motion").then((mod) => mod.motion.div)
+);
 const CategorySlider = ({
   banners,
   sliderId = "slider",
@@ -55,11 +57,11 @@ const CategorySlider = ({
           clickable: true,
         }}
         // centeredSlides={true}
-        className="category-slider"
+        className="category-slider slider-pagination"
       >
         {banners?.map((banner, i) => (
           <SwiperSlide key={i}>
-            <motion.div
+            <MotionDiv
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
@@ -95,7 +97,7 @@ const CategorySlider = ({
                   </span>
                 </Link>
               </div>
-            </motion.div>
+            </MotionDiv>
           </SwiperSlide>
         ))}
       </Swiper>

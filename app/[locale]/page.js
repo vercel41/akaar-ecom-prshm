@@ -53,13 +53,13 @@ export default async function Home() {
         <section className="new-products">
           <div className="container-fluid">
             <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
-              <h2 className="sec-title">
+              <h2 className="sec-title !text-xl">
                 {translations["new-arrival"] || "New Collection"}
               </h2>
 
               <Link
                 href="/products?sort_type=new"
-                className="rounded px-2 pb-1 font-medium font-title flex justify-center items-center gap-1 group capitalize text-lg"
+                className="rounded px-2 pb-1 font-title flex justify-center items-center gap-1 group capitalize text-lg"
               >
                 <span className="group-hover:-translate-x-3 transition-transform duration-500">
                   {translations["browse-our-new-collections"] ||
