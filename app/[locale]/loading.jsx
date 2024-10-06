@@ -3,9 +3,9 @@ import React from "react";
 // import loading from "@/public/assets/images/loading.gif";
 
 export default function Loading({ ...props }) {
-	return (
-		<>
-			{/* <div className="flex h-screen w-screen justify-center items-center -mt-16">
+  return (
+    <>
+      {/* <div className="flex h-screen w-screen justify-center items-center -mt-16">
 			<Image
 				className={`h-[100px] md:h-[200px] w-[100px] md:w-[200px]`}
 				src={"https://akaarserver.xyz/loading.gif" || loading}
@@ -14,8 +14,8 @@ export default function Loading({ ...props }) {
 				height={200}
 			/>
 		</div> */}
-			<div className="flex h-[70vh] w-full justify-center items-center">
-				<svg
+      <div className="flex h-[70vh] w-full justify-center items-center bg-white">
+        {/* <svg
 					xmlns="http://www.w3.org/2000/svg"
 					width={200}
 					height={200}
@@ -38,8 +38,8 @@ export default function Loading({ ...props }) {
 							values="0 50 50.5;360 50 50.5"
 						/>
 					</path>
-				</svg>
-			</div>
-		</>
-	);
+				</svg> */}
+      </div>
+    </>
+  );
 }

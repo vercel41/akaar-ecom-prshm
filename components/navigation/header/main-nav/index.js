@@ -44,16 +44,26 @@ export default function MainNav({ settings, categories }) {
   const { sticky } = useSticky(150);
   const pathname = usePathname();
 
+  const handleModalOpen = () => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      dispatch(setLoginModalOpen(true));
+    }
+  };
+
   return (
     <div
+      style={{
+        backgroundColor: sticky
+          ? settings?.colors?.secondary
+          : `${settings?.colors?.secondary}b3`,
+        color: settings?.colors?.secondary_text,
+      }}
       className={cn(
-        "relative shadow-sm md:shadow-none transition-all duration-500 ease-in-out page-header ",
+        "relative shadow-sm md:shadow-none transition-all duration-500 ease-in-out page-header",
         sticky && "is-sticky"
       )}
-      style={{
-        backgroundColor: settings?.colors?.primary,
-        color: settings?.colors?.primary_text,
-      }}
     >
       <div
         className={cn(
@@ -65,7 +75,7 @@ export default function MainNav({ settings, categories }) {
           <div
             className={cn(
               "flex-1 w-full flex items-center",
-              !sticky && "sm:justify-center sm:-mr-[350px] sm:flex-col"
+              !sticky && "sm:justify-center sm:-mr-[430px] sm:flex-col"
             )}
           >
             <Link
@@ -83,13 +93,7 @@ export default function MainNav({ settings, categories }) {
                 className="h-full w-auto object-contain"
               />
             </Link>
-            <div
-              style={{
-                backgroundColor: settings?.colors?.primary,
-                color: settings?.colors?.primary_text,
-              }}
-              className={cn("", sticky ? "sm:block hidden" : "hidden")}
-            >
+            <div className={cn("", sticky ? "sm:block hidden" : "hidden")}>
               <CategoriesMegaMenu settings={settings} categories={categories} />
             </div>
           </div>
@@ -103,13 +107,15 @@ export default function MainNav({ settings, categories }) {
               <LuSearch size={22} />
               Search
             </button>
-            <button
-              className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem]"
-              onClick={() => dispatch(setLoginModalOpen(true))}
-            >
-              <LuUser2 size={22} />
-              Signin
-            </button>
+            {!user && (
+              <button
+                className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem]"
+                onClick={() => dispatch(setLoginModalOpen(true))}
+              >
+                <LuUser2 size={22} />
+                Signin
+              </button>
+            )}
             <button
               onClick={() => dispatch(toggleCart())}
               className="group relative single-action hidden lg:block text-black hover:opacity-60 transition-all duration-500"
@@ -127,7 +133,7 @@ export default function MainNav({ settings, categories }) {
               )}
             </button>
             {
-              !settings?.guest_checkout && (
+              settings?.guest_checkout && (
                 <>
                   <button
                     onClick={() => router.push("/dashboard/my-wishlist")}
@@ -146,8 +152,8 @@ export default function MainNav({ settings, categories }) {
                       </span>
                     )}
                   </button>
-                  {/* <button onClick={handleModalOpen} className="single-action"> */}
-                  <button className="single-action">
+                  <button onClick={handleModalOpen} className="single-action">
+                    {/* <button className="single-action"> */}
                     {user?.image ? (
                       <Image
                         src={user.image}
@@ -202,8 +208,8 @@ export default function MainNav({ settings, categories }) {
       />
       <div
         style={{
-          backgroundColor: settings?.colors?.primary,
-          color: settings?.colors?.primary_text,
+          backgroundColor: `${settings?.colors?.secondary}cc`,
+          color: settings?.colors?.secondary_text,
         }}
         className={cn("w-full", sticky ? "hidden" : "sm:block hidden mt-4")}
       >

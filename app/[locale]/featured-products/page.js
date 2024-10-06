@@ -35,7 +35,7 @@ const FeaturedProducts = async ({ searchParams }) => {
   return (
     <>
       <div
-        className="bg-cover bg-top w-full h-[240px] breadcrumb py-6 flex flex-col items-center justify-center text-center"
+        className="bg-cover bg-top w-full h-[240px] breadcrumb py-6 mt-8 flex flex-col items-center justify-center text-center"
         style={{
           backgroundImage: `url(${
             featuredProductInfo?.image || "/assets/images/banner/banner.png"
@@ -49,7 +49,7 @@ const FeaturedProducts = async ({ searchParams }) => {
           <p className="text-xl text-slate-600 mb-3 font-extralight">
             {featuredProductInfo?.name}
           </p>
-          <div className="breadcrumb hidden lg:block">
+          <div className="breadcrumb mt-8 hidden lg:block">
             <Link
               href="/"
               className="text-base text-slate-700 hover:text-primary mr-2"

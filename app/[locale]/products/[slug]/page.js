@@ -38,7 +38,7 @@ const ProductView = async ({ params }) => {
     <>
       <ProductMicroData product={product} />
       <div className="container">
-        <div className="breadcrumb breadcrumb-2 py-5 max-w-6xl mx-auto">
+        <div className="breadcrumb breadcrumb-2 py-5 mt-8 max-w-6xl mx-auto">
           <div>
             <Link
               href={`/`}
@@ -97,6 +97,7 @@ const ProductView = async ({ params }) => {
         </div>
       </section>
 
+      {}
       <LastVisitedProducts visitedProductId={product?.id} />
     </>
   );

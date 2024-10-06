@@ -367,6 +367,10 @@
   }
 }
 .slider-pagination .swiper-pagination {
+  bottom: -1rem;
+}
+
+.category-slider .swiper-pagination {
   position: relative !important;
   bottom: -0.313rem;
 }
@@ -455,5 +459,30 @@
   }
   100% {
     width: 48px;
+  }
+}
+
+.blur-animation {
+  position: relative;
+}
+
+.blur-animation::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(30px);
+  z-index: 10;
+  animation: fadeOutBlur 1.2s ease-in-out forwards;
+}
+
+@keyframes fadeOutBlur {
+  0% {
+    backdrop-filter: blur(30px);
+  }
+  100% {
+    backdrop-filter: blur(0);
   }
 }

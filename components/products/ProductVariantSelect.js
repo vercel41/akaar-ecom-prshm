@@ -4,6 +4,8 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { groupByKey } from "@/utils/format-list";
 import { toast } from "react-toastify";
 import { cn } from "@/utils";
+import { MdArrowForwardIos } from "react-icons/md";
+import SizeChartModal from "../modals/SizeChartModal";
 
 const ProductVariantSelect = forwardRef(
   (
@@ -15,11 +17,13 @@ const ProductVariantSelect = forwardRef(
       translations,
       selectedColor,
       setSelectedColor,
+      size_cart,
     },
     ref
   ) => {
     const [colorsGroup, setColorsGroup] = useState({});
     const colors = Object.keys(colorsGroup);
+    const [showSizeChart, setShowSizeChart] = useState(false);
 
     const handleVariantSelect = (variantProp) => {
       if (variantProp.stock_qty <= 0) {
@@ -87,7 +91,7 @@ const ProductVariantSelect = forwardRef(
         // Activate this block to auto variant select onload
         const tempColors = Object.keys(colorVariantsGroup);
 
-        if (tempColors.length === 1) {
+        if (tempColors.length) {
           // handleColorSelect(tempColors[0]);
           const firstColor = tempColors[0];
           setSelectedColor(firstColor);
@@ -95,8 +99,6 @@ const ProductVariantSelect = forwardRef(
         }
       }
     }, [productBarCodes, setSelectedColor, setSelectedVariant]);
-
-    // console.log(selectedVariant);
 
     return (
       <>
@@ -148,10 +150,20 @@ const ProductVariantSelect = forwardRef(
         {/* size section */}
         {colorsGroup[selectedColor]?.some((variant) => variant.size !== "") ? (
           <div className="product-size mt-10 border-b border-black pb-2">
-            <div className="font-normal">
+            <div className="font-normal flex justify-between items-center">
               <h4 className="text-[#0a0a0a] text-[.8rem] font-bold">
-                {translations["select-variant"] || "Select Variant"}:
+                {translations["select-variant"] || "Select Size"}
               </h4>
+              {size_cart && (
+                <button
+                  className="text-black flex items-center text-[.8rem] underline"
+                  onClick={() => setShowSizeChart((show) => !show)}
+                >
+                  <span>
+                    {translations["View size guide"] || "View size guide"}
+                  </span>
+                </button>
+              )}
             </div>
             <div className="flex flex-wrap mt-2">
               {colorsGroup[selectedColor]?.map((variant) => (
@@ -192,6 +204,14 @@ const ProductVariantSelect = forwardRef(
             `Only ${selectedVariant.stock_qty} left`}
           {selectedVariant && selectedVariant.stock_qty >= 10 && "In stock"}
         </p>
+
+        {size_cart && showSizeChart && (
+          <SizeChartModal
+            showModal={showSizeChart}
+            setShowModal={setShowSizeChart}
+            sizeChart={size_cart}
+          />
+        )}
       </>
     );
   }

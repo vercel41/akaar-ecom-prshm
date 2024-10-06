@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { forwardRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, EffectFade } from "swiper/modules";
 import "swiper/css/pagination";
 
 import useWishList from "@/hooks/useWishList";
@@ -20,22 +20,11 @@ import dynamic from "next/dynamic";
 import { delay } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const MotionDiv = dynamic(() =>
-  import("framer-motion").then((mod) => mod.motion.div)
-);
-
 const ProductViewSlider = forwardRef(
   ({ product, selectedColor, isSquareImage }, ref) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const isMobile = useMediaQuery("(max-width: 768px)");
-    const {
-      handleAddToWishlist,
-      handleWishListProductStatus,
-      handleRemoveFromWishlist,
-    } = useWishList(); //custom hook for reusing
 
     //setting default image if no image is provided
     let slides = product?.photos?.length
@@ -68,43 +57,41 @@ const ProductViewSlider = forwardRef(
       setIndex(index);
     };
 
-    const revealVariant = {
-      hidden: { filter: "blur(8px)", opacity: 0 },
-      visible: {
-        filter: "blur(0px)",
-        opacity: 1,
-        transition: { duration: 1.2, ease: "easeOut" },
-      },
-    };
-
     return (
       <>
         <div className="w-full">
           <div className={cn("preview-slider grid relative w-full")}>
             <Swiper
               ref={ref}
-              className="product-preview-slider [&_.swiper-wrapper]:pb-3 lg:[&_.swiper-wrapper]:pb-0 slider-pagination"
+              effect={"fade"}
               slidesPerView={1}
-              pagination={{
-                clickable: true,
-              }}
               navigation={{
                 prevEl: `.custom_prev_product-preview`,
                 nextEl: `.custom_next_product-preview`,
               }}
               loop={true}
-              modules={[Pagination, Navigation]}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination, Navigation, EffectFade]}
+              className="slider-pagination !pb-10"
+              // onSlideChange={() => {
+              //   const blurElements = document.querySelectorAll(
+              //     ".blur-animation::before"
+              //   );
+              //   blurElements.forEach((el) => {
+              //     el.style.animation = "none";
+              //     void el.offsetWidth; // Trigger reflow to restart animation
+              //     el.style.animation = "fadeOutBlur 2s ease-out forwards";
+              //   });
+              // }}
             >
               {slides.map((slide, index) => (
-                <SwiperSlide key={index} className={cn("w-full")}>
-                  <MotionDiv
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ amount: 0.2 }}
-                    variants={revealVariant}
-                    className="slider-imag h-full w-full"
-                  >
-                    {/* {(isFirstItem(slide?.color_name) || index === 0) && ( */}
+                <SwiperSlide
+                  key={index}
+                  className={cn("w-full slider-img blur-animation")}
+                >
+                  <div className="h-full w-full">
                     <Image
                       src={slide?.image}
                       alt=""
@@ -112,8 +99,7 @@ const ProductViewSlider = forwardRef(
                       height={524}
                       className="object-cover h-full w-full"
                     />
-                    {/* )} */}
-                  </MotionDiv>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -253,7 +253,7 @@ const Checkout = () => {
 
   return (
     <section className="container pb-8">
-      <div className="breadcrumb breadcrumb-2 py-5">
+      <div className="breadcrumb breadcrumb-2 py-5 mt-8">
         <div className="">
           <div>
             <Link

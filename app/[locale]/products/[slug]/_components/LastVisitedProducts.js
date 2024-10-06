@@ -18,8 +18,7 @@ const LastVisitedProducts = ({ visitedProductId }) => {
   const [addToVisited] = useAddToVisitedMutation();
   const { data, isLoading } = useGetVisitedProductsQuery({ locale });
   const visitedProducts = data?.data || [];
-  // console.log(visitedProducts);
-
+  console.log(user);
   // Adding product to visited list
   useEffect(() => {
     if (visitedProductId && user) {

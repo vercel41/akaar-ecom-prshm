@@ -29,7 +29,6 @@ import SocialShare from "@/components/elements/SocialShare";
 
 const ProductDetails = ({ product, settings, translations }) => {
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
-  const [showSizeChart, setShowSizeChart] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
   const productViewSwiperRef = useRef(null);
@@ -78,7 +77,7 @@ const ProductDetails = ({ product, settings, translations }) => {
               />
             </div>
           </div>
-          <div className="lg:w-full max-w-[380px] mx-auto">
+          <div className="w-full max-w-[380px] mx-auto">
             <div className="product-content-wrap">
               {product?.brand?.brand_name && (
                 <p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
@@ -130,6 +129,7 @@ const ProductDetails = ({ product, settings, translations }) => {
                     ref={productViewSwiperRef}
                     setSelectedColor={setSelectedColor}
                     selectedColor={selectedColor}
+                    size_cart={product?.size_chart}
                   />
                 ) : null}
               </div>
@@ -182,17 +182,7 @@ const ProductDetails = ({ product, settings, translations }) => {
               ) : null}
             </div>
             {/* size chart section */}
-            {product?.size_chart && (
-              <button
-                className="text-secondary-700 mt-4 flex items-center gap-x-1 text-sm lg:text-base"
-                onClick={() => setShowSizeChart((show) => !show)}
-              >
-                <span>
-                  {translations["see-size-chart"] || "See Size Chart"}
-                </span>
-                <MdArrowForwardIos />
-              </button>
-            )}
+
             {/* Add to cart section  */}
             {product.stock_qty > 0 ? (
               <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)] mx-auto">
@@ -324,13 +314,6 @@ const ProductDetails = ({ product, settings, translations }) => {
           </div>
         </div>
       </div>
-      {product?.size_chart && showSizeChart && (
-        <SizeChartModal
-          showModal={showSizeChart}
-          setShowModal={setShowSizeChart}
-          sizeChart={product?.size_chart}
-        />
-      )}
     </>
   );
 };
