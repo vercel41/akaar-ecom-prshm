@@ -27,7 +27,7 @@ import SizeChartModal from "@/components/modals/SizeChartModal";
 import { getFirstVariantOfColor } from "@/lib/product-variant";
 import SocialShare from "@/components/elements/SocialShare";
 
-const ProductDetails = ({ product, settings, translations }) => {
+const ProductDetails = ({ product, settings, translations, isLoading }) => {
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
@@ -74,6 +74,7 @@ const ProductDetails = ({ product, settings, translations }) => {
                 ref={productViewSwiperRef}
                 selectedColor={selectedColor}
                 isSquareImage={siteConfig.isSquareImage}
+                isLoading={isLoading}
               />
             </div>
           </div>

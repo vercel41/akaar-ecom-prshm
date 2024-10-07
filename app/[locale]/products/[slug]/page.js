@@ -30,15 +30,16 @@ const ProductView = async ({ params }) => {
     category_id: product?.category?.id,
   };
 
-  if (productRes.status !== "fulfilled") {
-    return <Loading />;
-  }
+  // if (productRes.status !== "fulfilled") {
+  //   return <Loading />;
+  // }
+  const isLoading = productRes.status !== "fulfilled" ? true : false;
 
   return (
     <>
       <ProductMicroData product={product} />
       <div className="container">
-        <div className="breadcrumb breadcrumb-2 py-5 mt-8 max-w-6xl mx-auto">
+        <div className="breadcrumb breadcrumb-2 py-5 max-w-6xl mx-auto">
           <div>
             <Link
               href={`/`}
@@ -66,6 +67,7 @@ const ProductView = async ({ params }) => {
           translations={translations}
           product={product}
           settings={settings}
+          isLoading={isLoading}
         ></ProductDetails>
       </div>
       <section id="same-category-products">

@@ -25,7 +25,7 @@ export default function ProductZoomYetAnother({
         slides={images.map((item) => ({ src: item.image }))}
         index={index}
         on={{ view: ({ index: currentIndex }) => setIndex(currentIndex) }}
-        plugins={[Captions, Fullscreen, Slideshow, Thumbnails, Video, Zoom]}
+        plugins={[Captions, Fullscreen, Thumbnails, Video, Zoom]}
       />
     </>
   );

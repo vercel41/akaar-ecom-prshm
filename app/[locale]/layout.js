@@ -140,8 +140,8 @@ export default async function RootLayout({ children, params }) {
           <main
             className={`${
               settings?.offer_massage
-                ? "pt-[89px] md:pt-[132px]"
-                : "pt-[57px] md:pt-[113px]"
+                ? "pt-[102px] md:pt-[182px]"
+                : "pt-[70px] md:pt-[154px]"
             }`}
           >
             <CheckConnection>{children}</CheckConnection>

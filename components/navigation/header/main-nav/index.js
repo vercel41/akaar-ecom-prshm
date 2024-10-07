@@ -61,55 +61,87 @@ export default function MainNav({ settings, categories }) {
         color: settings?.colors?.secondary_text,
       }}
       className={cn(
-        "relative shadow-sm md:shadow-none transition-all duration-500 ease-in-out page-header",
-        sticky && "is-sticky"
+        "relative transition-all duration-500 ease-in-out page-header",
+        sticky && "is-sticky shadow-[0_-3px_6px_#000]"
       )}
     >
       <div
-        className={cn(
-          "main-nav container-fluid",
-          sticky ? "py-3" : "sm:pt-4 sm:pb-0 py-4"
-        )}
+        className={cn("main-nav container-fluid", sticky ? "py-3" : "p-2.5")}
       >
-        <div className="flex items-center justify-end gap-x-2 relative">
+        <div
+          className={cn(
+            "flex items-center justify-end gap-x-2 relative ",
+            !sticky && "sm:h-[100px] h-[50px]"
+          )}
+        >
+          <button
+            onClick={() => setSideMenuOpen(!sideMenuOpen)}
+            className=" md:hidden mr-2"
+          >
+            {!sideMenuOpen ? (
+              <HiMenuAlt1 size={24} />
+            ) : (
+              <AiOutlineClose size={24} />
+            )}
+          </button>
+          <ResponsiveSearch settings={settings} />
+
           <div
             className={cn(
               "flex-1 w-full flex items-center",
-              !sticky && "sm:justify-center sm:-mr-[430px] sm:flex-col"
+              !sticky && "sm:justify-center sm:flex-col"
             )}
           >
-            <Link
-              href="/"
-              className={cn(
-                "logo h-[45px] lg:h-[68px] max-w-[150px] lg:max-w-[250px]",
-                sticky && "lg:h-[45px] lg:max-w-[200px]"
-              )}
-            >
-              <Image
-                src={settings?.logo}
-                alt={settings?.name}
-                width={200}
-                height={68}
-                className="h-full w-auto object-contain"
-              />
-            </Link>
+            {sticky ? (
+              <Link
+                href="/"
+                className={cn(
+                  "logo h-[45px] lg:h-[80px] max-w-[150px] lg:max-w-[250px]",
+                  sticky && "lg:h-[45px] lg:max-w-[200px]"
+                )}
+              >
+                <Image
+                  src={settings?.logo}
+                  alt={settings?.name}
+                  width={200}
+                  height={68}
+                  className="h-full w-auto object-contain"
+                />
+              </Link>
+            ) : (
+              <Link
+                href="/"
+                className={cn(
+                  "logo h-[55px] lg:h-[80px] max-w-[150px] lg:max-w-[250px] absolute left-1/2 -translate-x-1/2",
+                  sticky && "lg:h-[45px] lg:max-w-[200px] left-0"
+                )}
+              >
+                <Image
+                  src={settings?.logo}
+                  alt={settings?.name}
+                  width={200}
+                  height={68}
+                  className="h-full w-auto object-contain"
+                />
+              </Link>
+            )}
             <div className={cn("", sticky ? "sm:block hidden" : "hidden")}>
               <CategoriesMegaMenu settings={settings} categories={categories} />
             </div>
           </div>
 
-          <div className="header-actions items-center flex gap-2.5 lg:gap-5">
-            <ResponsiveSearch settings={settings} />
+          <div className="header-actions items-center flex gap-2.5 lg:gap-5 opacity-70">
             <button
-              className="sm:inline-flex items-center gap-1.5 hidden text-black hover:opacity-60 transition-all duration-500  text-[1.1rem]"
+              className="sm:inline-flex items-center gap-1.5 hidden text-black hover:opacity-60 transition-all duration-500  text-[1.1rem] font-ibm"
               onClick={() => setSearchbarOpen(true)}
             >
               <LuSearch size={22} />
               Search
             </button>
-            {!user && (
+
+            {(settings?.guest_checkout || !user) && (
               <button
-                className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem]"
+                className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-ibm"
                 onClick={() => dispatch(setLoginModalOpen(true))}
               >
                 <LuUser2 size={22} />
@@ -132,58 +164,61 @@ export default function MainNav({ settings, categories }) {
                 </span>
               )}
             </button>
-            {
-              settings?.guest_checkout && (
-                <>
-                  <button
-                    onClick={() => router.push("/dashboard/my-wishlist")}
-                    className="inline-block relative"
-                  >
-                    <HiOutlineHeart size={24} />
-                    {wishlistCount && (
-                      <span
-                        className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
-                        style={{
-                          border: `1px solid ${settings?.colors?.primary_text}`,
-                          backgroundColor: settings?.colors?.primary,
-                        }}
-                      >
-                        {wishlistCount}
-                      </span>
-                    )}
-                  </button>
-                  <button onClick={handleModalOpen} className="single-action">
-                    {/* <button className="single-action"> */}
-                    {user?.image ? (
-                      <Image
-                        src={user.image}
-                        alt="Profile"
-                        height={32}
-                        width={32}
-                        className="h-full w-full rounded-full"
-                      />
-                    ) : (
-                      <HiOutlineUser size={24} />
-                    )}
-                  </button>
-                </>
-              )
-              /* The `) : null}` part in the code snippet is a conditional rendering pattern in React. */
-            }
-
-            <span className="hidden md:block">
-              <LanguageSelector />
-            </span>
+            {settings?.guest_checkout ? (
+              <>
+                {/* <button
+                  onClick={() => router.push("/dashboard/my-wishlist")}
+                  className="inline-block relative"
+                >
+                  <HiOutlineHeart size={24} />
+                  {wishlistCount && (
+                    <span
+                      className="absolute -right-1.5 -top-1.5 border text-[10px] px-1 text-center rounded-full "
+                      style={{
+                        border: `1px solid ${settings?.colors?.primary_text}`,
+                        backgroundColor: settings?.colors?.primary,
+                      }}
+                    >
+                      {wishlistCount}
+                    </span>
+                  )}
+                </button> */}
+                <button onClick={handleModalOpen} className="single-action">
+                  {/* <button className="single-action"> */}
+                  {user?.image ? (
+                    <Image
+                      src={user.image}
+                      alt="Profile"
+                      height={32}
+                      width={32}
+                      className="h-full w-full rounded-full"
+                    />
+                  ) : (
+                    <HiOutlineUser size={24} />
+                  )}
+                </button>
+              </>
+            ) : null}
             <button
-              onClick={() => setSideMenuOpen(!sideMenuOpen)}
-              className=" md:hidden"
+              onClick={() => dispatch(toggleCart())}
+              className="group relative single-action block lg:hidden text-black hover:opacity-60 transition-all duration-500"
             >
-              {!sideMenuOpen ? (
-                <HiMenuAlt1 size={24} />
-              ) : (
-                <AiOutlineClose size={24} />
+              <HiOutlineShoppingCart size={24} />
+              {cart?.length && (
+                <span
+                  className="absolute -right-1 -top-1 border text-[10px] px-1 text-center rounded-full"
+                  style={{
+                    border: `1px solid ${settings?.colors?.primary_text}`,
+                  }}
+                >
+                  {cart?.length}
+                </span>
               )}
             </button>
+
+            {/* <span className="hidden md:block">
+              <LanguageSelector />
+            </span> */}
           </div>
         </div>
       </div>
@@ -208,10 +243,10 @@ export default function MainNav({ settings, categories }) {
       />
       <div
         style={{
-          backgroundColor: `${settings?.colors?.secondary}cc`,
+          backgroundColor: `${settings?.colors?.secondary}CC`,
           color: settings?.colors?.secondary_text,
         }}
-        className={cn("w-full", sticky ? "hidden" : "sm:block hidden mt-4")}
+        className={cn("w-full", sticky ? "hidden" : "sm:block hidden")}
       >
         <CategoriesMegaMenu settings={settings} categories={categories} />
       </div>

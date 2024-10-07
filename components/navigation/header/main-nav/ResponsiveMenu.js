@@ -9,7 +9,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 export default function ResponsiveMenu({ settings, categories }) {
-	const { translations } = useSelector((state) => state.common);
+  const { translations } = useSelector((state) => state.common);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const { category_slug } = useParams();

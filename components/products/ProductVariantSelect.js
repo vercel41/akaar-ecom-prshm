@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { cn } from "@/utils";
 import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "../modals/SizeChartModal";
+import ProductZoomYetAnother from "@/app/[locale]/products/[slug]/_components/ProductZoomYetAnother";
 
 const ProductVariantSelect = forwardRef(
   (
@@ -24,6 +25,8 @@ const ProductVariantSelect = forwardRef(
     const [colorsGroup, setColorsGroup] = useState({});
     const colors = Object.keys(colorsGroup);
     const [showSizeChart, setShowSizeChart] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
 
     const handleVariantSelect = (variantProp) => {
       if (variantProp.stock_qty <= 0) {
@@ -100,8 +103,22 @@ const ProductVariantSelect = forwardRef(
       }
     }, [productBarCodes, setSelectedColor, setSelectedVariant]);
 
+    const handleOpenZoom = (index) => {
+      setOpen(true);
+      setIndex(index);
+    };
+
     return (
       <>
+        {open && (
+          <ProductZoomYetAnother
+            open={open}
+            setIndex={setIndex}
+            index={index}
+            setOpen={setOpen}
+            images={[{ image: size_cart?.image }]}
+          />
+        )}
         {!(colors.length === 1 && colors[0] === "") ? (
           <div className="product-color mt-4 border-b border-black pb-3">
             <h4 className="text-[#0a0a0a] text-[.8rem] font-bold">
@@ -157,7 +174,7 @@ const ProductVariantSelect = forwardRef(
               {size_cart && (
                 <button
                   className="text-black flex items-center text-[.8rem] underline"
-                  onClick={() => setShowSizeChart((show) => !show)}
+                  onClick={() => handleOpenZoom(0)}
                 >
                   <span>
                     {translations["View size guide"] || "View size guide"}
@@ -205,13 +222,13 @@ const ProductVariantSelect = forwardRef(
           {selectedVariant && selectedVariant.stock_qty >= 10 && "In stock"}
         </p>
 
-        {size_cart && showSizeChart && (
+        {/* {size_cart && showSizeChart && (
           <SizeChartModal
             showModal={showSizeChart}
             setShowModal={setShowSizeChart}
             sizeChart={size_cart}
           />
-        )}
+        )} */}
       </>
     );
   }

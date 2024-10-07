@@ -12,7 +12,7 @@ const page = ({ params, searchParams }) => {
 
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 py-4 md:py-5 mt-8">
+      <div className="breadcrumb breadcrumb-2 py-4 md:py-5">
         <div className="container">
           <div>
             <Link

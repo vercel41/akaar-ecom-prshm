@@ -49,7 +49,7 @@ const FeaturedProducts = async ({ searchParams }) => {
           <p className="text-xl text-slate-600 mb-3 font-extralight">
             {featuredProductInfo?.name}
           </p>
-          <div className="breadcrumb mt-8 hidden lg:block">
+          <div className="breadcrumb  hidden lg:block">
             <Link
               href="/"
               className="text-base text-slate-700 hover:text-primary mr-2"

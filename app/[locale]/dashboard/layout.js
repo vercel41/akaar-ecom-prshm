@@ -37,7 +37,7 @@ const DashboardLayout = ({ children, params }) => {
       <div className="container">
         {/* <h3 className="text-center text-5xl my-28">Welcome to Dashboard</h3> */}
         <div className="bg-white border-b border-slate-200">
-          <div className="grid grid-cols-2 md:grid-cols-3 mt-8">
+          <div className="grid grid-cols-2 md:grid-cols-3">
             <div className="hidden md:block"></div>
             <div className="text col-span-1 px-3 py-3 md:py-0">
               <h3 className="md:text-center text-2xl lg:text-3xl md:pt-8">

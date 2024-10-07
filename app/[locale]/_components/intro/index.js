@@ -11,11 +11,11 @@ const Intro = async ({ settings }) => {
   const heroBannerButtons = heroBanner?.buttons;
 
   return (
-    <div className="-mt-[132px] w-full h-screen">
+    <div className="-mt-[182px] w-full h-[calc(100vh+152px)] relative">
       <div className="w-full min-h-screen h-full -z-1 relative">
         <Image
           src={heroBanner?.image}
-          className="w-full h-full object-cover custom-fade-in"
+          className="w-full h-screen object-cover custom-fade-in"
           alt="Hero Banner"
           width={2000}
           height={1000}

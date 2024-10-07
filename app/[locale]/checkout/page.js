@@ -245,11 +245,11 @@ const Checkout = () => {
     ? !isTermChecked
     : false);
 
-    useEffect(() => {
-      if (paymentOptions.length === 1) {
-        setSelectedPaymentOption(paymentOptions[0].key);
-      }
-    }, [paymentOptions]);
+  useEffect(() => {
+    if (paymentOptions.length === 1) {
+      setSelectedPaymentOption(paymentOptions[0].key);
+    }
+  }, [paymentOptions]);
 
   return (
     <section className="container pb-8">
