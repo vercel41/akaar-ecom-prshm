@@ -206,7 +206,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                     }
                     className="bg-transparent py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 uppercase"
                     style={{
-                      color: settings?.colors?.primary_text,
+                      color: settings?.colors?.secondary_text,
                       border: `1px solid ${settings?.colors?.primary}`,
                     }}
                   >
