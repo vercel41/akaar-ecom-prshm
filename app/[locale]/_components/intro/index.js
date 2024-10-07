@@ -15,7 +15,7 @@ const Intro = async ({ settings }) => {
       <div className="w-full min-h-screen h-full -z-1 relative">
         <Image
           src={heroBanner?.image}
-          className="w-full h-screen object-cover custom-fade-in"
+          className="w-full h-full object-cover custom-fade-in"
           alt="Hero Banner"
           width={2000}
           height={1000}

@@ -70,13 +70,13 @@ export default function MainNav({ settings, categories }) {
       >
         <div
           className={cn(
-            "flex items-center justify-end gap-x-2 relative ",
+            "flex items-center justify-end gap-x-5 relative ",
             !sticky && "sm:h-[100px] h-[50px]"
           )}
         >
           <button
             onClick={() => setSideMenuOpen(!sideMenuOpen)}
-            className=" md:hidden mr-2"
+            className="md:hidden"
           >
             {!sideMenuOpen ? (
               <HiMenuAlt1 size={24} />
@@ -96,7 +96,7 @@ export default function MainNav({ settings, categories }) {
               <Link
                 href="/"
                 className={cn(
-                  "logo h-[45px] lg:h-[80px] max-w-[150px] lg:max-w-[250px]",
+                  "logo h-[45px] lg:h-[80px] max-w-[150px] lg:max-w-[250px] sm:mx-0 mx-auto",
                   sticky && "lg:h-[45px] lg:max-w-[200px]"
                 )}
               >
@@ -113,7 +113,7 @@ export default function MainNav({ settings, categories }) {
                 href="/"
                 className={cn(
                   "logo h-[55px] lg:h-[80px] max-w-[150px] lg:max-w-[250px] absolute left-1/2 -translate-x-1/2",
-                  sticky && "lg:h-[45px] lg:max-w-[200px] left-0"
+                  sticky && "lg:h-[45px] lg:max-w-[200px]"
                 )}
               >
                 <Image
@@ -139,14 +139,32 @@ export default function MainNav({ settings, categories }) {
               Search
             </button>
 
-            {(settings?.guest_checkout || !user) && (
-              <button
-                className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-ibm"
-                onClick={() => dispatch(setLoginModalOpen(true))}
-              >
-                <LuUser2 size={22} />
-                Signin
-              </button>
+            {!settings?.guest_checkout && (
+              <>
+                {!user ? (
+                  <button
+                    className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-ibm"
+                    onClick={() => dispatch(setLoginModalOpen(true))}
+                  >
+                    <LuUser2 size={22} />
+                    Sign in
+                  </button>
+                ) : (
+                  <button onClick={handleModalOpen} className="single-action">
+                    {user?.image ? (
+                      <Image
+                        src={user.image}
+                        alt="Profile"
+                        height={32}
+                        width={32}
+                        className="h-full w-full rounded-full"
+                      />
+                    ) : (
+                      <HiOutlineUser size={24} />
+                    )}
+                  </button>
+                )}
+              </>
             )}
             <button
               onClick={() => dispatch(toggleCart())}
@@ -164,9 +182,9 @@ export default function MainNav({ settings, categories }) {
                 </span>
               )}
             </button>
-            {settings?.guest_checkout ? (
+            {/* {settings?.guest_checkout ? (
               <>
-                {/* <button
+                <button
                   onClick={() => router.push("/dashboard/my-wishlist")}
                   className="inline-block relative"
                 >
@@ -182,23 +200,11 @@ export default function MainNav({ settings, categories }) {
                       {wishlistCount}
                     </span>
                   )}
-                </button> */}
-                <button onClick={handleModalOpen} className="single-action">
-                  {/* <button className="single-action"> */}
-                  {user?.image ? (
-                    <Image
-                      src={user.image}
-                      alt="Profile"
-                      height={32}
-                      width={32}
-                      className="h-full w-full rounded-full"
-                    />
-                  ) : (
-                    <HiOutlineUser size={24} />
-                  )}
                 </button>
+                
               </>
-            ) : null}
+            ) : null} */}
+
             <button
               onClick={() => dispatch(toggleCart())}
               className="group relative single-action block lg:hidden text-black hover:opacity-60 transition-all duration-500"

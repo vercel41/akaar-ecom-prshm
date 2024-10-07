@@ -1,4 +1,3 @@
-"use client";
 import { Link } from "@/navigation";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
@@ -34,61 +33,65 @@ const CategoriesMenuList = ({ setShow, categories }) => {
               </span>
             ) : null}
           </div>
-
-          {category.id === selectedCategory ? (
-            <div
-              className={`bg-white !w-full !h-full overflow-y-auto overflow-x-hidden`}
-            >
-              {category.child_categories?.map((subCategory) => (
-                <div className="second-sub-menu" key={subCategory.id}>
-                  <div
-                    className={`pl-6 hover:text-primary py-2  flex items-center justify-between px-3 text-md mb-2 w-full ${
-                      subCategory.id === selectedSubCategory ? "" : ""
-                    }`}
+          <div
+            className={`bg-white !w-full overflow-hidden transition-all duration-500 ease-in-out ${
+              category.id === selectedCategory ? "max-h-[500px]" : "max-h-0"
+            }`}
+            style={{
+              maxHeight: category.id === selectedCategory ? "500px" : "0px",
+            }}
+          >
+            {category.child_categories?.map((subCategory) => (
+              <div className="second-sub-menu" key={subCategory.id}>
+                <div
+                  className={`pl-6 hover:text-primary py-2 flex items-center justify-between px-3 text-md mb-2 w-full`}
+                >
+                  <Link
+                    onClick={() => setShow(false)}
+                    href={`/categories/${subCategory.slug}`}
                   >
-                    <Link
-                      onClick={() => setShow(false)}
-                      href={`/categories/${subCategory.slug}`}
-                    >
-                      {subCategory.category_name}
-                    </Link>
-                    {subCategory?.child_categories?.length ? (
-                      <span className="cursor-pointer">
-                        {subCategory.id === selectedSubCategory ? (
-                          <LuMinus
-                            onClick={() => setSelectedSubCategory(null)}
-                          />
-                        ) : (
-                          <FiPlus
-                            onClick={() =>
-                              setSelectedSubCategory(subCategory?.id)
-                            }
-                          />
-                        )}
-                      </span>
-                    ) : null}
-                  </div>
-                  {subCategory.id === selectedSubCategory ? (
-                    <div
-                      className={`bg-white !w-full !h-full overflow-y-auto overflow-x-hidden`}
-                    >
-                      {subCategory.child_categories?.map((childCategory) => (
-                        <div className="second-sub-menu" key={childCategory.id}>
-                          <Link
-                            onClick={() => setShow(false)}
-                            className="pl-12 hover:text-primary py-2 flex items-center justify-between px-3 text-md"
-                            href={`/categories/${childCategory.slug}`}
-                          >
-                            {childCategory.category_name}
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
+                    {subCategory.category_name}
+                  </Link>
+                  {subCategory?.child_categories?.length ? (
+                    <span className="cursor-pointer">
+                      {subCategory.id === selectedSubCategory ? (
+                        <LuMinus onClick={() => setSelectedSubCategory(null)} />
+                      ) : (
+                        <FiPlus
+                          onClick={() =>
+                            setSelectedSubCategory(subCategory?.id)
+                          }
+                        />
+                      )}
+                    </span>
                   ) : null}
                 </div>
-              ))}
-            </div>
-          ) : null}
+                <div
+                  className={`bg-white !w-full overflow-hidden transition-all duration-500 ease-in-out ${
+                    subCategory.id === selectedSubCategory
+                      ? "max-h-[300px]"
+                      : "max-h-0"
+                  }`}
+                  style={{
+                    maxHeight:
+                      subCategory.id === selectedSubCategory ? "300px" : "0px",
+                  }}
+                >
+                  {subCategory.child_categories?.map((childCategory) => (
+                    <div className="second-sub-menu" key={childCategory.id}>
+                      <Link
+                        onClick={() => setShow(false)}
+                        className="pl-12 hover:text-primary py-2 flex items-center justify-between px-3 text-md"
+                        href={`/categories/${childCategory.slug}`}
+                      >
+                        {childCategory.category_name}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>
