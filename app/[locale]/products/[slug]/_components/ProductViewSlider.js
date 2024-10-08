@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, EffectFade } from "swiper/modules";
 import "swiper/css/pagination";
@@ -59,6 +59,16 @@ const ProductViewSlider = forwardRef(
       setIndex(index);
     };
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 200);
+
+      return () => clearTimeout(timer);
+    }, []);
+
     return (
       <>
         {open && (
@@ -70,7 +80,7 @@ const ProductViewSlider = forwardRef(
             images={slides}
           />
         )}
-        {!isLoading ? (
+        {!loading ? (
           <div className="w-full">
             <div className={cn("preview-slider grid relative w-full")}>
               <Swiper

@@ -30,9 +30,6 @@ const ProductView = async ({ params }) => {
     category_id: product?.category?.id,
   };
 
-  // if (productRes.status !== "fulfilled") {
-  //   return <Loading />;
-  // }
   const isLoading = productRes.status !== "fulfilled" ? true : false;
 
   return (
