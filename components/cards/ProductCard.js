@@ -164,13 +164,17 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
               <div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2">
                 <span className="font-semibold ">
                   {siteConfig.currency.shortForm}
-                  {new_price}
+                  {new_price.toLocaleString("en-US", {
+                    currency: "USD",
+                  })}
                 </span>
                 {old_price > new_price ? (
                   <div className="hidden md:flex items-center gap-2 text-[.9rem]">
                     <del className="old-price font-normal text-slate-400">
                       {siteConfig.currency.shortForm}
-                      {old_price}
+                      {old_price.toLocaleString("en-US", {
+                        currency: "USD",
+                      })}
                     </del>
                     <span className="discount-badge rounded text-[#ff0000] font-medium ">
                       {getDiscountPercent(old_price, new_price)}% OFF

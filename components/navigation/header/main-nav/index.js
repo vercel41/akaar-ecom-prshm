@@ -57,7 +57,7 @@ export default function MainNav({ settings, categories }) {
       style={{
         backgroundColor: sticky
           ? settings?.colors?.secondary
-          : `${settings?.colors?.secondary}b3`,
+          : `${settings?.colors?.secondary}E6`,
         color: settings?.colors?.secondary_text,
       }}
       className={cn(

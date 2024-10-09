@@ -96,15 +96,31 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
               <div className="product-price mb-3 flex justify-center items-center font-title gap-2 py-3 lg:py-5">
                 <span className="font-semibold ">
-                  {siteConfig.currency.sign} {newPrice || "0.00"}{" "}
+                  {siteConfig.currency.sign}{" "}
+                  {newPrice.toLocaleString("en-US", {
+                    currency: "USD",
+                  }) || "0.00"}{" "}
                 </span>
                 {oldPrice > newPrice ? (
                   <div className="hidden md:flex items-center gap-2 text-[.9rem]">
                     <del className="old-price font-normal text-slate-400">
-                      {siteConfig.currency.sign} {oldPrice ? oldPrice : "0.00"}
+                      {siteConfig.currency.sign}{" "}
+                      {oldPrice.toLocaleString("en-US", {
+                        currency: "USD",
+                      })
+                        ? oldPrice.toLocaleString("en-US", {
+                            currency: "USD",
+                          })
+                        : "0.00"}
                     </del>
                     <span className="discount-badge rounded text-[#ff0000] font-medium ">
-                      {getDiscountPercent(oldPrice, newPrice)}% OFF
+                      {getDiscountPercent(oldPrice, newPrice).toLocaleString(
+                        "en-US",
+                        {
+                          currency: "USD",
+                        }
+                      )}
+                      % OFF
                     </span>
                   </div>
                 ) : null}
@@ -147,7 +163,9 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                         &#2547;
                         {getCouponDiscount(
                           product?.coupons[0],
-                          product.new_price
+                          product.new_price.toLocaleString("en-US", {
+                            currency: "USD",
+                          })
                         )}{" "}
                         {translations["off!"] || "ছাড়!"}
                       </span>
@@ -298,13 +316,12 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
           <div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center w-full">
             <h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
-              {translations["contact-for-more-details"] ||
-                "Contact for more details"}
+              {translations["call-now"] || "Call Now"}
             </h5>
             <p className="flex justify-center items-center gap-4">
-              <span className="text-base text-slate-900">
+              {/* <span className="text-base text-slate-900">
                 {translations["call-now"] || "Call Now"}:
-              </span>{" "}
+              </span>{" "} */}
               <Link
                 href={`tel:${settings?.phone[0]}`}
                 className="text-2xl font-bold font-title text-primary"
