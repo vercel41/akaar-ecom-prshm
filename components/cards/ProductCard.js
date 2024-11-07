@@ -116,7 +116,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                   `product-img overflow-hidden relative`,
                   isSquareImage
                     ? "h-[141.5px] @[160px]:h-[161px] @[200px]:h-[207px] @[220px]:h-[242px] @[250px]:h-[260px] @[260px]:h-[271px]  @[300px]:h-[95vw]"
-                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[450px]"
+                    : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[590px]"
                 )}
               >
                 <Link
@@ -149,7 +149,8 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 )}
               </div>
             </div>
-            <div className="product-content-wrap @container pt-2.5 grid place-items-center sm:place-items-start text-center sm:text-left">
+
+            <div className="product-content-wrap @container pt-6 grid place-items-center  text-center ">
               <h2>
                 <Link
                   href={`/products/${slug}`}

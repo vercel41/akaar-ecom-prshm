@@ -43,17 +43,43 @@ export default async function Home() {
         </div>
       </section>
 
+
+
+      {settings?.featured_products_section ? (
+        <section className="new-products">
+          <div className="container-fluid">
+            <div className="py-10 text-center">
+              <h2 className="sec-title pb-3">
+                {translations["featured-products"] || "Featured Products"}
+              </h2>
+              <Link href="/featured-products" className="underline">
+                Browse our featured products
+              </Link>
+            </div>
+
+            <div className="">
+              <Featured />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+
       {settings?.video_section ? (
-        <section className="video-banner">
+        <section className="video-banner mt-24">
           <VideoBanner />
         </section>
       ) : null}
 
+
+
+
+
       {settings?.shop_section ? (
-        <section className="new-products">
+        <section className="new-products mt-14">
           <div className="container-fluid">
             <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
-              <h2 className="sec-title !text-xl">
+              <h2 className="sec-title !text-xl mx-6">
                 {translations["new-arrival"] || "New Collection"}
               </h2>
 
@@ -81,24 +107,6 @@ export default async function Home() {
         </section>
       ) : null}
 
-      {settings?.featured_products_section ? (
-        <section className="new-products">
-          <div className="container-fluid">
-            <div className="py-10 text-center">
-              <h2 className="sec-title pb-3">
-                {translations["featured-products"] || "Featured Products"}
-              </h2>
-              <Link href="/featured-products" className="underline">
-                Browse our featured products
-              </Link>
-            </div>
-
-            <div className="">
-              <Featured />
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       <section className="home-category-products mb-10">
         <HomeCategoryProducts />
