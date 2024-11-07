@@ -85,16 +85,16 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                   {product.brand.brand_name}
                 </p>
               )}
-              <h5 className="font-title font-medium text-black text-center">
+              <h5 className="font-noto_serif font-medium text-black text-center">
                 {getSlicedText(product?.product_name, 100)}
               </h5>
 
-              <div className="flex items-center justify-center gap-1 font-title text-[.8rem] pt-2 text-gray-500 font-medium">
+              <div className="flex items-center justify-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
                 <span>Code:</span>
                 <span>{product?.sku}</span>
               </div>
 
-              <div className="product-price mb-3 flex justify-center items-center font-title gap-2 py-3 lg:py-5">
+              <div className="product-price mb-3 flex justify-center items-center font-noto_serif gap-2 py-3 lg:py-5">
                 <span className="font-semibold ">
                   {siteConfig.currency.sign}{" "}
                   {newPrice.toLocaleString("en-US", {
@@ -152,7 +152,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               </div>
               {product?.coupons?.length ? (
                 <div className="mt-5 mb-8">
-                  <p className="font-semibold font-title text-slate-900 mb-2">
+                  <p className="font-semibold font-noto_serif text-slate-900 mb-2">
                     {translations["best-offer"] || "সেরা অফার"}{" "}
                     <TbTag size={24} className="text-primary mb-1" />
                   </p>
@@ -259,7 +259,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               {/* product-specifications */}
               {product?.specification && (
                 <div id="product-specifications" className="mt-4 lg:mt-5">
-                  <h4 className="text-2xl font-bold font-title text-slate-900">
+                  <h4 className="text-2xl font-bold font-noto_serif text-slate-900">
                     {translations["specifications"] || "Specifications"}:
                   </h4>
                   <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 mt-3 overflow-x-auto">
@@ -270,7 +270,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
               {product.includedProducts?.length ? (
                 <div className="mt-4 lg:mt-5">
-                  <h4 className="text-2xl font-bold font-title text-slate-900 mb-4 capitalize">
+                  <h4 className="text-2xl font-bold font-noto_serif text-slate-900 mb-4 capitalize">
                     {translations["product-included"] || "Product Included"}:
                   </h4>
                   <Image
@@ -285,7 +285,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
               {product?.review_video && (
                 <div className="mt-4 lg:mt-5">
-                  <h4 className="text-2xl font-bold font-title text-slate-900">
+                  <h4 className="text-2xl font-bold font-noto_serif text-slate-900">
                     {translations["review-video"] || "রিভিউ ভিডিও"}
                   </h4>
                   <div className="mt-3">
@@ -305,7 +305,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
             <div>
               {product?.details && (
                 <div className="description">
-                  <h4 className="text-2xl font-bold font-title text-slate-900">
+                  <h4 className="text-2xl font-bold font-noto_serif text-slate-900">
                     {translations["product-description"] || "Description"}:
                   </h4>
                   <ViewHTML htmlText={product?.details} />
@@ -315,7 +315,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
           </div>
 
           <div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center w-full">
-            <h5 className="text-2xl font-bold font-title text-slate-900 mb-3">
+            <h5 className="text-2xl font-bold font-noto_serif text-slate-900 mb-3">
               {translations["call-now"] || "Call Now"}
             </h5>
             <p className="flex justify-center items-center gap-4">
@@ -324,7 +324,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               </span>{" "} */}
               <Link
                 href={`tel:${settings?.phone[0]}`}
-                className="text-2xl font-bold font-title text-primary"
+                className="text-2xl font-bold font-noto_serif text-primary"
               >
                 <BsFillTelephoneFill /> {settings?.phone[0]}
               </Link>

@@ -43,12 +43,10 @@ export default async function Home() {
         </div>
       </section>
 
-
-
       {settings?.featured_products_section ? (
-        <section className="new-products">
-          <div className="container-fluid">
-            <div className="py-10 text-center">
+        <section className="new-products ">
+          <div className="container">
+            <div className="py-10 text-center ">
               <h2 className="sec-title pb-3">
                 {translations["featured-products"] || "Featured Products"}
               </h2>
@@ -64,16 +62,11 @@ export default async function Home() {
         </section>
       ) : null}
 
-
       {settings?.video_section ? (
         <section className="video-banner mt-24">
           <VideoBanner />
         </section>
       ) : null}
-
-
-
-
 
       {settings?.shop_section ? (
         <section className="new-products mt-14">
@@ -85,7 +78,7 @@ export default async function Home() {
 
               <Link
                 href="/products?sort_type=new"
-                className="rounded px-2 pb-1 font-title flex justify-center items-center gap-1 group capitalize text-lg"
+                className="rounded px-2 pb-1 font-noto_serif flex justify-center items-center gap-1 group capitalize text-lg"
               >
                 <span className="group-hover:-translate-x-3 transition-transform duration-500">
                   {translations["browse-our-new-collections"] ||
@@ -106,7 +99,6 @@ export default async function Home() {
           </div>
         </section>
       ) : null}
-
 
       <section className="home-category-products mb-10">
         <HomeCategoryProducts />

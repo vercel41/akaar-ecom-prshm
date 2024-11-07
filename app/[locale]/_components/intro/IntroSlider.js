@@ -59,12 +59,12 @@ const IntroSlider = ({ sliders, settings }) => {
                     </p>
                   )}
                   {slide?.title_2 && (
-                    <h1 className="text-xl lg:text-5xl font-bold font-title">
+                    <h1 className="text-xl lg:text-5xl font-bold font-noto_serif">
                       {slide?.title_2}
                     </h1>
                   )}
                   {slide?.text && (
-                    <h2 className="text-lg lg:text-4xl/[48px] font-bold font-title mb-2 lg:my-5">
+                    <h2 className="text-lg lg:text-4xl/[48px] font-bold font-noto_serif mb-2 lg:my-5">
                       {slide?.text}
                     </h2>
                   )}

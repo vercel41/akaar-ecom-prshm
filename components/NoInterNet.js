@@ -27,7 +27,7 @@ export default function NoInterNet({ image }) {
             alt="Not Internet"
             className="h-[311px] w-[340px]"
           />
-          <h2 className="text-3xl font-bold font-title text-slate-900">
+          <h2 className="text-3xl font-bold font-noto_serif text-slate-900">
             Your device does not have an internet connection
           </h2>
           <p className="text-lg text-slate-600 mt-6 mb-8">

@@ -39,7 +39,7 @@ const Footer = async () => {
     >
       <div className="container">
         {/* <div className="text-center">
-          <h2 className="text-3xl/[40px] font-title font-medium my-5">
+          <h2 className="text-3xl/[40px] font-noto_serif font-medium my-5">
             {translations["treat-your-inbox"] || "Treat your inbox"}
           </h2>
           <p className="mb-8 text-sm/6 font-light">
@@ -108,7 +108,7 @@ const Footer = async () => {
             </div>
           </div>
           <div className="text-sm/6 ">
-            <h6 className="mb-4 font-title !capitalize  font-[700] text-[1.0625rem] tracking-[1.6px]">
+            <h6 className="mb-4 font-noto_serif !capitalize  font-[700] text-[1.0625rem] tracking-[1.6px]">
               {translations["customer-service"] || "customer-service"}
             </h6>
             <ul className="widget-list text-[#a5a5a5] text-[16px] space-y-2.5 tracking-[1.6px]">
@@ -142,7 +142,7 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="text-sm/6 font-light">
-            <h6 className="mb-4 font-title  font-bold text-[17px] tracking-[1.6px]">
+            <h6 className="mb-4 font-noto_serif  font-bold text-[17px] tracking-[1.6px]">
               {translations["Company"] || "COMPANY"}
             </h6>
             <ul className="widget-list text-[#a5a5a5] space-y-2.5 tracking-[1.6px]">

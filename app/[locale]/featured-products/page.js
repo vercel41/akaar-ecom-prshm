@@ -43,7 +43,7 @@ const FeaturedProducts = async ({ searchParams }) => {
         }}
       >
         <div className="container-fluid text-center">
-          <h3 className="text-2xl font-nomal font-title text-slate-700 mb-3">
+          <h3 className="text-2xl font-nomal font-noto_serif text-slate-700 mb-3">
             All Featured Products
           </h3>
           <p className="text-xl text-slate-600 mb-3 font-extralight">

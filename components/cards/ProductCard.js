@@ -162,7 +162,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
               <p className="text-[.85rem] text-[#8a8a8a]">
                 Product Code {product.id}
               </p>
-              <div className="product-price mb-3 flex flex-col md:flex-row font-title md:items-center gap-2">
+              <div className="product-price mb-3 flex flex-col md:flex-row font-noto_serif md:items-center gap-2">
                 <span className="font-semibold ">
                   {siteConfig.currency.shortForm}
                   {new_price.toLocaleString("en-US", {

@@ -39,7 +39,7 @@ const ContactUs = async () => {
       <div className="container">
         <div className="contact-us mb-20">
           <div className="heading border-b border-slate-200 py-4 mb-6">
-            <h3 className="text-3xl font-thin font-title text-slate-900">
+            <h3 className="text-3xl font-thin font-noto_serif text-slate-900">
               Contact Us
             </h3>
           </div>

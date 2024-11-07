@@ -55,7 +55,7 @@ export default function Modal({
                 {/*header*/}
                 {!bodyOnly && (
                   <div className="flex items-center justify-between px-2 md:px-5 py-3 md:py-3.5 mb-2">
-                    <h3 className="text-[18px]/[28px] md:text-2xl font-title font-semibold text-slate-900 line-clamp-1">
+                    <h3 className="text-[18px]/[28px] md:text-2xl font-noto_serif font-semibold text-slate-900 line-clamp-1">
                       {title ? title : null}
                     </h3>
                   </div>

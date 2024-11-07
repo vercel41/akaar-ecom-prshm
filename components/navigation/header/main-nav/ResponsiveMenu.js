@@ -86,7 +86,7 @@ export default function ResponsiveMenu({ settings, categories }) {
           >
             <Link
               href={`/categories/${category.slug}`}
-              className="inline-block mt-[2px] font-title font-semibold uppercase"
+              className="inline-block mt-[2px] font-noto_serif font-semibold uppercase"
               style={{ color: settings?.colors?.primary_text }}
             >
               {category.category_name}
@@ -99,7 +99,7 @@ export default function ResponsiveMenu({ settings, categories }) {
           >
             <Link
               href={`/categories`}
-              className="inline-block mt-[2px] font-title font-bold uppercase"
+              className="inline-block mt-[2px] font-noto_serif font-bold uppercase"
               style={{ color: settings?.colors?.primary_text }}
             >
               {translations["all-categories"] || "All Categories"}
@@ -119,7 +119,7 @@ export default function ResponsiveMenu({ settings, categories }) {
                 <li key={category.id} className="my-2">
                   <button
                     onClick={() => handleActiveOrNavigate(category)}
-                    className="inline-block h-full font-title font-bold uppercase"
+                    className="inline-block h-full font-noto_serif font-bold uppercase"
                     style={{ color: settings?.colors?.primary_text }}
                   >
                     {category.category_name}
@@ -135,7 +135,7 @@ export default function ResponsiveMenu({ settings, categories }) {
                           <Link
                             href={`/categories/${subCategory.slug}`}
                             onClick={closeMenu}
-                            className="inline-block h-full font-title font-bold uppercase"
+                            className="inline-block h-full font-noto_serif font-bold uppercase"
                             style={{
                               color: settings?.colors?.secondary_text,
                             }}

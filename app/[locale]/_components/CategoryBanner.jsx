@@ -36,7 +36,7 @@ const CategoryBanner = ({ banner, settings }) => {
       <div className="content w-full text-center p-5 py-2.5">
         <Link
           href={banner.url || "#"}
-          className="rounded px-2 pb-1 font-medium font-title flex justify-center items-center gap-1 group capitalize text-[.9rem]"
+          className="rounded px-2 pb-1 font-medium font-noto_serif flex justify-center items-center gap-1 group capitalize text-[.9rem]"
           style={{
             borderColor: settings?.colors?.default_text,
             color: settings?.colors?.default_text,

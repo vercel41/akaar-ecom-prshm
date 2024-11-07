@@ -20,7 +20,7 @@ export default function NoProducts() {
             className="h-[216px]"
           />
         </div>
-        <h2 className="text-2xl lg:text-3xl font-bold font-title text-primary">
+        <h2 className="text-2xl lg:text-3xl font-bold font-noto_serif text-primary">
           {translations["sorry-no-product-found"] || "Sorry, no product found"}
         </h2>
         <p className=" lg:text-lg text-slate-600 mt-4 mb-5">

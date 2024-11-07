@@ -15,6 +15,7 @@ module.exports = {
         title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
         arial: ["Arial", "sans-serif"],
         ibm: ["IBM Plex Sans", "sans-serif"],
+        noto_serif: ["Noto Serif", "serif"],
         // title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
       },
       boxShadow: {

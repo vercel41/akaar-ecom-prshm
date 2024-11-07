@@ -76,7 +76,7 @@ const ProductView = async ({ params }) => {
 
             <Link
               href={`/products?sort_type=${product.category.slug}`}
-              className="rounded px-2 pb-1 font-title flex justify-center items-center gap-1 group capitalize text-lg"
+              className="rounded px-2 pb-1 font-noto_serif flex justify-center items-center gap-1 group capitalize text-lg"
             >
               <span className="group-hover:-translate-x-3 transition-transform duration-500">
                 {translations["browse-similer products"] ||

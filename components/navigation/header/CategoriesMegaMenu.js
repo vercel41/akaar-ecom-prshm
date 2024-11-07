@@ -73,7 +73,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                 >
                   <span
                     className={cn(
-                      "text-[.9rem] relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500 after:bg-black py-[6px] hover:-translate-y-[3px] transition-all duration-500 block"
+                      "text-[.9rem] relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500 after:bg-black py-[6px] hover:-translate-y-[3px] transition-all duration-500 block tracking-[.2rem]"
                     )}
                   >
                     {category.category_name}

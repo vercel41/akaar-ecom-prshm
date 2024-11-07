@@ -28,7 +28,7 @@ const Timer = ({ targetDate }) => {
       <div className="sale-counter flex gap-3">
         <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
-            className="count-num text-base font-semibold font-title text-white"
+            className="count-num text-base font-semibold font-noto_serif text-white"
             suppressHydrationWarning
           >
             {days}
@@ -37,7 +37,7 @@ const Timer = ({ targetDate }) => {
         </div>
         <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
-            className="count-num text-base font-semibold font-title text-white"
+            className="count-num text-base font-semibold font-noto_serif text-white"
             suppressHydrationWarning
           >
             {hours}
@@ -46,7 +46,7 @@ const Timer = ({ targetDate }) => {
         </div>
         <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
-            className="count-num text-base font-semibold font-title text-white"
+            className="count-num text-base font-semibold font-noto_serif text-white"
             suppressHydrationWarning
           >
             {minutes}
@@ -55,7 +55,7 @@ const Timer = ({ targetDate }) => {
         </div>
         <div className="single-counter flex flex-col justify-center items-center w-14 h-14 bg-[#333]">
           <p
-            className="count-num text-base font-semibold font-title text-white"
+            className="count-num text-base font-semibold font-noto_serif text-white"
             suppressHydrationWarning
           >
             {seconds}

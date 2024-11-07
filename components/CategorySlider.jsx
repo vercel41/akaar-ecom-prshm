@@ -80,7 +80,7 @@ const CategorySlider = ({
               <div className="content w-full text-center">
                 <Link
                   href={banner.url || "#"}
-                  className="rounded px-2 py-2.5 font-medium font-title flex justify-center items-center gap-1 group capitalize shadow-[0_0_10px_-5px_#000] w-[80%] my-[2rem] mx-auto text-[.9rem]"
+                  className="rounded px-2 py-2.5 font-medium font-noto_serif flex justify-center items-center gap-1 group capitalize shadow-[0_0_10px_-5px_#000] w-[80%] my-[2rem] mx-auto text-[.9rem]"
                   style={{
                     borderColor: settings?.colors?.default_text,
                     color: settings?.colors?.default_text,

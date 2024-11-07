@@ -16,7 +16,7 @@ const QAItem = ({ item, open, toggleOpen }) => {
           className="flex justify-between items-center cursor-pointer"
           onClick={() => toggleOpen(item.index)}
         >
-          <h6 className="text-base/[16px] font-semibold font-title text-slate-600">
+          <h6 className="text-base/[16px] font-semibold font-noto_serif text-slate-600">
             {item.question}
           </h6>
           {open ? (

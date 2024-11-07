@@ -132,7 +132,7 @@ export default function MainNav({ settings, categories }) {
 
           <div className="header-actions items-center flex gap-2.5 lg:gap-5 opacity-70">
             <button
-              className="sm:inline-flex items-center gap-1.5 hidden text-black hover:opacity-60 transition-all duration-500  text-[1.1rem] font-ibm"
+              className="sm:inline-flex items-center gap-1.5 hidden text-black hover:opacity-60 transition-all duration-500  text-[1.1rem] font-noto_serif"
               onClick={() => setSearchbarOpen(true)}
             >
               <LuSearch size={22} />
@@ -143,7 +143,7 @@ export default function MainNav({ settings, categories }) {
               <>
                 {!user ? (
                   <button
-                    className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-ibm"
+                    className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-noto_serif"
                     onClick={() => dispatch(setLoginModalOpen(true))}
                   >
                     <LuUser2 size={22} />
