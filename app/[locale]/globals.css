@@ -488,3 +488,39 @@
     backdrop-filter: blur(0);
   }
 }
+.hero-slider .swiper-pagination-bullet {
+  border: 2px solid #ffffff !important;
+  padding: 4px !important;
+  opacity: 100 !important;
+  background: transparent !important;
+  transition: all 0.5s ease-in-out !important;
+}
+
+.hero-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  border: 2px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.swiper-pagination {
+  text-align: right !important;
+  padding-right: 30px !important;
+  padding-bottom: 20px;
+}
+
+@keyframes scaleDown {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.scale-down {
+  transform: scale(1); /* Default scale for inactive slides */
+  transition: transform 0.5s ease-in-out;
+}
+
+.scale-active {
+  animation: scaleDown 0.5s ease forwards;
+}
