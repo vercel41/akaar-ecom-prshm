@@ -1,6 +1,5 @@
 import Intro from "./_components/intro";
 import FlashSale from "./_components/FlashSale";
-import NewArrival from "./_components/NewArrival";
 import VideoBanner from "./_components/VideoBanner";
 import CategoryBanners from "./_components/CategoryBanners";
 import HomeCategoryProducts from "./_components/HomeCategoryProducts";
@@ -9,6 +8,7 @@ import { Link } from "@/navigation";
 import Featured from "./_components/Featured";
 import Popup from "./_components/Popup";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import NewArrival from "./_components/NewArrival";
 
 export default async function Home() {
   const [settingsRes, transRes] = await Promise.allSettled([
@@ -20,6 +20,11 @@ export default async function Home() {
     settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
   const translations =
     transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+
+  const newArrivalProductData = await fetchData({
+    api: "product-latest?per_page=5",
+  });
+  const newArrivalProducts = newArrivalProductData?.data || [];
 
   return (
     <>
@@ -68,17 +73,21 @@ export default async function Home() {
         </section>
       ) : null}
 
+      <section className="home-category-products mb-10">
+        <HomeCategoryProducts />
+      </section>
+
       {settings?.shop_section ? (
-        <section className="new-products mt-14">
+        <section className="new-products my-14">
           <div className="container-fluid">
-            <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
+            <div className="py-4 pb-10 text-center flex  justify-center flex-col">
               <h2 className="sec-title !text-xl mx-6">
                 {translations["new-arrival"] || "New Collection"}
               </h2>
 
               <Link
                 href="/products?sort_type=new"
-                className="rounded px-2 pb-1 font-noto_serif flex justify-center items-center gap-1 group capitalize text-lg"
+                className="rounded px-2 pb-1 font-noto_serif inline-flex justify-center items-center gap-1 group capitalize text-lg"
               >
                 <span className="group-hover:-translate-x-3 transition-transform duration-500">
                   {translations["browse-our-new-collections"] ||
@@ -94,15 +103,11 @@ export default async function Home() {
             </div>
 
             <div className="">
-              <NewArrival />
+              <NewArrival products={newArrivalProducts} />
             </div>
           </div>
         </section>
       ) : null}
-
-      <section className="home-category-products mb-10">
-        <HomeCategoryProducts />
-      </section>
 
       <Popup popup={settings?.popup} />
     </>

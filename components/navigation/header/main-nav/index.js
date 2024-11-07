@@ -66,7 +66,10 @@ export default function MainNav({ settings, categories }) {
       )}
     >
       <div
-        className={cn("main-nav container-fluid", sticky ? "py-3" : "p-2.5")}
+        className={cn(
+          "main-nav container-fluid px-5",
+          sticky ? "py-3" : "p-2.5"
+        )}
       >
         <div
           className={cn(
@@ -88,7 +91,7 @@ export default function MainNav({ settings, categories }) {
 
           <div
             className={cn(
-              "flex-1 w-full flex items-center",
+              "flex-1 gap-4 w-full flex items-center",
               !sticky && "sm:justify-center sm:flex-col"
             )}
           >
