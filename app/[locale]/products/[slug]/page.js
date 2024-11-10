@@ -68,7 +68,7 @@ const ProductView = async ({ params }) => {
         ></ProductDetails>
       </div>
       <section id="same-category-products">
-        <div className="container-fluid lg:pt-14">
+        <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
           <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
             <h2 className="sec-title !text-xl">
               {translations["similar-products"] || "Similar Products"}
@@ -90,7 +90,7 @@ const ProductView = async ({ params }) => {
               </span>
             </Link>
           </div>
-          <div className="category-products">
+          <div className="category-products ">
             <AllProducts customSearchParams={customSearchParams} />
           </div>
         </div>
