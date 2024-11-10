@@ -73,12 +73,12 @@ export default async function Home() {
         </section>
       ) : null}
 
-      <section className="home-category-products mb-10">
+      <section className="home-category-products md:mt-20 mt-10">
         <HomeCategoryProducts />
       </section>
 
       {settings?.shop_section ? (
-        <section className="new-products my-14">
+        <section className="new-products md:my-20 my-10">
           <div className="container-fluid">
             <div className="py-4 pb-10 text-center flex  justify-center flex-col">
               <h2 className="sec-title !text-xl mx-6">
