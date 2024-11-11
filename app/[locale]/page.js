@@ -9,6 +9,7 @@ import Featured from "./_components/Featured";
 import Popup from "./_components/Popup";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import NewArrival from "./_components/NewArrival";
+import GetDirectionSection from "./_components/GetDirectionSection";
 
 export default async function Home() {
   const [settingsRes, transRes] = await Promise.allSettled([
@@ -108,6 +109,8 @@ export default async function Home() {
           </div>
         </section>
       ) : null}
+
+      <GetDirectionSection />
 
       <Popup popup={settings?.popup} />
     </>
