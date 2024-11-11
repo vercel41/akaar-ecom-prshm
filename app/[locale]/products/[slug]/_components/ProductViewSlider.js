@@ -1,3 +1,5 @@
+
+
 'use client'
 import Image from 'next/image'
 import { useDispatch } from 'react-redux'
@@ -13,6 +15,7 @@ const ProductViewSlider = forwardRef(
     const [open, setOpen] = useState(false)
     const [index, setIndex] = useState(0)
     const imageRefs = useRef([]) // Array of refs for each large image
+    const mainImageContainerRef = useRef(null) // Ref for the main image container
 
     // Setting default image if no image is provided
     let slides = product?.photos?.length
@@ -53,8 +56,29 @@ const ProductViewSlider = forwardRef(
       return () => clearTimeout(timer)
     }, [])
 
+    // Function to handle global scroll event
+    const handleGlobalScroll = (event) => {
+      if (mainImageContainerRef.current) {
+        const scrollAmount = event.deltaY;
+        mainImageContainerRef.current.scrollBy({
+          top: scrollAmount,
+          behavior: 'smooth',
+        });
+      }
+    };
+
+    // Attaching the global scroll event listener
+    useEffect(() => {
+      window.addEventListener('wheel', handleGlobalScroll, { passive: true });
+
+      // Cleanup listener on unmount
+      return () => {
+        window.removeEventListener('wheel', handleGlobalScroll);
+      };
+    }, []);
+
     return (
-      <>
+      <div className="flex w-full h-screen overflow-hidden">
         {open && (
           <ProductZoomYetAnother
             open={open}
@@ -65,10 +89,10 @@ const ProductViewSlider = forwardRef(
           />
         )}
         {!loading ? (
-          <div className='flex w-full'>
+          <>
             {/* Left Side Thumbnail List (Fixed) */}
-            <div className='sticky top-0 h-screen overflow-y-auto mr-4 no-scrollbar'>
-              <div className='flex flex-col gap-4'>
+            <div className="sticky top-0 h-screen overflow-y-auto mr-4 no-scrollbar">
+              <div className="flex flex-col gap-4 sticky top-0">
                 {slides.map((slide, idx) => (
                   <div
                     key={idx}
@@ -83,7 +107,7 @@ const ProductViewSlider = forwardRef(
                       alt={`Thumbnail ${idx}`}
                       width={64}
                       height={64}
-                      className='object-cover h-full w-full'
+                      className="object-cover h-full w-full"
                     />
                   </div>
                 ))}
@@ -91,33 +115,37 @@ const ProductViewSlider = forwardRef(
             </div>
 
             {/* Main Image Preview (Scrollable with hidden scrollbar) */}
-            <div className='flex-1 h-screen px-4 overflow-y-auto no-scrollbar'>
+            <div
+              ref={mainImageContainerRef}
+              className="flex-1 h-full overflow-y-auto no-scrollbar px-4"
+            >
               {slides.map((slide, idx) => (
                 <div
                   key={idx}
-                  className='mb-8 cursor-pointer'
+                  className="mb-8 cursor-pointer"
                   onClick={() => handleOpenZoom(idx)}
-                  ref={el => (imageRefs.current[idx] = el)} // Assign ref to each image container
+                  ref={(el) => (imageRefs.current[idx] = el)} // Assign ref to each image container
                 >
                   <Image
                     src={slide?.image || noImage}
                     alt={`Image ${idx}`}
                     width={624}
                     height={624}
-                    className='object-cover w-full'
+                    className="object-cover w-full"
                   />
                 </div>
               ))}
             </div>
-          </div>
+          </>
         ) : (
           <ProductViewSkeleton />
         )}
-      </>
-    )
+      </div>
+    );
   }
-)
+);
 
-ProductViewSlider.displayName = 'ProductViewSlider'
+ProductViewSlider.displayName = 'ProductViewSlider';
 
-export default ProductViewSlider
+export default ProductViewSlider;
+

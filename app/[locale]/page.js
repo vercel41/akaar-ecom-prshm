@@ -74,7 +74,7 @@ export default async function Home() {
         </section>
       ) : null}
 
-      <section className="home-category-products md:mt-20 mt-10">
+      <section className="home-category-products md:mt-20 mt-10 ">
         <HomeCategoryProducts />
       </section>
 
