@@ -9,6 +9,7 @@ import Featured from "./_components/Featured";
 import Popup from "./_components/Popup";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import NewArrival from "./_components/NewArrival";
+import ImageDescriptionSection from "./_components/ReviewSection";
 import GetDirectionSection from "./_components/GetDirectionSection";
 import GallerySection from "./_components/GallerySection";
 
@@ -107,6 +108,14 @@ export default async function Home() {
             <div className="">
               <NewArrival products={newArrivalProducts} />
             </div>
+
+           
+           <div className="text-center my-14">
+              Review Section
+              <ImageDescriptionSection/>
+           </div>
+
+
           </div>
         </section>
       ) : null}
