@@ -59,28 +59,28 @@
 
 // export default HomeCategoryProducts
 
-import Link from 'next/link'
-import { fetchData } from '@/lib/fetch-data'
-import ProductList from '@/components/products/ProductList'
-import Image from 'next/image'
-import ProductCard from '@/components/cards/ProductCard'
+import Link from "next/link";
+import { fetchData } from "@/lib/fetch-data";
+import ProductList from "@/components/products/ProductList";
+import Image from "next/image";
+import ProductCard from "@/components/cards/ProductCard";
 
 const HomeCategoryProducts = async () => {
   const [transRes] = await Promise.allSettled([
-    fetchData({ api: 'translations' })
-  ])
+    fetchData({ api: "translations" }),
+  ]);
   const translations =
-    transRes.status === 'fulfilled' ? transRes.value?.data || {} : {}
+    transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
   const data = await fetchData({
-    api: 'homepage-category?no_child=1'
-  })
-  const categoryWiseProducts = data?.data || []
+    api: "homepage-category?no_child=1",
+  });
+  const categoryWiseProducts = data?.data || [];
 
-  console.log('categoryWiseProducts', categoryWiseProducts)
+  // console.log('categoryWiseProducts', categoryWiseProducts)
 
   return categoryWiseProducts?.length
     ? categoryWiseProducts.map(({ category, products, images }, index) => (
-        <div key={index} className='container-fluid'>
+        <div key={index} className="container-fluid">
           {/* <div className="py-10">
             <h2 className="sec-title pb-3">{category?.category_name}</h2>
             <Link
@@ -91,12 +91,12 @@ const HomeCategoryProducts = async () => {
             </Link>
           </div> */}
 
-          <div className='grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-7 max-h-[80vh] overflow-y-auto'>
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-7 max-h-[80vh] overflow-y-auto">
             {/* Left Image Section - Sticky */}
-            <div className='md:sticky top-0 h-[90vh] pointer-events-none'>
+            <div className="md:sticky top-0 h-[90vh] pointer-events-none">
               <video
-                src='https://cdn.shopify.com/videos/c/o/v/e226a8795a7f44fa9a455584abb1a0f9.mp4'
-                className='w-full h-auto'
+                src="https://cdn.shopify.com/videos/c/o/v/e226a8795a7f44fa9a455584abb1a0f9.mp4"
+                className="w-full h-auto"
                 autoPlay
                 loop
                 muted
@@ -105,8 +105,7 @@ const HomeCategoryProducts = async () => {
             </div>
 
             {/* Right Product List Section - Scrollable */}
-            <div className='lg:pointer-events-auto grid grid-cols-2 gap-7'>
-
+            <div className="lg:pointer-events-auto grid grid-cols-2 gap-7">
               {products?.map((product, i) => (
                 <div
                   // className={cn(
@@ -128,7 +127,7 @@ const HomeCategoryProducts = async () => {
           </div>
         </div>
       ))
-    : null
-}
+    : null;
+};
 
-export default HomeCategoryProducts
+export default HomeCategoryProducts;
