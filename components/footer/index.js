@@ -7,10 +7,16 @@ import SocialIcon from "../elements/SocialIcon";
 import ScrollToTopButton from "../ScrollToTopButton";
 import {
   FaEnvelope,
+  FaFacebookF,
   FaFacebookMessenger,
+  FaInstagram,
   FaMapMarkerAlt,
+  FaPinterest,
+  FaTiktok,
+  FaWhatsapp,
+  FaYoutube,
 } from "react-icons/fa";
-import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 import AppleAppDownload from "../elements/svg/AppleAppDownload";
 import AndroidAppDownload from "../elements/svg/AndroidAppDownload";
@@ -48,70 +54,25 @@ const Footer = async () => {
           </p>
           <SubscriptionForm settings={settings} />
         </div> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between gap-5 lg:gap-12 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between gap-5 lg:gap-12 py-8">
           <div className="footer-business-info">
-            <Link href="/" className="logo inline-block mb-3">
-              <Image
-                src={settings?.footer_logo}
-                alt={settings?.name}
-                width={200}
-                height={48}
-                className="h-auto max-h-[48px] w-auto object-contain lg:-mt-2"
-              />
-            </Link>
-            <ul className="info-list pr-4  text-sm font-light text-[#a5a5a5] text-[16px] space-y-2.5 tracking-[1.6px]">
-              <li className="flex items-start gap-2 hover:text-black transition-colors duration-500">
-                <FaMapMarkerAlt size={24} color="#EF4444" />
-                <p className="">{settings?.address}</p>
-              </li>
-              <li className="flex items-center flex-wrap gap-2">
-                <BsFillTelephoneFill ize={16} />
-                <span className="rtl:text-right" dir="ltr">
-                  {settings?.phone?.map((e, index) => (
-                    <Link
-                      key={index}
-                      href={`tel:${settings?.phone[index]}`}
-                      className="hover:text-black transition-colors duration-500 "
-                    >
-                      {`${settings?.phone[index]}${
-                        index + 1 < settings.phone.length ? "," : ""
-                      }`}
-                    </Link>
-                  ))}
-                </span>
-              </li>
-              <li className="flex items-center flex-wrap gap-2">
-                <FaEnvelope ize={16} />
-                {settings?.email?.map((e, index) => (
-                  <Link
-                    key={index}
-                    href={`mailto:${settings?.email[index]}`}
-                    className="hover:text-black transition-colors duration-500"
-                  >
-                    {`${settings?.email[index]}${
-                      index + 1 < settings.email.length ? "," : ""
-                    }`}
-                  </Link>
-                ))}
-              </li>
-              {settings?.trade_licence_no && (
-                <li className="flex items-center flex-wrap gap-2 hover:text-black transition-colors duration-500">
-                  {/* <FaEnvelope ize={16} /> */}
-                  <span className="font-semibold">Trade license No:</span>
-                  {settings?.trade_licence_no}
-                </li>
-              )}
-            </ul>
-            <div className="mt-4 pr-4 ">
-              <p>Subscribe Us</p>
+            <div className="pr-4 w-[80%]">
+              <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+                newsletter
+              </h6>
+
+              <p className="text-sm mb-3 tracking-normal">
+                Subscribe to receive updates, access to exclusive deals, and
+                more.
+              </p>
               <SubscriptionForm settings={settings} />
             </div>
           </div>
           <div className="text-sm/6 ">
-            <h6 className="mb-4 font-noto_serif !capitalize  font-[700] text-[1.0625rem] tracking-[1.6px]">
+            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
               {translations["customer-service"] || "customer-service"}
             </h6>
-            <ul className="widget-list text-[#a5a5a5] text-[16px] space-y-2.5 tracking-[1.6px]">
+            <ul className="widget-list font-normal text-[15px] tracking-normal space-y-2.5">
               <li>
                 <Link
                   className="hover:text-black transition-colors duration-500"
@@ -142,10 +103,10 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="text-sm/6 font-light">
-            <h6 className="mb-4 font-noto_serif  font-bold text-[17px] tracking-[1.6px]">
+            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
               {translations["Company"] || "COMPANY"}
             </h6>
-            <ul className="widget-list text-[#a5a5a5] space-y-2.5 tracking-[1.6px]">
+            <ul className="widget-list text-[#a5a5a5] space-y-2.5">
               {footerPage.map((page) => (
                 <li key={page?.path}>
                   <Link
@@ -186,47 +147,58 @@ const Footer = async () => {
                 </div>
               ) : null}
               <div className="social-links ">
-                <h2 className="font-bold  uppercase  tracking-[1.6px]">
-                  Follow Us
+                <h2 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+                  About Purusham
                 </h2>
-                <div className="text-center py-4 flex gap-3 items-center">
+                <p className="tracking-normal text-[15px]">
+                  Purusham is a bespoke studio catering to the ethnic &
+                  contemporary fashion needs of men in India & globally with
+                  exquisitely crafted imperial & in-vogue collections.
+                </p>
+                <div className="text-center py-4 flex gap-5 items-center">
                   {settings.facebook_link && settings.facebook_link !== "#" && (
                     <SocialIcon
                       href={settings.facebook_link}
-                      icon={"/assets/icons/social/fb.svg"}
+                      icon={<FaFacebookF size={18} />}
                     />
                   )}
                   {settings.youtube_link && settings.youtube_link !== "#" && (
                     <SocialIcon
                       href={settings.youtube_link}
-                      icon={"/assets/icons/social/YouTube.svg"}
+                      icon={<FaYoutube size={18} />}
                     />
                   )}
                   {settings.whatsapp_link && settings.whatsapp_link !== "#" && (
                     <SocialIcon
                       href={settings.whatsapp_link}
-                      icon={"/assets/icons/social/whatsapp.svg"}
+                      icon={<FaWhatsapp size={18} />}
                       iconClass={"w-7 h-7"}
+                    />
+                  )}
+                  {settings.twitter_link && settings.twitter_link !== "#" && (
+                    <SocialIcon
+                      href={settings.twitter_link}
+                      icon={<FaXTwitter size={18} />}
                     />
                   )}
                   {settings.tiktok_link && settings.tiktok_link !== "#" && (
                     <SocialIcon
                       href={settings.tiktok_link}
-                      icon={"/assets/icons/social/TikTok.svg"}
+                      icon={<FaTiktok size={18} />}
                     />
                   )}
                   {settings.instagram_link &&
                     settings.instagram_link !== "#" && (
                       <SocialIcon
                         href={settings.instagram_link}
-                        icon={"/assets/icons/social/instagram.svg"}
+                        icon={<FaInstagram size={18} />}
                       />
                     )}
                   {settings.pinterest_link &&
                     settings.pinterest_link !== "#" && (
                       <SocialIcon
                         href={settings.pinterest_link}
-                        icon={"/assets/icons/social/pinterest.svg"}
+                        icon={<FaPinterest size={18} />}
                       />
                     )}
                 </div>
@@ -234,17 +206,17 @@ const Footer = async () => {
             </>
           </div>
         </div>
-        <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-4">
-          <div className="w-1/2">
-            <p className="mt-3 text-sm/6 font-light text-[#a5a5a5]">
+        <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
+          <div className="w-full">
+            <p className="mt-3 text-[13px] font-medium tracking-normal">
               &copy; {new Date().getFullYear()}, All Rights Reserved By{" "}
               <Link href="/">{settings?.name}</Link> | Developed by Amar
               Solution
             </p>
           </div>
-          <div className="w-1/2">
+          {/* <div className="w-1/2">
             <Image src={sslImage} alt="no-image" className="object-contain" />
-          </div>
+          </div> */}
         </div>
       </div>
       <ScrollToTopButton settings={settings} />

@@ -18,13 +18,14 @@ export default function SocialIcon({
       className={twMerge("inline", linkClass)}
       {...props}
     >
-      <Image
+      {/* <Image
         src={icon}
         alt={name || "social-icon"}
         width="24"
         height="24"
         className={twMerge("w-6 h-6", iconClass)}
-      />
+      /> */}
+      <span className={twMerge("w-6 h-6", iconClass)}>{icon}</span>
     </Link>
   );
 }
