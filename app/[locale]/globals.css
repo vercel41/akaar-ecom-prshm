@@ -64,7 +64,7 @@
   }
   .container {
     /* @apply md:px-5 2xl:max-w-[1276px]; */
-    @apply px-5 2xl:max-w-[1720px] mx-auto;
+    @apply px-5 2xl:max-w-[1820px] mx-auto;
   }
 }
 
