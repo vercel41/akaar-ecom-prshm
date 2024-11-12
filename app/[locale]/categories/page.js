@@ -9,21 +9,28 @@ const page = async () => {
 
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 pt-5">
-        <div className="container border-b border-slate-200 pb-5">
-          <div>
-            <Link
-              href={`/`}
-              className="text-base text-slate-600 hover:text-secondary"
-            >
-              Home
-            </Link>
-            <Link
-              href={`/categories`}
-              className="text-base text-slate-900 hover:text-secondary"
-            >
-              All Categories
-            </Link>
+      <div className="md:py-12 py-8 border-y border-gray-300">
+        <div className="container flex flex-col justify-center items-center gap-2">
+          <h2 className="text-xl md:text-2xl text-center uppercase">
+            Categories
+          </h2>
+          <div className="breadcrumb breadcrumb-2">
+            <div className="container">
+              <div>
+                <Link
+                  href={`/`}
+                  className="text-base text-slate-600 hover:text-secondary"
+                >
+                  Home
+                </Link>
+                <Link
+                  href={`/categories`}
+                  className="text-base text-slate-900 hover:text-secondary"
+                >
+                  All Categories
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

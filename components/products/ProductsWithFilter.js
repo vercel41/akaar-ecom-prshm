@@ -19,8 +19,8 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
 
   return (
     <>
-      <div className="container mb-3 md:mb-20">
-        <div className="actions-bar flex justify-between items-center mb-3 md:mb-8">
+      <div className="mb-3 md:mb-20">
+        <div className="actions-bar flex justify-between items-center mb-3 md:mb-8 border-b border-gray-300 py-5 container-fluid px-6">
           <div className="flex items-center gap-48 w-1/2">
             <div>
               <FilterMenu />
@@ -33,7 +33,7 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
             <SortSelect />
           </div>
         </div>
-        <div className="lg:flex gap-4">
+        <div className="lg:flex gap-4 container">
           <div className="hidden md:block">
             <ProductFilters category={category} />
           </div>
