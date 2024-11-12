@@ -2,7 +2,7 @@ import Intro from "./_components/intro";
 import FlashSale from "./_components/FlashSale";
 import VideoBanner from "./_components/VideoBanner";
 import CategoryBanners from "./_components/CategoryBanners";
-import HomeCategoryProducts from "./_components/HomeCategoryProducts";
+import HomeCategoryProducts from "./_components/home-page-category/HomeCategoryProducts";
 import { fetchData } from "@/lib/fetch-data";
 import { Link } from "@/navigation";
 import Featured from "./_components/Featured";
@@ -109,13 +109,10 @@ export default async function Home() {
               <NewArrival products={newArrivalProducts} />
             </div>
 
-           
-           <div className="text-center my-14">
+            <div className="text-center my-14">
               Review Section
-              <ImageDescriptionSection/>
-           </div>
-
-
+              <ImageDescriptionSection />
+            </div>
           </div>
         </section>
       ) : null}

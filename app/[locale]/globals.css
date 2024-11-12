@@ -10,7 +10,7 @@
 
 @layer base {
   body {
-    @apply font-noto_serif box-border tracking-[.2rem];
+    @apply font-noto_serif box-border tracking-[.2rem] overflow-x-hidden;
   }
 
   input {
