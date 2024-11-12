@@ -108,11 +108,12 @@ export default async function Home() {
             <div className="">
               <NewArrival products={newArrivalProducts} />
             </div>
+           
+           <div className="text-center py-14 border-t border-gray-200 mt-20">
 
-            <div className="text-center my-14">
-              Review Section
-              <ImageDescriptionSection />
-            </div>
+              <ImageDescriptionSection/>
+           </div>
+
           </div>
         </section>
       ) : null}
