@@ -91,7 +91,7 @@ const ProductViewSlider = forwardRef(
         {!loading ? (
           <>
             {/* Left Side Thumbnail List (Fixed) */}
-            <div className="sticky top-0 h-screen overflow-y-auto mr-4 no-scrollbar">
+            <div className="sticky top-0 h-screen overflow-y-auto mr-7 no-scrollbar">
               <div className="flex flex-col gap-4 sticky top-0">
                 {slides.map((slide, idx) => (
                   <div

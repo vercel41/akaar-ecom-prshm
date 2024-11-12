@@ -56,7 +56,7 @@ export default function ImageDescriptionSection () {
   }
 
   return (
-    <div className='container mx-auto p-4 w-full md:w-8/12'>
+    <div className='md:container mx-auto md:p-4 w-full md:w-8/12'>
       <div className='md:flex hidden flex-col md:flex-row md:items-end gap-8'>
         <div className='w-full p-4'>
           <div className='relative w-full h-[400px] md:h-[600px] overflow-hidden'>
@@ -106,35 +106,7 @@ export default function ImageDescriptionSection () {
           </AnimatePresence>
         </div>
 
-        {/* <div className="md:hidden absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-4">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeButton}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="text-white"
-            >
-              <motion.h2
-                className="text-lg md:text-2xl font-bold"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
-              >
-                {contentData[activeButton].title}
-              </motion.h2>
-              <motion.p
-                className="mt-3 md:mt-5 text-xs md:text-sm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.1 }}
-              >
-                {contentData[activeButton].description}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
-        </div> */}
+
       </div>
 
       <div className='md:hidden relative w-full h-[400px] md:h-[600px] overflow-hidden'>
@@ -171,7 +143,7 @@ export default function ImageDescriptionSection () {
                 {contentData[activeButton].title}
               </motion.h2>
               <motion.p
-                className='mt-3 md:mt-5 text-xs md:text-sm'
+                className='mt-3 md:mt-5 text-sm tracking-normal'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.1 }}
