@@ -64,7 +64,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                       ? e.preventDefault()
                       : router.push(`/categories/${category.slug}`);
                   }}
-                  className={`capitalize ${
+                  className={`uppercase ${
                     category?.child_categories?.length
                       ? "flex items-center gap-1.5"
                       : ""

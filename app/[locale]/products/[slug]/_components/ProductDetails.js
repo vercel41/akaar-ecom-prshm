@@ -207,12 +207,11 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)] mx-auto">
                 <div className="product-actions flex flex-col gap-4 justify-between items-center">
                   <button
-                    className="bg-primary py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase"
+                    className=" py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase btn btn-secondary"
                     onClick={() => handleAddToCart(product, selectedVariant)}
                     style={{
-                      backgroundColor: settings?.colors?.primary,
-                      color: settings?.colors?.primary_text,
-                      border: `1px solid ${settings?.colors?.primary}`,
+                      "--btn-bg-color": settings?.colors?.primary,
+                      "--btn-text-color": settings?.colors?.primary_text,
                     }}
                   >
                     {/* <HiOutlineShoppingCart size={24} /> */}
@@ -222,10 +221,10 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                     onClick={() =>
                       handleAddAndCheckout(product, selectedVariant)
                     }
-                    className="bg-transparent py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 uppercase"
+                    className="py-2 px-2.5 w-full text-[.8rem] text-center active:scale-95 uppercase btn btn-primary hover:text-white"
                     style={{
-                      color: settings?.colors?.secondary_text,
-                      border: `1px solid ${settings?.colors?.primary}`,
+                      "--btn-bg-color": settings?.colors?.primary,
+                      "--btn-text-color": settings?.colors?.secondary_text,
                     }}
                   >
                     {/* <IoIosFlash size={24} />{" "} */}

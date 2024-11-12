@@ -252,8 +252,8 @@ const Checkout = () => {
   }, [paymentOptions]);
 
   return (
-    <section className="container pb-8">
-      <div className="breadcrumb breadcrumb-2 py-5 mt-8">
+    <section className=" pb-8 font-body tracking-normal">
+      {/* <div className="breadcrumb breadcrumb-2 py-5 mt-8">
         <div className="">
           <div>
             <Link
@@ -270,6 +270,32 @@ const Checkout = () => {
             </Link>
           </div>
         </div>
+      </div> */}
+
+      <div className="py-8 border-y border-gray-300 mb-6">
+        <div className="container flex flex-col justify-center items-center gap-2">
+          <h2 className="text-xl md:text-2xl text-center uppercase">
+            Checkout
+          </h2>
+          <div className="breadcrumb breadcrumb-2">
+            <div className="container">
+              <div>
+                <Link
+                  href={`/`}
+                  className="text-base text-slate-600 hover:text-secondary capitalize"
+                >
+                  {translations["home"] || "Home"}
+                </Link>
+                <Link
+                  href={`/checkout`}
+                  className="text-base text-slate-600 hover:text-secondary"
+                >
+                  {translations["checkout"] || "Checkout"}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       {/* Shipping Address are for mobile  */}
       {isMobile && (
@@ -283,7 +309,7 @@ const Checkout = () => {
           translations={translations}
         />
       )}
-      <div className="grid lg:grid-cols-2 mb-8 gap-14">
+      <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto px-6">
         <div
           id="checkout-left"
           className="border border-slate-200 grid grid-cols-1"
@@ -561,13 +587,12 @@ const Checkout = () => {
               disabled={isDisabled}
               // type="submit"
               onClick={() => handleSubmit(handleCheckoutSubmit)()}
-              className="primary-btn w-full disabled:bg-slate-300 disabled:cursor-not-allowed"
+              className="btn btn-secondary !capitalize !text-lg w-full disabled:bg-slate-300 disabled:cursor-not-allowed"
               style={{
-                backgroundColor: isDisabled
+                "--btn-bg-color": isDisabled
                   ? "#cccccc"
                   : settings?.colors?.primary,
-                color: settings?.colors?.primary_text,
-                border: `1px solid ${settings?.colors?.primary_text}`,
+                "--btn-text-color": settings?.colors?.primary_text,
                 opacity: isDisabled ? 0.5 : 1,
               }}
             >

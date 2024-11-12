@@ -14,7 +14,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
           className={`!w-full sub-menu font-bold sm:font-normal`}
           key={category.id}
         >
-          <div className="flex items-center justify-center px-4 !w-full py-2 text-md">
+          <div className="flex items-center justify-center px-4 !w-full py-2 text-md uppercase">
             <Link
               key={category.id}
               onClick={() => setShow(false)}
