@@ -14,15 +14,20 @@ import GetDirectionSection from "./_components/GetDirectionSection";
 import GallerySection from "./_components/GallerySection";
 
 export default async function Home() {
-  const [settingsRes, transRes] = await Promise.allSettled([
+  const [settingsRes, transRes, featured_products] = await Promise.allSettled([
     fetchData({ api: `info/basic` }),
     fetchData({ api: "translations" }),
+    fetchData({ api: "featured-categories" }),
+
   ]);
 
   const settings =
     settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
   const translations =
     transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+
+    const featuredProducts =
+    featured_products.status === "fulfilled" ? featured_products.value?.data || {} : {};
 
   const newArrivalProductData = await fetchData({
     api: "product-latest?per_page=5",
@@ -77,7 +82,7 @@ export default async function Home() {
       ) : null}
 
       <section className="home-category-products md:mt-20 mt-10 ">
-        <HomeCategoryProducts />
+        <HomeCategoryProducts /> 
       </section>
 
       {settings?.shop_section ? (
@@ -111,7 +116,7 @@ export default async function Home() {
            
            <div className="text-center py-14 border-t border-gray-200 mt-20">
 
-              <ImageDescriptionSection/>
+              <ImageDescriptionSection featuredProducts={featuredProducts}/>
            </div>
 
           </div>
