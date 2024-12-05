@@ -124,6 +124,7 @@ export default async function Home() {
       ) : null}
 
       <GetDirectionSection />
+      
       <GallerySection />
 
       <Popup popup={settings?.popup} />
