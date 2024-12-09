@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function ImageDescriptionSection({ featuredProducts }) {
   const [activeButton, setActiveButton] = useState(0) // Default to the first product
-  console.log(activeButton)
+  // console.log(activeButton)
 
   const handleButtonClick = (index) => {
     setActiveButton(index)
@@ -56,8 +56,7 @@ export default function ImageDescriptionSection({ featuredProducts }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.1 }}
               >
-                Description will be here
-                Description for {featuredProducts[activeButton]?.description} goes here.
+                {featuredProducts[activeButton]?.description}
               </motion.p>
             </motion.div>
           </AnimatePresence>
@@ -103,7 +102,7 @@ export default function ImageDescriptionSection({ featuredProducts }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.1 }}
               >
-                Description for {featuredProducts[activeButton]?.category_name} goes here.
+                {featuredProducts[activeButton]?.category_name}
               </motion.p>
             </motion.div>
           </AnimatePresence>
