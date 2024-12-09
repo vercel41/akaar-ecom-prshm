@@ -25,6 +25,7 @@ import sslImage from "@/public/assets/images/ssl.png";
 const Footer = async () => {
   const translationData = await fetchData({ api: "translations" });
   const translations = translationData?.data || {};
+
   const { data: settings = {} } = await fetchData({ api: "info/basic" });
 
   const footerPage = settings?.footer_page || [];
@@ -32,7 +33,6 @@ const Footer = async () => {
 
   const messengerUser = settings?.facebook_link?.split("/")[3] || "no-user";
 
-  //   console.log(settings);
 
   return (
     <footer
@@ -151,9 +151,7 @@ const Footer = async () => {
                   About Purusham
                 </h2>
                 <p className="tracking-normal text-[15px]">
-                  Purusham is a bespoke studio catering to the ethnic &
-                  contemporary fashion needs of men in India & globally with
-                  exquisitely crafted imperial & in-vogue collections.
+                    {settings?.short_description}
                 </p>
                 <div className="text-center py-4 flex gap-5 items-center">
                   {settings.facebook_link && settings.facebook_link !== "#" && (

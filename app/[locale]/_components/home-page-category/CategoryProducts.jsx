@@ -6,8 +6,10 @@ import { useTransform, useScroll, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-const CategoryProducts = ({ products }) => {
+const CategoryProducts = async ({ products,vdo_file }) => {
   const targetRef = useRef(null);
+
+  console.log("vdo_file",vdo_file)
 
   // Set up framer-motion's scroll tracking
   const { scrollYProgress } = useScroll({
@@ -30,7 +32,8 @@ const CategoryProducts = ({ products }) => {
             playsInline
           >
             <source
-              src="https://cdn.shopify.com/videos/c/o/v/f2bd94e583b040bfa4ff6f271337b723.mp4"
+              src={vdo_file}
+              // src={settings?.vdo_file}
               type="video/mp4"
             />
           </video>
