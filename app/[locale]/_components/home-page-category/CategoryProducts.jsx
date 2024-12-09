@@ -9,7 +9,7 @@ import { useRef } from "react";
 const CategoryProducts = async ({ products,vdo_file }) => {
   const targetRef = useRef(null);
 
-  console.log("vdo_file",vdo_file)
+  // console.log("vdo_file",vdo_file)
 
   // Set up framer-motion's scroll tracking
   const { scrollYProgress } = useScroll({
