@@ -51,7 +51,7 @@ const CategoryProducts = async ({ products,vdo_file }) => {
 
         {/* Right Product List Section */}
 
-        <motion.div style={{ x }} className={`grid grid-cols-2 gap-7 ${products?.length % 2 === 0 ? "md:order-first": ""} `}>
+        <motion.div style={{ x }} className={`grid grid-cols-2 gap-7 ${products?.length % 2 === 0 ? "": "md:order-first"} `}>
           {products?.map((product, i) => (
             <div key={i}>
               <ProductCard product={product} />
