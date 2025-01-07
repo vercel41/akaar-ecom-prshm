@@ -18,7 +18,6 @@ export default async function Home() {
     fetchData({ api: `info/basic` }),
     fetchData({ api: "translations" }),
     fetchData({ api: "featured-categories" }),
-
   ]);
 
   const settings =
@@ -26,12 +25,18 @@ export default async function Home() {
   const translations =
     transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
 
-    const featuredProducts =
-    featured_products.status === "fulfilled" ? featured_products.value?.data || {} : {};
+  const featuredProducts =
+    featured_products.status === "fulfilled"
+      ? featured_products.value?.data || {}
+      : {};
+
+   
 
   const newArrivalProductData = await fetchData({
     api: "product-latest?per_page=5",
   });
+
+  console.log(featuredProducts)
   const newArrivalProducts = newArrivalProductData?.data || [];
 
   return (
@@ -42,13 +47,13 @@ export default async function Home() {
         </section>
       ) : null}
 
-      {settings?.category_section ? (
+      {/*       {settings?.category_section ? (
         <section className="banners pt-14">
           <div className="container-fluid">
             <CategoryBanners settings={settings} />
           </div>
         </section>
-      ) : null}
+      ) : null} */}
 
       <section className="flash-sale">
         <div className="container-fluid">
@@ -82,7 +87,7 @@ export default async function Home() {
       ) : null}
 
       <section className="home-category-products md:mt-20 mt-10 ">
-        <HomeCategoryProducts /> 
+        <HomeCategoryProducts />
       </section>
 
       {settings?.shop_section ? (
@@ -113,18 +118,18 @@ export default async function Home() {
             <div className="">
               <NewArrival products={newArrivalProducts} />
             </div>
-           
-           <div className="text-center py-14 border-t border-gray-200 mt-20">
 
-              <ImageDescriptionSection featuredProducts={featuredProducts}/>
-           </div>
-
+            {featuredProducts.length > 0 ? (
+              <div className="text-center py-14 border-t border-gray-200 mt-20">
+                <ImageDescriptionSection featuredProducts={featuredProducts} />
+              </div>
+            ) : null}
           </div>
         </section>
       ) : null}
 
       <GetDirectionSection />
-      
+
       <GallerySection />
 
       <Popup popup={settings?.popup} />

@@ -9,7 +9,11 @@ const VideoPlayer = ({ url, className, ...props }) => {
       <ReactPlayer
         url={url}
         className="overflow-hidden"
-        // playing={true}
+        playing={true}
+        muted={true}
+        
+        loop={true}
+        controls={false} // Ensure controls are disabled
         {...props}
         width="100%"
         height="100%"

@@ -33,33 +33,30 @@ export default function ImageDescriptionSection({ featuredProducts }) {
 
         {/* Desktop Description */}
         <div className='md:block hidden text-start w-full p-4 mb-5'>
-          <AnimatePresence mode='wait'>
-            <motion.div
+
+            <div
               key={activeButton}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              // initial={{ opacity: 0, y: 20 }}
+              // animate={{ opacity: 1, y: 0 }}
+              // exit={{ opacity: 0, y: 20 }}
+              // transition={{ duration: 0.3, ease: 'easeInOut' }}
               className='flex flex-col'
             >
-              <motion.p
+              <p
                 className='font-bold text-[22px]'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
+                // initial={{ opacity: 0, y: 20 }}
+                // animate={{ opacity: 1, y: 0 }}
+                // transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
               >
                 {featuredProducts[activeButton]?.category_name}
-              </motion.p>
-              <motion.p
-                className='mt-5 text-[16px] tracking-normal font-[400] pb-14'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.1 }}
-              >
-                {featuredProducts[activeButton]?.description}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
+              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: featuredProducts[activeButton]?.description || "No description available.",
+                }}
+              ></p>
+            </div>
+
         </div>
       </div>
 
@@ -79,33 +76,33 @@ export default function ImageDescriptionSection({ featuredProducts }) {
         </AnimatePresence>
 
         <div className='absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-4'>
-          <AnimatePresence mode='wait'>
-            <motion.div
+        
+            <div
               key={activeButton}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.1, ease: 'easeInOut' }}
+              // initial={{ opacity: 0, y: 20 }}
+              // animate={{ opacity: 1, y: 0 }}
+              // exit={{ opacity: 0, y: 20 }}
+              // transition={{ duration: 0.1, ease: 'easeInOut' }}
               className='text-white'
             >
-              <motion.h2
+              <h2
                 className='text-lg md:text-2xl font-bold'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.03 }}
+                // initial={{ opacity: 0, y: 20 }}
+                // animate={{ opacity: 1, y: 0 }}
+                // transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.03 }}
               >
                 {featuredProducts[activeButton]?.category_name}
-              </motion.h2>
-              <motion.p
+              </h2>
+              <p
                 className='mt-3 md:mt-5 text-sm tracking-normal'
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.1 }}
+                // initial={{ opacity: 0, y: 20 }}
+                // animate={{ opacity: 1, y: 0 }}
+                // transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.1 }}
               >
                 {featuredProducts[activeButton]?.category_name}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
+              </p>
+            </div>
+  
         </div>
       </div>
 

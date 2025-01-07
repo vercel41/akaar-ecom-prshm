@@ -23,8 +23,8 @@ const IntroSlider = ({ sliders, settings }) => {
             <div
               className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center ${
                 settings?.offer_massage
-                  ? "h-[203px] md:h-[353px] lg:h-[85vh]"
-                  : "h-[213px] md:h-[363px] lg:h-[88vh]"
+                  ? "h-[100vh] md:h-[353px] lg:h-[85vh]"
+                  : "h-[100vh] md:h-[363px] lg:h-[88vh]"
               } bg-no-repeat bg-cover bg-center`}
               style={{
                 background: slide?.image
