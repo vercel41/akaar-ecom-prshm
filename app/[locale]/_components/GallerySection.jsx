@@ -5,9 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ProductZoomYetAnother from "../products/[slug]/_components/ProductZoomYetAnother";
+import { useParams } from "next/navigation";
+import { useGetGalleryImagesQuery } from "@/store/api/gallaryAPI";
+
 
 const GallerySection = () => {
-  // const { data: settings = {} } = await fetchData({ api: "info/basic" });
+//  const { data: settings = {} } = await fetchData({ api: "info/gallery" });
+
+const { locale } = useParams();
+	const { data, isLoading } = useGetGalleryImagesQuery({ locale });
+	const galleryImages = data?.data || [];
+
+  console.log("galleryImages",galleryImages)
+  console.log("data",data)
+
+
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -32,20 +44,23 @@ const GallerySection = () => {
         )}
         <div>
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
-            {galleryImages.map((image, index) => (
+            {galleryImages ? galleryImages.map((image, index) => (
               <li
                 key={index}
                 onClick={() => handleOpenZoom(index)}
                 className="cursor-pointer"
               >
                 <Image
-                  src={image.image}
+                  src={image}
                   alt="Gallery Image"
                   width={600}
                   height={600}
                 />
               </li>
-            ))}
+            ))
+            :
+            <p className="text-center font-bold text-2xl">No Gallery Images available</p>
+          }
           </ul>
         </div>
 
@@ -67,27 +82,3 @@ const GallerySection = () => {
 };
 
 export default GallerySection;
-
-const galleryImages = [
-  { image: "https://purusham.com/cdn/shop/files/Artboard_4.png?v=1730206253" },
-  { image: "https://purusham.com/cdn/shop/files/Artboard_1.png?v=1730206253" },
-  { image: "https://purusham.com/cdn/shop/files/Artboard_3.png?v=1730206252" },
-  { image: "https://purusham.com/cdn/shop/files/Artboard_2.png?v=1730206252" },
-  {
-    image:
-      "https://purusham.com/cdn/shop/files/85052584_477553866463015_7267591767632162468_n.jpg?v=1614336329",
-  },
-  { image: "https://purusham.com/cdn/shop/files/2.png?v=1614344819" },
-  { image: "https://purusham.com/cdn/shop/files/5.png?v=1614344820" },
-  { image: "https://purusham.com/cdn/shop/files/9.png?v=1614344820" },
-  { image: "https://purusham.com/cdn/shop/files/4.png?v=1614344820" },
-  {
-    image:
-      "https://purusham.com/cdn/shop/files/77146616_148249949805490_7127907782964524533_n.jpg?v=1614336328",
-  },
-  { image: "https://purusham.com/cdn/shop/files/6.png?v=1614344823" },
-  {
-    image:
-      "https://purusham.com/cdn/shop/files/Untitled_design.png?v=1614344820",
-  },
-];
