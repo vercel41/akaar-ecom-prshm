@@ -2,13 +2,13 @@
 
 import ProductCard from "@/components/cards/ProductCard";
 import VideoPlayer from "@/components/elements/VideoPlayer";
+import { cn } from "@/utils";
 import { useTransform, useScroll, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-const CategoryProducts = async ({ products,vdo_file }) => {
+const CategoryProducts = async ({ products, vdo_file, index }) => {
   const targetRef = useRef(null);
-
 
   // Set up framer-motion's scroll tracking
   const { scrollYProgress } = useScroll({
@@ -20,14 +20,17 @@ const CategoryProducts = async ({ products,vdo_file }) => {
 
   return (
     <div ref={targetRef} className="container-fluid">
- <div className={`grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-7 mb-4`}>
+      <div
+        className={`grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-7 mb-4`}
+      >
         {/* Left Image Section - Sticky */}
         <div className="md:sticky top-0 h-screen">
-   
-          <VideoPlayer url={vdo_file} className={`h-full w-full !object-cover object-center `} />
-          
-        
-{/*           <video
+          <VideoPlayer
+            url={vdo_file}
+            className={`h-full w-full !object-cover object-center `}
+          />
+
+          {/*           <video
             className={"!h-full !w-full !object-cover !object-center"}
             autoPlay
             loop
@@ -51,14 +54,20 @@ const CategoryProducts = async ({ products,vdo_file }) => {
 
         {/* Right Product List Section */}
 
-        <motion.div style={{ x }} className={`grid grid-cols-2 gap-7 ${products?.length % 2 === 0 ? "": "md:order-first"} `}>
+        <motion.div
+          style={{ x }}
+          className={cn(
+            `grid grid-cols-2 gap-7`,
+            index % 2 === 0 ? "md:order-last" : "md:order-first"
+          )}
+        >
           {products?.map((product, i) => (
             <div key={i}>
               <ProductCard product={product} />
             </div>
           ))}
         </motion.div>
-      </div>     
+      </div>
     </div>
   );
 };

@@ -24,7 +24,12 @@ const HomeCategoryProducts = async () => {
 
   return categoryWiseProducts?.length
     ? categoryWiseProducts.map(({ category, products, vdo_file }, index) => (
-        <CategoryProducts key={index} products={products}  vdo_file={vdo_file}/>
+        <CategoryProducts
+          key={index}
+          products={products}
+          vdo_file={vdo_file}
+          index={index}
+        />
       ))
     : null;
 };
