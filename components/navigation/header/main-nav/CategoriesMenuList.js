@@ -8,13 +8,13 @@ const CategoriesMenuList = ({ setShow, categories }) => {
   const [selectedSubCategory, setSelectedSubCategory] = React.useState(null);
 
   return (
-    <div className={`!h-full relative`}>
+    <div className={`!h-full relative `}>
       {categories.map((category) => (
         <div
-          className={`!w-full sub-menu font-bold sm:font-normal`}
+          className={`!w-full sub-menu font-bold sm:font-normal `}
           key={category.id}
         >
-          <div className="flex items-center justify-center px-4 !w-full py-2 text-md uppercase">
+          <div className="flex justify-between px-4 !w-full py-2 text-md uppercase">
             <Link
               key={category.id}
               onClick={() => setShow(false)}

@@ -42,7 +42,7 @@ export default async function Home() {
   return (
     <>
       {settings?.slider_section ? (
-        <section className="banner">
+        <section className="banner md:mt-[-180px]">
           <Intro settings={settings} />
         </section>
       ) : null}
