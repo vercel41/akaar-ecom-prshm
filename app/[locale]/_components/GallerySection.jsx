@@ -131,12 +131,13 @@ const GallerySection = () => {
                   onClick={() => handleOpenZoom(index)}
                   className="cursor-pointer"
                 > 
-                  <div style={{width:'100%', height:'600px', position:'relative', overflow:'hidden'}}>
+                  <div style={{width:'100%', height:'400px', position:'relative', overflow:'hidden', objectPosition: "top"}}>
                     <Image
                       src={image}
                       alt="Gallery Image"
                       layout="fill"
                       objectFit="cover"
+                      objectPosition="top"
                     />
                   </div>
                 </li>

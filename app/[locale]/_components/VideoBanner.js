@@ -12,6 +12,7 @@ const VideoBanner = async () => {
 
   return (
     <div className="mt-10 w-full">
+      
       <VideoPlayer
         url={settings?.review_video_link}
         loop={true}

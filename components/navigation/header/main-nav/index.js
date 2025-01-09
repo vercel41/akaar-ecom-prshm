@@ -34,13 +34,13 @@ const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
 export default function MainNav({ settings, categories }) {
   const { cart } = useSelector((state) => state.cart);
   const { user, isLoginModalOpen } = useSelector((state) => state.auth);
-  const { getWishlistCount } = useWishList();
+  // const { getWishlistCount } = useWishList();
   const router = useRouter();
   const dispatch = useDispatch();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [searchbarOpen, setSearchbarOpen] = useState(false);
 
-  const wishlistCount = getWishlistCount();
+  // const wishlistCount = getWishlistCount();
   const { sticky } = useSticky(150);
   const pathname = usePathname();
 
@@ -54,12 +54,12 @@ export default function MainNav({ settings, categories }) {
 
   return (
     <div
-      style={{
-        backgroundColor: sticky
-          ? settings?.colors?.secondary
-          : `${settings?.colors?.secondary}E6`,
-        color: settings?.colors?.secondary_text,
-      }}
+      // style={{
+      //   backgroundColor: sticky
+      //     ? settings?.colors?.secondary
+      //     : ``,
+      //   color: settings?.colors?.secondary_text,
+      // }}
       className={cn(
         "relative transition-all duration-500 ease-in-out page-header",
         sticky && "is-sticky shadow-[0_-3px_6px_#000]"
@@ -67,8 +67,8 @@ export default function MainNav({ settings, categories }) {
     >
       <div
         className={cn(
-          "main-nav container-fluid px-5",
-          sticky ? "py-3" : "p-2.5"
+          "main-nav container-fluid px-5 ",
+          sticky ? "py-3 bg-white" : "p-2.5"
         )}
       >
         <div
@@ -252,7 +252,7 @@ export default function MainNav({ settings, categories }) {
       />
       <div
         style={{
-          backgroundColor: `${settings?.colors?.secondary}CC`,
+          // backgroundColor: `${settings?.colors?.secondary}CC`,
           color: settings?.colors?.secondary_text,
         }}
         className={cn("w-full", sticky ? "hidden" : "sm:block hidden")}

@@ -148,7 +148,7 @@ const Footer = async () => {
               ) : null}
               <div className="social-links ">
                 <h2 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
-                  About Purusham
+                  About Arzaals
                 </h2>
                 <p className="tracking-normal text-[15px]">
                     {settings?.short_description}
