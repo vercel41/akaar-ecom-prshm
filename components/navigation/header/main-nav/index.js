@@ -26,6 +26,7 @@ import { cn } from "@/utils";
 import Searchbar from "@/components/side-drawers/Searchbar";
 import TopBar from "../TopBar";
 import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
   ssr: false,
@@ -33,6 +34,7 @@ const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
 
 export default function MainNav({ settings, categories }) {
   const { cart } = useSelector((state) => state.cart);
+const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
   const { user, isLoginModalOpen } = useSelector((state) => state.auth);
   // const { getWishlistCount } = useWishList();
   const router = useRouter();
@@ -40,9 +42,11 @@ export default function MainNav({ settings, categories }) {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [searchbarOpen, setSearchbarOpen] = useState(false);
 
+
   // const wishlistCount = getWishlistCount();
-  const { sticky } = useSticky(150);
+  const { sticky } = useSticky(100);
   const pathname = usePathname();
+  const isHomePage = pathname !== "/"; // Check if the current route is the home page
 
   const handleModalOpen = () => {
     if (user) {
@@ -51,7 +55,7 @@ export default function MainNav({ settings, categories }) {
       dispatch(setLoginModalOpen(true));
     }
   };
-
+console.log(settings)
   return (
     <div
       // style={{
@@ -91,7 +95,7 @@ export default function MainNav({ settings, categories }) {
 
           <div
             className={cn(
-              "flex-1 gap-4 w-full flex items-center",
+              "flex-1 gap-4 w-full flex items-center ",
               !sticky && "sm:justify-center sm:flex-col"
             )}
           >
@@ -120,7 +124,7 @@ export default function MainNav({ settings, categories }) {
                 )}
               >
                 <Image
-                  src={settings?.logo}
+                  src={isMobile || isHomePage ? settings?.logo : settings?.footer_logo}
                   alt={settings?.name}
                   width={200}
                   height={68}
@@ -128,14 +132,16 @@ export default function MainNav({ settings, categories }) {
                 />
               </Link>
             )}
-            <div className={cn("", sticky ? "sm:block hidden" : "hidden")}>
-              <CategoriesMegaMenu settings={settings} categories={categories} />
+            <div
+              className={cn("", sticky  ? "sm:block hidden" : "hidden ")}
+            >
+              <CategoriesMegaMenu settings={settings} categories={categories} sticky={sticky} />
             </div>
           </div>
 
           <div className="header-actions items-center flex gap-2.5 lg:gap-5 opacity-70">
             <button
-              className="sm:inline-flex items-center gap-1.5 hidden text-black hover:opacity-60 transition-all duration-500  text-[1.1rem] font-noto_serif"
+              className={`sm:inline-flex items-center gap-1.5 hidden ${sticky || isHomePage ? "text-black" : "text-white"} hover:opacity-60 transition-all duration-500  text-[1.1rem] font-noto_serif`}
               onClick={() => setSearchbarOpen(true)}
             >
               <LuSearch size={22} />
@@ -146,7 +152,7 @@ export default function MainNav({ settings, categories }) {
               <>
                 {!user ? (
                   <button
-                    className="sm:inline-flex hidden items-center gap-1.5 uppercase text-black hover:opacity-60 transition-all duration-500 text-[1.1rem] font-noto_serif"
+                    className={`sm:inline-flex hidden items-center gap-1.5 uppercase ${sticky || isHomePage ? "text-black" : "text-white"} hover:opacity-60 transition-all duration-500 text-[1.1rem] font-noto_serif`}
                     onClick={() => dispatch(setLoginModalOpen(true))}
                   >
                     <LuUser2 size={22} />

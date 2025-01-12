@@ -6,9 +6,12 @@ import { cn } from "@/utils";
 import { useTransform, useScroll, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import BackgroundVideo from "../CustomizedVideoPlayer";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const CategoryProducts = async ({ products, vdo_file, index }) => {
   const targetRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 
   // Set up framer-motion's scroll tracking
   const { scrollYProgress } = useScroll({
@@ -25,9 +28,14 @@ const CategoryProducts = async ({ products, vdo_file, index }) => {
       >
         {/* Left Image Section - Sticky */}
         <div className="md:sticky top-0 h-screen">
-          <VideoPlayer
+          {/* <VideoPlayer
             url={vdo_file}
             className={`h-full w-full !object-cover object-center `}
+          /> */}
+          <BackgroundVideo
+            videoLink={vdo_file}
+            height={`${isMobile ? "26vh" : "100vh"}`}
+            // style={{ border: "5px solid #ccc" }}
           />
 
           {/*           <video

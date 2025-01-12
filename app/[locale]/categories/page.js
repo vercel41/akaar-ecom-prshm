@@ -3,9 +3,20 @@ import Image from "next/image";
 import { fetchData } from "@/lib/fetch-data";
 import noImage from "@/public/assets/images/no-image.png";
 
-const page = async () => {
+const page = async ({ searchParams }) => {
+  const { slug } = searchParams;
+
+
   const data = await fetchData({ api: "categories?no_child=1" });
-  const categories = data?.data || [];
+
+  let singleData = null;
+  if (slug) {
+    singleData = await fetchData({ api: `category/${slug}` });
+  }
+
+  const categories = slug
+    ? singleData?.data?.child_categories || []
+    : data?.data || [];
 
   return (
     <>
@@ -29,6 +40,15 @@ const page = async () => {
                 >
                   All Categories
                 </Link>
+
+                {slug && (
+                  <Link
+                    href={`/categories/${slug}`}
+                    className="text-base text-slate-900 hover:text-secondary"
+                  >
+                    {singleData?.data?.category_name}
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -36,7 +56,7 @@ const page = async () => {
       </div>
 
       <div className="container mt-4 md:mt-8 mb-4 md:mb-24">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6  gap-3 md:gap-5 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-5 mb-12">
           {categories?.map((category, i) => (
             <div
               className="category flex flex-col justify-center items-center border p-3 lg:p-4"
@@ -51,7 +71,6 @@ const page = async () => {
                   alt={category.category_name}
                   width={180}
                   height={200}
-                  // style={{ width: "auto", height: "auto" }}
                   className="h-full w-full object-cover object-top hover:scale-105 ease-in-out duration-300"
                 />
               </Link>

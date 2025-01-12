@@ -18,7 +18,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
             <Link
               key={category.id}
               onClick={() => setShow(false)}
-              href={`categories/${category.slug}`}
+              href={`/categories?slug=${category.slug}`}
               className="hover:transform hover:translate-x-2 transition ease-in-out duration-300"
             >
               {category.category_name}
@@ -94,6 +94,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
           </div>
         </div>
       ))}
+      <Link  onClick={() => setShow(false)} className="px-4 !w-full py-2 text-md uppercase hover:transform hover:translate-x-2 font-bold text-red-600 transition ease-in-out duration-300" href="/products">Sales</Link>
     </div>
   );
 };
