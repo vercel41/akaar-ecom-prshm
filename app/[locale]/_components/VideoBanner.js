@@ -1,25 +1,30 @@
+"use client";
 import { fetchData } from "@/lib/fetch-data";
 import VideoPlayer from "@/components/elements/VideoPlayer";
-const VideoBanner = async () => {
-  const [settingsRes] = await Promise.allSettled([
-    fetchData({ api: `info/basic` }),
-  ]);
+import BackgroundVideo from "./CustomizedVideoPlayer";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+const VideoBanner = async ({settings}) => {
 
-  const settings =
-    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+
 
   if (!settings?.review_video_link) return null;
 
   return (
     <div className="mt-10 w-full">
-      
-      <VideoPlayer
+      {/* <VideoPlayer
         url={settings?.review_video_link}
         loop={true}
         muted={true}
         playing={true}
         controls={true}
         className={"h-full !w-full object-cover object-center"}
+      /> */}
+      <BackgroundVideo
+        videoLink={settings?.review_video_link}
+        height={`${isMobile ? "26vh" : "100vh"}`}
+        // style={{ border: "5px solid #ccc" }}
       />
     </div>
   );

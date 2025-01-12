@@ -12,10 +12,11 @@ module.exports = {
     extend: {
       fontFamily: {
         body: ["Noto Sans Bengali", ...defaultTheme.fontFamily.sans],
-        title: ["Zen Kaku Gothic New", ...defaultTheme.fontFamily.serif],
-        arial: ["Arial", "sans-serif"],
-        ibm: ["IBM Plex Sans", "sans-serif"],
-        noto_serif: ["Noto Serif", "serif"],
+        title: ["Noto Sans Bengali", "serif", ...defaultTheme.fontFamily.serif],
+        arial: ["Noto Sans Bengali", "serif"],
+        ibm: ["Noto Sans Bengali", "serif"],
+        noto_serif: ["Noto Sans Bengali", "serif"],
+        
         // title: ["Hind Siliguri", ...defaultTheme.fontFamily.serif],
       },
       boxShadow: {

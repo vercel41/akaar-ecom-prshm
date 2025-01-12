@@ -1,10 +1,8 @@
-"use client";
-
 import useSticky from "@/hooks/useSticky";
 import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useRef, useState, useEffect } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
@@ -13,9 +11,11 @@ export default function CategoriesMegaMenu({ settings, categories }) {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const containerRef = useRef(null);
   const megaMenuRef = useRef(null);
-  const router = useRouter();
+  const pathname = usePathname();
+  const { sticky } = useSticky(100);
 
-  const { sticky } = useSticky(150);
+  const isHomePage = pathname === "/"; // Check if the current route is the home page
+
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -68,12 +68,12 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                     category?.child_categories?.length
                       ? "flex items-center gap-1.5"
                       : ""
-                  }`}
+                  } ${sticky || !isHomePage ? "text-black" : "text-white"}`} // Apply text color based on the route
                   style={{ flexShrink: 0 }}
                 >
                   <span
                     className={cn(
-                      "text-[.9rem] relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500 after:bg-black py-[6px] hover:-translate-y-[3px] transition-all duration-500 block tracking-[.2rem]"
+                      "text-[.9rem]  relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500  py-[6px] hover:-translate-y-[3px] transition-all duration-500 block tracking-[.2rem],", sticky ? "after:bg-black" : "after:bg-white"
                     )}
                   >
                     {category.category_name}

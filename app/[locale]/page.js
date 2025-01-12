@@ -65,7 +65,7 @@ export default async function Home() {
         <section className="new-products ">
           <div className="container">
             <div className="py-10 text-center ">
-              <h2 className="sec-title pb-3">
+              <h2 className="text-2xl pb-3">
                 {translations["featured-products"] || "Featured Products"}
               </h2>
               <Link href="/featured-products" className="underline">
@@ -82,7 +82,7 @@ export default async function Home() {
 
       {settings?.video_section ? (
         <section className="video-banner mt-24">
-          <VideoBanner />
+          <VideoBanner settings={settings} />
         </section>
       ) : null}
 

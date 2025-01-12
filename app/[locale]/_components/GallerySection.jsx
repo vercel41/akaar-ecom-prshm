@@ -8,7 +8,6 @@
 // import { useParams } from "next/navigation";
 // import { useGetGalleryImagesQuery } from "@/store/api/gallaryAPI";
 
-
 // const GallerySection = () => {
 // //  const { data: settings = {} } = await fetchData({ api: "info/gallery" });
 
@@ -18,7 +17,6 @@
 
 //   console.log("galleryImages",galleryImages)
 //   console.log("data",data)
-
 
 //   const [open, setOpen] = useState(false);
 //   const [index, setIndex] = useState(0);
@@ -83,7 +81,6 @@
 
 // export default GallerySection;
 
-
 "use client";
 
 import { fetchData } from "@/lib/fetch-data";
@@ -130,8 +127,8 @@ const GallerySection = () => {
                   key={index}
                   onClick={() => handleOpenZoom(index)}
                   className="cursor-pointer"
-                > 
-                  <div style={{width:'100%', height:'400px', position:'relative', overflow:'hidden', objectPosition: "top"}}>
+                >
+                  <div className="w-full h-[250px] md:h-[400px] relative overflow-hidden">
                     <Image
                       src={image}
                       alt="Gallery Image"
@@ -161,7 +158,6 @@ const GallerySection = () => {
           </Link>
         </div>
       </div>
-
     </div>
   );
 };
