@@ -44,7 +44,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
             {category.child_categories?.map((subCategory) => (
               <div className="second-sub-menu" key={subCategory.id}>
                 <div
-                  className={`hover:text-primary py-2 flex items-center justify-between px-12 text-md mb-2 w-full`}
+                  className={`hover:text-primary py-2 flex items-center font-normal justify-between px-12 text-md mb-2 w-full`}
                 >
                   <Link
                     onClick={() => setShow(false)}
@@ -81,7 +81,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
                     <div className="second-sub-menu" key={childCategory.id}>
                       <Link
                         onClick={() => setShow(false)}
-                        className="pl-20 hover:text-primary py-2 flex items-center justify-between px-3 text-md"
+                        className="pl-20 hover:text-primary py-2 flex items-center font-normal justify-between px-3 text-md"
                         href={`/categories/${childCategory.slug}`}
                       >
                         {childCategory.category_name}

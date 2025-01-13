@@ -4,21 +4,16 @@ import { Link } from "@/navigation";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import Loader from "../elements/loaders/Loader";
-import { getDaysSinceCreation } from "@/utils/format-date";
 import { getDiscountPercent, getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
-const MotionDiv = dynamic(() =>
-  import("framer-motion").then((mod) => mod.motion.div)
+const MotionDiv = dynamic(
+  () =>
+    import("framer-motion").then((mod) => mod.motion.div), { ssr: false }
 );
-import {
-  HiOutlineHeart,
-  HiOutlineShoppingCart,
-  HiArrowLongRight,
-  HiHeart,
-} from "react-icons/hi2";
+
+
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
-import useHover from "@/hooks/useHover";
 import useCart from "@/hooks/useCart";
 import { cn } from "@/utils";
 import dynamic from "next/dynamic";
@@ -27,13 +22,11 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
   const { settings, translations } = useSelector((state) => state.common);
   const [loading, setLoading] = useState(true);
   const [hovered, setHovered] = useState(false);
-  const { isHovered: isHoveredElement1, bind: bindElement1 } = useHover();
-  const { isHovered: isHoveredElement2, bind: bindElement2 } = useHover();
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
   const {
-    handleAddToWishlist,
+
     handleWishListProductStatus,
-    handleRemoveFromWishlist,
+
   } = useWishList();
 
   const {
@@ -129,6 +122,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                     className="default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out opacity-100 group-hover:opacity-0"
                     src={image || noImage}
                     alt={product_name}
+                    priority={false}
                     width={226}
                     height={400}
                   />
@@ -138,6 +132,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                     className="hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
                     src={hover_image || noImage}
                     alt={product_name}
+                    priority={false}
                     width={226}
                     height={400}
                   />

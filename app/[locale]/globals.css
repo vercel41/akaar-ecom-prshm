@@ -400,6 +400,8 @@
   animation: fadeIn 0.7s ease-in-out;
 }
 
+
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 4px #ffffff;

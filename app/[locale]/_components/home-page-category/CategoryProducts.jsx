@@ -27,7 +27,7 @@ const CategoryProducts = async ({ products, vdo_file, index }) => {
         className={`grid md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-7 mb-4`}
       >
         {/* Left Image Section - Sticky */}
-        <div className="md:sticky top-0 h-screen">
+        <div className="md:sticky top-0 md:h-screen">
           {/* <VideoPlayer
             url={vdo_file}
             className={`h-full w-full !object-cover object-center `}
@@ -36,6 +36,7 @@ const CategoryProducts = async ({ products, vdo_file, index }) => {
             videoLink={vdo_file}
             height={`${isMobile ? "26vh" : "100vh"}`}
             // style={{ border: "5px solid #ccc" }}
+            fallbackImage=""
           />
 
           {/*           <video

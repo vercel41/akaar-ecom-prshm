@@ -12,19 +12,20 @@ const IntroSlider = ({ sliders, settings }) => {
         spaceBetween={0}
         loop={true}
         grabCursor={true}
+        lazy={{ loadPrevNext: true }} 
         pagination={{ clickable: true }}
         className="hero-slider cursor-grab"
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 5000 }}
         effect="fade"
         speed={1000}
       >
         {sliders.map((slide, i) => (
-          <SwiperSlide key={i} className="transition-all duration-500">
+          <SwiperSlide key={i} className=" duration-500">
             <div
               className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center ${
                 settings?.offer_massage
-                  ? "h-[100vh] md:h-[353px] lg:h-[85vh]"
-                  : "h-[100vh] md:h-[363px] lg:h-[88vh]"
+                  ? "h-[100vh] md:h-[353px] lg:h-[105vh]"
+                  : "h-[100vh] md:h-[363px] lg:h-[108vh]"
               } bg-no-repeat bg-cover bg-center`}
               style={{
                 background: slide?.image

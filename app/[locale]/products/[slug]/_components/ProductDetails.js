@@ -28,6 +28,7 @@ import { getFirstVariantOfColor } from "@/lib/product-variant";
 import SocialShare from "@/components/elements/SocialShare";
 
 const ProductDetails = ({ product, settings, translations, isLoading }) => {
+  console.log(product)
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");

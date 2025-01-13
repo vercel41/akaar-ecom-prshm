@@ -177,7 +177,7 @@ console.log(settings)
             )}
             <button
               onClick={() => dispatch(toggleCart())}
-              className="group relative single-action hidden lg:block text-black hover:opacity-60 transition-all duration-500"
+              className={`group relative single-action hidden lg:block text-black hover:opacity-60 transition-all duration-500 ${sticky || isHomePage ? "text-black" : "text-white"}`}
             >
               <HiOutlineShoppingCart size={24} />
               {cart?.length && (
