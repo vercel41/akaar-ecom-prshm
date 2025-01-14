@@ -37,7 +37,7 @@ const CategoryProducts = async ({ products, vdo_file, index, images }) => {
             url={vdo_file}
             className={`h-full w-full !object-cover object-center `}
           /> */}
-          <BackgroundVideo  height={`${isMobile ? "26vh" : "100vh"}`} src={backgroundVideo} />
+          <BackgroundVideo  height={`${isMobile ? "70vh" : "100vh"}`} src={backgroundVideo} />
 {/*           <BackgroundVideo
             videoLink={vdo_file}
             height={`${isMobile ? "26vh" : "100vh"}`}
