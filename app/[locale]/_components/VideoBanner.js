@@ -23,7 +23,7 @@ console.log(settings, "settings");
         controls={true}
         className={"h-full !w-full object-cover object-center"}
       /> */}
-      <BackgroundVideo  height={`${isMobile ? "26vh" : "100vh"}`} src={backgroundVideo} />
+      <BackgroundVideo  height={`${isMobile ? "26vh" : "110vh"}`} src={backgroundVideo} />
       
       {/* <BackgroundVideo
         videoLink={settings?.review_video_link}
