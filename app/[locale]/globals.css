@@ -10,7 +10,7 @@
 
 @layer base {
   body {
-    @apply font-noto_serif box-border tracking-[.2rem] overflow-x-hidden;
+    @apply font-noto_serif box-border overflow-x-hidden;
   }
 
   input {
@@ -44,10 +44,10 @@
     @apply absolute top-0 left-[1/2] hidden text-sm text-white translate-x-[-50%]
   } */
 
-  .select {
+/*   .select {
     @apply appearance-none bg-[url('/assets/images/icons/chv-down.svg')] bg-no-repeat bg-[length:24px_40px] bg-[right_1rem_center];
   }
-
+ */
   svg {
     @apply inline-block;
   }
@@ -382,7 +382,7 @@
   width: 30px;
   height: 2px;
   background: #bebaba !important;
-  transition: all 0.5s ease-in-out;
+  /* transition: all 0.5s ease-in-out; */
 }
 
 .slider-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
@@ -437,7 +437,7 @@
   position: relative;
   background: #000;
   box-sizing: border-box;
-  animation: animloader 0.3s 0.3s linear infinite alternate;
+  /* animation: animloader 0.3s 0.3s linear infinite alternate; */
 }
 .loader::after,
 .loader::before {
@@ -495,7 +495,7 @@
   padding: 4px !important;
   opacity: 100 !important;
   background: transparent !important;
-  transition: all 0.5s ease-in-out !important;
+  /* transition: all 0.5s ease-in-out !important; */
 }
 
 .hero-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
@@ -519,8 +519,7 @@
 }
 
 .scale-down {
-  transform: scale(1); /* Default scale for inactive slides */
-  transition: transform 0.5s ease-in-out;
+
 }
 
 .scale-active {
@@ -548,7 +547,7 @@
   align-items: center;
   overflow: hidden;
   z-index: 1;
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
   position: relative;
 }
 

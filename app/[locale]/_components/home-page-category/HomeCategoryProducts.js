@@ -15,6 +15,7 @@ const HomeCategoryProducts = async () => {
 
   const categoryWiseProducts =
     homePageCategoryRes.status === "fulfilled" ? homePageCategoryRes.value?.data || {} : {};
+    console.log("categoryWiseProducts", categoryWiseProducts);
 
   // const categoryWiseProducts = data?.data || [];
 
@@ -23,11 +24,12 @@ const HomeCategoryProducts = async () => {
   // return null;
 
   return categoryWiseProducts?.length
-    ? categoryWiseProducts.map(({ category, products, vdo_file }, index) => (
+    ? categoryWiseProducts.map(({ category, products, vdo_file, images }, index) => (
         <CategoryProducts
           key={index}
           products={products}
           vdo_file={vdo_file}
+          images={images}
           index={index}
         />
       ))

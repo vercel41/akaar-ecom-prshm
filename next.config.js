@@ -19,3 +19,6 @@ const withNextIntl = require("next-intl/plugin")(
 );
 
 module.exports = withNextIntl(nextConfig);
+
+/* const withVideos = require("next-videos");
+module.exports = withVideos(); */

@@ -15,22 +15,16 @@ const IntroSlider = ({ sliders, settings }) => {
         lazy={{ loadPrevNext: true }} 
         pagination={{ clickable: true }}
         className="hero-slider cursor-grab"
-        autoplay={{ delay: 5000 }}
-        effect="fade"
-        speed={1000}
+        autoplay={{ delay: 10000 }}
+        // effect="fade"
+        // speed={1000}
       >
         {sliders.map((slide, i) => (
-          <SwiperSlide key={i} className=" duration-500">
+          <SwiperSlide key={i} className="">
             <div
-              className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center ${
-                settings?.offer_massage
-                  ? "h-[100vh] md:h-[353px] lg:h-[105vh]"
-                  : "h-[100vh] md:h-[363px] lg:h-[108vh]"
-              } bg-no-repeat bg-cover bg-center`}
+              className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center h-screen bg-no-repeat bg-cover bg-center`}
               style={{
-                background: slide?.image
-                  ? `linear-gradient(to top, #040404a6, #36363633), url(${slide.image})`
-                  : `linear-gradient(to top, #040404a6, #36363633), url(/assets/images/banner/banner-1.png)`,
+                backgroundImage: `linear-gradient(to top, #040404a6, #36363633), url(${slide.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
