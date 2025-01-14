@@ -71,7 +71,7 @@ console.log(settings)
     >
       <div
         className={cn(
-          "main-nav container-fluid px-5 ",
+          "main-nav container-fluid px-5  ",
           sticky ? "py-3 bg-white" : "p-2.5"
         )}
       >

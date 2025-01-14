@@ -155,7 +155,9 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </Link>
               </h2>
               <p className="text-[.85rem] text-[#8a8a8a]">
-                Product Code {product.id}
+               {
+                product?.sku && <span>Product Code {product?.sku}</span> 
+               }
               </p>
               <div className="product-price mb-3 flex flex-col md:flex-row font-noto_serif md:items-center gap-2">
                 <span className="font-semibold ">
