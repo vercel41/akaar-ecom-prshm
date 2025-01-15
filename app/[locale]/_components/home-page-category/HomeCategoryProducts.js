@@ -24,13 +24,14 @@ const HomeCategoryProducts = async () => {
   // return null;
 
   return categoryWiseProducts?.length
-    ? categoryWiseProducts.map(({ category, products, vdo_file, images }, index) => (
+    ? categoryWiseProducts.map(({ category, products, vdo_file, images, video_file }, index) => (
         <CategoryProducts
           key={index}
           products={products}
           vdo_file={vdo_file}
           images={images}
           index={index}
+          video_file={video_file}
         />
       ))
     : null;

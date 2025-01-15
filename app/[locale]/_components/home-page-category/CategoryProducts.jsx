@@ -9,12 +9,12 @@ import { useRef } from "react";
 // import BackgroundVideo from "../CustomizedVideoPlayer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Video from 'next-video';
-const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
+// const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
 import BackgroundVideo from 'next-video/background-video';
 
 
-const CategoryProducts = async ({ products, vdo_file, index, images }) => {
-  console.log(images, "images");
+const CategoryProducts = async ({ products, vdo_file, index, images, video_file }) => {
+  console.log(video_file, "video_file");
   const targetRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 
@@ -37,7 +37,7 @@ const CategoryProducts = async ({ products, vdo_file, index, images }) => {
             url={vdo_file}
             className={`h-full w-full !object-cover object-center `}
           /> */}
-          <BackgroundVideo  height={`${isMobile ? "70vh" : "100vh"}`} src={backgroundVideo} />
+          <BackgroundVideo  height={`${isMobile ? "70vh" : "100vh"}`} src={video_file} />
 {/*           <BackgroundVideo
             videoLink={vdo_file}
             height={`${isMobile ? "26vh" : "100vh"}`}

@@ -94,7 +94,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
           </div>
         </div>
       ))}
-      <Link  onClick={() => setShow(false)} className="px-4 !w-full py-2 text-md uppercase hover:transform hover:translate-x-2 font-bold text-red-600 transition ease-in-out duration-300" href="/products">Sales</Link>
+      <Link   onClick={() => setShow(false)} className="px-4 !w-full py-2 text-md uppercase hover:transform hover:translate-x-2 font-bold text-red-600 transition ease-in-out duration-300" href="/products?is_discounted=1">Sales</Link>
     </div>
   );
 };

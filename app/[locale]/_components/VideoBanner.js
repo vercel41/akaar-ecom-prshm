@@ -4,7 +4,7 @@ import VideoPlayer from "@/components/elements/VideoPlayer";
 // import BackgroundVideo from "./CustomizedVideoPlayer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import BackgroundVideo from 'next-video/background-video';
-const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
+// const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
 const VideoBanner = async ({settings}) => {
 console.log(settings, "settings");
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -23,7 +23,7 @@ console.log(settings, "settings");
         controls={true}
         className={"h-full !w-full object-cover object-center"}
       /> */}
-      <BackgroundVideo  height={`${isMobile ? "26vh" : "110vh"}`} src={backgroundVideo} />
+      <BackgroundVideo className={` w-full !object-cover object-center `}  height={`${isMobile ? "26vh" : "115vh"}`} src={settings?.review_video_file} />
       
       {/* <BackgroundVideo
         videoLink={settings?.review_video_link}
