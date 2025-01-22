@@ -107,7 +107,7 @@ const ProductViewSlider = forwardRef(
                   <div
                     key={idx}
                     className={cn(
-                      "md:w-18 w-28 h-28 border-2 cursor-pointer",
+                      "md:w-18 w-28 md:h-28 h-32 border-2 cursor-pointer",
                       idx === index ? "border-blue-500" : "border-gray-300"
                     )}
                     onClick={() => handleThumbnailClick(idx)}
