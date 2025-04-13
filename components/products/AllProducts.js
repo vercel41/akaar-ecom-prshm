@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 
 const AllProducts = async ({ customSearchParams = {}, pagination }) => {
   const params = new URLSearchParams(customSearchParams);
-  console.log(params)
+  // console.log(params)
 
   const data = await fetchData({ api: `products?${params.toString()}` });
   const products = data?.data || [];

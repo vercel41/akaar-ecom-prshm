@@ -55,7 +55,7 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
       dispatch(setLoginModalOpen(true));
     }
   };
-console.log(settings)
+// console.log(settings)
   return (
     <div
       // style={{

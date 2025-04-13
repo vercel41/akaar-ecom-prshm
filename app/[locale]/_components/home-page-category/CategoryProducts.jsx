@@ -14,7 +14,7 @@ import BackgroundVideo from 'next-video/background-video';
 
 
 const CategoryProducts = async ({ products, vdo_file, index, images, video_file }) => {
-  console.log(video_file, "video_file");
+  // console.log(video_file, "video_file");
   const targetRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 

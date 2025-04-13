@@ -28,7 +28,7 @@ const OrderSuccess = ({ params }) => {
         "Purchase",
         pixel.getPurchasedItemsPixelData(order.ordered_items, order.sub_total)
       );
-      console.log("purchase complete");
+      // console.log("purchase complete");
       flag.current = false;
     }
   }, [order, isFbPixelInitialized]);

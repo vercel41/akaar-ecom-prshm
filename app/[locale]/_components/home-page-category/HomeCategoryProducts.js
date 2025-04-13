@@ -15,7 +15,7 @@ const HomeCategoryProducts = async () => {
 
   const categoryWiseProducts =
     homePageCategoryRes.status === "fulfilled" ? homePageCategoryRes.value?.data || {} : {};
-    console.log("categoryWiseProducts", categoryWiseProducts);
+    // console.log("categoryWiseProducts", categoryWiseProducts);
 
   // const categoryWiseProducts = data?.data || [];
 
