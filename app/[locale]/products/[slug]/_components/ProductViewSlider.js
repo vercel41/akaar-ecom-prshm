@@ -7,6 +7,8 @@ import ProductViewSkeleton from "@/components/elements/loaders/ProductViewSkelet
 import ProductZoomYetAnother from "./ProductZoomYetAnother";
 import { cn } from "@/utils";
 import { useScroll, motion, useTransform } from "framer-motion";
+import { startVideoPlayer } from "@/store/slices/commonSlice";
+import { HiPlayCircle } from "react-icons/hi2";
 
 const ProductViewSlider = forwardRef(
   ({ product, selectedColor, isSquareImage, isLoading, targetRef }, ref) => {
@@ -47,7 +49,6 @@ const ProductViewSlider = forwardRef(
         });
       }
     };
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -126,23 +127,50 @@ const ProductViewSlider = forwardRef(
 
             {/* Main Image Preview (Scrollable with hidden scrollbar) */}
             <div className="flex-1 h-full px-4">
-              {slides.map((slide, idx) => (
-                <motion.div
-                  style={{ x }}
-                  key={idx}
-                  className="mb-8 cursor-pointer"
-                  onClick={() => handleOpenZoom(idx)}
-                  ref={(el) => (imageRefs.current[idx] = el)} // Assign ref to each image container
-                >
-                  <Image
-                    src={slide?.image || noImage}
-                    alt={`Image ${idx}`}
-                    width={624}
-                    height={624}
-                    className="object-cover w-full"
-                  />
-                </motion.div>
-              ))}
+              {slides.map((slide, idx) => {
+                const isVideoSlide = idx === 0 && !!slide?.video_link;
+
+                return (
+                  <motion.div
+                    style={{ x }}
+                    key={idx}
+                    className="mb-8 relative group"
+                    ref={(el) => (imageRefs.current[idx] = el)}
+                  >
+                    <Image
+                      src={slide?.image || noImage}
+                      alt={`Image ${idx}`}
+                      width={624}
+                      height={624}
+                      className="object-cover w-full"
+                      onClick={() =>
+                        isVideoSlide ? null : handleOpenZoom(idx)
+                      }
+                    />
+
+                    {isVideoSlide && (
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            startVideoPlayer({
+                              url: slide.video_link,
+                              playing: true,
+                              title: product.product_name,
+                              controls: true,
+                            })
+                          )
+                        }
+                        className="z-20 vid-icon absolute inline-flex justify-center items-center top-1/2 left-1/2 w-[72px] h-[72px] rounded-full drop-shadow-[0_0px_60px_rgba(0,0,0,0.16)] translate-x-[-50%] translate-y-[-50%]"
+                      >
+                        <HiPlayCircle
+                          size={60}
+                          className="text-white hover:text-primary"
+                        />
+                      </button>
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </>
         ) : (

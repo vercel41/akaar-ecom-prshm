@@ -6,7 +6,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import BackgroundVideo from 'next-video/background-video';
 // const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
 const VideoBanner = async ({settings}) => {
-console.log(settings, "settings");
+// console.log(settings, "settings");
   const isMobile = useMediaQuery("(max-width: 768px)");
 
 

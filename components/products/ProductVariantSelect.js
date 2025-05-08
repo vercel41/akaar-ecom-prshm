@@ -94,7 +94,7 @@ const ProductVariantSelect = forwardRef(
         // Activate this block to auto variant select onload
         const tempColors = Object.keys(colorVariantsGroup);
 
-        if (tempColors.length) {
+        if (tempColors.length === 1) {
           // handleColorSelect(tempColors[0]);
           const firstColor = tempColors[0];
           setSelectedColor(firstColor);
