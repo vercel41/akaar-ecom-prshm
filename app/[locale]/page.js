@@ -3,6 +3,7 @@ import { fetchData } from "@/lib/fetch-data";
 import { Link } from "@/navigation";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loading from "./loading";
+import ProductList from "@/components/products/ProductList";
 
 // Lazy load components
 const Intro = React.lazy(() => import("./_components/intro"));
@@ -23,9 +24,7 @@ const ImageDescriptionSection = React.lazy(() =>
 const GetDirectionSection = React.lazy(() =>
   import("./_components/GetDirectionSection")
 );
-const GallerySection = React.lazy(() =>
-  import("./_components/GallerySection")
-);
+const GallerySection = React.lazy(() => import("./_components/GallerySection"));
 
 export default async function Home() {
   const [settingsRes, transRes, featured_products] = await Promise.allSettled([
@@ -48,9 +47,20 @@ export default async function Home() {
   });
   const newArrivalProducts = newArrivalProductData?.data || [];
 
+  const discountedProductsData = await fetchData({
+    api: "products?per_page=4&is_discounted=1",
+  });
+
+  const discountedProducts = discountedProductsData?.data || [];
   return (
     <>
-      <Suspense fallback={<div><Loading /></div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Loading />
+          </div>
+        }
+      >
         {settings?.slider_section && (
           <section className="banner md:mt-[-180px]">
             <Intro settings={settings} />
@@ -77,6 +87,24 @@ export default async function Home() {
 
               <div>
                 <Featured />
+              </div>
+            </div>
+          </section>
+        )}
+        {discountedProducts && (
+          <section className="discounted-products">
+            <div className="container">
+              <div className="py-10 text-center">
+                <h2 className="text-2xl pb-3">
+                  {translations["discounted-products"] || "Discounted Products"}
+                </h2>
+                <Link href="/products?is_discounted=1" className="underline">
+                  Browse our discounted products
+                </Link>
+              </div>
+
+              <div>
+                <ProductList products={discountedProducts} fixedItems={true} />
               </div>
             </div>
           </section>

@@ -15,7 +15,7 @@ const page = ({ params, searchParams }) => {
       <div className="md:py-12 py-8 border-y border-gray-300">
         <div className="container flex flex-col justify-center items-center gap-2">
           <h2 className="text-xl md:text-2xl text-center uppercase">
-            Products
+          {searchParams?.is_discounted ? "Discounted " : ""}Products
           </h2>
           <div className="breadcrumb breadcrumb-2">
             <div className="container">
@@ -30,7 +30,7 @@ const page = ({ params, searchParams }) => {
                   href={`/products`}
                   className="text-base text-slate-600 hover:text-secondary"
                 >
-                  All Products
+               {searchParams?.is_discounted ? "Discounted " : "All "}Products
                 </Link>
               </div>
             </div>
