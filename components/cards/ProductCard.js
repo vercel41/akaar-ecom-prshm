@@ -7,10 +7,9 @@ import Loader from "../elements/loaders/Loader";
 import { getDiscountPercent, getSalePercent } from "@/utils/percent";
 import noImage from "@/public/assets/images/no-image.png";
 const MotionDiv = dynamic(
-  () =>
-    import("framer-motion").then((mod) => mod.motion.div), { ssr: false }
+  () => import("framer-motion").then((mod) => mod.motion.div),
+  { ssr: false }
 );
-
 
 import { siteConfig } from "@/config/site";
 import useWishList from "@/hooks/useWishList";
@@ -23,11 +22,7 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
   const [loading, setLoading] = useState(true);
   const [hovered, setHovered] = useState(false);
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
-  const {
-
-    handleWishListProductStatus,
-
-  } = useWishList();
+  const { handleWishListProductStatus } = useWishList();
 
   const {
     id,
@@ -155,18 +150,17 @@ const ProductCard = ({ product, isFlashSale, isSquareImage }) => {
                 </Link>
               </h2>
               <p className="text-[.85rem] text-[#8a8a8a]">
-               {
-                product?.sku && <span>Product Code {product?.sku}</span> 
-               }
+                {product?.sku && <span>Product Code {product?.sku}</span>}
               </p>
               <div className="product-price mb-3 flex flex-col md:flex-row font-noto_serif md:items-center gap-2">
                 <span className="font-semibold ">
                   {siteConfig.currency.shortForm}
-                  {new_price.toLocaleString("en-US", {
-                    currency: "USD",
-                  })}
+                  {new_price ?
+                    new_price.toLocaleString("en-US", {
+                      currency: "USD",
+                    }) : <span className="text-red-500">Invalid Price</span>}
                 </span>
-                {old_price > new_price ? (
+                {old_price && new_price && old_price > new_price ? (
                   <div className="hidden md:flex items-center gap-2 text-[.9rem]">
                     <del className="old-price font-normal text-slate-400">
                       {siteConfig.currency.shortForm}

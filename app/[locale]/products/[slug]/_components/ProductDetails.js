@@ -171,12 +171,12 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                         {translations["coupon-discount"] || "কুপন ডিসকাউন্ট"}:{" "}
                         <span className="font-semibold text-title text-secondary-700">
                           &#2547;
-                          {getCouponDiscount(
+                          {product?.new_price ? getCouponDiscount(
                             product?.coupons[0],
                             product.new_price.toLocaleString("en-US", {
                               currency: "USD",
                             })
-                          )}{" "}
+                          ): 0}{" "}
                           {translations["off!"] || "ছাড়!"}
                         </span>
                       </li>

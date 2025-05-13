@@ -71,9 +71,13 @@ const WishListCard = ({ product }) => {
             >
               <h3 className="text-xl">
                 {siteConfig.currency.shortForm}
-                {new_price.toLocaleString("en-US", {
-                  currency: "USD",
-                })}
+                {new_price ? (
+                  new_price.toLocaleString("en-US", {
+                    currency: "USD",
+                  })
+                ) : (
+                  <span className="text-red-500">Invalid Price</span>
+                )}
               </h3>
               {old_price > new_price ? (
                 <>
@@ -84,12 +88,14 @@ const WishListCard = ({ product }) => {
                     })}
                   </del>
                   <div className="rounded-md px-1 flex justify-center items-center !text-[12px] whitespace-nowrap text-sm text-white bg-red-500">
-                    {getDiscountPercent(
-                      old_price,
-                      new_price.toLocaleString("en-US", {
-                        currency: "USD",
-                      })
-                    )}
+                    {new_price
+                      ? getDiscountPercent(
+                          old_price,
+                          new_price.toLocaleString("en-US", {
+                            currency: "USD",
+                          })
+                        )
+                      : 0}
                     % OFF
                   </div>
                 </>

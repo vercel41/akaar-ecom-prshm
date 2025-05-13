@@ -83,9 +83,13 @@ const ProductVerticalCard = ({ product, isHistory }) => {
         <div className="product-price mb-3 text-sm flex gap-2">
           <span className="text-lg/[24px] font-semibold text-red-500">
             ৳
-            {new_price.toLocaleString("en-US", {
-              currency: "USD",
-            })}
+            {new_price ? (
+              new_price.toLocaleString("en-US", {
+                currency: "USD",
+              })
+            ) : (
+              <span className="text-red-500">Invalid Price</span>
+            )}
           </span>
           {typeof discount_percentage === "number" &&
           discount_percentage > 0 ? (
