@@ -9,6 +9,7 @@ import LastVisitedProducts from "./_components/LastVisitedProducts";
 import ProductMicroData from "@/components/products/ProductMicroData";
 import Loading from "../../loading";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import FeaturesSection from "./_components/FeaturesSection";
 
 const ProductView = async ({ params }) => {
   const { slug } = params;
@@ -67,6 +68,11 @@ const ProductView = async ({ params }) => {
           isLoading={isLoading}
         ></ProductDetails>
       </div>
+      <section>
+        <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
+        <FeaturesSection/>
+        </div>
+      </section>
       <section id="same-category-products">
         <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
           <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
