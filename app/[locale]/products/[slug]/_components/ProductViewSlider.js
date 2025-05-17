@@ -10,6 +10,10 @@ import { useScroll, motion, useTransform } from "framer-motion";
 import { startVideoPlayer } from "@/store/slices/commonSlice";
 import { HiPlayCircle } from "react-icons/hi2";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Thumbs, Pagination, Mousewheel } from "swiper/modules";
+import HorizontalScrollView from "@/components/elements/HorizontalScrollView";
+
 const ProductViewSlider = forwardRef(
   ({ product, selectedColor, isSquareImage, isLoading, targetRef }, ref) => {
     const dispatch = useDispatch();
@@ -17,6 +21,8 @@ const ProductViewSlider = forwardRef(
     const [index, setIndex] = useState(0);
     const imageRefs = useRef([]); // Array of refs for each large image
     const mainImageContainerRef = useRef(null); // Ref for the main image container
+
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     // Setting default image if no image is provided
     let slides = product?.photos?.length
@@ -50,6 +56,26 @@ const ProductViewSlider = forwardRef(
       }
     };
     const [loading, setLoading] = useState(true);
+
+    function getEmbedUrl(videoUrl) {
+      // Check for YouTube
+      const youtubeMatch = videoUrl.match(
+        /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/
+      );
+      if (youtubeMatch) {
+        return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+      }
+
+      // Check for Google Drive
+      const driveMatch = videoUrl.match(
+        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/
+      );
+      if (driveMatch) {
+        return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+      }
+
+      return null; // unsupported format
+    }
 
     useEffect(() => {
       const timer = setTimeout(() => {
@@ -89,7 +115,7 @@ const ProductViewSlider = forwardRef(
     const x = useTransform(scrollYProgress, [1, 1], ["1%", "1%"]);
 
     return (
-      <div className="flex w-full">
+      <>
         {open && (
           <ProductZoomYetAnother
             open={open}
@@ -99,84 +125,116 @@ const ProductViewSlider = forwardRef(
             images={slides}
           />
         )}
+
         {!loading ? (
-          <>
-            {/* Left Side Thumbnail List (Fixed) */}
-            <div className="mr-7">
-              <div className="flex flex-col gap-4 sticky top-[80px]">
-                {slides.map((slide, idx) => (
-                  <div
-                    key={idx}
-                    className={cn(
-                      "md:w-18 w-28 md:h-28 h-32 border-2 cursor-pointer",
-                      idx === index ? "border-blue-500" : "border-gray-300"
-                    )}
-                    onClick={() => handleThumbnailClick(idx)}
-                  >
-                    <Image
-                      src={slide?.image || noImage}
-                      alt={`Thumbnail ${idx}`}
-                      width={64}
-                      height={64}
-                      className="object-cover h-full w-full"
-                    />
-                  </div>
-                ))}
-              </div>
+          <div className="">
+            <div className="preview-slider grid relative">
+              <Swiper
+                preventClicks={false}
+                preventClicksPropagation={false}
+                ref={ref}
+                // className={`product-preview-slider [&_.swiper-wrapper]:pb-3 lg:[&_.swiper-wrapper]:pb-0 lg:border border-slate-300 ${
+                //   shortDetails && "md:!w-[25rem]"
+                // }`}
+                thumbs={{
+                  swiper:
+                    thumbsSwiper && !thumbsSwiper.destroyed
+                      ? thumbsSwiper
+                      : null,
+                }}
+                direction="horizontal"
+                slidesPerView={1}
+                pagination={{
+                  clickable: true,
+                  dynamicMainBullets: 3,
+                  dynamicBullets: true,
+                }}
+                breakpoints={{
+                  0: {
+                    direction: "horizontal",
+                    pagination: { clickable: true },
+                  },
+                  768: {
+                    direction: "horizontal",
+                    pagination: false,
+                  },
+                }}
+                modules={[Thumbs, Pagination]}
+              >
+                {slides.map((slide, idx) => {
+                  const isVideoSlide = idx === 0 && !!slide?.video_link;
+                  return (
+                    <SwiperSlide
+                      key={idx}
+                      // className={!h-[107vw] ${
+                      //   shortDetails ? "md:!h-[28.75rem]" : "md:!h-[47rem]"
+                      // } md:!w-full}
+                    >
+                      <div className="slider-image h-full w-full relative group border-2 flex items-center rounded-md">
+                        {isVideoSlide ? (
+                          <>
+                            <iframe
+                              src={getEmbedUrl(slide.video_link)}
+                              width="100%"
+                              height="480"
+                              className=""
+                              allow="autoplay; encrypted-media"
+                              allowFullScreen
+                            />
+                          </>
+                        ) : (
+                          <Image
+                            onClick={() => handleOpenZoom(idx)}
+                            src={slide?.image}
+                            alt=""
+                            width={524}
+                            height={524}
+                            className="object-cover h-full w-full cursor-zoom-in"
+                          />
+                        )}
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
             </div>
 
-            {/* Main Image Preview (Scrollable with hidden scrollbar) */}
-            <div className="flex-1 h-full px-4">
-              {slides.map((slide, idx) => {
-                const isVideoSlide = idx === 0 && !!slide?.video_link;
-
-                return (
-                  <motion.div
-                    style={{ x }}
-                    key={idx}
-                    className="mb-8 relative group"
-                    ref={(el) => (imageRefs.current[idx] = el)}
-                  >
-                    <Image
-                      src={slide?.image || noImage}
-                      alt={`Image ${idx}`}
-                      width={624}
-                      height={624}
-                      className="object-cover w-full"
-                      onClick={() =>
-                        isVideoSlide ? null : handleOpenZoom(idx)
-                      }
-                    />
-
-                    {isVideoSlide && (
-                      <button
-                        onClick={() =>
-                          dispatch(
-                            startVideoPlayer({
-                              url: slide.video_link,
-                              playing: true,
-                              title: product.product_name,
-                              controls: true,
-                            })
-                          )
-                        }
-                        className="z-20 vid-icon absolute inline-flex justify-center items-center top-1/2 left-1/2 w-[72px] h-[72px] rounded-full drop-shadow-[0_0px_60px_rgba(0,0,0,0.16)] translate-x-[-50%] translate-y-[-50%]"
+            {/* Thumbnail Slider */}
+            <div className="thumb-slider !w-[90vw] md:!w-[38.75rem]">
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                slidesPerView={4}
+                spaceBetween={5}
+                modules={[Pagination]}
+                className="mySwiper"
+              >
+                <HorizontalScrollView>
+                  {slides.map((slide, idx) => (
+                    <SwiperSlide className="!w-24" key={idx}>
+                      <div
+                        className={`slider-image cursor-pointer mt-2 border rounded-lg ${
+                          idx === index ? "border-blue-500" : "border-slate-100"
+                        }`}
+                        onClick={() => handleThumbnailClick(idx)}
                       >
-                        <HiPlayCircle
-                          size={60}
-                          className="text-white hover:text-primary"
+                        <Image
+                          src={slide?.image}
+                          alt={`Thumbnail ${idx}`}
+                          width={0}
+                          height={0}
+                          className="!w-24 !h-24 cursor-pointer p-2 object-cover"
                         />
-                      </button>
-                    )}
-                  </motion.div>
-                );
-              })}
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </HorizontalScrollView>
+              </Swiper>
             </div>
-          </>
+          </div>
         ) : (
           <ProductViewSkeleton />
         )}
-      </div>
+      </>
     );
   }
 );

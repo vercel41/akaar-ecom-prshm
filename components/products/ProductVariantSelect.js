@@ -133,7 +133,7 @@ const ProductVariantSelect = forwardRef(
                 return (
                   <div
                     key={color}
-                    className={`md:p-1.5 h-[48px] lg:h-16 min-w-[48px] lg:min-w-[52px] w-fit box-content border ${
+                    className={`md:px-1.5 md:py-0 h-[48px] lg:h-10 min-w-[48px] lg:min-w-[52px] w-fit box-content border ${
                       selectedColor === color
                         ? "border-2 border-primary"
                         : "border-slate-300"

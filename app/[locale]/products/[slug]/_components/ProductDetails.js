@@ -63,7 +63,6 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
     }
   }, [product, isFbPixelInitialized]);
 
-  // console.log(product);
 
   return (
     <>
@@ -85,21 +84,16 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
           <div className="w-full md:max-w-[540px] mx-auto md:ml-5 ">
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
-                {product?.brand?.brand_name && (
-                  <p className="text-sm font-bold text-primary capitalize mb-1 lg:mb-2">
-                    {product.brand.brand_name}
-                  </p>
-                )}
-                <h5 className="font-noto_serif font-medium text-black text-center">
-                  {getSlicedText(product?.product_name, 100)}
+                <h5 className="font-noto_serif font-medium text-black ">
+                  {product?.brand?.brand_name ? `${product?.brand?.brand_name} | `: ""} {getSlicedText(product?.product_name, 100)}
                 </h5>
 
-                <div className="flex items-center justify-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
+                <div className="flex items-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
                   <span>Code:</span>
                   <span>{product?.sku}</span>
                 </div>
 
-                <div className="product-price  flex justify-center items-center font-noto_serif gap-2 py-3 lg:py-5">
+                <div className="product-price items-center font-noto_serif gap-2 py-3 lg:py-5">
                   <span className="font-semibold ">
                     {siteConfig.currency.sign}{" "}
                     {newPrice.toLocaleString("en-US", {
