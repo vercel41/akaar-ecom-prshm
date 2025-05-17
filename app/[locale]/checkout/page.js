@@ -207,9 +207,9 @@ const Checkout = () => {
       after_discount: totalWithDiscount,
       grand_total: grandTotal,
       paymentOption: selectedPaymentOption,
-      // note: "",
+      note: data.note,
     };
-    // console.log(newOrder);
+    // console.log("newOrder", newOrder);
     handleOrderPlace(newOrder);
 
     // updating user for the first time only not applicable for guest checkout

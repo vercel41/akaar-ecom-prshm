@@ -26,12 +26,23 @@ const ProductView = async ({ params }) => {
     productRes.status === "fulfilled" ? productRes.value?.data || [] : [];
   const translations =
     transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+
   //Category Filter
   const customSearchParams = {
     category_id: product?.category?.id,
   };
 
   const isLoading = productRes.status !== "fulfilled" ? true : false;
+
+  // Prepare visited product data
+  const visitedProduct = {
+    id: product?.id,
+    image: product?.image || product?.main_image || "",
+    product_name: product?.product_name || product?.name || "",
+    slug: product?.slug || "",
+    new_price: product?.new_price,
+    old_price: product?.old_price,
+  };
 
   return (
     <>
@@ -70,7 +81,7 @@ const ProductView = async ({ params }) => {
       </div>
       <section>
         <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
-        <FeaturesSection/>
+          <FeaturesSection />
         </div>
       </section>
       <section id="same-category-products">
@@ -102,8 +113,7 @@ const ProductView = async ({ params }) => {
         </div>
       </section>
 
-      {}
-      <LastVisitedProducts visitedProductId={product?.id} />
+      <LastVisitedProducts visitedProduct={visitedProduct} />
     </>
   );
 };

@@ -17,9 +17,10 @@ const HomeCategoryProducts = async () => {
     homePageCategoryRes.status === "fulfilled" ? homePageCategoryRes.value?.data || {} : {};
     // console.log("categoryWiseProducts", categoryWiseProducts);
 
+
   // const categoryWiseProducts = data?.data || [];
 
-  // console.log("categoryWiseProducts", categoryWiseProducts);
+   console.log("categoryWiseProducts", categoryWiseProducts);
 
   // return null;
 

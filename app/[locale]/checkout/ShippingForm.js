@@ -45,17 +45,16 @@ const ShippingForm = ({
                   required: "Phone number is required.",
                   pattern: {
                     value: siteConfig.phone.patternWithCode,
-                    message: "Please enter a valid bangladeshi number",
+                    message: "Please enter a valid Bangladeshi number",
                   },
                 })}
                 type="tel"
-                // disabled={!settings?.guest_ShippingForm}
               />
-
               {errors.phone && (
                 <p className="errorMsg">{errors.phone.message}</p>
               )}
             </div>
+
             <div className="form-control mb-6">
               <FieldsetInput
                 label={translations["address"] || "Address"}
@@ -69,6 +68,7 @@ const ShippingForm = ({
                 <p className="errorMsg">{errors.address.message}</p>
               )}
             </div>
+
             <div className="form-control mb-6">
               <FieldsetInput
                 label={translations["city"] || "City"}
@@ -80,8 +80,21 @@ const ShippingForm = ({
               />
               {errors.city && <p className="errorMsg">{errors.city.message}</p>}
             </div>
+
+            <div className="form-control mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {translations["note"] || "Note"}
+              </label>
+              <textarea
+                rows={5}
+                placeholder="Notes about your order, e.g. special notes for delivery"
+                className="resize-none py-[10px] px-5 w-full text-[15px] placeholder:text-[#666666] focus:border-primary duration-500"
+                {...register("note")}
+              ></textarea>
+            </div>
           </>
         )}
+
         <div className="form-control my-6">
           <div className="border-b-2 border-slate-300 border-dashed"></div>
         </div>
