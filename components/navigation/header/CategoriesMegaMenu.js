@@ -13,9 +13,9 @@ export default function CategoriesMegaMenu({ settings, categories }) {
   const megaMenuRef = useRef(null);
   const pathname = usePathname();
   const { sticky } = useSticky(100);
+  const router = useRouter();
 
   const isHomePage = pathname === "/"; // Check if the current route is the home page
-
 
   useEffect(() => {
     const checkOverflow = () => {
@@ -73,7 +73,8 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                 >
                   <span
                     className={cn(
-                      "text-[.9rem]  relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500  py-[6px] hover:-translate-y-[3px] transition-all duration-500 block tracking-[.2rem],", sticky ? "after:bg-black" : "after:bg-white"
+                      "text-[.9rem]  relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500  py-[6px] hover:-translate-y-[3px] transition-all duration-500 block tracking-[.2rem],",
+                      sticky ? "after:bg-black" : "after:bg-white"
                     )}
                   >
                     {category.category_name}
@@ -84,7 +85,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                 <span className="text-sm font-medium !opacity-90">...</span>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex gap-3 items-center">
               {isOverflowing && (
                 <>
                   <span className="text-sm font-semibold !opacity-90">...</span>
@@ -112,13 +113,13 @@ export default function CategoriesMegaMenu({ settings, categories }) {
           {selectedCategory?.child_categories?.map((subCategory, index) => (
             <div
               key={index}
-              className="mb-2 flex flex-col justify-center items-center h-fit"
+              className="flex flex-col justify-center items-center mb-2 h-fit"
             >
-              <div className="w-full text-center mb-2">
+              <div className="mb-2 w-full text-center">
                 <Link
                   href={`/categories/${subCategory.slug}`}
                   onClick={() => setSelectedCategory({})}
-                  className="font-bold uppercase block w-full hover:bg-black hover:text-white transition-all ease-in-out duration-500"
+                  className="block w-full font-bold uppercase transition-all duration-500 ease-in-out hover:bg-black hover:text-white"
                 >
                   {subCategory?.category_name}
                 </Link>
@@ -130,7 +131,7 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                     <Link
                       href={`/categories/${childCategory.slug}`}
                       onClick={() => setSelectedCategory({})}
-                      className="mt-2 font-normal text-xs uppercase hover:bg-black hover:text-white transition-all ease-in-out duration-500 w-full block"
+                      className="block mt-2 w-full text-xs font-normal uppercase transition-all duration-500 ease-in-out hover:bg-black hover:text-white"
                     >
                       {childCategory?.category_name}
                     </Link>
