@@ -17,7 +17,7 @@ const ContactUs = async () => {
 
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 py-5">
+      <div className="py-5 breadcrumb breadcrumb-2">
         <div className="container">
           <div>
             <Link
@@ -37,30 +37,32 @@ const ContactUs = async () => {
       </div>
 
       <div className="container">
-        <div className="contact-us mb-20">
-          <div className="heading border-b border-slate-200 py-4 mb-6">
+        <div className="mb-20 contact-us">
+          <div className="py-4 mb-6 border-b heading border-slate-200">
             <h3 className="text-3xl font-thin font-noto_serif text-slate-900">
               Contact Us
             </h3>
           </div>
-          <div className="contact-wpr grid lg:grid-cols-2 items-center gap-12">
+          <div className="grid gap-12 items-center contact-wpr lg:grid-cols-2">
             <div className="address basis-2/5">
               <ul className="info-list">
-                <li className="flex items-start gap-2 mb-4">
+                <li className="flex gap-2 items-start mb-4">
                   <FaMapMarkerAlt size={20} />
                   <p className="pr-4">{settings.address}</p>
                 </li>
-                <li className="flex items-center flex-wrap gap-2 mb-4">
-                  <BsFillTelephoneFill ize={16} />
-                  {settings?.phone?.map((e, index) => (
-                    <Link key={index} href={`tel:${settings?.phone[index]}`}>
-                      {`${settings?.phone[index]}${
-                        index + 1 < settings.phone.length ? "," : ""
-                      }`}
-                    </Link>
-                  ))}
-                </li>
-                <li className="flex items-center flex-wrap gap-2 mb-4">
+                {settings?.phone?.length && (
+                  <li className="flex flex-wrap gap-2 items-center mb-4">
+                    <BsFillTelephoneFill ize={16} />
+                    {settings?.phone?.map((e, index) => (
+                      <Link key={index} href={`tel:${settings?.phone[index]}`}>
+                        {`${settings?.phone[index]}${
+                          index + 1 < settings.phone.length ? "," : ""
+                        }`}
+                      </Link>
+                    ))}
+                  </li>
+                )}
+                <li className="flex flex-wrap gap-2 items-center mb-4">
                   <FaEnvelope ize={16} />
                   {settings?.email?.map((e, index) => (
                     <Link key={index} href={`mailto:${settings?.email[index]}`}>
@@ -75,7 +77,7 @@ const ContactUs = async () => {
                 <ViewHTML htmlText={settings.google_map_link} />
               </div>
             </div>
-            <div className="bg-slate-200 p-6">
+            <div className="p-6 bg-slate-200">
               <ContactForm />
             </div>
           </div>

@@ -78,10 +78,10 @@ const ProductCard = ({
         >
           <Link
             href={`/products/${slug}`}
-            className="group relative block w-full h-full"
+            className="block relative w-full h-full group"
           >
             <Image
-              className="default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out"
+              className="rounded-md default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out"
               src={image || noImage}
               alt={product_name}
               priority={false}
@@ -94,7 +94,7 @@ const ProductCard = ({
 
             {hover_image && (
               <Image
-                className="hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
+                className=" rounded-md hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
                 src={hover_image}
                 alt={product_name}
                 priority={false}
@@ -132,7 +132,7 @@ const ProductCard = ({
         )}
 
         {showPrice && new_price !== undefined && (
-          <div className="product-price mb-3 flex flex-col md:flex-row font-noto_serif md:items-center gap-2">
+          <div className="flex flex-col gap-2 mb-3 product-price md:flex-row font-noto_serif md:items-center">
             <span className="font-semibold">
               {siteConfig.currency.shortForm}
               {new_price.toLocaleString("en-US", {
@@ -141,7 +141,7 @@ const ProductCard = ({
             </span>
             {old_price && new_price && old_price > new_price && (
               <div className="hidden md:flex items-center gap-2 text-[.9rem]">
-                <del className="old-price font-normal text-slate-400">
+                <del className="font-normal old-price text-slate-400">
                   {siteConfig.currency.shortForm}
                   {old_price.toLocaleString("en-US", {
                     currency: "USD",
@@ -156,8 +156,8 @@ const ProductCard = ({
         )}
 
         {isFlashSale && (
-          <div className="product-flash-counter mt-4">
-            <div className="flex items-center gap-3">
+          <div className="mt-4 product-flash-counter">
+            <div className="flex gap-3 items-center">
               <div className="w-full h-[8px] bg-gray-200 rounded">
                 <div
                   className="h-[8px] bg-primary rounded"
@@ -181,7 +181,7 @@ export default ProductCard;
   /* {getDaysSinceCreation(created_at) < 8 && (
                 <div className="absolute top-2 left-2 z-20">
                   <span
-                    className="text-sm px-1  active:scale-90 rounded"
+                    className="px-1 text-sm rounded active:scale-90"
                     style={{
                       backgroundColor: settings?.colors?.secondary,
                       color: settings?.colors?.secondary_text,
