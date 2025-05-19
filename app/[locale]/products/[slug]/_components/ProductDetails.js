@@ -66,7 +66,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   return (
     <>
       <div ref={targetRef} className="relative product-details">
-        <div className="grid mx-auto md:grid-cols-2 lg:gap-10 md:w-9/12">
+        <div className="flex flex-col md:flex-row gap-6 lg:gap-10 w-full xl:w-9/12 mx-auto">
           <div className="lg:w-fit">
             <div className="sticky top-32">
               <ProductViewSlider
@@ -83,7 +83,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
           <div className="w-full md:max-w-[540px] mx-auto md:ml-5 ">
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
-                <h5 className="font-medium text-black font-noto_serif">
+                <h5 className="font-noto_serif font-medium text-black ">
                   {product?.brand?.brand_name
                     ? `${product?.brand?.brand_name} | `
                     : ""}{" "}
@@ -95,8 +95,8 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                   <span>{product?.sku}</span>
                 </div>
 
-                <div className="gap-2 items-center py-3 product-price font-noto_serif lg:py-5">
-                  <span className="font-semibold">
+                <div className="product-price items-center font-noto_serif gap-2 py-3 lg:py-5">
+                  <span className="font-semibold ">
                     {siteConfig.currency.sign}{" "}
                     {newPrice.toLocaleString("en-US", {
                       currency: "USD",
@@ -104,7 +104,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                   </span>
                   {oldPrice > newPrice ? (
                     <div className="hidden md:flex items-center gap-2 text-[.9rem]">
-                      <del className="font-normal old-price text-slate-400">
+                      <del className="old-price font-normal text-slate-400">
                         {siteConfig.currency.sign}{" "}
                         {oldPrice.toLocaleString("en-US", {
                           currency: "USD",
@@ -132,7 +132,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                 {/* short description  */}
                 <ViewHTML
                   htmlText={product?.product_short_description}
-                  className={"tracking-normal desc"}
+                  className={"desc tracking-normal "}
                 />
 
                 <hr className="h-[2px] bg-black" />
@@ -158,12 +158,12 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                 </div>
                 {product?.coupons?.length ? (
                   <div className="mt-5 mb-8">
-                    <p className="mb-2 font-semibold font-noto_serif text-slate-900">
+                    <p className="font-semibold font-noto_serif text-slate-900 mb-2">
                       {translations["best-offer"] || "সেরা অফার"}{" "}
-                      <TbTag size={24} className="mb-1 text-primary" />
+                      <TbTag size={24} className="text-primary mb-1" />
                     </p>
                     <ul className="coupon-info">
-                      <li className="relative pl-4 text-slate-900">
+                      <li className="relative text-slate-900 pl-4">
                         {translations["coupon-discount"] || "কুপন ডিসকাউন্ট"}:{" "}
                         <span className="font-semibold text-title text-secondary-700">
                           &#2547;
@@ -180,7 +180,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                       </li>
                       <li className="relative text-slate-900 pl-4 my-2 before:!top-3">
                         {translations["coupon-code"] || "কুপন কোড"}:{" "}
-                        <span className="inline-block px-2 py-1 ml-1 rounded border border-dashed text-primary border-primary">
+                        <span className="inline-block text-primary border border-dashed border-primary rounded px-2 py-1 ml-1">
                           {product.coupons[0].code}{" "}
                           <CopyToClipboard
                             text={product.coupons[0].code}
@@ -188,12 +188,12 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                           >
                             <IoCopy
                               size={20}
-                              className="mb-1 text-primary active:scale-90"
+                              className="text-primary mb-1 active:scale-90"
                             />
                           </CopyToClipboard>
                         </span>
                       </li>
-                      <li className="relative pl-4 mb-3 text-slate-900">
+                      <li className="relative text-slate-900 pl-4 mb-3">
                         {translations["applicable"] || "প্রযোজ্য"}:{" "}
                         {siteConfig.currency.sign}
                         {product.coupons[0].max_discount}{" "}
@@ -201,7 +201,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                           "উপরে অর্ডারে (শুধুমাত্র প্রথম কেনাকাটায়)"}
                       </li>
                     </ul>
-                    <Link href="#" className="underline text-secondary-700">
+                    <Link href="#" className="text-secondary-700 underline">
                       {translations["see-all-products-on-offer"] ||
                         "অফারের সকল প্রডাক্ট দেখুন"}
                     </Link>
@@ -213,7 +213,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               {/* Add to cart section  */}
               {product.stock_qty > 0 ? (
                 <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)] mx-auto">
-                  <div className="flex flex-col gap-4 justify-between items-center product-actions">
+                  <div className="product-actions flex flex-col gap-4 justify-between items-center">
                     <button
                       className=" py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase btn btn-secondary"
                       onClick={() => handleAddToCart(product, selectedVariant)}
@@ -244,7 +244,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                 </div>
               ) : (
                 <p
-                  className={`my-5 text-base font-bold text-center text-red-500`}
+                  className={`text-center text-base font-bold my-5 text-red-500`}
                 >
                   Out of stock
                 </p>
@@ -253,9 +253,9 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               {/* product details section  */}
 
               <div>
-                <div className="mt-5  lg:mt-5">
+                <div className=" lg:mt-5 mt-5">
                   {/* Product Descriptions */}
-                  <div className="gap-10 pt-3 pb-2 lg:pt-4 lg:pb-4 lg:gap-28 lg:gap-y-14">
+                  <div className="pt-3 lg:pt-4 pb-2 lg:pb-4  gap-10 lg:gap-28 lg:gap-y-14">
                     <div>
                       {/* short description  */}
                       {/* {product?.product_short_description && (
@@ -287,11 +287,11 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                           id="product-specifications"
                           className="mt-4 lg:mt-5"
                         >
-                          <h4 className="text-xl font-bold font-noto_serif text-slate-900">
+                          <h4 className="text-xl  font-bold font-noto_serif text-slate-900">
                             {translations["specifications"] || "Specifications"}
                             :
                           </h4>
-                          <div className="overflow-x-auto px-4 -mx-4 mt-3 sm:-mx-8 sm:px-8">
+                          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 mt-3 overflow-x-auto">
                             <ViewHTML
                               className={"tracking-normal text-justify"}
                               htmlText={product?.specification}
@@ -302,7 +302,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
                       {product.includedProducts?.length ? (
                         <div className="mt-4 lg:mt-5">
-                          <h4 className="mb-4 text-xl font-bold capitalize font-noto_serif text-slate-900">
+                          <h4 className="text-xl font-bold font-noto_serif text-slate-900 mb-4 capitalize">
                             {translations["product-included"] ||
                               "Product Included"}
                             :
@@ -337,24 +337,22 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                     </div>
                   </div>
 
-                  {settings?.phone[0] && (
-                    <div className="p-4 mt-5 mb-4 w-full text-center bg-amber-200 border contact">
-                      <h5 className="mb-3 text-xl font-bold font-noto_serif text-slate-900">
-                        {translations["call-now"] || "Call Now"}
-                      </h5>
-                      <p className="flex gap-4 justify-center items-center">
-                        {/* <span className="text-base text-slate-900">
+                  <div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center w-full">
+                    <h5 className="text-xl font-bold font-noto_serif text-slate-900 mb-3">
+                      {translations["call-now"] || "Call Now"}
+                    </h5>
+                    <p className="flex justify-center items-center gap-4">
+                      {/* <span className="text-base text-slate-900">
                 {translations["call-now"] || "Call Now"}:
               </span>{" "} */}
-                        <Link
-                          href={`tel:${settings?.phone[0]}`}
-                          className="text-xl font-bold font-noto_serif text-primary"
-                        >
-                          <BsFillTelephoneFill /> {settings?.phone[0]}
-                        </Link>
-                      </p>
-                    </div>
-                  )}
+                      <Link
+                        href={`tel:${settings?.phone[0]}`}
+                        className="text-xl font-bold font-noto_serif text-primary"
+                      >
+                        <BsFillTelephoneFill /> {settings?.phone[0]}
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </div>
 

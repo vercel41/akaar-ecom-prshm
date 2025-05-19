@@ -20,7 +20,7 @@ const HomeCategoryProducts = async () => {
 
   // const categoryWiseProducts = data?.data || [];
 
-   console.log("categoryWiseProducts", categoryWiseProducts);
+  //  console.log("categoryWiseProducts", categoryWiseProducts);
 
   // return null;
 
