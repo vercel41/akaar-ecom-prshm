@@ -106,7 +106,7 @@ const Footer = async () => {
             <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
               {translations["Company"] || "COMPANY"}
             </h6>
-            <ul className="widget-list text-[#a5a5a5] space-y-2.5">
+            <ul className="widget-list font-normal text-[15px] tracking-normal space-y-2.5">
               {footerPage.map((page) => (
                 <li key={page?.path}>
                   <Link
