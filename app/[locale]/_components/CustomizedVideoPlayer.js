@@ -46,7 +46,7 @@ const BackgroundVideo = ({ videoLink, height = "100vh", style = {}, placeholderI
       }}
     >
       {showOverlay && placeholderImage && (
-        <img
+        <Image
           src={placeholderImage}
           alt="Video loading..."
           style={{

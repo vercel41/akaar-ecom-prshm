@@ -82,6 +82,7 @@ const Checkout = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
   } = useForm();
@@ -251,6 +252,14 @@ const Checkout = () => {
     }
   }, [paymentOptions]);
 
+  const [selectedCity, setSelectedCity] = useState(
+    user?.city ? { value: user.city, label: user.city } : null
+  );
+
+  const handleCityChange = (option) => {
+    setSelectedCity(option);
+  };
+
   return (
     <section className=" pb-8 font-body tracking-normal">
       {/* <div className="breadcrumb breadcrumb-2 py-5 mt-8">
@@ -307,6 +316,11 @@ const Checkout = () => {
           handleCheckoutSubmit={handleCheckoutSubmit}
           user={user}
           translations={translations}
+          setValue={setValue}
+          selectedCity={selectedCity}
+          onCityChange={handleCityChange}
+          handleDeliveryAreaChange={handleDeliveryAreaChange}
+          settings={settings}
         />
       )}
       <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto px-6">
@@ -323,14 +337,19 @@ const Checkout = () => {
               {deliveryAreas.map((area) => (
                 <button
                   key={area.key}
-                  className="flex gap-2 items-center border border-slate-200 p-3"
-                  onClick={() => handleDeliveryAreaChange(area)}
+                  className={`flex gap-2 items-center  ${
+                    area?.key === deliveryArea?.key
+                      ? " border-2 border-primary "
+                      : "border border-slate-300"
+                  }  p-3`}
+                  // onClick={() => handleDeliveryAreaChange(area)}
                 >
-                  <CustomRadio
-                    isChecked={deliveryArea?.key === area.key}
+                  {/* <CustomRadio
+                    isChecked={area?.key === deliveryArea?.key}
                     label={area.title}
                     // onClick={() => setDeliveryArea(area)}
-                  />
+                  /> */}
+                  <p>{area.title}</p>
                   <p
                     className={cn(
                       `font-semibold`,
@@ -459,6 +478,11 @@ const Checkout = () => {
               handleCheckoutSubmit={handleCheckoutSubmit}
               user={user}
               translations={translations}
+              setValue={setValue}
+              selectedCity={selectedCity}
+              onCityChange={handleCityChange}
+              handleDeliveryAreaChange={handleDeliveryAreaChange}
+              settings={settings}
             />
           )}
           {/* Payment Area  */}

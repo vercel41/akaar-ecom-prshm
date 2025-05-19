@@ -1,6 +1,9 @@
+"use client"
 import FieldsetInput from "@/components/elements/FieldsetInput";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { siteConfig } from "@/config/site";
+import cities from "./cities.json";
+import React, { useEffect, useState, useRef } from "react";
 
 const ShippingForm = ({
   register,
@@ -10,7 +13,70 @@ const ShippingForm = ({
   user,
   isLoading,
   translations,
+  setValue,
+  selectedCity,
+  onCityChange,
+  handleDeliveryAreaChange,
+  settings,
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    register("city", { required: "City is required." });
+    if (user?.city && !selectedCity) {
+      const defaultCity = { value: user.city, label: user.city };
+      setValue("city", user.city);
+      setSearchTerm(user.city); // Set initial search term
+      onCityChange?.(defaultCity);
+    }
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [register, setValue, user?.city, selectedCity, onCityChange]);
+
+  const handleCityChange = (city) => {
+    setValue("city", city || "");
+    setSearchTerm(city); // Update search term with selected city
+    setIsOpen(false); // Close dropdown after selection
+    const option = city ? { value: city, label: city } : null;
+    onCityChange?.(option); // Notify parent
+    const region = settings?.delivery_region.toLowerCase() || "Dhaka";
+    let payload;
+    if (city && city.toLowerCase() === region) {
+      payload = {
+        key: `inside dhaka`,
+        title: `Inside ${settings?.delivery_region || "Dhaka"}`,
+        charges: settings?.inside_dhaka_delivery_charges,
+      };
+    } else {
+      payload = {
+        key: `outside dhaka`,
+        title: `Outside ${settings?.delivery_region || "Dhaka"}`,
+        charges: settings?.outside_dhaka_delivery_charges,
+      };
+    }
+    handleDeliveryAreaChange(payload);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setIsOpen(true); // Open dropdown when typing
+  };
+
+  const filterCities = () => {
+    const filter = searchTerm.toUpperCase();
+    return cities.filter((city) =>
+      city.toUpperCase().indexOf(filter) > -1
+    );
+  };
+
   return (
     <div className="px-6">
       <div className="text-left pb-5">
@@ -69,16 +135,44 @@ const ShippingForm = ({
               )}
             </div>
 
-            <div className="form-control mb-6">
-              <FieldsetInput
-                label={translations["city"] || "City"}
-                name="city"
-                defaultValue={user?.city}
-                register={register("city", {
-                  required: "City is required.",
-                })}
-              />
-              {errors.city && <p className="errorMsg">{errors.city.message}</p>}
+            <div className="form-control mb-6" ref={dropdownRef}>
+              <label className="mb-2 block text-sm font-medium">
+                {translations["city"] || "City"}
+              </label>
+              <div className="dropdown">
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Search city..."
+                  className="w-full py-[10px] px-5 text-[15px] border border-gray-300 rounded focus:border-primary duration-500"
+                  onClick={() => setIsOpen(!isOpen)}
+                />
+                {isOpen && (
+                  <div className="dropdown-content absolute bg-white border border-gray-300 mt-1 max-h-60 overflow-auto z-10">
+                    {filterCities().length > 0 ? (
+                      filterCities().map((city, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleCityChange(city)}
+                          className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                        >
+                          {city}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-4 py-2 text-gray-500">
+                        No matches found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              {errors.city && (
+                <p className="errorMsg text-red-500 mt-1">
+                  {errors.city.message}
+                </p>
+              )}
             </div>
 
             <div className="form-control mb-6">
