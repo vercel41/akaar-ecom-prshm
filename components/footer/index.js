@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchData } from "@/lib/fetch-data";
 import SubscriptionForm from "./SubscriptionForm";
+import amasolutionLogo from "../../public/assets/icons/social/amarsolution-logo.png";
 
 // ** Import Icons
 import SocialIcon from "../elements/SocialIcon";
@@ -106,7 +107,7 @@ const Footer = async () => {
             <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
               {translations["Company"] || "COMPANY"}
             </h6>
-            <ul className="widget-list font-normal text-[15px] tracking-normal space-y-2.5">
+            <ul className="widget-list text-[#a5a5a5] space-y-2.5">
               {footerPage.map((page) => (
                 <li key={page?.path}>
                   <Link
@@ -206,10 +207,25 @@ const Footer = async () => {
         </div>
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
           <div className="w-full">
-            <p className="mt-3 text-[13px] font-medium tracking-normal">
-              &copy; {new Date().getFullYear()}, All Rights Reserved By{" "}
-              <Link href="/">{settings?.name}</Link> | Developed by Amar
-              Solution
+            <p className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
+              {translations["copyright"]} {new Date().getFullYear()}{" "}
+              {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
+              <Link href="/" className="ml-1">
+                {" "}
+                {settings?.name}
+              </Link>
+              <span className="mx-2">|</span>
+              <div className="flex  items-center gap-1">
+                <p> Developed By</p>
+
+                <Image
+                  src={amasolutionLogo}
+                  alt="logo"
+                  width={117}
+                  height={42}
+                  className="cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-1 hover:scale-105"
+                />
+              </div>
             </p>
           </div>
           {/* <div className="w-1/2">
