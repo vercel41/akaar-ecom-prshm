@@ -189,7 +189,7 @@ const ProductViewSlider = forwardRef(
                             alt=""
                             width={524}
                             height={524}
-                            className="object-cover h-full w-full cursor-zoom-in"
+                            className="object-cover h-full w-full object-top "
                           />
                         )}
                       </div>
@@ -222,7 +222,7 @@ const ProductViewSlider = forwardRef(
                           alt={`Thumbnail ${idx}`}
                           width={0}
                           height={0}
-                          className="!w-24 !h-24 cursor-pointer p-2 object-cover"
+                          className="!w-24 !h-24 cursor-pointer p-2 object-cover object-top"
                         />
                       </div>
                     </SwiperSlide>
