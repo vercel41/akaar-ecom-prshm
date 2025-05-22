@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { fetchData } from "@/lib/fetch-data";
 import SubscriptionForm from "./SubscriptionForm";
-import amasolutionLogo from "../../public/assets/icons/social/amarsolution-logo.png";
+import amarsolutionLogo from "../../public/assets/icons/social/amarsolution-logo.png";
 
 // ** Import Icons
 import SocialIcon from "../elements/SocialIcon";
@@ -33,7 +33,6 @@ const Footer = async () => {
   const helpPage = settings?.help_page || [];
 
   const messengerUser = settings?.facebook_link?.split("/")[3] || "no-user";
-
 
   return (
     <footer
@@ -152,7 +151,7 @@ const Footer = async () => {
                   About {settings?.name}
                 </h2>
                 <p className="tracking-normal text-[15px]">
-                    {settings?.short_description}
+                  {settings?.short_description}
                 </p>
                 <div className="text-center py-4 flex gap-5 items-center">
                   {settings.facebook_link && settings.facebook_link !== "#" && (
@@ -218,13 +217,19 @@ const Footer = async () => {
               <div className="flex  items-center gap-1">
                 <p> Developed By</p>
 
-                <Image
-                  src={amasolutionLogo}
-                  alt="logo"
-                  width={117}
-                  height={42}
-                  className="cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-1 hover:scale-105"
-                />
+                <Link
+                  href="https://amarsolution.com/"
+                  target="_blank"
+                  className="text-slate-300 hover:underline"
+                >
+                  <Image
+                    src={amarsolutionLogo}
+                    alt="logo"
+                    width={117}
+                    height={42}
+                    className="mt-1 cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
+                  />
+                </Link>
               </div>
             </p>
           </div>
