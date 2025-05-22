@@ -4,6 +4,7 @@ import { Link } from "@/navigation";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Loading from "./loading";
 import ProductList from "@/components/products/ProductList";
+import FeaturesSection from "./products/[slug]/_components/FeaturesSection";
 
 // Lazy load components
 const Intro = React.lazy(() => import("./_components/intro"));
@@ -151,7 +152,9 @@ export default async function Home() {
 
               {featuredProducts.length > 0 && (
                 <div className="text-center py-14 border-t border-gray-200 mt-20">
-                  <ImageDescriptionSection featuredProducts={featuredProducts} />
+                  <ImageDescriptionSection
+                    featuredProducts={featuredProducts}
+                  />
                 </div>
               )}
             </div>
@@ -160,6 +163,13 @@ export default async function Home() {
 
         <GetDirectionSection />
         <GallerySection />
+
+        <section>
+          <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
+            <FeaturesSection />
+          </div>
+        </section>
+
         <Popup popup={settings?.popup} />
       </Suspense>
     </>
