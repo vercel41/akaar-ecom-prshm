@@ -494,10 +494,22 @@ const Checkout = () => {
                   {translations["payment-options"] || "Payment Options"}
                 </h4>
                 <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) =>
-                    payOption.key === "no_payment" &&
-                    isDeliveryChargeRequired &&
-                    activePaymentMethods?.length > 1 ? null : (
+                  {paymentOptions.map((payOption) => {
+                    // console.log(
+                    //   "payOption",
+                    //   payOption,
+                    //   isDeliveryChargeRequired
+                    // );
+
+                    // Skip ONLY if it's "delivery_charge_payment" AND delivery charge is NOT required
+                    if (
+                      payOption.key === "delivery_charge_payment" &&
+                      !isDeliveryChargeRequired
+                    ) {
+                      return null;
+                    }
+
+                    return (
                       <button
                         key={payOption.key}
                         type="button"
@@ -507,15 +519,14 @@ const Checkout = () => {
                         <CustomRadio
                           isChecked={payOption.key === selectedPaymentOption}
                           label={payOption.title}
-                          // onClick={() => setDeliveryArea(pt)}
                         />
                         <p>
                           {siteConfig.currency.sign}
                           {payOption.value}
                         </p>
                       </button>
-                    )
-                  )}
+                    );
+                  })}
                 </div>
                 {!selectedPaymentOption && (
                   <p id="paymentOptionError" className="hidden errorMsg">
