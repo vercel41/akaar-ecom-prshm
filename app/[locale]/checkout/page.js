@@ -207,7 +207,7 @@ const Checkout = () => {
       subtotal: total,
       after_discount: totalWithDiscount,
       grand_total: grandTotal,
-      paymentOption: selectedPaymentOption,
+      paymentOption: selectedPaymentOption.split("-")[0],
       note: data.note,
     };
     // console.log("newOrder", newOrder);
@@ -488,45 +488,108 @@ const Checkout = () => {
           {/* Payment Area  */}
           <div>
             {/* Payment Options Area */}
+            
             {deliveryArea ? (
               <div className="form-control">
                 <h4 className="text-slate-700 font-bold">
                   {translations["payment-options"] || "Payment Options"}
                 </h4>
                 <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) => {
-                    // console.log(
-                    //   "payOption",
-                    //   payOption,
-                    //   isDeliveryChargeRequired
-                    // );
+                  <button
+                    type="button"
+                    className="flex gap-2 items-center border border-slate-200 p-3"
+                    onClick={() => {
+                      setSelectedPaymentOption("no_payment");
+                      setSelectedPayMethod(null);
+                    }}
+                  >
+                    <CustomRadio
+                      isChecked={selectedPaymentOption === "no_payment"}
+                      label={
+                        translations["cash-on-delivery"] || "Cash on delivery"
+                      }
+                    />
+                    <p>
+                      {siteConfig.currency.sign}
+                      {grandTotal}
+                    </p>
+                  </button>
 
-                    // Skip ONLY if it's "delivery_charge_payment" AND delivery charge is NOT required
-                    if (
-                      payOption.key === "delivery_charge_payment" &&
-                      !isDeliveryChargeRequired
-                    ) {
-                      return null;
-                    }
-
-                    return (
+                  {isDeliveryChargeRequired &&
+                    activePaymentMethods
+                      ?.filter((m) => m.key !== "COD")
+                      .map((method) =>
+                        deliveryArea?.charges ? (
+                          <button
+                            key={method.icon}
+                            type="button"
+                            className="flex gap-2 items-center border border-slate-200 p-3"
+                            onClick={() => {
+                              setSelectedPaymentOption(
+                                `delivery_charge_payment-${method.title}`
+                              );
+                              setSelectedPayMethod(method);
+                            }}
+                          >
+                            <CustomRadio
+                              isChecked={
+                                selectedPaymentOption ===
+                                `delivery_charge_payment-${method.title}`
+                              }
+                              label={`Pay charges ammount via ${method.title}`}
+                            />
+                            <div className="flex items-center gap-2">
+                              <Image
+                                src={method.icon}
+                                height={32}
+                                width={80}
+                                alt="icon"
+                                className="h-8 w-fit max-w-[80px]"
+                              />
+                              <p>
+                                {siteConfig.currency.sign}
+                                {deliveryArea.charges}
+                              </p>
+                            </div>
+                          </button>
+                        ) : null
+                      )}
+                  {activePaymentMethods
+                    ?.filter((m) => m.key !== "COD")
+                    .map((method) => (
                       <button
-                        key={payOption.key}
+                        key={method.icon}
                         type="button"
                         className="flex gap-2 items-center border border-slate-200 p-3"
-                        onClick={() => setSelectedPaymentOption(payOption.key)}
+                        onClick={() => {
+                          setSelectedPaymentOption(
+                            `total_payment-${method.title}`
+                          );
+                          setSelectedPayMethod(method);
+                        }}
                       >
                         <CustomRadio
-                          isChecked={payOption.key === selectedPaymentOption}
-                          label={payOption.title}
+                          isChecked={
+                            selectedPaymentOption ===
+                            `total_payment-${method.title}`
+                          }
+                          label={`Pay total ammount via ${method.title}`}
                         />
-                        <p>
-                          {siteConfig.currency.sign}
-                          {payOption.value}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src={method.icon}
+                            height={32}
+                            width={80}
+                            alt="icon"
+                            className="h-8 w-fit max-w-[80px]"
+                          />
+                          <p>
+                            {siteConfig.currency.sign}
+                            {grandTotal}
+                          </p>
+                        </div>
                       </button>
-                    );
-                  })}
+                    ))}
                 </div>
                 {!selectedPaymentOption && (
                   <p id="paymentOptionError" className="hidden errorMsg">
@@ -535,47 +598,6 @@ const Checkout = () => {
                 )}
               </div>
             ) : null}
-            {/* Payment Methods Area */}
-            {(selectedPaymentOption === "delivery_charge_payment" ||
-              selectedPaymentOption === "total_payment") && (
-              <div className="form-control mt-4">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-method"] || "Payment Method"}
-                </h4>
-                <div className="flex flex-col gap-3 mt-3">
-                  {Object.keys(paymentMethods).map((method, index) =>
-                    paymentMethods[method].status === 1 &&
-                    !(paymentMethods[method].key === "COD") ? (
-                      <div
-                        key={index}
-                        type="button"
-                        onClick={() =>
-                          setSelectedPayMethod(paymentMethods[method])
-                        }
-                        className="flex items-center justify-between border border-slate-200 p-3 cursor-pointer"
-                      >
-                        <CustomRadio
-                          isChecked={
-                            paymentMethods[method].title ===
-                            selectedPayMethod?.title
-                          }
-                          label={paymentMethods[method].title}
-                        />
-                        <div className="">
-                          <Image
-                            src={paymentMethods[method].icon}
-                            height={32}
-                            width={150}
-                            alt="icon"
-                            className="h-8 w-fit max-w-[150px]"
-                          />
-                        </div>
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              </div>
-            )}
           </div>
           {/* Order Now Button  */}
           <div className="form-control mt-7">
