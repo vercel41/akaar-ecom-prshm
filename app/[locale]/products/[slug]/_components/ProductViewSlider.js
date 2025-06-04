@@ -115,7 +115,7 @@ const ProductViewSlider = forwardRef(
     const x = useTransform(scrollYProgress, [1, 1], ["1%", "1%"]);
 
     return (
-      <>
+      <div className="">
         {open && (
           <ProductZoomYetAnother
             open={open}
@@ -176,21 +176,23 @@ const ProductViewSlider = forwardRef(
                             <iframe
                               src={getEmbedUrl(slide.video_link)}
                               width="100%"
-                              height="480"
+                              height="100%"
                               className=""
                               allow="autoplay; encrypted-media"
                               allowFullScreen
                             />
                           </>
                         ) : (
-                          <Image
-                            onClick={() => handleOpenZoom(idx)}
-                            src={slide?.image}
-                            alt=""
-                            width={524}
-                            height={524}
-                            className="object-cover h-full w-full object-top "
-                          />
+                          <div className="h-[670px]">
+                            <Image
+                              onClick={() => handleOpenZoom(idx)}
+                              src={slide?.image}
+                              alt=""
+                              width={524}
+                              height={524}
+                              className="object-cover h-full w-full "
+                            />
+                          </div>
                         )}
                       </div>
                     </SwiperSlide>
@@ -200,7 +202,7 @@ const ProductViewSlider = forwardRef(
             </div>
 
             {/* Thumbnail Slider */}
-            <div className="thumb-slider !w-[90vw] md:!w-[38.75rem]">
+            <div className="thumb-slider">
               <Swiper
                 onSwiper={setThumbsSwiper}
                 slidesPerView={4}
@@ -234,7 +236,7 @@ const ProductViewSlider = forwardRef(
         ) : (
           <ProductViewSkeleton />
         )}
-      </>
+      </div>
     );
   }
 );

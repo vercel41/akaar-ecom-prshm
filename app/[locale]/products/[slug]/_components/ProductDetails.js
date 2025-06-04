@@ -64,10 +64,10 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   }, [product, isFbPixelInitialized]);
 
   return (
-    <>
+    <div className="">
       <div ref={targetRef} className="relative product-details">
-        <div className="flex flex-col md:flex-row gap-6 lg:gap-10 w-full xl:w-9/12 mx-auto">
-          <div className="lg:w-fit">
+        <div className="grid md:w-[62vw] w-full justify-center grid-cols-1 md:grid-cols-2 mx-auto ">
+          <div className="md:w-[470px] w-full ">
             <div className="sticky top-32">
               <ProductViewSlider
                 product={product}
@@ -80,7 +80,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
             </div>
           </div>
 
-          <div className="w-full md:max-w-[540px] mx-auto md:ml-5 ">
+          <div className="md:w-[30vw] w-full ">
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
                 <h5 className="font-noto_serif font-medium text-black ">
@@ -363,7 +363,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
         {/* product details and description */}
       </div>
-    </>
+    </div>
   );
 };
 
