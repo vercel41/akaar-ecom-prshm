@@ -61,7 +61,7 @@ const Footer = async () => {
                 newsletter
               </h6>
 
-              <p className="text-sm mb-3 tracking-normal">
+              <p className="text-sm mb-3 tracking-normal text-black">
                 Subscribe to receive updates, access to exclusive deals, and
                 more.
               </p>
@@ -69,16 +69,24 @@ const Footer = async () => {
             </div>
           </div>
           <div className="text-sm/6 ">
-            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px] text-black">
               {translations["customer-service"] || "customer-service"}
             </h6>
-            <ul className="widget-list font-normal text-[15px] tracking-normal space-y-2.5">
+            <ul className="widget-list font-normal text-[15px] tracking-normal space-y-2.5 text-black">
               <li>
                 <Link
                   className="hover:text-black transition-colors duration-500"
                   href={"/help/contact-us"}
                 >
                   {translations["contact"] || "Contact Us"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-black transition-colors duration-500"
+                  href={"/blogs"}
+                >
+                  {translations["blogs"] || "Blogs"}
                 </Link>
               </li>
               <li>
@@ -103,14 +111,14 @@ const Footer = async () => {
             </ul>
           </div>
           <div className="text-sm/6 font-light">
-            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+            <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px] text-black">
               {translations["Company"] || "COMPANY"}
             </h6>
-            <ul className="widget-list text-[#a5a5a5] space-y-2.5">
+            <ul className="widget-list text-[#a5a5a5] space-y-2.5 ">
               {footerPage.map((page) => (
                 <li key={page?.path}>
                   <Link
-                    className="hover:text-black transition-colors duration-500 text-[16px]"
+                    className="hover:text-black transition-colors duration-500 text-[16px] text-black"
                     href={page?.path}
                   >
                     {page?.name}
@@ -147,10 +155,10 @@ const Footer = async () => {
                 </div>
               ) : null}
               <div className="social-links ">
-                <h2 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+                <h2 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px] text-black">
                   About {settings?.name}
                 </h2>
-                <p className="tracking-normal text-[15px]">
+                <p className="tracking-normal text-[15px] text-black">
                   {settings?.short_description}
                 </p>
                 <div className="text-center py-4 flex gap-5 items-center">
