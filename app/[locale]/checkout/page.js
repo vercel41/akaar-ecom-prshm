@@ -184,7 +184,7 @@ const Checkout = () => {
 
     let phone = data?.phone;
     let alt_phone = data?.phone;
-    let fullAddress = data.address + ", " + data.city;
+    let fullAddress =`${data.address},  ${data.upazila}, ${data.city}`;
 
     //for authorized u
     if (!settings?.guest_checkout) {
@@ -210,7 +210,7 @@ const Checkout = () => {
       paymentOption: selectedPaymentOption.split("-")[0],
       note: data.note,
     };
-    // console.log("newOrder", newOrder);
+    console.log("newOrder", newOrder);
     handleOrderPlace(newOrder);
 
     // updating user for the first time only not applicable for guest checkout

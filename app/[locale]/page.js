@@ -74,54 +74,8 @@ export default async function Home() {
           </div>
         </section>
 
-        {settings?.featured_products_section && (
-          <section className="new-products">
-            <div className="container">
-              <div className="py-10 text-center">
-                <h2 className="text-2xl pb-3">
-                  {translations["featured-products"] || "Featured Products"}
-                </h2>
-                <Link href="/featured-products" className="underline">
-                  Browse our featured products
-                </Link>
-              </div>
 
-              <div>
-                <Featured />
-              </div>
-            </div>
-          </section>
-        )}
-        {discountedProducts && (
-          <section className="discounted-products">
-            <div className="container">
-              <div className="py-10 text-center">
-                <h2 className="text-2xl pb-3">
-                  {translations["discounted-products"] || "Discounted Products"}
-                </h2>
-                <Link href="/products?is_discounted=1" className="underline">
-                  Browse our discounted products
-                </Link>
-              </div>
-
-              <div>
-                <ProductList products={discountedProducts} fixedItems={true} />
-              </div>
-            </div>
-          </section>
-        )}
-
-        {settings?.video_section && (
-          <section className="video-banner mt-24">
-            <VideoBanner settings={settings} />
-          </section>
-        )}
-
-        <section className="home-category-products md:mt-20 mt-10">
-          <HomeCategoryProducts />
-        </section>
-
-        {settings?.shop_section && (
+           {settings?.shop_section && (
           <section className="new-products md:my-20 my-10">
             <div className="container-fluid">
               <div className="py-4 pb-10 text-center flex justify-center flex-col">
@@ -161,6 +115,58 @@ export default async function Home() {
           </section>
         )}
 
+
+
+        {settings?.featured_products_section && (
+          <section className="new-products">
+            <div className="container">
+              <div className="py-10 text-center">
+                <h2 className="text-2xl pb-3">
+                  {translations["featured-products"] || "Featured Products"}
+                </h2>
+                <Link href="/featured-products" className="underline">
+                  Browse our featured products
+                </Link>
+              </div>
+
+              <div>
+                <Featured />
+              </div>
+            </div>
+          </section>
+        )}
+        {discountedProducts && (
+          <section className="discounted-products">
+            <div className="container">
+              <div className="py-10 text-center">
+                <h2 className="text-2xl pb-3">
+                  {translations["discounted-products"] || "Discounted Products"}
+                </h2>
+                <Link href="/products?is_discounted=1" className="underline">
+                  Browse our discounted products
+                </Link>
+              </div>
+
+              <div>
+                <ProductList products={discountedProducts} fixedItems={true} />
+              </div>
+            </div>
+          </section>
+        )}
+
+    
+
+        {settings?.video_section && (
+          <section className="video-banner mt-24">
+            <VideoBanner settings={settings} />
+          </section>
+        )}
+
+        <section className="home-category-products md:mt-20 mt-10">
+          <HomeCategoryProducts />
+        </section>
+
+       
         <GetDirectionSection />
         <GallerySection />
 
