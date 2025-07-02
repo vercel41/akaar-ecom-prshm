@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function ImageDescriptionSection({ featuredProducts }) {
+export default function FeaturedCategories({ featuredCategories }) {
   const [activeButton, setActiveButton] = useState(0) // Default to the first product
   // console.log(activeButton)
 
@@ -19,8 +19,8 @@ export default function ImageDescriptionSection({ featuredProducts }) {
             <AnimatePresence mode='wait'>
               <motion.img
                 key={activeButton}
-                src={featuredProducts[activeButton]?.image}
-                alt={`Image for ${featuredProducts[activeButton]?.category_name}`}
+                src={featuredCategories[activeButton]?.image}
+                alt={`Image for ${featuredCategories[activeButton]?.category_name}`}
                 className='w-full h-auto'
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -48,11 +48,11 @@ export default function ImageDescriptionSection({ featuredProducts }) {
                 // animate={{ opacity: 1, y: 0 }}
                 // transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
               >
-                {featuredProducts[activeButton]?.category_name}
+                {featuredCategories[activeButton]?.category_name}
               </p>
               <p
                 dangerouslySetInnerHTML={{
-                  __html: featuredProducts[activeButton]?.description || "No description available.",
+                  __html: featuredCategories[activeButton]?.description || "No description available.",
                 }}
               ></p>
             </div>
@@ -65,8 +65,8 @@ export default function ImageDescriptionSection({ featuredProducts }) {
         <AnimatePresence mode='wait'>
           <motion.img
             key={activeButton}
-            src={featuredProducts[activeButton]?.image}
-            alt={`Image for ${featuredProducts[activeButton]?.category_name}`}
+            src={featuredCategories[activeButton]?.image}
+            alt={`Image for ${featuredCategories[activeButton]?.category_name}`}
             className='w-full h-full object-cover'
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -91,7 +91,7 @@ export default function ImageDescriptionSection({ featuredProducts }) {
                 // animate={{ opacity: 1, y: 0 }}
                 // transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.03 }}
               >
-                {featuredProducts[activeButton]?.category_name}
+                {featuredCategories[activeButton]?.category_name}
               </h2>
               <p
                 className='mt-3 md:mt-5 text-sm tracking-normal'
@@ -99,7 +99,7 @@ export default function ImageDescriptionSection({ featuredProducts }) {
                 // animate={{ opacity: 1, y: 0 }}
                 // transition={{ duration: 0.1, ease: 'easeInOut', delay: 0.1 }}
               >
-                {featuredProducts[activeButton]?.category_name}
+                {featuredCategories[activeButton]?.category_name}
               </p>
             </div>
   
@@ -108,7 +108,7 @@ export default function ImageDescriptionSection({ featuredProducts }) {
 
       {/* Buttons */}
       <div className='flex overflow-x-auto mt-4 space-x-4 scrollbar-hide md:justify-center'>
-        {featuredProducts.map((product, index) => (
+        {featuredCategories.map((product, index) => (
           <motion.button
             key={index}
             onClick={() => handleButtonClick(index)}
