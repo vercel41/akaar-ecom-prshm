@@ -2,9 +2,10 @@ import { fetchData } from "@/lib/fetch-data";
 import ClientLoader from "./ClientLoader";
 import FacebookPixel from "./FacebookPixel";
 // import { useLocale } from "next-intl";
-
+import { GTM } from "./GTM";
 const ServerDataProvider = async () => {
 	// const locale = useLocale(); //Getting locale for client data fetch
+    const isGtmEnabled = process.env.NEXT_PUBLIC_GTM_ENABLED === "YES";
 
 	const [settingsRes, translationRes] = await Promise.allSettled([
 		fetchData({ api: `info/basic` }),
@@ -24,6 +25,8 @@ const ServerDataProvider = async () => {
 	// console.log(FB_PIXEL_ID);
 	// console.log(settings?.fb_pixel_id);
 
+  const GTM_ID = settings?.gtm_id;
+
 	return (
 		<>
 			{/* Loading setting for client uses */}
@@ -33,6 +36,7 @@ const ServerDataProvider = async () => {
 				// locale={locale}
 			/>
 			{FB_PIXEL_ID && <FacebookPixel fbPixelId={FB_PIXEL_ID} />}
+			{isGtmEnabled && GTM_ID && <GTM gtmId={GTM_ID} />}
 		</>
 	);
 };

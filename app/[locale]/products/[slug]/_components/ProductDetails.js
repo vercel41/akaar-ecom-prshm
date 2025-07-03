@@ -26,7 +26,9 @@ import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "@/components/modals/SizeChartModal";
 import { getFirstVariantOfColor } from "@/lib/product-variant";
 import SocialShare from "@/components/elements/SocialShare";
-
+import { usePathname } from "@/navigation";
+import { Cookies } from "@/utils/cookies";
+import { sendGTMEvent } from "@next/third-parties/google";
 const ProductDetails = ({ product, settings, translations, isLoading }) => {
   // console.log(product)
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -34,7 +36,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   const [selectedColor, setSelectedColor] = useState("");
   const productViewSwiperRef = useRef(null);
   const targetRef = useRef(null);
-
+	const pathname = usePathname();
   //used this to get first variant of selected color to display first variant prices
   // const firstVariantOfColor = null;
   const firstVariantOfColor = getFirstVariantOfColor(
@@ -63,6 +65,42 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
     }
   }, [product, isFbPixelInitialized]);
 
+   const gtmFlag = useRef(true);
+  useEffect(() => {
+    if (!product) return;
+    const payload = {
+      event: "view_item",
+      ecommerce: {
+        currency: "BDT", // Change to your store's currency
+        value: product.new_price, // Total value of the added item(s)
+        url: process.env.NEXT_PUBLIC_BASE_URL + pathname,
+        fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+        fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.product_name,
+            image: product.image,
+            price: product.new_price,
+            item_brand: product?.brand?.brand_name || "no-brand",
+            item_category: product?.category?.category_name,
+            item_category2: product?.sub_category?.category_name,
+            item_category3: product?.child_category?.category_name,
+            quantity: 1,
+          },
+        ],
+      },
+    };
+
+    //Client side tracking
+    if (gtmFlag.current && settings?.gtm_id) {
+      sendGTMEvent(payload);
+      // console.log("view_item occured"); // console success
+      gtmFlag.current = false;
+    }
+  }, [product, pathname, settings]);
+
+  
   return (
     <div className="">
       <div ref={targetRef} className="relative product-details">

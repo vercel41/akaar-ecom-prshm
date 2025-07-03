@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { getGTMFormattedCartItems } from "@/lib/gtm-data-formatter";
 import {
   getCartTotal,
   getCouponDiscount,
@@ -17,7 +17,8 @@ import CustomRadio from "@/components/elements/CustomRadio";
 import CouponModal from "@/components/modals/CouponModal";
 import RequireAuth from "@/components/hoks/RequireAuth";
 import * as pixel from "/lib/fpixel";
-
+import { Cookies } from "@/utils/cookies";
+import { sendGTMEvent } from "@next/third-parties/google";
 //Icons
 import { FiPlus } from "react-icons/fi";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -260,6 +261,31 @@ const Checkout = () => {
     setSelectedCity(option);
   };
 
+  // Google Tag Manager
+  const gtmFlag = useRef(true);
+  useEffect(() => {
+    if (cart.length === 0) return;
+    const formattedItems = getGTMFormattedCartItems(cart);
+    const payload = {
+      event: "begin_checkout",
+      ecommerce: {
+        currency: "BDT", // Change to your store's currency
+        value: total, // Total value of the added item(s)
+        fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+        fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+        items: formattedItems,
+      },
+    };
+
+    if (settings?.gtm_id && gtmFlag.current) {
+      sendGTMEvent(payload);
+      gtmFlag.current = false;
+      console.log("gtm begin_checkout occurred");
+      // console.log(formattedItems, "formattedItems")
+      // console.log(total, "total")
+    }
+
+  }, [cart, total, settings]);
   return (
     <section className=" pb-8 font-body tracking-normal">
       {/* <div className="breadcrumb breadcrumb-2 py-5 mt-8">

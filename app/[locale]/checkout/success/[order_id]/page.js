@@ -10,7 +10,10 @@ import { siteConfig } from "@/config/site";
 import useOrderSummary from "@/hooks/useOrderSummary";
 import { useSelector } from "react-redux";
 import * as pixel from "/lib/fpixel";
-
+import { Cookies } from "@/utils/cookies";
+import { sendGTMEvent } from "@next/third-parties/google";
+import { getGTMFormattedSaleProducts } from "@/lib/gtm-data-formatter";
+import { getPixelFormattedOrderItems } from "@/app/api/order-summary-show/[order_id]/helpers/format-items";
 const OrderSuccess = ({ params }) => {
   const { order_id } = params;
   const { order, loading, error } = useOrderSummary(order_id);
@@ -26,12 +29,48 @@ const OrderSuccess = ({ params }) => {
     if (isFbPixelInitialized && flag.current && order?.id) {
       pixel.event(
         "Purchase",
-        pixel.getPurchasedItemsPixelData(order.ordered_items, order.sub_total)
+        pixel.getPurchasedItemsPixelData(getPixelFormattedOrderItems(order.ordered_items), order.sub_total)
       );
       // console.log("purchase complete");
       flag.current = false;
     }
   }, [order, isFbPixelInitialized]);
+
+  
+  // Google Tag Manager
+  const gtmFlag = useRef(true);
+
+  useEffect(() => {
+    if(!settings?.gtm_id || !order?.id) return
+    // Check if product ID exists to avoid errors
+    const formattedItems = getGTMFormattedSaleProducts(order?.ordered_items);
+
+    const payload = {
+        event: "purchase",
+        ecommerce: {
+          transaction_id: order?.invoice_no,
+          tax: 0,
+          currency: "BDT", // Change to your store's currency
+          value: order?.sub_total, // Total value of the added item(s)
+          fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+          fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+          shipping: order?.shipping?.delivery_charge || 0,
+          items: formattedItems,
+        },
+        customer: order?.customer, // Customer details
+      }
+
+      console.log("purchase complete", payload);
+
+    //Client side tracking
+    if (gtmFlag.current) {
+      sendGTMEvent(payload);
+      gtmFlag.current = false;
+      console.log("GTM purchase complete event");
+    }
+
+
+  }, [order, settings]);
 
   return (
     <>

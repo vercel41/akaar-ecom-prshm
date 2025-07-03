@@ -32,7 +32,7 @@ export async function GET(request, { params }) {
 			total_amount: sale?.total_amount,
 			due_amount: sale?.due_amount,
 			paid_amount: sale?.paid_amount,
-			ordered_items: getPixelFormattedOrderItems(order?.saleProducts),
+			ordered_items: order?.saleProducts,
 			shipping: {
 				delivery_charge: sale?.shipping?.delivery_charge,
 			},
