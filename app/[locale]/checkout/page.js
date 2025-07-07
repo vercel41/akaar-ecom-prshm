@@ -357,13 +357,13 @@ const Checkout = () => {
           {/* Delivery Options  */}
           <div className="lg:order-2 px-3 lg:px-9 py-4">
             <h4 className="text-slate-700 font-bold">
-              {translations["select-delivery-area"] || "Select Delivery Area"}
+              {translations["select-delivery-area"] || " Delivery Area"}
             </h4>
             <div className="flex flex-col gap-3 pt-3">
               {deliveryAreas.map((area) => (
                 <button
                   key={area.key}
-                  className={`flex gap-2 items-center  ${
+                  className={`flex gap-2 items-center cursor-default  ${
                     area?.key === deliveryArea?.key
                       ? " border-2 border-primary "
                       : "border border-slate-300"
