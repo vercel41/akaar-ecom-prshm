@@ -72,8 +72,8 @@ const ProductCard = ({
           className={cn(
             `product-img overflow-hidden relative`,
             isSquareImage
-              ? "h-[141.5px] @[160px]:h-[161px] @[200px]:h-[207px] @[220px]:h-[242px] @[250px]:h-[260px] @[260px]:h-[271px]  @[300px]:h-[95vw]"
-              : "h-[200px] @[200px]:h-[270px] @[250px]:h-[340px]  @[300px]:h-[590px]"
+              ? "h-[250px] md:h-[350px] xl:h-[590px]"
+              : "h-[250px] md:h-[350px] xl:h-[590px]"
           )}
         >
           <Link
@@ -110,6 +110,11 @@ const ProductCard = ({
           {stock_qty === 0 && (
             <div className="absolute top-[45%] left-1/2 -translate-y-[45%] -translate-x-1/2 bg-white w-[60%] p-[.5rem] text-[.8rem] text-red-500 text-center">
               Out of stock
+            </div>
+          )}
+          {old_price && new_price && old_price > new_price && (
+            <div className="absolute px-1 py-0.5 pt-1 bg-white text-xs  bottom-2 left-2 z-20 discount-badge rounded text-[#ff0000]">
+              {getDiscountPercent(old_price, new_price)}% OFF
             </div>
           )}
         </div>

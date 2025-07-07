@@ -44,7 +44,7 @@
     @apply absolute top-0 left-[1/2] hidden text-sm text-white translate-x-[-50%]
   } */
 
-/*   .select {
+  /*   .select {
     @apply appearance-none bg-[url('/assets/images/icons/chv-down.svg')] bg-no-repeat bg-[length:24px_40px] bg-[right_1rem_center];
   }
  */
@@ -64,7 +64,7 @@
   }
   .container {
     /* @apply md:px-5 2xl:max-w-[1276px]; */
-    @apply px-5 2xl:max-w-[1820px] mx-auto;
+    @apply px-5  2xl:w-[1320px] xl:w-[1200px] mx-auto;
   }
 }
 
@@ -400,8 +400,6 @@
   animation: fadeIn 0.7s ease-in-out;
 }
 
-
-
 @keyframes pulse {
   0% {
     box-shadow: 0 0 4px #ffffff;
@@ -519,7 +517,6 @@
 }
 
 .scale-down {
-
 }
 
 .scale-active {
@@ -589,5 +586,3 @@
 .btn-secondary:hover {
   color: var(--btn-bg-color);
 }
-
-

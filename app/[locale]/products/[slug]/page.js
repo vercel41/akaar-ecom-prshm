@@ -46,31 +46,31 @@ const ProductView = async ({ params }) => {
   return (
     <>
       <ProductMicroData product={product} />
-      <div className="container">
-        <div className="breadcrumb breadcrumb-2 py-5 max-w-6xl mx-auto">
-          <div>
-            <Link
-              href={`/`}
-              className="text-base text-slate-600 hover:text-secondary"
-            >
-              {translations["home"] || "Home"}
-            </Link>
-            <Link
-              href={`/products`}
-              className="text-base text-slate-600 hover:text-secondary"
-            >
-              {translations["products"] || "Products"}
-            </Link>
-            <Link
-              href={`/products/${slug}`}
-              className={`text-base text-slate-900 hover:text-secondary`}
-            >
-              {getSlicedText(slug, 50)}
-            </Link>
-          </div>
+
+      <div className="breadcrumb container breadcrumb-2 py-5">
+        <div>
+          <Link
+            href={`/`}
+            className="text-base text-slate-600 hover:text-secondary"
+          >
+            {translations["home"] || "Home"}
+          </Link>
+          <Link
+            href={`/products`}
+            className="text-base text-slate-600 hover:text-secondary"
+          >
+            {translations["products"] || "Products"}
+          </Link>
+          <Link
+            href={`/products/${slug}`}
+            className={`text-base text-slate-900 hover:text-secondary`}
+          >
+            {getSlicedText(slug, 50)}
+          </Link>
         </div>
       </div>
-      <div className="container">
+
+      <div className="md:container">
         <ProductDetails
           translations={translations}
           product={product}

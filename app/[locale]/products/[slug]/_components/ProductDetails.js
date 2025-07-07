@@ -36,7 +36,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   const [selectedColor, setSelectedColor] = useState("");
   const productViewSwiperRef = useRef(null);
   const targetRef = useRef(null);
-	const pathname = usePathname();
+  const pathname = usePathname();
   //used this to get first variant of selected color to display first variant prices
   // const firstVariantOfColor = null;
   const firstVariantOfColor = getFirstVariantOfColor(
@@ -65,7 +65,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
     }
   }, [product, isFbPixelInitialized]);
 
-   const gtmFlag = useRef(true);
+  const gtmFlag = useRef(true);
   useEffect(() => {
     if (!product) return;
     const payload = {
@@ -100,12 +100,11 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
     }
   }, [product, pathname, settings]);
 
-  
   return (
     <div className="">
       <div ref={targetRef} className="relative product-details">
-        <div className="grid md:w-[62vw] w-full justify-center grid-cols-1 md:grid-cols-2 mx-auto ">
-          <div className="md:w-[470px] w-full ">
+        <div className="grid grid-cols-1 justify-center md:grid-cols-12 gap-4">
+          <div className="col-span-6 ">
             <div className="sticky top-32">
               <ProductViewSlider
                 product={product}
@@ -118,7 +117,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
             </div>
           </div>
 
-          <div className="md:w-[30vw] w-full ">
+          <div className="col-span-6 p-5 md:p-0">
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
                 <h5 className="font-noto_serif font-medium text-black ">

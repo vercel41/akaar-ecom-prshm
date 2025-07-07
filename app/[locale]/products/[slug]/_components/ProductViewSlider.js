@@ -115,7 +115,7 @@ const ProductViewSlider = forwardRef(
     const x = useTransform(scrollYProgress, [1, 1], ["1%", "1%"]);
 
     return (
-      <div className="">
+      <div className="md:flex  ">
         {open && (
           <ProductZoomYetAnother
             open={open}
@@ -127,8 +127,38 @@ const ProductViewSlider = forwardRef(
         )}
 
         {!loading ? (
-          <div className="">
-            <div className="preview-slider grid relative">
+          <div className="flex gap-4 max-h-[680px]  overflow-hidden">
+            <div className="thumb-slider hidden md:block">
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                direction="vertical"
+                slidesPerView={5}
+                spaceBetween={0}
+                modules={[Pagination]}
+                className="mySwiper"
+                watchSlidesProgress={true}
+              >
+                {slides.map((slide, idx) => (
+                  <SwiperSlide key={idx} className="!h-32 !w-24">
+                    <div
+                      className={`slider-image cursor-pointer w-full h-full border ${
+                        idx === index ? "border-blue-400" : "border-slate-100"
+                      }`}
+                      onClick={() => handleThumbnailClick(idx)}
+                    >
+                      <Image
+                        src={slide?.image}
+                        alt={`Thumbnail ${idx}`}
+                        width={96}
+                        height={96}
+                        className="w-full h-full p-1 object-cover object-top"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <div className="preview-slider grid md:w-[450px] w-full mx-auto relative">
               <Swiper
                 preventClicks={false}
                 preventClicksPropagation={false}
@@ -170,7 +200,7 @@ const ProductViewSlider = forwardRef(
                       //   shortDetails ? "md:!h-[28.75rem]" : "md:!h-[47rem]"
                       // } md:!w-full}
                     >
-                      <div className="slider-image h-full w-full relative group border-2 flex items-center rounded-md">
+                      <div className="slider-image h-full w-full relative group flex justify-center items-center rounded-md">
                         {isVideoSlide ? (
                           <>
                             <iframe
@@ -183,7 +213,7 @@ const ProductViewSlider = forwardRef(
                             />
                           </>
                         ) : (
-                          <div className="h-[670px]">
+                          <div className="h-full">
                             <Image
                               onClick={() => handleOpenZoom(idx)}
                               src={slide?.image}
@@ -202,36 +232,6 @@ const ProductViewSlider = forwardRef(
             </div>
 
             {/* Thumbnail Slider */}
-            <div className="thumb-slider">
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                slidesPerView={4}
-                spaceBetween={5}
-                modules={[Pagination]}
-                className="mySwiper"
-              >
-                <HorizontalScrollView>
-                  {slides.map((slide, idx) => (
-                    <SwiperSlide className="!w-24" key={idx}>
-                      <div
-                        className={`slider-image cursor-pointer mt-2 border rounded-lg ${
-                          idx === index ? "border-blue-500" : "border-slate-100"
-                        }`}
-                        onClick={() => handleThumbnailClick(idx)}
-                      >
-                        <Image
-                          src={slide?.image}
-                          alt={`Thumbnail ${idx}`}
-                          width={0}
-                          height={0}
-                          className="!w-24 !h-24 cursor-pointer p-2 object-cover object-top"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </HorizontalScrollView>
-              </Swiper>
-            </div>
           </div>
         ) : (
           <ProductViewSkeleton />
