@@ -72,8 +72,8 @@ const ProductCard = ({
           className={cn(
             `product-img overflow-hidden relative`,
             isSquareImage
-              ? "h-[250px] md:h-[350px] xl:h-[590px]"
-              : "h-[250px] md:h-[350px] xl:h-[590px]"
+              ? "h-[350px] md:h-[500px] xl:h-[600px]"
+              : "h-[350px] md:h-[500px] xl:h-[600px]"
           )}
         >
           <Link
@@ -113,7 +113,7 @@ const ProductCard = ({
             </div>
           )}
           {old_price && new_price && old_price > new_price && (
-            <div className="absolute px-1 py-0.5 pt-1 bg-white text-xs  bottom-2 left-2 z-20 discount-badge rounded text-[#ff0000]">
+            <div className="absolute flex items-center justify-center bg-white text-xs top-4 right-4 pt-0.5 z-20 discount-badge rounded text-[#ff0000] w-16 h-6">
               {getDiscountPercent(old_price, new_price)}% OFF
             </div>
           )}
@@ -144,7 +144,7 @@ const ProductCard = ({
                 currency: "USD",
               })}
             </span>
-            {old_price && new_price && old_price > new_price && (
+            {/* {old_price && new_price && old_price > new_price && (
               <div className="hidden md:flex items-center gap-2 text-[.9rem]">
                 <del className="font-normal old-price text-slate-400">
                   {siteConfig.currency.shortForm}
@@ -152,11 +152,8 @@ const ProductCard = ({
                     currency: "USD",
                   })}
                 </del>
-                <span className="discount-badge rounded text-[#ff0000] font-medium">
-                  {getDiscountPercent(old_price, new_price)}% OFF
-                </span>
               </div>
-            )}
+            )} */}
           </div>
         )}
 

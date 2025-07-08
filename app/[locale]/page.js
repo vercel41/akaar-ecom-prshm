@@ -98,7 +98,7 @@ export default async function Home() {
 
       {settings?.featured_products_section ? (
         <section className="new-products">
-          <div className="container">
+          <div className="container-fluid px-5">
             <div className="py-10 text-center">
               <h2 className="text-2xl pb-3">
                 {translations["featured-products"] || "Featured Products"}

@@ -8,12 +8,17 @@ import Image from "next/image";
 import { useRef } from "react";
 // import BackgroundVideo from "../CustomizedVideoPlayer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import Video from 'next-video';
+import Video from "next-video";
 // const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
-import BackgroundVideo from 'next-video/background-video';
+import BackgroundVideo from "next-video/background-video";
 
-
-const CategoryProducts = async ({ products, vdo_file, index, images, video_file }) => {
+const CategoryProducts = async ({
+  products,
+  vdo_file,
+  index,
+  images,
+  video_file,
+}) => {
   // console.log(video_file, "video_file");
   const targetRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
@@ -37,8 +42,11 @@ const CategoryProducts = async ({ products, vdo_file, index, images, video_file 
             url={vdo_file}
             className={`h-full w-full !object-cover object-center `}
           /> */}
-          <BackgroundVideo  height={`${isMobile ? "70vh" : "100vh"}`} src={video_file} />
-{/*           <BackgroundVideo
+          <BackgroundVideo
+            height={`${isMobile ? "70vh" : "100vh"}`}
+            src={video_file}
+          />
+          {/*           <BackgroundVideo
             videoLink={vdo_file}
             height={`${isMobile ? "26vh" : "100vh"}`}
             // style={{ border: "5px solid #ccc" }}
@@ -75,7 +83,7 @@ const CategoryProducts = async ({ products, vdo_file, index, images, video_file 
         <motion.div
           style={{ x }}
           className={cn(
-            `grid grid-cols-2 gap-7`,
+            `grid grid-cols-2 gap-8`,
             index % 2 === 0 ? "md:order-last" : "md:order-first"
           )}
         >
