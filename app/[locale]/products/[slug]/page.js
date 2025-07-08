@@ -47,30 +47,30 @@ const ProductView = async ({ params }) => {
     <>
       <ProductMicroData product={product} />
 
-      <div className="breadcrumb container breadcrumb-2 py-5">
+      <div className="breadcrumb w-fit breadcrumb-2 py-5 mb-3 mx-auto">
         <div>
           <Link
             href={`/`}
-            className="text-base text-slate-600 hover:text-secondary"
+            className="text-base text-slate-600 capitalize hover:text-secondary"
           >
             {translations["home"] || "Home"}
           </Link>
           <Link
             href={`/products`}
-            className="text-base text-slate-600 hover:text-secondary"
+            className="text-base text-slate-600 capitalize hover:text-secondary"
           >
             {translations["products"] || "Products"}
           </Link>
           <Link
             href={`/products/${slug}`}
-            className={`text-base text-slate-900 hover:text-secondary`}
+            className={`text-base text-slate-900 capitalize hover:text-secondary`}
           >
             {getSlicedText(slug, 50)}
           </Link>
         </div>
       </div>
 
-      <div className="md:container">
+      <div className="2xl:container px-5 2xl:px-0">
         <ProductDetails
           translations={translations}
           product={product}
