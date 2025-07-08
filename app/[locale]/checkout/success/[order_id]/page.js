@@ -29,38 +29,43 @@ const OrderSuccess = ({ params }) => {
     if (isFbPixelInitialized && flag.current && order?.id) {
       pixel.event(
         "Purchase",
-        pixel.getPurchasedItemsPixelData(getPixelFormattedOrderItems(order.ordered_items), order.sub_total)
+        pixel.getPurchasedItemsPixelData(
+          getPixelFormattedOrderItems(order?.ordered_items),
+          order.sub_total
+        ),
+        {
+          eventID: order.id, // to prevent duplicate events from conversations API
+        }
       );
       // console.log("purchase complete");
       flag.current = false;
     }
   }, [order, isFbPixelInitialized]);
 
-  
   // Google Tag Manager
   const gtmFlag = useRef(true);
 
   useEffect(() => {
-    if(!settings?.gtm_id || !order?.id) return
+    if (!settings?.gtm_id || !order?.id) return;
     // Check if product ID exists to avoid errors
     const formattedItems = getGTMFormattedSaleProducts(order?.ordered_items);
 
     const payload = {
-        event: "purchase",
-        ecommerce: {
-          transaction_id: order?.invoice_no,
-          tax: 0,
-          currency: "BDT", // Change to your store's currency
-          value: order?.sub_total, // Total value of the added item(s)
-          fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
-          fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
-          shipping: order?.shipping?.delivery_charge || 0,
-          items: formattedItems,
-        },
-        customer: order?.customer, // Customer details
-      }
+      event: "purchase",
+      ecommerce: {
+        transaction_id: order?.invoice_no,
+        tax: 0,
+        currency: "BDT", // Change to your store's currency
+        value: order?.sub_total, // Total value of the added item(s)
+        fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+        fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+        shipping: order?.shipping?.delivery_charge || 0,
+        items: formattedItems,
+      },
+      customer: order?.customer, // Customer details
+    };
 
-      console.log("purchase complete", payload);
+    console.log("purchase complete", payload);
 
     //Client side tracking
     if (gtmFlag.current) {
@@ -68,8 +73,6 @@ const OrderSuccess = ({ params }) => {
       gtmFlag.current = false;
       console.log("GTM purchase complete event");
     }
-
-
   }, [order, settings]);
 
   return (

@@ -29,6 +29,8 @@ import SocialShare from "@/components/elements/SocialShare";
 import { usePathname } from "@/navigation";
 import { Cookies } from "@/utils/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { useAddToTrackingMutation } from "@/store/api/serverSideTrackingAPI";
+import { generateUniqueId } from "@/utils/get-unique";
 const ProductDetails = ({ product, settings, translations, isLoading }) => {
   // console.log(product)
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -53,17 +55,35 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
     firstVariantOfColor?.selling_price ||
     product?.old_price;
 
+  //META PIXEL TRACKING CODE
+  const [AddToConversionAPI] = useAddToTrackingMutation();
   const { isFbPixelInitialized } = useSelector((state) => state.common);
   const flag = useRef(true);
+  const flag2 = useRef(true);
 
-  // //Facebook Pixel view content event
   useEffect(() => {
-    // Check if product ID exists to avoid errors
-    if (product && isFbPixelInitialized && flag.current) {
-      pixel.event("ViewContent", pixel.getProductPixelData(product));
+    if (!product) return;
+    const eventID = generateUniqueId();
+
+    if (isFbPixelInitialized && flag.current) {
+      pixel.event("ViewContent", pixel.getProductPixelData(product), {
+        eventID: eventID,
+      });
       flag.current = false;
     }
-  }, [product, isFbPixelInitialized]);
+    //For conversion API
+    if (settings?.fb_pixel_id && settings?.fb_access_token && flag2.current) {
+      AddToConversionAPI({
+        event_id: eventID,
+        event_name: "ViewContent",
+        product_ids: [product.id],
+        url: process.env.NEXT_PUBLIC_BASE_URL + pathname,
+        fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+        fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+      });
+      flag2.current = false;
+    }
+  }, [product, pathname, isFbPixelInitialized, settings, AddToConversionAPI]);
 
   const gtmFlag = useRef(true);
   useEffect(() => {
