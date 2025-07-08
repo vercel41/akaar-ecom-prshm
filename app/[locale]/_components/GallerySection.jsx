@@ -25,8 +25,10 @@ const GallerySection = () => {
 
   return (
     <div>
-      <div className="container">
-        <h2 className="text-2xl mb-8 text-center uppercase">{settings?.name} Gallery</h2>
+      <div className="mx-5">
+        <h2 className="text-2xl mb-8 text-center uppercase">
+          {settings?.name} Gallery
+        </h2>
 
         {open && (
           <ProductZoomYetAnother
