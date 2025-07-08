@@ -191,7 +191,7 @@ export default function MainNav({ settings, categories }) {
                   sticky || isHomePage
                     ? "bg-black text-white"
                     : "bg-white text-black"
-                } absolute top-1.5 right-1 w-4 h-4 text-[10px] flex items-center justify-center rounded-full leading-none`}
+                } absolute top-1.5 right-1 w-[18px] h-[18px] text-[11px] flex items-center justify-center rounded-full leading-none`}
                 style={{
                   border: `1px solid ${settings?.colors?.primary_text}`,
                 }}
@@ -231,7 +231,7 @@ export default function MainNav({ settings, categories }) {
                 <p
                   className={`absolute top-1.5 right-1 ${
                     sticky || isHomePage ? "bg-black " : "bg-white "
-                  } w-4 h-4 text-[10px] flex items-center justify-center rounded-full`}
+                  } w-[18px] h-[18px] text-[12px] flex items-center justify-center rounded-full`}
                   style={{
                     border: `1px solid ${settings?.colors?.primary_text}`,
                   }}
