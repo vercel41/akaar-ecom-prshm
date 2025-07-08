@@ -115,7 +115,7 @@ const ProductViewSlider = forwardRef(
     const x = useTransform(scrollYProgress, [1, 1], ["1%", "1%"]);
 
     return (
-      <div className="md:flex  ">
+      <div className="md:flex  justify-center items-center ">
         {open && (
           <ProductZoomYetAnother
             open={open}
@@ -127,7 +127,7 @@ const ProductViewSlider = forwardRef(
         )}
 
         {!loading ? (
-          <div className="flex gap-4 max-h-[680px]  overflow-hidden">
+          <div className="flex gap-4 max-h-[600px]  overflow-hidden">
             <div className="thumb-slider hidden md:block">
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -158,7 +158,7 @@ const ProductViewSlider = forwardRef(
                 ))}
               </Swiper>
             </div>
-            <div className="preview-slider grid md:w-[450px] w-full mx-auto relative">
+            <div className="preview-slider grid  w-[450px] mx-auto relative">
               <Swiper
                 preventClicks={false}
                 preventClicksPropagation={false}
@@ -195,6 +195,7 @@ const ProductViewSlider = forwardRef(
                   const isVideoSlide = idx === 0 && !!slide?.video_link;
                   return (
                     <SwiperSlide
+                      className="max-w-[450px] overflow-hidden"
                       key={idx}
                       // className={!h-[107vw] ${
                       //   shortDetails ? "md:!h-[28.75rem]" : "md:!h-[47rem]"
@@ -213,14 +214,14 @@ const ProductViewSlider = forwardRef(
                             />
                           </>
                         ) : (
-                          <div className="h-full">
+                          <div className="h-full w-full">
                             <Image
                               onClick={() => handleOpenZoom(idx)}
                               src={slide?.image}
                               alt=""
                               width={524}
                               height={524}
-                              className="object-cover h-full w-full "
+                              className="object-contain h-full w-full "
                             />
                           </div>
                         )}

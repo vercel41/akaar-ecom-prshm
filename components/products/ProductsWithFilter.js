@@ -33,7 +33,7 @@ const ProductsWithFilter = async ({ customSearchParams = {}, category }) => {
             <SortSelect />
           </div>
         </div>
-        <div className="lg:flex gap-4 container">
+        <div className="lg:flex gap-4 md:mx-[50px] ">
           <div className="hidden md:block">
             <ProductFilters category={category} />
           </div>

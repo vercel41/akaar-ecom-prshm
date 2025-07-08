@@ -249,11 +249,13 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
               {/* Add to cart section  */}
               {product.stock_qty > 0 ? (
-                <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)] mx-auto">
+                <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)]">
                   <div className="product-actions flex flex-col gap-4 justify-between items-center">
                     <button
                       className=" py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase btn btn-secondary"
-                      onClick={() => handleAddToCart(product, selectedVariant)}
+                      onClick={() => {
+                        handleAddToCart(product, selectedVariant);
+                      }}
                       style={{
                         "--btn-bg-color": settings?.colors?.primary,
                         "--btn-text-color": settings?.colors?.primary_text,
