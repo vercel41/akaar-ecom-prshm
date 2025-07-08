@@ -7,18 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/store/slices/cartSlice";
 import { setLoginModalOpen } from "@/store/slices/authSlice";
 import ResponsiveSearch from "./ResponsiveSearch";
-import useWishList from "@/hooks/useWishList";
-import LanguageSelector from "./LanguageSelector";
 import SidebarMenu from "@/components/side-drawers/SidebarMenu";
 import { useRouter } from "@/navigation";
-import {
-  HiOutlineHeart,
-  HiOutlineShoppingCart,
-  HiOutlineUser,
-} from "react-icons/hi2";
+import { HiOutlineUser } from "react-icons/hi2";
 import { HiMenuAlt1 } from "react-icons/hi";
-import { AiOutlineClose } from "react-icons/ai";
-import { LuSearch, LuUser2 } from "react-icons/lu";
+import { AiOutlineClose, AiOutlineShopping } from "react-icons/ai";
+import { LuUser2 } from "react-icons/lu";
 import useHover from "@/hooks/useHover";
 import useSticky from "@/hooks/useSticky";
 import CategoriesMegaMenu from "../CategoriesMegaMenu";
@@ -27,6 +21,7 @@ import Searchbar from "@/components/side-drawers/Searchbar";
 import TopBar from "../TopBar";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { IoSearchOutline } from "react-icons/io5";
 
 const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
   ssr: false,
@@ -34,14 +29,13 @@ const LoginModal = dynamic(() => import("../../../modals/login/LoginModal"), {
 
 export default function MainNav({ settings, categories }) {
   const { cart } = useSelector((state) => state.cart);
-const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
+  const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
   const { user, isLoginModalOpen } = useSelector((state) => state.auth);
   // const { getWishlistCount } = useWishList();
   const router = useRouter();
   const dispatch = useDispatch();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [searchbarOpen, setSearchbarOpen] = useState(false);
-
 
   // const wishlistCount = getWishlistCount();
   const { sticky } = useSticky(100);
@@ -55,7 +49,7 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
       dispatch(setLoginModalOpen(true));
     }
   };
-// console.log(settings)
+  // console.log(settings)
   return (
     <div
       // style={{
@@ -124,7 +118,11 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
                 )}
               >
                 <Image
-                  src={isMobile || isHomePage ? settings?.logo : settings?.footer_logo}
+                  src={
+                    isMobile || isHomePage
+                      ? settings?.logo
+                      : settings?.footer_logo
+                  }
                   alt={settings?.name}
                   width={200}
                   height={68}
@@ -132,27 +130,32 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
                 />
               </Link>
             )}
-            <div
-              className={cn("", sticky  ? "sm:block hidden" : "hidden ")}
-            >
-              <CategoriesMegaMenu settings={settings} categories={categories} sticky={sticky} />
+            <div className={cn("", sticky ? "sm:block hidden" : "hidden ")}>
+              <CategoriesMegaMenu
+                settings={settings}
+                categories={categories}
+                sticky={sticky}
+              />
             </div>
           </div>
 
-          <div className="header-actions items-center flex gap-2.5 lg:gap-5 opacity-70">
+          <div className="header-actions items-center flex gap-2.5 lg:gap-3 ">
             <button
-              className={`sm:inline-flex items-center gap-1.5 hidden ${sticky || isHomePage ? "text-black" : "text-white"} hover:opacity-60 transition-all duration-500  text-[1.1rem] font-noto_serif`}
+              className={`sm:inline-flex items-center gap-1.5 hidden ${
+                sticky || isHomePage ? "text-black" : "text-white"
+              } hover:opacity-60 transition-all duration-500  text-[1.1rem] font-noto_serif`}
               onClick={() => setSearchbarOpen(true)}
             >
-              <LuSearch size={22} />
-              Search
+              <IoSearchOutline size={24} />
             </button>
 
             {!settings?.guest_checkout && (
               <>
                 {!user ? (
                   <button
-                    className={`sm:inline-flex hidden items-center gap-1.5 uppercase ${sticky || isHomePage ? "text-black" : "text-white"} hover:opacity-60 transition-all duration-500 text-[1.1rem] font-noto_serif`}
+                    className={`sm:inline-flex hidden items-center gap-1.5 uppercase ${
+                      sticky || isHomePage ? "text-black" : "text-white"
+                    } hover:opacity-60 transition-all duration-500 text-[1.1rem] font-noto_serif`}
                     onClick={() => dispatch(setLoginModalOpen(true))}
                   >
                     <LuUser2 size={22} />
@@ -177,19 +180,24 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
             )}
             <button
               onClick={() => dispatch(toggleCart())}
-              className={`group relative single-action hidden lg:block text-black hover:opacity-60 transition-all duration-500 ${sticky || isHomePage ? "text-black" : "text-white"}`}
+              className={`group relative single-action hidden lg:block text-black  transition-all duration-500 ${
+                sticky || isHomePage ? "text-black" : "text-white"
+              }`}
             >
-              <HiOutlineShoppingCart size={24} />
-              {cart?.length && (
-                <span
-                  className="absolute -right-1 -top-1 border text-[10px] px-1 text-center rounded-full"
-                  style={{
-                    border: `1px solid ${settings?.colors?.primary_text}`,
-                  }}
-                >
-                  {cart?.length}
-                </span>
-              )}
+              <AiOutlineShopping size={26} />
+
+              <p
+                className={`${
+                  sticky || isHomePage
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                } absolute top-1.5 right-1 w-4 h-4 text-[12px] flex items-center justify-center rounded-full leading-none`}
+                style={{
+                  border: `1px solid ${settings?.colors?.primary_text}`,
+                }}
+              >
+                {cart?.length}
+              </p>
             </button>
             {/* {settings?.guest_checkout ? (
               <>
@@ -218,16 +226,18 @@ const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
               onClick={() => dispatch(toggleCart())}
               className="group relative single-action block lg:hidden text-black hover:opacity-60 transition-all duration-500"
             >
-              <HiOutlineShoppingCart size={24} />
+              <AiOutlineShopping size={26} />
               {cart?.length && (
-                <span
-                  className="absolute -right-1 -top-1 border text-[10px] px-1 text-center rounded-full"
+                <p
+                  className={`absolute top-1.5 right-1 ${
+                    sticky || isHomePage ? "bg-black " : "bg-white "
+                  } w-4 h-4 text-[12px] flex items-center justify-center rounded-full`}
                   style={{
                     border: `1px solid ${settings?.colors?.primary_text}`,
                   }}
                 >
                   {cart?.length}
-                </span>
+                </p>
               )}
             </button>
 
