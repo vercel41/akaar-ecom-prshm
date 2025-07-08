@@ -72,8 +72,8 @@ const ProductCard = ({
           className={cn(
             `product-img overflow-hidden relative`,
             isSquareImage
-              ? "h-[350px] md:h-[500px] xl:h-[600px]"
-              : "h-[350px] md:h-[500px] xl:h-[600px]"
+              ? "h-[300px] xl:h-[350px] 2xl:h-[600px]"
+              : "h-[300px] xl:h-[350px] 2xl:h-[600px]"
           )}
         >
           <Link
