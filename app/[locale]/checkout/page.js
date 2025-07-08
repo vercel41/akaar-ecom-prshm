@@ -30,14 +30,14 @@ import ShippingForm from "./ShippingForm";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { toast } from "react-toastify";
 import { cn } from "@/utils";
+import { useAddToTrackingMutation } from "@/store/api/serverSideTrackingAPI";
+import { generateUniqueId } from "@/utils/get-unique";
 
 const Checkout = () => {
   // Dynamic delivery charges
   const { settings, translations, isFbPixelInitialized } = useSelector(
     (state) => state.common
   );
-  const flag = useRef(true);
-  // console.log(settings);
   const deliveryAreas = [
     {
       key: `inside dhaka`,
@@ -185,7 +185,7 @@ const Checkout = () => {
 
     let phone = data?.phone;
     let alt_phone = data?.phone;
-    let fullAddress =`${data.address},  ${data.upazila}, ${data.city}`;
+    let fullAddress = `${data.address},  ${data.upazila}, ${data.city}`;
 
     //for authorized u
     if (!settings?.guest_checkout) {
@@ -230,16 +230,39 @@ const Checkout = () => {
   };
 
   // Facebook Pixel Initiate Checkout Event
+  const [AddToConversionAPI] = useAddToTrackingMutation();
+  const flag = useRef(true);
+  const flag2 = useRef(true);
+
+  // Facebook Pixel Initiate Checkout Event
   useEffect(() => {
+    if (cart.length === 0) return;
+
+    const eventID = generateUniqueId();
     // Check if product ID exists to avoid errors
-    if (isFbPixelInitialized && flag.current && cart.length > 0) {
+    if (isFbPixelInitialized && flag.current) {
       pixel.event(
         "InitiateCheckout",
-        pixel.getInitiateCheckoutPixelData(cart, total)
+        pixel.getInitiateCheckoutPixelData(cart, total),
+        {
+          eventID: eventID,
+        }
       );
       flag.current = false;
     }
-  }, [cart, total, isFbPixelInitialized]);
+
+    //For conversion API
+    if (settings?.fb_pixel_id && settings?.fb_access_token && flag2.current) {
+      AddToConversionAPI({
+        event_id: eventID,
+        event_name: "InitiateCheckout",
+        products: pixel.contentItems(cart),
+        fbp: Cookies.get("_fbp"), // Get Facebook Pixel cookie,
+        fbc: Cookies.get("_fbc"), // Get Facebook Click ID cookie
+      });
+      flag2.current = false;
+    }
+  }, [cart, total, isFbPixelInitialized, settings, AddToConversionAPI]);
 
   const isDisabled = !!(!cart?.length ||
   (settings?.terms_and_condition_link &&
@@ -284,7 +307,6 @@ const Checkout = () => {
       // console.log(formattedItems, "formattedItems")
       // console.log(total, "total")
     }
-
   }, [cart, total, settings]);
   return (
     <section className=" pb-8 font-body tracking-normal">
@@ -514,7 +536,7 @@ const Checkout = () => {
           {/* Payment Area  */}
           <div>
             {/* Payment Options Area */}
-            
+
             {deliveryArea ? (
               <div className="form-control">
                 <h4 className="text-slate-700 font-bold">
