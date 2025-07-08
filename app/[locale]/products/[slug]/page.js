@@ -51,19 +51,19 @@ const ProductView = async ({ params }) => {
         <div>
           <Link
             href={`/`}
-            className="text-base text-slate-600 capitalize hover:text-secondary"
+            className="text-base text-slate-600 lowercase hover:text-secondary"
           >
-            {translations["home"] || "Home"}
+            {translations["home"] || "home"}
           </Link>
           <Link
             href={`/products`}
-            className="text-base text-slate-600 capitalize hover:text-secondary"
+            className="text-base text-slate-600 lowercase hover:text-secondary"
           >
-            {translations["products"] || "Products"}
+            {translations["products"] || "products"}
           </Link>
           <Link
             href={`/products/${slug}`}
-            className={`text-base text-slate-900 capitalize hover:text-secondary`}
+            className={`text-base text-slate-900 lowercase hover:text-secondary`}
           >
             {getSlicedText(slug, 50)}
           </Link>
