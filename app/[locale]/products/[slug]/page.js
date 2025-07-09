@@ -81,7 +81,7 @@ const ProductView = async ({ params }) => {
       <section id="same-category-products">
         <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
           <div className="py-4 text-center flex sm:justify-between justify-center sm:flex-row flex-col">
-            <h2 className="sec-title !text-xl">
+            <h2 className="uppercase tracking-[3px] !text-xl">
               {translations["similar-products"] || "Similar Products"}
             </h2>
 
