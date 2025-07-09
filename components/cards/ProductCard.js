@@ -58,6 +58,7 @@ const ProductCard = ({
 
   if (loading) return <Loader />;
 
+  console.log(product_name);
   return (
     <MotionDiv
       initial="hidden"
@@ -113,7 +114,7 @@ const ProductCard = ({
             </div>
           )}
           {old_price && new_price && old_price > new_price && (
-            <div className="absolute flex items-center justify-center bg-white text-xs top-4 right-4 pt-0.5 z-20 discount-badge rounded text-[#ff0000] w-16 h-6">
+            <div className="absolute flex items-center justify-center whitespace-nowrap px-2 py-1  bg-white text-xs top-4 right-4 pt-0.5 z-20 discount-badge rounded text-[#ff0000] w-fit h-6">
               {getDiscountPercent(old_price, new_price)}% OFF
             </div>
           )}
@@ -121,20 +122,20 @@ const ProductCard = ({
       </div>
 
       <div className="product-content-wrap @container pt-6 grid place-items-center text-center">
-        <h2>
-          <Link
-            href={`/products/${slug}`}
-            className="product-title text-[.9rem] text-slate-900 font-body font-normal overflow-text !my-0 hover:text-primary"
-          >
+        <Link
+          href={`/products/${slug}`}
+          className=" overflow-hidden  product-title text-[.9rem] text-slate-900 font-body font-normal !my-0 hover:text-primary"
+        >
+          <h2 className=" max-w-[25ch] text-ellipsis overflow-hidden">
             {product_name}
-          </Link>
-        </h2>
+          </h2>
+        </Link>
 
-        {product?.sku && (
+        {/* {product?.sku && (
           <p className="text-[.85rem] text-[#8a8a8a]">
             Product Code {product.sku}
           </p>
-        )}
+        )} */}
 
         {showPrice && new_price !== undefined && (
           <div className="flex flex-col gap-2 mb-3 product-price md:flex-row font-noto_serif md:items-center">

@@ -14,7 +14,7 @@ import * as pixel from "/lib/fpixel";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { TbTag } from "react-icons/tb";
 import { IoCopy } from "react-icons/io5";
-import { BsFillTelephoneFill } from "react-icons/bs";
+import { BsFillTelephoneFill, BsPhone } from "react-icons/bs";
 import ProductViewSlider from "./ProductViewSlider";
 import { siteConfig } from "@/config/site";
 import { IoIosFlash } from "react-icons/io";
@@ -22,7 +22,7 @@ import { getDiscountPercent } from "@/utils/percent";
 import useCart from "@/hooks/useCart";
 import { useSelector } from "react-redux";
 import VideoPlayer from "@/components/elements/VideoPlayer";
-import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowForwardIos, MdEmail, MdPhoneIphone } from "react-icons/md";
 import SizeChartModal from "@/components/modals/SizeChartModal";
 import { getFirstVariantOfColor } from "@/lib/product-variant";
 import SocialShare from "@/components/elements/SocialShare";
@@ -31,6 +31,7 @@ import { Cookies } from "@/utils/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { useAddToTrackingMutation } from "@/store/api/serverSideTrackingAPI";
 import { generateUniqueId } from "@/utils/get-unique";
+import { TfiEmail } from "react-icons/tfi";
 const ProductDetails = ({ product, settings, translations, isLoading }) => {
   // console.log(product)
   const { handleAddToCart, handleAddAndCheckout } = useCart(); //custom hook for reusing
@@ -188,12 +189,16 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                 <hr className="h-[1px] bg-gray-300" />
 
                 {/* short description  */}
-                <ViewHTML
-                  htmlText={product?.product_short_description}
-                  className={"desc tracking-normal "}
-                />
+                {product?.product_short_description && (
+                  <>
+                    <ViewHTML
+                      htmlText={product?.product_short_description}
+                      className={"desc tracking-normal "}
+                    />
 
-                <hr className="h-[1px] bg-gray-300" />
+                    <hr className="h-[1px] bg-gray-300" />
+                  </>
+                )}
                 <div className="px-3 lg:px-0">
                   {!(
                     product.barcodes?.length === 1 &&
@@ -398,7 +403,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                     </div>
                   </div>
 
-                  <div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center w-full">
+                  {/* <div className="contact mt-5 bg-amber-200  border p-4 mb-4 text-center w-full">
                     <h5 className="text-xl font-bold font-noto_serif text-slate-900 mb-3">
                       {translations["call-now"] || "Call Now"}
                     </h5>
@@ -406,18 +411,52 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                       {/* <span className="text-base text-slate-900">
                 {translations["call-now"] || "Call Now"}:
               </span>{" "} */}
-                      <Link
+                  {/* <Link
                         href={`tel:${settings?.phone[0]}`}
                         className="text-xl font-bold font-noto_serif text-primary"
                       >
                         <BsFillTelephoneFill /> {settings?.phone[0]}
+                      </Link> */}
+                  {/* </p> */}
+                  {/* </div>  */}
+
+                  <SocialShare translations={translations} />
+
+                  <hr className="h-[1px] bg-gray-300" />
+
+                  <div className="space-y-4 mt-4 mx-1">
+                    <div className="flex items-center gap-2">
+                      <TfiEmail
+                        size={20}
+                        color="#313131"
+                        href={`mailto:${settings?.email}`}
+                        className="text-sm "
+                      />
+                      <Link
+                        href={`mailto:${settings?.email}`}
+                        className="text-gray-800"
+                      >
+                        {settings?.email}
                       </Link>
-                    </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <BsPhone
+                        size={22}
+                        color="#313131"
+                        href={`tel:${settings?.phone[0]}`}
+                        className="text-sm "
+                      />
+                      <Link
+                        href={`tel:${settings?.phone[0]}`}
+                        className="text-gray-800"
+                      >
+                        {settings?.phone[0]}
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <SocialShare translations={translations} />
+              <br />
             </div>
           </div>
         </div>

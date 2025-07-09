@@ -30,9 +30,9 @@ const ShareButton = ({
 }) => (
   <ButtonComponent
     url={url}
-    className="flex flex-col md:flex-row items-center mr-2 gap-3 my-3 "
+    className="flex flex-col md:flex-row items-center mr-2 my-3 "
   >
-    <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center bg-slate-50 hover:bg-hovercolor">
+    <div className="rounded-full w-[16px] h-[16px] flex justify-center items-center bg-slate-50 hover:bg-hovercolor">
       <IconComponent size={iconSize || 16} color={color} />
     </div>
   </ButtonComponent>
@@ -47,7 +47,10 @@ export default function SocialShare({ translations = {} }) {
 
   return (
     <div className="flex items-center">
-      <div className="flex items-center justify-center w-full lg:px-4 text-base">
+      <div className="flex items-center justify-start w-full gap-1 text-base">
+        <h4 className="uppercase text-xs text-gray-700">
+          {translations["share"] || "Share"}:
+        </h4>
         <ShareButton
           ButtonComponent={FacebookShareButton}
           IconComponent={FaFacebookF}

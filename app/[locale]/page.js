@@ -129,7 +129,7 @@ export default async function Home() {
       ) : null}
 
       {settings?.video_section ? (
-        <section className="video-banner mt-7">
+        <section className="video-banner mt-7 mb-5 md:mb-0">
           <VideoBanner settings={settings} />
         </section>
       ) : null}

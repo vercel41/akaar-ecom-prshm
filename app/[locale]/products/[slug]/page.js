@@ -47,7 +47,7 @@ const ProductView = async ({ params }) => {
     <>
       <ProductMicroData product={product} />
 
-      <div className="breadcrumb w-fit breadcrumb-2 py-5 mb-3 mx-auto">
+      <div className="breadcrumb  breadcrumb-2 py-5 mb-3 container px-10">
         <div>
           <Link
             href={`/`}

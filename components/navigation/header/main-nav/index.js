@@ -38,7 +38,7 @@ export default function MainNav({ settings, categories }) {
   const [searchbarOpen, setSearchbarOpen] = useState(false);
 
   // const wishlistCount = getWishlistCount();
-  const { sticky } = useSticky(100);
+  const { sticky } = useSticky(20);
   const pathname = usePathname();
   const isHomePage = pathname !== "/"; // Check if the current route is the home page
 
@@ -186,18 +186,20 @@ export default function MainNav({ settings, categories }) {
             >
               <AiOutlineShopping size={26} />
 
-              <p
-                className={`${
-                  sticky || isHomePage
-                    ? "bg-black text-white"
-                    : "bg-white text-black"
-                } absolute top-1.5 right-1 w-[18px] h-[18px] text-[11px] flex items-center justify-center rounded-full leading-none`}
-                style={{
-                  border: `1px solid ${settings?.colors?.primary_text}`,
-                }}
-              >
-                {cart?.length}
-              </p>
+              {cart?.length > 0 && (
+                <p
+                  className={`${
+                    sticky || isHomePage
+                      ? "bg-black text-white"
+                      : "bg-white text-black"
+                  } absolute top-1.5 right-1 w-[18px] h-[18px] text-[11px] flex items-center justify-center rounded-full leading-none`}
+                  style={{
+                    border: `1px solid ${settings?.colors?.primary_text}`,
+                  }}
+                >
+                  {cart?.length}
+                </p>
+              )}
             </button>
             {/* {settings?.guest_checkout ? (
               <>
@@ -227,10 +229,12 @@ export default function MainNav({ settings, categories }) {
               className="group relative single-action block lg:hidden text-black hover:opacity-60 transition-all duration-500"
             >
               <AiOutlineShopping size={26} />
-              {cart?.length && (
+              {cart?.length > 0 && (
                 <p
                   className={`absolute top-1.5 right-1 ${
-                    sticky || isHomePage ? "bg-black " : "bg-white "
+                    sticky || isHomePage
+                      ? "bg-black text-white "
+                      : "bg-black text-white"
                   } w-[18px] h-[18px] text-[12px] flex items-center justify-center rounded-full`}
                   style={{
                     border: `1px solid ${settings?.colors?.primary_text}`,

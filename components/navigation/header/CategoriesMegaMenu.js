@@ -44,7 +44,10 @@ export default function CategoriesMegaMenu({ settings, categories }) {
   }, []);
 
   return (
-    <div className={cn("border-b border-slate-200")} ref={megaMenuRef}>
+    <div
+      className={cn(`${!isHomePage ? "border-b border-slate-200" : ""}`)}
+      ref={megaMenuRef}
+    >
       <div className="container-fluid">
         <div className="!opacity-10"></div>
 

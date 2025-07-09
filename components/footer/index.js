@@ -214,7 +214,7 @@ const Footer = async () => {
         </div>
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
           <div className="w-full">
-            <p className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
+            <div className="text-xs md:text-sm font-normal font-body text-slate-400 text-center flex flex-wrap gap-5 items-center">
               {translations["copyright"]} {new Date().getFullYear()}{" "}
               {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
               <Link href="/" className="ml-1">
@@ -223,7 +223,7 @@ const Footer = async () => {
               </Link>
               <span className="mx-2">|</span>
               <div className="flex  items-center gap-1">
-                <p> Developed By</p>
+                <p className="text-xs md:text-sm"> Developed By</p>
 
                 <Link
                   href="https://amarsolution.com/"
@@ -239,7 +239,7 @@ const Footer = async () => {
                   />
                 </Link>
               </div>
-            </p>
+            </div>
           </div>
           {/* <div className="w-1/2">
             <Image src={sslImage} alt="no-image" className="object-contain" />

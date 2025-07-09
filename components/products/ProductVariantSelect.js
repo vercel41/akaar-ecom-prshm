@@ -187,7 +187,7 @@ const ProductVariantSelect = forwardRef(
                 <div
                   key={variant.id}
                   className={cn(
-                    `px-[3px] min-w-[30px] border h-[30px] font-semibold text-[.7rem] m-1 cursor-pointer  grid place-items-center transition-colors duration-500 `,
+                    `px-[3px] min-w-[38px] border h-[38px] font-semibold text-[.7rem] m-1 cursor-pointer  grid place-items-center transition-colors duration-500 `,
                     variant.stock_qty <= 0
                       ? "text-[#808080] cursor-default line-through"
                       : "text-black",
