@@ -137,27 +137,28 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
             </div>
           </div>
 
-          <div className="col-span-6 p-5 md:p-0">
+          <div className="col-span-5 p-5 md:p-0">
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
-                <h5 className="font-noto_serif font-medium text-black ">
+                <h5 className="tracking-[3px] text-lg font-medium text-black ">
                   {product?.brand?.brand_name
                     ? `${product?.brand?.brand_name} | `
                     : ""}{" "}
                   {getSlicedText(product?.product_name, 100)}
                 </h5>
 
-                <div className="flex items-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
+                {/* <div className="flex items-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
                   <span>Code:</span>
                   <span>{product?.sku}</span>
-                </div>
+                </div> */}
 
-                <div className="product-price items-center font-noto_serif gap-2 py-3 lg:py-5">
-                  <span className="font-semibold ">
-                    {siteConfig.currency.sign}{" "}
+                <div className="product-price items-center font-noto_serif gap-2 py-3">
+                  <span className="tracking-[3px] font-medium ">
+                    {siteConfig.currency.icon}
                     {newPrice.toLocaleString("en-US", {
                       currency: "USD",
                     }) || "0.00"}{" "}
+                    {siteConfig.currency.code}
                   </span>
                   {oldPrice > newPrice ? (
                     <div className="hidden md:flex items-center gap-2 text-[.9rem]">
@@ -184,7 +185,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                   ) : null}
                 </div>
 
-                <hr className="h-[2px] bg-black" />
+                <hr className="h-[1px] bg-gray-300" />
 
                 {/* short description  */}
                 <ViewHTML
@@ -192,8 +193,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                   className={"desc tracking-normal "}
                 />
 
-                <hr className="h-[2px] bg-black" />
-
+                <hr className="h-[1px] bg-gray-300" />
                 <div className="px-3 lg:px-0">
                   {!(
                     product.barcodes?.length === 1 &&
@@ -269,10 +269,10 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
 
               {/* Add to cart section  */}
               {product.stock_qty > 0 ? (
-                <div className="py-2 pt-6 lg:pt-8 lg:pb-4 w-[calc(100%-100px)]">
+                <div className="py-2 pt-6 lg:pt-8 lg:pb-4">
                   <div className="product-actions flex flex-col gap-4 justify-between items-center">
                     <button
-                      className=" py-2 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase btn btn-secondary"
+                      className=" py-2 px-2.5 w-full text-white  text-center active:scale-95 font-semibold uppercase btn btn-secondary"
                       onClick={() => {
                         handleAddToCart(product, selectedVariant);
                       }}
@@ -282,7 +282,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                       }}
                     >
                       {/* <HiOutlineShoppingCart size={24} /> */}
-                      <span>
+                      <span className="text-sm">
                         {translations["add-to-cart"] || "Add to cart"}
                       </span>
                     </button>
@@ -290,14 +290,16 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                       onClick={() =>
                         handleAddAndCheckout(product, selectedVariant)
                       }
-                      className="py-2 px-2.5 w-full text-[.8rem] text-center active:scale-95 uppercase btn btn-primary hover:text-white"
+                      className="py-2 px-2.5 w-full  text-center active:scale-95 uppercase btn btn-primary hover:text-white"
                       style={{
                         "--btn-bg-color": settings?.colors?.primary,
                         "--btn-text-color": settings?.colors?.secondary_text,
                       }}
                     >
                       {/* <IoIosFlash size={24} />{" "} */}
-                      <span>{translations["buy-now"] || "Buy now"}</span>
+                      <span className="text-sm">
+                        {translations["buy-now"] || "Buy now"}
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -312,9 +314,9 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
               {/* product details section  */}
 
               <div>
-                <div className=" lg:mt-5 mt-5">
+                <div className="">
                   {/* Product Descriptions */}
-                  <div className="pt-3 lg:pt-4 pb-2 lg:pb-4  gap-10 lg:gap-28 lg:gap-y-14">
+                  <div className=" pb-2 lg:pb-4  gap-10 lg:gap-28 lg:gap-y-14">
                     <div>
                       {/* short description  */}
                       {/* {product?.product_short_description && (
@@ -327,11 +329,11 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                       <div>
                         {product?.details && (
                           <div className="description">
-                            <h4 className="text-xl font-bold font-noto_serif text-slate-900">
+                            {/* <h4 className="text-xl font-medium text-slate-900">
                               {translations["product-description"] ||
                                 "Description"}
                               :
-                            </h4>
+                            </h4> */}
                             <ViewHTML
                               htmlText={product?.details}
                               className={"tracking-normal"}

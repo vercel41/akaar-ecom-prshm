@@ -166,9 +166,9 @@ const ProductVariantSelect = forwardRef(
 
         {/* size section */}
         {colorsGroup[selectedColor]?.some((variant) => variant.size !== "") ? (
-          <div className="product-size mt-10 border-b border-black pb-2">
+          <div className="product-size mt-10 border-b border-gray-300  pb-2">
             <div className="font-normal flex justify-between items-center">
-              <h4 className="text-[#0a0a0a] text-[.8rem] font-bold">
+              <h4 className="text-[#0a0a0a]  text-sm font-medium">
                 {translations["select-variant"] || "Select Size"}
               </h4>
               {size_cart && (
@@ -176,7 +176,7 @@ const ProductVariantSelect = forwardRef(
                   className="text-black flex items-center text-[.8rem] underline"
                   onClick={() => handleOpenZoom(0)}
                 >
-                  <span>
+                  <span className="text-sm">
                     {translations["View size guide"] || "View size guide"}
                   </span>
                 </button>
@@ -187,13 +187,13 @@ const ProductVariantSelect = forwardRef(
                 <div
                   key={variant.id}
                   className={cn(
-                    `px-[3px] min-w-[30px] h-[30px] font-semibold text-[.7rem] m-1 cursor-pointer hover:bg-black hover:text-white grid place-items-center transition-colors duration-500 `,
+                    `px-[3px] min-w-[30px] border h-[30px] font-semibold text-[.7rem] m-1 cursor-pointer  grid place-items-center transition-colors duration-500 `,
                     variant.stock_qty <= 0
-                      ? "hover:bg-[#808080] hover:text-white text-[#808080] cursor-default line-through"
+                      ? "text-[#808080] cursor-default line-through"
                       : "text-black",
                     selectedVariant &&
                       selectedVariant.id === variant.id &&
-                      "bg-black text-white"
+                      "border-black text-black"
                   )}
                   onClick={() => handleVariantSelect(variant)}
                 >
