@@ -26,24 +26,26 @@ const page = async ({ params, searchParams }) => {
         {category.image ? (
           <div
             style={{ backgroundImage: `url(${category.image})` }}
-            className="hidden lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] breadcrumb py-20"
+            className="hidden lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] py-20"
           >
             <div className="container text-white flex flex-col justify-center items-center gap-2">
               <h2 className="text-xl md:text-2xl text-center uppercase">
                 {category.category_name}
               </h2>
-              <div className="breadcrumb breadcr">
+              <div className="text-sm">
                 <div className="w-fit mx-auto">
                   <div>
-                    <Link href={`/`} className="text-base ">
+                    <Link href={`/`} className="text-sm ">
                       Home
                     </Link>
-                    <Link href={`/categories`} className="text-base ">
+                    <span className="mx-2">|</span>
+                    <Link href={`/categories`} className="text-sm ">
                       All Categories
                     </Link>
+                    <span className="mx-2">|</span>
                     <Link
                       href={`/categories/${category.slug}`}
-                      className={`text-base `}
+                      className={`text-sm `}
                     >
                       {category.category_name}
                     </Link>
@@ -57,24 +59,26 @@ const page = async ({ params, searchParams }) => {
             <h2 className="text-xl md:text-2xl text-center uppercase">
               {category.category_name}
             </h2>
-            <div className="breadcrumb breadcrumb-2">
+            <div className="text-sm">
               <div className="w-fit mx-auto">
                 <div>
                   <Link
                     href={`/`}
-                    className="text-base text-slate-600 hover:text-secondary"
+                    className="text-sm text-slate-600 hover:text-secondary"
                   >
                     Home
                   </Link>
+                  <span className="mx-2">|</span>
                   <Link
                     href={`/categories`}
-                    className="text-base text-slate-600 hover:text-secondary"
+                    className="text-sm text-slate-600 hover:text-secondary"
                   >
                     All Categories
                   </Link>
+                  <span className="mx-2">|</span>
                   <Link
                     href={`/categories/${category.slug}`}
-                    className={`text-base text-slate-900 hover:text-secondary`}
+                    className={`text-sm text-slate-600 hover:text-secondary`}
                   >
                     {category.category_name}
                   </Link>

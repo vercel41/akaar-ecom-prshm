@@ -32,7 +32,6 @@ const ProductView = async ({ params }) => {
   };
 
   const isLoading = productRes.status !== "fulfilled" ? true : false;
-
   // Prepare visited product data
   const visitedProduct = {
     id: product?.id,
@@ -47,23 +46,25 @@ const ProductView = async ({ params }) => {
     <>
       <ProductMicroData product={product} />
 
-      <div className="breadcrumb  breadcrumb-2 py-5 mb-3 container px-10">
-        <div>
+      <div className=" py-3 mb-3 container px-10">
+        <div className="text-sm">
           <Link
             href={`/`}
-            className="text-base text-slate-600 capitalize hover:text-secondary"
+            className="text-sm text-slate-600 capitalize hover:text-secondary"
           >
             {translations["home"] || "home"}
           </Link>
+          <span className="mx-2">|</span>
           <Link
             href={`/products`}
-            className="text-base text-slate-600 capitalize hover:text-secondary"
+            className="text-sm text-slate-600 capitalize hover:text-secondary"
           >
             {translations["products"] || "products"}
           </Link>
+          <span className="mx-2">|</span>
           <Link
             href={`/products/${slug}`}
-            className={`text-base text-slate-900 capitalize hover:text-secondary`}
+            className={`text-sm text-slate-900 capitalize hover:text-secondary`}
           >
             {getSlicedText(slug, 50)}
           </Link>

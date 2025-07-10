@@ -73,8 +73,8 @@ const ProductCard = ({
           className={cn(
             `product-img overflow-hidden relative`,
             isSquareImage
-              ? "h-[300px] xl:h-[350px] 2xl:h-[550px]"
-              : "h-[300px] xl:h-[350px] 2xl:h-[550px]"
+              ? "h-[300px]  2xl:h-[500px]"
+              : "h-[300px]  2xl:h-[500px]"
           )}
         >
           <Link
@@ -82,7 +82,7 @@ const ProductCard = ({
             className="block relative w-full h-full group"
           >
             <Image
-              className="rounded-md default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out"
+              className=" default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out"
               src={image || noImage}
               alt={product_name}
               priority={false}
@@ -95,7 +95,7 @@ const ProductCard = ({
 
             {hover_image && (
               <Image
-                className=" rounded-md hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
+                className=" hover-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[900ms] ease-in-out opacity-0 group-hover:opacity-100"
                 src={hover_image}
                 alt={product_name}
                 priority={false}
@@ -145,8 +145,8 @@ const ProductCard = ({
                 currency: "USD",
               })}
             </span>
-            {/* {old_price && new_price && old_price > new_price && (
-              <div className="hidden md:flex items-center gap-2 text-[.9rem]">
+            {old_price && new_price && old_price > new_price && (
+              <div className="flex items-center gap-2 text-[.9rem]">
                 <del className="font-normal old-price text-slate-400">
                   {siteConfig.currency.shortForm}
                   {old_price.toLocaleString("en-US", {
@@ -154,7 +154,7 @@ const ProductCard = ({
                   })}
                 </del>
               </div>
-            )} */}
+            )}
           </div>
         )}
 

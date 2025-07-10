@@ -292,6 +292,7 @@
 
 import CustomRadio from "@/components/elements/CustomRadio";
 import FieldsetInput from "@/components/elements/FieldsetInput";
+import FieldsetTextarea from "@/components/elements/FieldsetTextArea";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/utils";
@@ -324,6 +325,7 @@ const ShippingForm = ({
           <>
             <div className="form-control mb-6">
               <FieldsetInput
+                required
                 label={`${translations["name"] || "Name"}`}
                 name="name"
                 defaultValue={user?.name}
@@ -336,7 +338,8 @@ const ShippingForm = ({
 
             <div className="form-control mb-6">
               <FieldsetInput
-                label={`${translations["phone-number"] || "Phone Number"}`}
+                required
+                label={`${translations["Phone Number"] || "Phone Number"}`}
                 name="phone"
                 defaultValue={user?.phone || user?.alt_phone_no}
                 register={register("phone", {
@@ -354,7 +357,8 @@ const ShippingForm = ({
             </div>
 
             <div className="form-control mb-6">
-              <FieldsetInput
+              <FieldsetTextarea
+                required
                 label={translations["address"] || "Address"}
                 name="address"
                 defaultValue={user?.address}
@@ -367,7 +371,7 @@ const ShippingForm = ({
               )}
             </div>
 
-            <div className="form-control mb-6">
+            {/* <div className="form-control mb-6">
               <FieldsetInput
                 label={translations["city"] || "City"}
                 name="city"
@@ -377,20 +381,29 @@ const ShippingForm = ({
                 })}
               />
               {errors.city && <p className="errorMsg">{errors.city.message}</p>}
-            </div>
+            </div> */}
 
-            <div className="form-control mb-6">
+            {/* <div className="form-control mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {translations["note"] || "Note"}
               </label>
               <textarea
-                rows={5}
+                rows={1}
                 placeholder="Notes about your order, e.g. special notes for delivery"
                 className="resize-none py-[10px] px-5 w-full text-[15px] placeholder:text-[#666666] focus:border-primary duration-500"
                 {...register("note")}
               ></textarea>
 
               {/* Delivery Area */}
+            {/* </div>  */}
+            <div className="form-control mb-6">
+              <FieldsetInput
+                label={translations["note"] || "Note"}
+                name="note"
+                defaultValue={user?.note}
+                register={register("note")}
+              />
+              {errors.note && <p className="errorMsg">{errors.note.message}</p>}
             </div>
             {deliveryAreas && (
               <div className="lg:order-2 py-4">

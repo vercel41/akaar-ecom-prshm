@@ -14,7 +14,7 @@ const page = async ({ params, searchParams }) => {
     <>
       {settings?.all_product_banner ? (
         <div
-          className="hidden  text-white lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] breadcrumb py-20"
+          className="hidden  text-white lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] py-20"
           style={{
             backgroundImage: `url(${settings?.all_product_banner})`,
           }}
@@ -23,13 +23,14 @@ const page = async ({ params, searchParams }) => {
             <h2 className="text-xl md:text-2xl text-center uppercase">
               {searchParams?.is_discounted ? "Discounted " : ""}Products
             </h2>
-            <div className="breadcrumb">
+            <div className="">
               <div className="w-fit mx-auto">
                 <div>
-                  <Link href={`/`} className="text-base text-white ">
+                  <Link href={`/`} className="text-sm text-white ">
                     Home
                   </Link>
-                  <Link href={`/products`} className="text-base text-white">
+                  <span className="mx-2">|</span>
+                  <Link href={`/products`} className="text-sm text-white">
                     {searchParams?.is_discounted ? "Discounted " : "All "}
                     Products
                   </Link>
@@ -44,18 +45,20 @@ const page = async ({ params, searchParams }) => {
             <h2 className="text-xl md:text-2xl text-center uppercase">
               {searchParams?.is_discounted ? "Discounted " : ""}Products
             </h2>
-            <div className="breadcrumb breadcrumb-2">
+
+            <div className="text-sm">
               <div className="w-fit mx-auto">
                 <div>
                   <Link
                     href={`/`}
-                    className="text-base text-slate-600 hover:text-secondary"
+                    className="text-sm text-slate-600 hover:text-secondary"
                   >
                     Home
                   </Link>
+                  <span className="mx-2">|</span>
                   <Link
                     href={`/products`}
-                    className="text-base text-slate-600 hover:text-secondary"
+                    className="text-sm text-slate-600 hover:text-secondary"
                   >
                     {searchParams?.is_discounted ? "Discounted " : "All "}
                     Products

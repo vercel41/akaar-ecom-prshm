@@ -1,9 +1,9 @@
-import useLockedBody from "@/hooks/useLockedBody";
+// import useLockedBody from "@/hooks/useLockedBody";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 const DrawerRight = ({ title, children, show, setShow }) => {
-  useLockedBody(show); // Lock the body when the drawer is open
+  // useLockedBody(show); // Lock the body when the drawer is open
   return (
     <>
       {/* Backdrop */}

@@ -907,7 +907,7 @@ const Checkout = () => {
 
     let phone = data?.phone;
     let alt_phone = data?.phone;
-    let fullAddress = data.address + ", " + data.city;
+    let fullAddress = data.address;
 
     //for authorized u
     if (!settings?.guest_checkout) {
@@ -945,7 +945,7 @@ const Checkout = () => {
         ...user,
         alt_phone_no: user?.alt_phone_no || data?.phone,
         address: user.address || data?.address,
-        city: data?.city,
+        // city: data?.city,
       });
     }
     // else alert("user not updated");
@@ -1049,18 +1049,19 @@ const Checkout = () => {
           <h2 className="text-xl md:text-2xl text-center uppercase">
             Checkout
           </h2>
-          <div className="breadcrumb breadcrumb-2">
+          <div className="">
             <div className="container w-fit mx-auto">
               <div>
                 <Link
                   href={`/`}
-                  className="text-base text-slate-600 hover:text-secondary capitalize"
+                  className="text-sm text-slate-600 hover:text-secondary capitalize"
                 >
                   {translations["home"] || "Home"}
                 </Link>
+                <span className="text-sm">|</span>
                 <Link
                   href={`/checkout`}
-                  className="text-base text-slate-600 hover:text-secondary"
+                  className="text-sm text-slate-600 hover:text-secondary"
                 >
                   {translations["checkout"] || "Checkout"}
                 </Link>
@@ -1239,7 +1240,7 @@ const Checkout = () => {
             />
           )}
           {/* Payment Area  */}
-          <div>
+          <div className="lg:px-6">
             {/* Payment Options Area */}
             {deliveryArea ? (
               <div className="form-control">
@@ -1320,7 +1321,7 @@ const Checkout = () => {
             )}
           </div>
           {/* Order Now Button  */}
-          <div className="form-control mt-7">
+          <div className="form-control mt-7   lg:px-6">
             {settings?.terms_and_condition_link &&
             settings?.terms_and_condition_link !== "#" ? (
               <div className="grid grid-cols-[20px_1fr] items-start  mb-4">

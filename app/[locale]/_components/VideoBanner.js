@@ -1,15 +1,15 @@
-"use client";
-import { fetchData } from "@/lib/fetch-data";
-import VideoPlayer from "@/components/elements/VideoPlayer";
+// "use client";
+// import { fetchData } from "@/lib/fetch-data";
+// import VideoPlayer from "@/components/elements/VideoPlayer";
 // import BackgroundVideo from "./CustomizedVideoPlayer";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import BackgroundVideo from "next-video/background-video";
+// import { useMediaQuery } from "@/hooks/useMediaQuery";
+// import BackgroundVideo from "next-video/background-video";
 // const backgroundVideo = "/assets/videos/backgroundvidoe.mp4";
-const VideoBanner = async ({ settings }) => {
+const VideoBanner = ({ settings }) => {
   // console.log(settings, "settings");
   // const isMobile = useMediaQuery("(max-width: 768px)");
 
-  console.log(settings, "settings?.review_video_link");
+  // console.log(settings, "settings?.review_video_link");
   if (!settings?.review_video_file) return null;
 
   return (

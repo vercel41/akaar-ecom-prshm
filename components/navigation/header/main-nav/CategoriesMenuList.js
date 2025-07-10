@@ -104,7 +104,7 @@ const CategoriesMenuList = ({ setShow, categories }) => {
           </div>
         </div>
       ))}
-
+{/* new bug here need to fix */}
       <DrawerRight
         show={isDrawerOpen}
         setShow={handleCloseDrawer}
