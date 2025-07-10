@@ -92,10 +92,9 @@
 //     );
 //   };
 
-
 //   const filterUpazilaByDistrict = () => {
 //   const filter = upazilaSearch.toUpperCase();
-  
+
 //   const district = UpazilaData.find(
 //     (item) => item.district_id === selectedDistrictId?.toString()
 //   );
@@ -164,10 +163,10 @@
 //                     setSearchTerm(value);
 //                     setIsOpen(true);
 //                     if (value.trim() === "") {
-//                       setSelectedDistrictId(null); 
-//                       setUpazilaSearch("");        
-//                       setValue("city", "");       
-//                       setValue("upazila", "");    
+//                       setSelectedDistrictId(null);
+//                       setUpazilaSearch("");
+//                       setValue("city", "");
+//                       setValue("upazila", "");
 //                     }
 //                   }}
 
@@ -291,11 +290,11 @@
 
 // export default ShippingForm;
 
-
-
+import CustomRadio from "@/components/elements/CustomRadio";
 import FieldsetInput from "@/components/elements/FieldsetInput";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/utils";
 
 const ShippingForm = ({
   register,
@@ -305,6 +304,10 @@ const ShippingForm = ({
   user,
   isLoading,
   translations,
+  deliveryAreas,
+  handleDeliveryAreaChange,
+  deliveryArea,
+  deliveryCharge,
 }) => {
   return (
     <div className="px-6">
@@ -386,7 +389,47 @@ const ShippingForm = ({
                 className="resize-none py-[10px] px-5 w-full text-[15px] placeholder:text-[#666666] focus:border-primary duration-500"
                 {...register("note")}
               ></textarea>
+
+              {/* Delivery Area */}
             </div>
+            {deliveryAreas && (
+              <div className="lg:order-2 py-4">
+                <h4 className="text-slate-700 font-bold">
+                  {translations["select-delivery-area"] ||
+                    "Select Delivery Area"}
+                </h4>
+                <div className="flex flex-col gap-3 pt-3">
+                  {deliveryAreas.map((area) => (
+                    <button
+                      type="button"
+                      key={area.key}
+                      className="flex gap-2 items-center border border-slate-200 p-3"
+                      onClick={() => handleDeliveryAreaChange(area)}
+                    >
+                      <CustomRadio
+                        isChecked={deliveryArea?.key === area.key}
+                        label={area.title}
+                        // onClick={() => setDeliveryArea(area)}
+                      />
+                      <p
+                        className={cn(
+                          `font-semibold`,
+                          !deliveryCharge && deliveryArea && "line-through"
+                        )}
+                      >
+                        {siteConfig.currency.sign}
+                        {area.charges}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+                {!deliveryArea && (
+                  <p id="deliveryAreaError" className="hidden errorMsg">
+                    You must select delivery area
+                  </p>
+                )}
+              </div>
+            )}
           </>
         )}
 

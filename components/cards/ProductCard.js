@@ -58,7 +58,7 @@ const ProductCard = ({
 
   if (loading) return <Loader />;
 
-  console.log(product_name);
+  // console.log(product_name);
   return (
     <MotionDiv
       initial="hidden"
@@ -124,7 +124,7 @@ const ProductCard = ({
       <div className="product-content-wrap @container pt-6 grid place-items-center text-center">
         <Link
           href={`/products/${slug}`}
-          className=" overflow-hidden  product-title text-[.9rem] text-slate-900 font-body font-normal !my-0 hover:text-primary"
+          className=" overflow-hidden  product-title text-[.8rem] md:text-[.9rem]  text-slate-900 font-body font-normal !my-0 hover:text-primary"
         >
           <h2 className=" max-w-[25ch] text-ellipsis overflow-hidden">
             {product_name}

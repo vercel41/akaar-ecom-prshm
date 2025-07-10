@@ -717,8 +717,6 @@
 
 // export default RequireAuth(Checkout);
 
-
-
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -900,6 +898,7 @@ const Checkout = () => {
       return;
     }
 
+    console.log();
     if (!selectedPaymentOption) {
       document.getElementById("paymentOptionError").classList.remove("hidden");
       toast.error("Please select payment option");
@@ -952,7 +951,7 @@ const Checkout = () => {
     // else alert("user not updated");
   };
 
-// Facebook Pixel Initiate Checkout Event
+  // Facebook Pixel Initiate Checkout Event
   const [AddToConversionAPI] = useAddToTrackingMutation();
   const flag = useRef(true);
   const flag2 = useRef(true);
@@ -987,7 +986,7 @@ const Checkout = () => {
     }
   }, [cart, total, isFbPixelInitialized, settings, AddToConversionAPI]);
 
-   // Google Tag Manager
+  // Google Tag Manager
   const gtmFlag = useRef(true);
   useEffect(() => {
     if (cart.length === 0) return;
@@ -1080,15 +1079,16 @@ const Checkout = () => {
           handleCheckoutSubmit={handleCheckoutSubmit}
           user={user}
           translations={translations}
+          deliveryAreas={deliveryAreas}
+          handleDeliveryAreaChange={handleDeliveryAreaChange}
+          deliveryArea={deliveryArea}
+          deliveryCharge={deliveryCharge}
         />
       )}
       <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto px-6">
-        <div
-          id="checkout-left"
-          className="border border-slate-200 grid grid-cols-1"
-        >
+        <div id="checkout-left" className="border border-slate-200 ">
           {/* Delivery Options  */}
-          <div className="lg:order-2 px-3 lg:px-9 py-4">
+          {/* <div className="lg:order-2 px-3 lg:px-9 py-4">
             <h4 className="text-slate-700 font-bold">
               {translations["select-delivery-area"] || "Select Delivery Area"}
             </h4>
@@ -1121,7 +1121,7 @@ const Checkout = () => {
                 You must select delivery area
               </p>
             )}
-          </div>
+          </div> */}
 
           {/* Cart Items  */}
           <div className="lg:order-1">
@@ -1131,7 +1131,7 @@ const Checkout = () => {
                 {translations["item-in-your-bag"] || "item in your bag"}
               </h3>
             </div>
-            <div className="border-b border-slate-200 p-3 lg:p-5">
+            <div className=" border-slate-200 p-3 lg:p-5">
               <div className="">
                 {cartItems.map((item, index) =>
                   index == 2 && !orderCollapsed ? (
@@ -1232,6 +1232,10 @@ const Checkout = () => {
               handleCheckoutSubmit={handleCheckoutSubmit}
               user={user}
               translations={translations}
+              deliveryAreas={deliveryAreas}
+              handleDeliveryAreaChange={handleDeliveryAreaChange}
+              deliveryArea={deliveryArea}
+              deliveryCharge={deliveryCharge}
             />
           )}
           {/* Payment Area  */}
