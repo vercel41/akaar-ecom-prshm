@@ -59,11 +59,7 @@ const CheckoutWithOutAreaSelect = () => {
   ];
 
   // --------------------DEFAULT DELIVERY AREA STATE----------------------
-  const [deliveryArea, setDeliveryArea] = useState({
-    key: `inside dhaka`,
-    title: `Inside ${settings?.delivery_region || "Dhaka"}`,
-    charges: settings?.inside_dhaka_delivery_charges,
-  });
+  const [deliveryArea, setDeliveryArea] = useState(deliveryAreas[1]);
 
   const [isDeliveryChargeRequired, setIsDeliveryChargeRequired] =
     useState(false);
