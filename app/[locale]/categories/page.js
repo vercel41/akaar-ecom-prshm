@@ -61,7 +61,7 @@ const page = async ({ searchParams }) => {
           </div>
         </div>
       ) : (
-        <div className="md:py-12 py-8 border-y border-gray-300">
+        <div className="md:py-12 py-8 border-b border-gray-300">
           <div className="container flex flex-col justify-center items-center gap-2">
             <h2 className="text-xl md:text-2xl text-center uppercase">
               Categories

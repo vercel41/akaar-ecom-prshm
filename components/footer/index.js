@@ -214,11 +214,14 @@ const Footer = async () => {
         </div>
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
           <div className="w-full">
-            <div className="text-xs md:text-sm font-normal font-body text-slate-400 text-center flex flex-wrap gap-5 items-center">
-              {translations["copyright"]} {new Date().getFullYear()}{" "}
-              {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
+            <div className="text-xs md:text-sm font-normal font-body text-gray-700 text-center flex flex-wrap gap-5 items-center">
+              <p>
+                {translations["copyright"]} {new Date().getFullYear()}
+              </p>
+              <p>
+                {translations["copyright-msg"] || "All Rights Reserved "} By
+              </p>
               <Link href="/" className="ml-1">
-                {" "}
                 {settings?.name}
               </Link>
               <span className="mx-2">|</span>

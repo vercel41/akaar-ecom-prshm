@@ -10,7 +10,7 @@ const DynamicPage = async ({ params }) => {
   const { blog_slug } = params;
 
   const [blogRes] = await Promise.allSettled([
-    fetchData({ api: `pages/${blog_slug}?type=blog`}),
+    fetchData({ api: `pages/${blog_slug}?type=blog` }),
   ]);
 
   const blog = blogRes.status === "fulfilled" ? blogRes.value?.data || {} : {};
@@ -18,8 +18,8 @@ const DynamicPage = async ({ params }) => {
 
   return (
     <>
-      <div className="breadcrumb breadcrumb-2 py-5">
-        <div className="container">
+      <div className=" py-10">
+        <div className="w-fit mx-auto">
           <div>
             <Link
               href={`/`}
@@ -27,31 +27,28 @@ const DynamicPage = async ({ params }) => {
             >
               Home
             </Link>
+            <span className="mx-2">|</span>
             <Link
               href={`/blogs`}
               className="text-base text-slate-600 hover:text-secondary"
             >
               Blogs
             </Link>
+            <span className="mx-2">|</span>
             <Link
               href={`${blog.slug}`}
-              className="text-base text-slate-900 hover:text-secondary"
+              className="text-base  text-slate-900 hover:text-secondary"
             >
-              {blog.title}
+              <span className="max-w-[20ch] truncate ellipsis overflow-hidden">
+                {blog.title}
+              </span>
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="container">
-        <div className="mb-4">
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            className="w-full h-full object-cover"
-            width={1200}
-            height={400}
-          />
+      <div className=" border-t border-gray-200">
+        <div className="mb-4 container">
           <ViewHTML htmlText={blog.description} />
         </div>
       </div>

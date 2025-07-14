@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useRef, useState, useEffect } from "react";
+
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 export default function CategoriesMegaMenu({ settings, categories }) {
@@ -42,7 +43,6 @@ export default function CategoriesMegaMenu({ settings, categories }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   return (
     <div
       className={cn(`${!isHomePage ? "border-b border-slate-200" : ""}`)}
@@ -62,12 +62,16 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                   key={mainIndex}
                   title={category.category_name}
                   onClick={(e) => {
-                    setSelectedCategory(category);
+                    if (selectedCategory?.slug === category.slug) {
+                      setSelectedCategory({});
+                    } else {
+                      setSelectedCategory(category);
+                    }
                     category.child_categories?.length > 0
                       ? e.preventDefault()
                       : router.push(`/categories/${category.slug}`);
                   }}
-                  className={`uppercase ${
+                  className={` ${
                     category?.child_categories?.length
                       ? "flex items-center gap-1.5"
                       : ""
@@ -106,23 +110,28 @@ export default function CategoriesMegaMenu({ settings, categories }) {
 
         <div
           className={cn(
-            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 absolute  bg-white shadow-[0_0_3px_#3d3d3d] w-[95%] left-[2.5%] transition-all duration-500",
+            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 absolute bg-white shadow-[0_0_3px_#3d3d3d] w-[95%] left-[2.5%] transition-all duration-500",
             selectedCategory?.child_categories?.length > 0
-              ? "p-4 pt-[50px] min-h-[70vh] h-[570px]"
-              : "h-0 min-h-0",
-            sticky ? "top-[60px]" : "top-[180px]"
+              ? "p-4 pt-[50px] min-h-0 max-h-[80vh] overflow-y-auto"
+              : "h-0 min-h-0 opacity-0 pointer-events-none",
+            sticky ? "top-[60px]" : ""
           )}
+          style={{
+            gridAutoRows: "min-content",
+            maxHeight:
+              selectedCategory?.child_categories?.length > 0 ? "80vh" : "0",
+          }}
         >
           {selectedCategory?.child_categories?.map((subCategory, index) => (
             <div
               key={index}
-              className="flex flex-col justify-center items-center mb-2 h-fit"
+              className="flex flex-col justify-start items-center mb-2 h-full"
             >
               <div className="mb-2 w-full text-center">
                 <Link
                   href={`/categories/${subCategory.slug}`}
                   onClick={() => setSelectedCategory({})}
-                  className="block w-full font-bold uppercase transition-all duration-500 ease-in-out hover:bg-black hover:text-white"
+                  className="block w-full text-[14px]   transition-all duration-500 ease-in-out hover:bg-black hover:text-white"
                 >
                   {subCategory?.category_name}
                 </Link>
@@ -134,9 +143,11 @@ export default function CategoriesMegaMenu({ settings, categories }) {
                     <Link
                       href={`/categories/${childCategory.slug}`}
                       onClick={() => setSelectedCategory({})}
-                      className="block mt-2 w-full text-xs font-normal uppercase transition-all duration-500 ease-in-out hover:bg-black hover:text-white"
+                      className="block mt-2 w-full  font-normal transition-all duration-500 ease-in-out hover:underline "
                     >
-                      {childCategory?.category_name}
+                      <span className="capitalize tracking-tight text-[14px]">
+                        {childCategory?.category_name?.toLowerCase()}
+                      </span>
                     </Link>
                   </div>
                 ))}

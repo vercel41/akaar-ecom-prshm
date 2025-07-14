@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 
 export const generateMetadata = async ({ params }, parent) => {
   try {
-    const res = await fetchData({ api: `pages?type=blog&slug=${params.blog_slug}` });
+    const res = await fetchData({
+      api: `pages?type=blog&slug=${params.blog_slug}`,
+    });
     const blog = res?.data?.[0]; // assuming API returns an array
     console.log("blog2", blog);
     if (!blog) return notFound();
@@ -13,7 +15,6 @@ export const generateMetadata = async ({ params }, parent) => {
       openGraph: {
         title: `${blog.title || blog.name}`,
         url: `/blogs/${blog.slug}`,
-        
       },
       alternates: {
         canonical: `/blogs/${blog.slug}`,
@@ -25,5 +26,5 @@ export const generateMetadata = async ({ params }, parent) => {
 };
 
 export default function BlogLayout({ children }) {
-  return <div className="p-6">{children}</div>;
+  return <div className="">{children}</div>;
 }

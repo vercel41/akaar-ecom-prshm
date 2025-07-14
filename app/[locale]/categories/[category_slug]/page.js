@@ -23,10 +23,10 @@ const page = async ({ params, searchParams }) => {
   return (
     <>
       <div className="">
-        {category.image ? (
+        {category.image == 1 ? (
           <div
             style={{ backgroundImage: `url(${category.image})` }}
-            className="hidden lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] py-20"
+            className="hidden lg:block bg-no-repeat bg-center bg-cover w-full h-[240px] py-20 "
           >
             <div className="container text-white flex flex-col justify-center items-center gap-2">
               <h2 className="text-xl md:text-2xl text-center uppercase">
@@ -55,7 +55,7 @@ const page = async ({ params, searchParams }) => {
             </div>
           </div>
         ) : (
-          <div className="container flex flex-col justify-center items-center gap-2">
+          <div className="container  flex flex-col justify-center items-center gap-2 py-10">
             <h2 className="text-xl md:text-2xl text-center uppercase">
               {category.category_name}
             </h2>
