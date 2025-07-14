@@ -453,7 +453,7 @@ const CheckoutWithOutAreaSelect = () => {
         </div>
       )}
 
-      <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto px-6">
+      <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto">
         <div id="checkout-left" className="border border-slate-200 ">
           {/* Delivery Options  */}
           {/* <div className="lg:order-2 px-3 lg:px-9 py-4">

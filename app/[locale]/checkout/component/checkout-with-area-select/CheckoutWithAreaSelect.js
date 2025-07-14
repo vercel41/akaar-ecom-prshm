@@ -334,8 +334,8 @@ const CheckoutWithAreaSelect = () => {
           <h2 className="text-xl md:text-2xl text-center uppercase">
             Checkout
           </h2>
-          <div className="breadcrumb breadcrumb-2">
-            <div className="container">
+          <div className="">
+            <div className="w-full">
               <div>
                 <Link
                   href={`/`}
@@ -343,6 +343,7 @@ const CheckoutWithAreaSelect = () => {
                 >
                   {translations["home"] || "Home"}
                 </Link>
+                <span className="mx-2">|</span>
                 <Link
                   href={`/checkout`}
                   className="text-base text-slate-600 hover:text-secondary"
@@ -371,7 +372,7 @@ const CheckoutWithAreaSelect = () => {
           settings={settings}
         />
       )}
-      <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto px-6">
+      <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto">
         <div
           id="checkout-left"
           className="border border-slate-200 grid grid-cols-1"
@@ -538,7 +539,7 @@ const CheckoutWithAreaSelect = () => {
             {/* Payment Options Area */}
 
             {deliveryArea ? (
-              <div className="form-control">
+              <div className="form-control md:px-6">
                 <h4 className="text-slate-700 font-bold">
                   {translations["payment-options"] || "Payment Options"}
                 </h4>
