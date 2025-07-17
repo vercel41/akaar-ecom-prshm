@@ -2,9 +2,10 @@
 import FieldsetInput from "@/components/elements/FieldsetInput";
 import ArticleLoader from "@/components/elements/loaders/ArticleLoader";
 import { siteConfig } from "@/config/site";
-import DistrictData from "../../District.json";
+// import DistrictData from "../../District.json";
 import UpazilaData from "../../ThanaUpazila.json";
 import React, { useEffect, useState, useRef } from "react";
+import { useDistrictQuery, useThanaByIdQuery } from "@/store/api/districtthanaApi";
 
 const ShippingFormWithAreaSelect = ({
   register,
@@ -26,7 +27,12 @@ const ShippingFormWithAreaSelect = ({
   const [isUpazilaOpen, setIsUpazilaOpen] = useState(false);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
   const dropdownRef = useRef(null);
+  const { data } = useDistrictQuery();
+  const { data: UpazilaApiData } = useThanaByIdQuery(selectedDistrictId, {
+    skip: !selectedDistrictId,
+  });
 
+  const DistrictData = data?.data;
   useEffect(() => {
     register("city", { required: "District is required." });
     register("upazila", { required: "Upazila is required." });
@@ -55,14 +61,15 @@ const ShippingFormWithAreaSelect = ({
   }, [register, setValue, user?.city, selectedCity, onCityChange]);
 
   const calculateDeliveryArea = (cityName) => {
+    console.log("cityname", cityName)
     const region = settings?.delivery_region?.toLowerCase() || "dhaka";
-    const isInside = cityName.toLowerCase() === region;
-
+    const isInside = cityName.trim().toLowerCase() === region.trim().toLowerCase();
+    console.log('region',region)
+    console.log("inside",isInside)
     return {
       key: isInside ? "inside dhaka" : "outside dhaka",
-      title: `${isInside ? "Inside" : "Outside"} ${
-        settings?.delivery_region || "Dhaka"
-      }`,
+      title: `${isInside ? "Inside" : "Outside"} ${settings?.delivery_region || "Dhaka"
+        }`,
       charges: isInside
         ? settings?.inside_dhaka_delivery_charges
         : settings?.outside_dhaka_delivery_charges,
@@ -87,29 +94,39 @@ const ShippingFormWithAreaSelect = ({
     setUpazilaSearch(upazilaName);
     setValue("upazila", upazilaName);
     setIsUpazilaOpen(false);
+
     handleDeliveryAreaChange(calculateDeliveryArea(searchTerm));
+
   };
 
   const filterDistrict = () => {
     const filter = searchTerm.toUpperCase();
-    return DistrictData.data.filter((city) =>
+    return DistrictData?.filter((city) =>
       city.name.toUpperCase().includes(filter)
     );
   };
+  // const filterUpazilaByDistrict = () => {
+  //   const filter = upazilaSearch.toUpperCase();
 
+  //   const district = UpazilaData.find(
+  //     (item) => item.district_id === selectedDistrictId?.toString()
+  //   );
+
+  //   if (!district) return [];
+
+  //   return district.names.filter((upazilaName) =>
+  //     upazilaName.toUpperCase().includes(filter)
+  //   );
+  // };
   const filterUpazilaByDistrict = () => {
     const filter = upazilaSearch.toUpperCase();
+    const upazilas = UpazilaApiData?.data || [];
 
-    const district = UpazilaData.find(
-      (item) => item.district_id === selectedDistrictId?.toString()
-    );
-
-    if (!district) return [];
-
-    return district.names.filter((upazilaName) =>
-      upazilaName.toUpperCase().includes(filter)
+    return upazilas.filter((upazila) =>
+      upazila.name.toUpperCase().includes(filter)
     );
   };
+
 
   return (
     <div className="px-6">
@@ -180,8 +197,8 @@ const ShippingFormWithAreaSelect = ({
                 />
                 {isOpen && (
                   <div className="dropdown-content absolute bg-white border border-gray-300 mt-1 max-h-60 overflow-auto z-10">
-                    {filterDistrict().length > 0 ? (
-                      filterDistrict().map((city) => (
+                    {filterDistrict()?.length > 0 ? (
+                      filterDistrict()?.map((city) => (
                         <div
                           key={city.id}
                           onMouseDown={() => handleDistrictChange(city)}
@@ -237,11 +254,11 @@ const ShippingFormWithAreaSelect = ({
                     {filterUpazilaByDistrict().length > 0 ? (
                       filterUpazilaByDistrict().map((upazila) => (
                         <div
-                          key={upazila}
-                          onClick={() => handleUpazilaChange(upazila)}
+                          key={upazila.id}
+                          onClick={() => handleUpazilaChange(upazila.name)}
                           className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                         >
-                          {upazila}
+                          {upazila.name}
                         </div>
                       ))
                     ) : (
