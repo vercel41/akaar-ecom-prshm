@@ -13,7 +13,7 @@ import * as pixel from "/lib/fpixel";
 import { Cookies } from "@/utils/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { getGTMFormattedSaleProducts } from "@/lib/gtm-data-formatter";
-import { getPixelFormattedOrderItems } from "@/app/api/order-summary-show/[order_id]/helpers/format-items";
+
 const OrderSuccess = ({ params }) => {
   const { order_id } = params;
   const { order, loading, error } = useOrderSummary(order_id);
@@ -29,10 +29,7 @@ const OrderSuccess = ({ params }) => {
     if (isFbPixelInitialized && flag.current && order?.id) {
       pixel.event(
         "Purchase",
-        pixel.getPurchasedItemsPixelData(
-          getPixelFormattedOrderItems(order?.ordered_items),
-          order.sub_total
-        ),
+        pixel.getPurchasedItemsPixelData(order?.ordered_items, order.sub_total),
         {
           eventID: order.id, // to prevent duplicate events from conversations API
         }
