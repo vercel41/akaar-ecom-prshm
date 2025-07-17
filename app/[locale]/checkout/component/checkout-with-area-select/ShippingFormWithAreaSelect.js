@@ -61,11 +61,8 @@ const ShippingFormWithAreaSelect = ({
   }, [register, setValue, user?.city, selectedCity, onCityChange]);
 
   const calculateDeliveryArea = (cityName) => {
-    console.log("cityname", cityName)
     const region = settings?.delivery_region?.toLowerCase() || "dhaka";
     const isInside = cityName.trim().toLowerCase() === region.trim().toLowerCase();
-    console.log('region',region)
-    console.log("inside",isInside)
     return {
       key: isInside ? "inside dhaka" : "outside dhaka",
       title: `${isInside ? "Inside" : "Outside"} ${settings?.delivery_region || "Dhaka"
