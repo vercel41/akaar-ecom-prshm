@@ -45,6 +45,20 @@ const ShippingFormWithOutAreaSelect = ({
             </div>
 
             <div className="form-control mb-6">
+              <FieldsetTextarea
+                required
+                label={translations["address"] || "Address"}
+                name="address"
+                defaultValue={user?.address}
+                register={register("address", {
+                  required: "Address line is required.",
+                })}
+              />
+              {errors.address && (
+                <p className="errorMsg">{errors.address.message}</p>
+              )}
+            </div>
+            <div className="form-control mb-6">
               <FieldsetInput
                 required
                 label={`${translations["Phone Number"] || "Phone Number"}`}
@@ -61,21 +75,6 @@ const ShippingFormWithOutAreaSelect = ({
               />
               {errors.phone && (
                 <p className="errorMsg">{errors.phone.message}</p>
-              )}
-            </div>
-
-            <div className="form-control mb-6">
-              <FieldsetTextarea
-                required
-                label={translations["address"] || "Address"}
-                name="address"
-                defaultValue={user?.address}
-                register={register("address", {
-                  required: "Address line is required.",
-                })}
-              />
-              {errors.address && (
-                <p className="errorMsg">{errors.address.message}</p>
               )}
             </div>
 

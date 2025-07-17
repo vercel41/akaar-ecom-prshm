@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,6 +34,7 @@ import { generateUniqueId } from "@/utils/get-unique";
 import { Cookies } from "@/utils/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
 import ShippingFormWithOutAreaSelect from "./ShippingFormWithOutAreaSelect";
+import { usePlaceIncompleteOrderMutation } from "@/store/api/orderAPI";
 
 const CheckoutWithOutAreaSelect = () => {
   // Dynamic delivery charges
@@ -76,6 +78,7 @@ const CheckoutWithOutAreaSelect = () => {
   const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 
   const { data: paymentMethodsData } = useGetPaymentMethodsQuery();
+  const [placeIncompleteOrder] = usePlaceIncompleteOrderMutation();
   const paymentMethods = useMemo(
     () => paymentMethodsData?.data || {},
     [paymentMethodsData]
@@ -84,13 +87,26 @@ const CheckoutWithOutAreaSelect = () => {
   //slicing cart items based on orderCollapsed
   const cartItems = orderCollapsed ? cart : cart.slice(0, 3);
 
+  //  ------------------ DEFAULT FORM LOCAL STORAGE VALUES ------------------
+  const getDefaultFormValues = () => ({
+    name: localStorage.getItem("name") || "",
+    address: localStorage.getItem("address") || "",
+    phone: localStorage.getItem("phone") || "",
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+    watch,
+  } = useForm({
+    defaultValues: getDefaultFormValues(),
+  });
 
+  //------------------ WATCH VALUES ------------------
+  const phoneValue = watch("phone");
+  const nameValue = watch("name");
+  const addressValue = watch("address");
   useEffect(() => {
     reset();
   }, [user, reset]);
@@ -173,6 +189,7 @@ const CheckoutWithOutAreaSelect = () => {
       : null,
   ].filter((option) => option !== null);
 
+  // ------------------ CHECKOUT SUBMIT ------------------
   const handleCheckoutSubmit = async (data) => {
     if (!deliveryArea) {
       document.getElementById("deliveryAreaError").classList.remove("hidden");
@@ -217,6 +234,10 @@ const CheckoutWithOutAreaSelect = () => {
     };
     // console.log("newOrder", newOrder);
     handleOrderPlace(newOrder);
+    // ------------------ LOCAL STORAGE CLEAR AFTER ORDER PLACE ------------------
+    localStorage.removeItem("name");
+    localStorage.removeItem("address");
+    localStorage.removeItem("phone");
 
     // updating user for the first time only not applicable for guest checkout
     if (
@@ -232,6 +253,56 @@ const CheckoutWithOutAreaSelect = () => {
     }
     // else alert("user not updated");
   };
+  // ------------------ INCOMPLETE ORDER ------------------
+  const handleIncompleteOrderSubmit = async (data) => {
+    let phone = data?.phone;
+    let alt_phone = data?.phone;
+    let fullAddress = data.address;
+
+    //for authorized u
+    if (!settings?.guest_checkout) {
+      alt_phone =
+        siteConfig.phone.countryCode + user?.phone || user?.alt_phone_no;
+    }
+    const newOrder = {
+      name: data.name,
+      alt_name: data.name,
+      phone: phone,
+      alt_phone: alt_phone,
+      address: fullAddress,
+      alt_address: fullAddress,
+      order_items: getOrderFormattedCartItems(cart),
+      payment_method: selectedPayMethod,
+      delivery_type: deliveryCharge ? deliveryArea.key : "free delivery",
+      delivery_charge: deliveryCharge,
+      coupon: discountCoupon?.code || null,
+      coupon_discount: discountedPrice,
+      subtotal: total,
+      after_discount: totalWithDiscount,
+      grand_total: grandTotal,
+      paymentOption: selectedPaymentOption,
+      note: data.note,
+    };
+    // console.log("newOrder", newOrder);
+    try {
+      await placeIncompleteOrder(newOrder);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //  ------------------ THIS USEEFFECT IS FOR INCOMPLETE ORDER ------------------
+  useEffect(() => {
+    const phonePattern = siteConfig.phone.pattern;
+    if (phoneValue && phonePattern.test(phoneValue)) {
+      localStorage.setItem("phone", phoneValue);
+      localStorage.setItem("name", nameValue);
+      localStorage.setItem("address", addressValue);
+      const formValues = watch();
+
+      handleIncompleteOrderSubmit(formValues);
+    }
+  }, [phoneValue, nameValue, addressValue]);
 
   // Facebook Pixel Initiate Checkout Event
   const [AddToConversionAPI] = useAddToTrackingMutation();
@@ -307,25 +378,6 @@ const CheckoutWithOutAreaSelect = () => {
 
   return (
     <section className=" pb-8 font-body tracking-normal">
-      {/* <div className="breadcrumb breadcrumb-2 py-5 mt-8">
-        <div className="">
-          <div>
-            <Link
-              href={`/`}
-              className="text-base text-slate-600 hover:text-secondary"
-            >
-              {translations["home"] || "Home"}
-            </Link>
-            <Link
-              href={`/checkout`}
-              className="text-base text-slate-600 hover:text-secondary"
-            >
-              {translations["checkout"] || "Checkout"}
-            </Link>
-          </div>
-        </div>
-      </div> */}
-
       <div className="py-8 border-y border-gray-300 mb-6">
         <div className="container flex flex-col justify-center items-center gap-2">
           <h2 className="text-xl md:text-2xl text-center uppercase">
