@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { getPixelFormattedOrderItems } from "./helpers/format-items";
 
 export async function GET(request, { params }) {
 	const { order_id } = params;
