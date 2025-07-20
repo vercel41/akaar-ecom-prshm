@@ -7,11 +7,8 @@ import amarsolutionLogo from "../../public/assets/icons/social/amarsolution-logo
 import SocialIcon from "../elements/SocialIcon";
 import ScrollToTopButton from "../ScrollToTopButton";
 import {
-  FaEnvelope,
   FaFacebookF,
-  FaFacebookMessenger,
   FaInstagram,
-  FaMapMarkerAlt,
   FaPinterest,
   FaTiktok,
   FaWhatsapp,
@@ -21,7 +18,6 @@ import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 import AppleAppDownload from "../elements/svg/AppleAppDownload";
 import AndroidAppDownload from "../elements/svg/AndroidAppDownload";
-import sslImage from "@/public/assets/images/ssl.png";
 
 const Footer = async () => {
   const translationData = await fetchData({ api: "translations" });

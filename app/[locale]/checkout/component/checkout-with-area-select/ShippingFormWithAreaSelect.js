@@ -170,7 +170,7 @@ const ShippingFormWithAreaSelect = ({
             {/* District Field */}
             <div className="form-control mb-6" ref={dropdownRef}>
               <label className="mb-2 block text-sm font-medium">
-                {translations["District"] || "District"}
+                {translations["City/District"] || "City/District"}
               </label>
               <div className="dropdown">
                 <input
