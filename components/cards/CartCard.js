@@ -63,7 +63,7 @@ const CartCard = ({ item }) => {
 							</h3>
 						) : ( */}
             <>
-              <h3 className="text-xl">
+              <h3 className="text-md">
                 {siteConfig.currency.shortForm}
                 {selectedBarCode.discount_selling_price}
               </h3>
@@ -73,7 +73,7 @@ const CartCard = ({ item }) => {
                   <del className="text-sm text-slate-300">
                     {siteConfig.currency.sign} {selectedBarCode.selling_price}
                   </del>
-                  <div className="rounded-md px-1 text-xs py-0.5 text-white bg-red-500">
+                  <div className="rounded-md px-[0.5rem] text-xs py-0.5 text-white bg-red-500">
                     {getDiscountPercent(
                       selectedBarCode.selling_price,
                       selectedBarCode.discount_selling_price
