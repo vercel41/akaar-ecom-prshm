@@ -97,8 +97,7 @@ const useOrderPlace = () => {
 				.catch((error) => {
 					// Handle the error if necessary
 					dispatch(setGlobalLoader(false));
-					toast.error("Failed to place an order");
-					console.log(error);
+					toast.error(error.data.message || "Failed to place an order, something went wrong, please try again");
 				});
 		}
 	};

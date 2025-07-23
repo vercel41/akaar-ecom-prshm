@@ -189,8 +189,17 @@ const CheckoutWithOutAreaSelect = () => {
       : null,
   ].filter((option) => option !== null);
 
+     //  unique order generate
+    useEffect(() => {
+    let incompleteId = localStorage.getItem("incomplete_unique_id");
+    if (!incompleteId) {
+      const newId = generateUniqueId();
+      localStorage.setItem("incomplete_unique_id", newId);
+    }
+    }, []);
   // ------------------ CHECKOUT SUBMIT ------------------
   const handleCheckoutSubmit = async (data) => {
+    const incompleteId = localStorage.getItem("incomplete_unique_id");
     if (!deliveryArea) {
       document.getElementById("deliveryAreaError").classList.remove("hidden");
       toast.error("Please select delivery area");
@@ -231,6 +240,7 @@ const CheckoutWithOutAreaSelect = () => {
       grand_total: grandTotal,
       paymentOption: selectedPaymentOption,
       note: data.note,
+      incomplete_unique_id: incompleteId
     };
     // console.log("newOrder", newOrder);
     handleOrderPlace(newOrder);
@@ -238,7 +248,7 @@ const CheckoutWithOutAreaSelect = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("address");
     localStorage.removeItem("phone");
-
+    localStorage.removeItem("incomplete_unique_id");
     // updating user for the first time only not applicable for guest checkout
     if (
       ((!user?.phone && !user?.alt_phone_no) || !user?.address) &&
@@ -255,6 +265,7 @@ const CheckoutWithOutAreaSelect = () => {
   };
   // ------------------ INCOMPLETE ORDER ------------------
   const handleIncompleteOrderSubmit = async (data) => {
+    const incompleteId = localStorage.getItem("incomplete_unique_id");
     let phone = data?.phone;
     let alt_phone = data?.phone;
     let fullAddress = data.address;
@@ -282,6 +293,7 @@ const CheckoutWithOutAreaSelect = () => {
       grand_total: grandTotal,
       paymentOption: selectedPaymentOption,
       note: data.note,
+      incomplete_unique_id: incompleteId
     };
     // console.log("newOrder", newOrder);
     try {
