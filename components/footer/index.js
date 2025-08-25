@@ -8,6 +8,7 @@ import SocialIcon from "../elements/SocialIcon";
 import ScrollToTopButton from "../ScrollToTopButton";
 import {
   FaFacebookF,
+  FaFacebookMessenger,
   FaInstagram,
   FaPinterest,
   FaTiktok,
@@ -246,13 +247,13 @@ const Footer = async () => {
         </div>
       </div>
       <ScrollToTopButton settings={settings} />
-      {/* <Link
+      <Link
         className='fixed z-30 bottom-[75px] right-5 text-blue-500'
         target='_blank'
         href={`https://m.me/${messengerUser}`}
       >
         <FaFacebookMessenger size={45} />
-      </Link> */}
+      </Link>
     </footer>
   );
 };
