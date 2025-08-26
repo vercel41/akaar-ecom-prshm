@@ -33,7 +33,7 @@ const GetDirectionSection = async () => {
             </div>
 
             <Link
-              href="/contact-us"
+              href="/help/contact-us"
               className="btn btn-secondary"
               style={{
                 "--btn-bg-color": `${settings?.colors?.primary}`,

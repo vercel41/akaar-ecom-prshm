@@ -19,6 +19,7 @@ import HomeCategoryProducts from "./_components/home-page-category/HomeCategoryP
 
 // Client-side lazy imports for heavier components
 import dynamic from "next/dynamic";
+import CategoryBanners from "./_components/CategoryBanners";
 
 const VideoBanner = dynamic(() => import("./_components/VideoBanner"), {
   ssr: false,
@@ -52,6 +53,14 @@ export default async function Home() {
       {settings?.slider_section ? (
         <section className="banner md:mt-[-180px]">
           <Intro settings={settings} />
+        </section>
+      ) : null}
+
+      {settings?.category_section ? (
+        <section className="banners pt-14">
+          <div className="container">
+            <CategoryBanners settings={settings} />
+          </div>
         </section>
       ) : null}
 
