@@ -30,7 +30,6 @@ const Footer = async () => {
   const helpPage = settings?.help_page || [];
 
   const messengerUser = settings?.facebook_link?.split("/")[3] || "no-user";
-
   return (
     <footer
       className="footer py-5 border-t border-gray-300"
@@ -239,6 +238,39 @@ const Footer = async () => {
                   />
                 </Link>
               </div> */}
+               <div className="col-span-12 ">
+                {settings?.footer_branding_section ? (
+                  <>
+
+                    <div className="flex  items-center gap-1">
+                      <p> Developed By</p>
+
+                      <Link
+                        href="https://amarsolution.com/"
+                        target="_blank"
+                        className="text-slate-300 hover:underline"
+                      >
+                        <Image
+                          src={amarsolutionLogo}
+                          alt="logo"
+                          width={117}
+                          height={42}
+                          className="mt-1 cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
+                        />
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
+                    {translations["copyright"]} {new Date().getFullYear()}{" "}
+                    {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
+                    <Link href="/" className="ml-1">
+                      {" "}
+                      {settings?.name}
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           {/* <div className="w-1/2">
