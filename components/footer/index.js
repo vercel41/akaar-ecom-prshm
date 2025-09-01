@@ -211,15 +211,15 @@ const Footer = async () => {
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
           <div className="w-full">
             <div className="text-xs md:text-sm font-normal font-body text-gray-700 text-center flex flex-wrap gap-2 justify-center md:justify-start items-center">
-              // <p className="text-sm">
-              //   {translations["copyright"]} {new Date().getFullYear()}
-              // </p>
-              // <p className="text-sm">
-              //   {translations["copyright-msg"] || "All Rights Reserved "} By
-              // </p>
-              // <Link href="/" className="ms-1 text-sm">
-              //   {settings?.name}
-              // </Link>
+               {/* <p className="text-sm">
+                {translations["copyright"]} {new Date().getFullYear()}
+              </p>
+              <p className="text-sm">
+              {translations["copyright-msg"] || "All Rights Reserved "} By
+              </p>
+              <Link href="/" className="ms-1 text-sm">
+              {settings?.name}
+              </Link> */}
               {/* <span className="">|</span> */}
               {/* <div className="flex  items-center gap-1">
                 <p className="text-xs md:text-sm"> Developed By</p>
@@ -241,7 +241,15 @@ const Footer = async () => {
                <div className="col-span-12 ">
                 {settings?.footer_branding_section ? (
                   <>
-
+                   <div className="flex gap-4">
+                    <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
+                    {translations["copyright"]} {new Date().getFullYear()}{" "}
+                    {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
+                    <Link href="/" className="ml-1">
+                      {" "}
+                      {settings?.name}
+                    </Link>
+                  </div>
                     <div className="flex  items-center gap-1">
                       <p> Developed By</p>
 
@@ -259,6 +267,7 @@ const Footer = async () => {
                         />
                       </Link>
                     </div>
+                   </div>
                   </>
                 ) : (
                   <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
