@@ -221,8 +221,8 @@ const Footer = async () => {
               <Link href="/" className="ms-1 text-sm">
                 {settings?.name}
               </Link>
-              <span className="">|</span>
-              <div className="flex  items-center gap-1">
+              {/* <span className="">|</span> */}
+              {/* <div className="flex  items-center gap-1">
                 <p className="text-xs md:text-sm"> Developed By</p>
 
                 <Link
@@ -238,7 +238,7 @@ const Footer = async () => {
                     className=" cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
                   />
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* <div className="w-1/2">
