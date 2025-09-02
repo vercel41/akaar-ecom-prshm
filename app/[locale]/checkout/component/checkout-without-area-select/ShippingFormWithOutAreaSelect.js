@@ -18,6 +18,7 @@ const ShippingFormWithOutAreaSelect = ({
   deliveryArea,
   deliveryCharge,
 }) => {
+  const glamqueenCheckout = process.env.NEXT_PUBLIC_GLAMQUEEN_CHECKOUT === "YES";
   return (
     <div className="px-6">
       <div className="text-left pb-5">
@@ -103,15 +104,21 @@ const ShippingFormWithOutAreaSelect = ({
 
               {/* Delivery Area */}
             {/* </div>  */}
-            <div className="form-control mb-6">
-              <FieldsetInput
-                label={translations["note"] || "Note"}
-                name="note"
-                defaultValue={user?.note}
-                register={register("note")}
-              />
-              {errors.note && <p className="errorMsg">{errors.note.message}</p>}
-            </div>
+            {glamqueenCheckout ? (
+              <></>
+            ) : (
+              <div className="form-control mb-6">
+                <FieldsetInput
+                  label={translations["note"] || "Note"}
+                  name="note"
+                  defaultValue={user?.note}
+                  register={register("note")}
+                />
+                {errors.note && (
+                  <p className="errorMsg">{errors.note.message}</p>
+                )}
+              </div>
+            )}
             {deliveryAreas && (
               <div className="lg:order-2 py-4">
                 <h4 className="text-slate-700 font-bold">
