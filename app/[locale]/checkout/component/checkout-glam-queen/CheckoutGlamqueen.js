@@ -276,7 +276,7 @@ const CheckoutGlamqueen = () => {
       .catch((error) => {
         // Handle the error if necessary
         dispatch(setGlobalLoader(false));
-        console.log(error)
+        console.log(error);
         toast.error(
           error.data?.message ||
             "Failed to place an order, something went wrong, please try again"
@@ -426,7 +426,7 @@ const CheckoutGlamqueen = () => {
       setSelectedPaymentOption(paymentOptions[0].key);
     }
   }, [paymentOptions]);
-
+  console.log(paymentOptions, "activePaymentMethods");
   return (
     <section className=" pb-8 font-body tracking-normal">
       <div className="py-8 border-y border-gray-300 mb-6">
@@ -496,6 +496,22 @@ const CheckoutGlamqueen = () => {
                           label={payOption.title}
                           // onClick={() => setDeliveryArea(pt)}
                         />
+                        {payOption.key === "no_payment" ? (
+                          <></>
+                        ) : (
+                          <>
+                            <p>via Bkash</p>
+                            <Image
+                              src={
+                                "https://software.akaarserver.xyz/images/bkash.png"
+                              }
+                              height={32}
+                              width={80}
+                              alt="icon"
+                              className="h-8 w-fit max-w-[80px]"
+                            />
+                          </>
+                        )}
                         <p>
                           {siteConfig.currency.sign}
                           {payOption.value}
@@ -514,40 +530,48 @@ const CheckoutGlamqueen = () => {
             {/* Payment Methods Area */}
             {(selectedPaymentOption === "delivery_charge_payment" ||
               selectedPaymentOption === "total_payment") && (
-              <div className="form-control mt-4">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-method"] || "Payment Method"}
-                </h4>
-                <div className="flex flex-col gap-3 mt-3">
-                  {Object.keys(paymentMethods).map((method, index) =>
-                    paymentMethods[method].status === 1 &&
-                    !(paymentMethods[method].key === "COD") ? (
-                      <div
-                        key={index}
-                        type="button"
-                        onClick={() =>
-                          setSelectedPayMethod(paymentMethods[method])
-                        }
-                        className="flex items-center justify-between border border-slate-200 p-3 cursor-pointer"
-                      >
-                        <CustomRadio
-                          isChecked={
-                            paymentMethods[method].title ===
-                            selectedPayMethod?.title
-                          }
-                          label={paymentMethods[method].title}
-                        />
-                        <div className="">
-                          <Image
-                            src={paymentMethods[method].icon}
-                            height={32}
-                            width={150}
-                            alt="icon"
-                            className="h-8 w-fit max-w-[150px]"
-                          />
-                        </div>
-                      </div>
-                    ) : null
+              <div className="bg-[#e1146d] p-2">
+                <div className="flex items-center justify-center bg-white border-b py-2">
+                  <Image
+                    src="/assets/icons/bkash-logo.svg"
+                    alt="Bkash Logo"
+                    width={140}
+                    height={65}
+                  />
+                </div>
+                {/* <div className="flex items-center justify-center bg-white"> */}
+                <div className="flex items-center justify-between bg-white  px-6 py-2">
+                  <h2>Glam Queen</h2>
+
+                  {selectedPaymentOption === "delivery_charge_payment" ? (
+                    <p>
+                      {siteConfig.currency.shortForm}
+                      {deliveryCharge}
+                    </p>
+                  ) : (
+                    <p>
+                      {siteConfig.currency.shortForm}
+                      {grandTotal}
+                    </p>
+                  )}
+                </div>
+                <div className="flex items-center bg-white px-6 py-2">
+                  <p>Personal Number: +8801521103806</p>
+                </div>
+                {/* </div> */}
+                <div className="form-control my-6 ">
+                  <FieldsetInput
+                    label={translations["note"] || "Trx ID"}
+                    name="note"
+                    defaultValue={user?.note}
+                    register={register("note", {
+                      required: "Transaction id is required.",
+                    })}
+                  />
+                  {errors.note && (
+                    <div className="errorMsg bg-white text-center">
+                      <p className="errorMsg">{errors.note.message}</p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -558,8 +582,6 @@ const CheckoutGlamqueen = () => {
 
       <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto">
         <div id="checkout-left" className="border border-slate-200 ">
-          
-
           {/* Cart Items  */}
           <div className="lg:order-1 order-2">
             <div className="border-b border-slate-200 text-left p-3 lg:p-5">
@@ -699,6 +721,23 @@ const CheckoutGlamqueen = () => {
                           label={payOption.title}
                           // onClick={() => setDeliveryArea(pt)}
                         />
+                        {payOption.key === "no_payment" ? (
+                          <></>
+                        ) : (
+                          <>
+                            <p>via Bkash</p>
+                            <Image
+                              src={
+                                "https://software.akaarserver.xyz/images/bkash.png"
+                              }
+                              height={32}
+                              width={80}
+                              alt="icon"
+                              className="h-8 w-fit max-w-[80px]"
+                            />
+                          </>
+                        )}
+
                         <p>
                           {siteConfig.currency.sign}
                           {payOption.value}
@@ -717,7 +756,6 @@ const CheckoutGlamqueen = () => {
             {/* Payment Methods Area */}
             {(selectedPaymentOption === "delivery_charge_payment" ||
               selectedPaymentOption === "total_payment") && (
-              
               <div className="bg-[#e1146d] p-2">
                 <div className="flex items-center justify-center bg-white border-b py-2">
                   <Image
@@ -753,7 +791,7 @@ const CheckoutGlamqueen = () => {
                     name="note"
                     defaultValue={user?.note}
                     register={register("note", {
-                      required: "Translations id is required.",
+                      required: "Transaction id is required.",
                     })}
                   />
                   {errors.note && (
@@ -806,21 +844,6 @@ const CheckoutGlamqueen = () => {
               </div>
             ) : null}
 
-            {/* <button
-              disabled={isDisabled}
-              // type="submit"
-              onClick={() => handleSubmit(handleCheckoutSubmit)()}
-              className="btn btn-secondary !capitalize !text-lg w-full disabled:bg-slate-300 disabled:cursor-not-allowed"
-              style={{
-                "--btn-bg-color": isDisabled
-                  ? "#cccccc"
-                  : settings?.colors?.primary,
-                "--btn-text-color": settings?.colors?.primary_text,
-                opacity: isDisabled ? 0.5 : 1,
-              }}
-            >
-              {translations["order-now"] || "Order Now"}
-            </button> */}
             <div className="fixed md:static flex  items-center justify-between p-2 md:p-0 shadow-lg md:shadow-none border md:border-none  bottom-0 left-0 right-0 z-50 bg-white w-[100vw] md:w-auto">
               <div className="block md:hidden font-bold">
                 Total:
