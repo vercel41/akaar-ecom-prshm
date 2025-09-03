@@ -104,99 +104,110 @@ const CheckoutWithOutAreaSelect = () => {
   });
 
   //------------------ WATCH VALUES ------------------
-  const phoneValue = watch("phone");
-  const nameValue = watch("name");
-  const addressValue = watch("address");
-  useEffect(() => {
-    reset();
-  }, [user, reset]);
-
-  //Summary calculation
-  // const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
-  const total = getCartTotal(cart);
-  const discountedPrice = getCouponDiscount(discountCoupon, total);
-  const totalWithDiscount = total - discountedPrice;
-
-  //Handling free delivery charge
-  const deliveryCharge =
-    settings?.free_delivery_charges_limit > totalWithDiscount ||
-    settings?.free_delivery_charges_limit <= 0
-      ? deliveryArea?.charges || 0
-      : 0;
-
-  const grandTotal = totalWithDiscount + deliveryCharge;
-
-  //Handling delivery area and delivery charge Required
-  const handleDeliveryAreaChange = (area) => {
-    setDeliveryArea(area);
-    setSelectedPaymentOption(null);
-    switch (area?.key) {
-      case "inside dhaka":
-        settings?.is_delivery_charge_required_for_inside
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      case "sub dhaka":
-        settings?.is_delivery_charge_required_for_sub_region
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      case "outside dhaka":
-        settings?.is_delivery_charge_required_for_outside
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      default:
-        setIsDeliveryChargeRequired(false);
-        break;
-    }
-  };
-  //auto select payment method
-  useEffect(() => {
-    if (Object.keys(paymentMethods).length > 0) {
-      let activePayments = Object.values(paymentMethods).filter(
-        (payMethod) => payMethod?.status === 1
-      );
-
-      if (activePayments?.length > 1 && activePayments[0].key === "COD") {
-        setSelectedPayMethod(activePayments[1]);
-      } else {
-        setSelectedPayMethod(activePayments[0]);
-      }
-      setActivePaymentMethods(activePayments);
-    }
-  }, [paymentMethods]);
-
-  const paymentOptions = [
-    {
-      key: "no_payment",
-      title: `Cash on delivery`,
-      value: grandTotal,
-    },
-    activePaymentMethods?.length > 1 && deliveryArea?.charges
-      ? {
-          key: "delivery_charge_payment",
-          title: `Pay delivery charge only`,
-          value: deliveryArea.charges,
-        }
-      : null,
-    activePaymentMethods?.length > 1
-      ? {
-          key: "total_payment",
-          title: `Pay total amount`,
-          value: grandTotal,
-        }
-      : null,
-  ].filter((option) => option !== null);
-
-     //  unique order generate
+    const phoneValue = watch("phone");
+    const nameValue = watch("name");
+    const addressValue = watch("address");
     useEffect(() => {
-    let incompleteId = localStorage.getItem("incomplete_unique_id");
-    if (!incompleteId) {
-      const newId = generateUniqueId();
-      localStorage.setItem("incomplete_unique_id", newId);
-    }
+      reset();
+    }, [user, reset]);
+  
+    //Summary calculation
+    // const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
+    const total = getCartTotal(cart);
+    const discountedPrice = getCouponDiscount(discountCoupon, total);
+    const totalWithDiscount = total - discountedPrice;
+  
+    //Handling free delivery charge
+    const deliveryCharge =
+      settings?.free_delivery_charges_limit > totalWithDiscount ||
+      settings?.free_delivery_charges_limit <= 0
+        ? deliveryArea?.charges || 0
+        : 0;
+  
+    const grandTotal = totalWithDiscount + deliveryCharge;
+  
+    //Handling delivery area and delivery charge Required
+    const handleDeliveryAreaChange = (area) => {
+      setDeliveryArea(area);
+      setSelectedPaymentOption(null);
+      updateDeliveryChargeRequirement(area?.key);
+  
+      //auto select payment option
+      const autoSelectedPaymentOption =
+        getAutoSelectedPaymentOption(activePaymentMethods);
+      if (autoSelectedPaymentOption)
+        setSelectedPaymentOption(autoSelectedPaymentOption);
+    };
+    //auto select payment method
+    useEffect(() => {
+      if (Object.keys(paymentMethods).length > 0) {
+        let activePayments = Object.values(paymentMethods).filter(
+          (payMethod) => payMethod?.status === 1
+        );
+  
+        if (activePayments?.length > 1 && activePayments[0].key === "COD") {
+          setSelectedPayMethod(activePayments[1]);
+        } else {
+          setSelectedPayMethod(activePayments[0]);
+        }
+        setActivePaymentMethods(activePayments);
+      }
+    }, [paymentMethods]);
+  
+    const isCodPayEnabled =
+      activePaymentMethods?.length > 0 &&
+      activePaymentMethods?.find((payMethod) => payMethod?.key === "COD")
+        ?.status === 1;
+  
+    const paymentOptions = [
+      isCodPayEnabled &&
+      (!isDeliveryChargeRequired || activePaymentMethods?.length == 1)
+        ? {
+            key: "no_payment",
+            title: `Cash on delivery`,
+            value: grandTotal,
+          }
+        : null,
+      activePaymentMethods?.length > 1 &&
+      isDeliveryChargeRequired &&
+      isCodPayEnabled
+        ? {
+            key: "delivery_charge_payment",
+            title: `Pay delivery charge only`,
+            value: deliveryArea.charges,
+          }
+        : null,
+      (activePaymentMethods?.length === 1 &&
+        activePaymentMethods[0].key === "COD") ||
+      activePaymentMethods?.length === 0
+        ? null
+        : {
+            key: "total_payment",
+            title: `Pay total amount`,
+            value: grandTotal,
+          },
+    ].filter((option) => option !== null);
+  
+    // Auto select payment option
+    useEffect(() => {
+      const autoSelectedPaymentOption =
+        getAutoSelectedPaymentOption(activePaymentMethods);
+      if (autoSelectedPaymentOption)
+        setSelectedPaymentOption(autoSelectedPaymentOption);
+    }, [activePaymentMethods]);
+  
+    useEffect(() => {
+      let incompleteId = localStorage.getItem("incomplete_unique_id");
+      if (!incompleteId) {
+        const newId = generateUniqueId();
+        localStorage.setItem("incomplete_unique_id", newId);
+      }
     }, []);
+  
+    const isDisabled = !!(!cart?.length || settings?.agreement_links?.length
+      ? !isTermChecked
+      : false);
+  
   // ------------------ CHECKOUT SUBMIT ------------------
   const handleCheckoutSubmit = async (data) => {
     const incompleteId = localStorage.getItem("incomplete_unique_id");
@@ -376,11 +387,6 @@ const CheckoutWithOutAreaSelect = () => {
     }
   }, [cart, total, settings]);
 
-  const isDisabled = !!(!cart?.length ||
-  (settings?.terms_and_condition_link &&
-    settings?.terms_and_condition_link !== "#")
-    ? !isTermChecked
-    : false);
 
   useEffect(() => {
     if (paymentOptions.length === 1) {

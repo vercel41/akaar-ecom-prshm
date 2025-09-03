@@ -18,7 +18,7 @@ const ShippingFormWithOutAreaSelect = ({
   deliveryArea,
   deliveryCharge,
 }) => {
-  const glamqueenCheckout = process.env.NEXT_PUBLIC_GLAMQUEEN_CHECKOUT === "YES";
+  const glamqueenCheckout = process.env.NEXT_PUBLIC_ENABLE_MANUAL_PAYMENT === "YES";
   return (
     <div className="px-6">
       <div className="text-left pb-5">

@@ -7,8 +7,10 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  getAutoSelectedPaymentOption,
   getCartTotal,
   getCouponDiscount,
+  getDefaultFormValues,
   getOrderFormattedCartItems,
 } from "@/lib/checkout";
 
@@ -97,12 +99,6 @@ const CheckoutGlamqueen = () => {
   //slicing cart items based on orderCollapsed
   const cartItems = orderCollapsed ? cart : cart.slice(0, 3);
 
-  //  ------------------ DEFAULT FORM LOCAL STORAGE VALUES ------------------
-  const getDefaultFormValues = () => ({
-    name: localStorage.getItem("name") || "",
-    address: localStorage.getItem("address") || "",
-    phone: localStorage.getItem("phone") || "",
-  });
   const {
     register,
     handleSubmit,
@@ -140,26 +136,13 @@ const CheckoutGlamqueen = () => {
   const handleDeliveryAreaChange = (area) => {
     setDeliveryArea(area);
     setSelectedPaymentOption(null);
-    switch (area?.key) {
-      case "inside dhaka":
-        settings?.is_delivery_charge_required_for_inside
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      case "sub dhaka":
-        settings?.is_delivery_charge_required_for_sub_region
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      case "outside dhaka":
-        settings?.is_delivery_charge_required_for_outside
-          ? setIsDeliveryChargeRequired(true)
-          : setIsDeliveryChargeRequired(false);
-        break;
-      default:
-        setIsDeliveryChargeRequired(false);
-        break;
-    }
+    updateDeliveryChargeRequirement(area?.key);
+
+    //auto select payment option
+    const autoSelectedPaymentOption =
+      getAutoSelectedPaymentOption(activePaymentMethods);
+    if (autoSelectedPaymentOption)
+      setSelectedPaymentOption(autoSelectedPaymentOption);
   };
   //auto select payment method
   useEffect(() => {
@@ -177,29 +160,48 @@ const CheckoutGlamqueen = () => {
     }
   }, [paymentMethods]);
 
+  const isCodPayEnabled =
+    activePaymentMethods?.length > 0 &&
+    activePaymentMethods?.find((payMethod) => payMethod?.key === "COD")
+      ?.status === 1;
+
   const paymentOptions = [
-    {
-      key: "no_payment",
-      title: `Cash on delivery`,
-      value: grandTotal,
-    },
-    activePaymentMethods?.length > 1 && deliveryArea?.charges
+    isCodPayEnabled &&
+    (!isDeliveryChargeRequired || activePaymentMethods?.length == 1)
+      ? {
+          key: "no_payment",
+          title: `Cash on delivery`,
+          value: grandTotal,
+        }
+      : null,
+    activePaymentMethods?.length > 1 &&
+    isDeliveryChargeRequired &&
+    isCodPayEnabled
       ? {
           key: "delivery_charge_payment",
           title: `Pay delivery charge only`,
           value: deliveryArea.charges,
         }
       : null,
-    activePaymentMethods?.length > 1
-      ? {
+    (activePaymentMethods?.length === 1 &&
+      activePaymentMethods[0].key === "COD") ||
+    activePaymentMethods?.length === 0
+      ? null
+      : {
           key: "total_payment",
           title: `Pay total amount`,
           value: grandTotal,
-        }
-      : null,
+        },
   ].filter((option) => option !== null);
 
-  //  unique order generate
+  // Auto select payment option
+  useEffect(() => {
+    const autoSelectedPaymentOption =
+      getAutoSelectedPaymentOption(activePaymentMethods);
+    if (autoSelectedPaymentOption)
+      setSelectedPaymentOption(autoSelectedPaymentOption);
+  }, [activePaymentMethods]);
+
   useEffect(() => {
     let incompleteId = localStorage.getItem("incomplete_unique_id");
     if (!incompleteId) {
@@ -207,6 +209,11 @@ const CheckoutGlamqueen = () => {
       localStorage.setItem("incomplete_unique_id", newId);
     }
   }, []);
+
+  const isDisabled = !!(!cart?.length || settings?.agreement_links?.length
+    ? !isTermChecked
+    : false);
+
   // ------------------ CHECKOUT SUBMIT ------------------
   const handleCheckoutSubmit = async (data) => {
     const incompleteId = localStorage.getItem("incomplete_unique_id");
@@ -216,7 +223,12 @@ const CheckoutGlamqueen = () => {
       return;
     }
 
-    console.log();
+    if (activePaymentMethods?.length === 0) {
+      toast.error(
+        "Checkout is not available now, please contact us for more info"
+      );
+      return;
+    }
     if (!selectedPaymentOption) {
       document.getElementById("paymentOptionError").classList.remove("hidden");
       toast.error("Please select payment option");
@@ -415,18 +427,12 @@ const CheckoutGlamqueen = () => {
     }
   }, [cart, total, settings]);
 
-  const isDisabled = !!(!cart?.length ||
-  (settings?.terms_and_condition_link &&
-    settings?.terms_and_condition_link !== "#")
-    ? !isTermChecked
-    : false);
-
   useEffect(() => {
     if (paymentOptions.length === 1) {
       setSelectedPaymentOption(paymentOptions[0].key);
     }
   }, [paymentOptions]);
-  console.log(paymentOptions, "activePaymentMethods");
+  console.log(paymentOptions, "paymentOptions");
   return (
     <section className=" pb-8 font-body tracking-normal">
       <div className="py-8 border-y border-gray-300 mb-6">
@@ -473,18 +479,16 @@ const CheckoutGlamqueen = () => {
           />
 
           {/* Payment Options and Methods for Mobile recently added */}
-          <div className="px-6 block md:hidden mb-5">
-            {/* Payment Options Area */}
-            {deliveryArea ? (
-              <div className="form-control">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-options"] || "Payment Options"}
-                </h4>
-                <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) =>
-                    payOption.key === "no_payment" &&
-                    isDeliveryChargeRequired &&
-                    activePaymentMethods?.length > 1 ? null : (
+          {activePaymentMethods?.length !== 0 && (
+            <div className="px-6 block md:hidden mb-5">
+              {/* Payment Options Area */}
+              {deliveryArea ? (
+                <div className="form-control">
+                  <h4 className="text-slate-700 font-bold">
+                    {translations["payment-options"] || "Payment Options"}
+                  </h4>
+                  <div className="flex flex-col gap-3 pt-3">
+                    {paymentOptions.map((payOption) => (
                       <button
                         key={payOption.key}
                         type="button"
@@ -517,66 +521,66 @@ const CheckoutGlamqueen = () => {
                           {payOption.value}
                         </p>
                       </button>
-                    )
+                    ))}
+                  </div>
+                  {!selectedPaymentOption && (
+                    <p id="paymentOptionError" className="hidden errorMsg">
+                      You must select a payment option
+                    </p>
                   )}
                 </div>
-                {!selectedPaymentOption && (
-                  <p id="paymentOptionError" className="hidden errorMsg">
-                    You must select a payment option
-                  </p>
-                )}
-              </div>
-            ) : null}
-            {/* Payment Methods Area */}
-            {(selectedPaymentOption === "delivery_charge_payment" ||
-              selectedPaymentOption === "total_payment") && (
-              <div className="bg-[#e1146d] p-2">
-                <div className="flex items-center justify-center bg-white border-b py-2">
-                  <Image
-                    src="/assets/icons/bkash-logo.svg"
-                    alt="Bkash Logo"
-                    width={140}
-                    height={65}
-                  />
-                </div>
-                {/* <div className="flex items-center justify-center bg-white"> */}
-                <div className="flex items-center justify-between bg-white  px-6 py-2">
-                  <h2>Glam Queen</h2>
+              ) : null}
+              {/* Payment Methods Area */}
+              {(selectedPaymentOption === "delivery_charge_payment" ||
+                selectedPaymentOption === "total_payment") && (
+                <div className="bg-[#e1146d] p-2">
+                  <div className="flex items-center justify-center bg-white border-b py-2">
+                    <Image
+                      src="/assets/icons/bkash-logo.svg"
+                      alt="Bkash Logo"
+                      width={140}
+                      height={65}
+                    />
+                  </div>
+                  {/* <div className="flex items-center justify-center bg-white"> */}
+                  <div className="flex items-center justify-between bg-white  px-6 py-2">
+                    <h2>Glam Queen</h2>
 
-                  {selectedPaymentOption === "delivery_charge_payment" ? (
-                    <p>
-                      {siteConfig.currency.shortForm}
-                      {deliveryCharge}
-                    </p>
-                  ) : (
-                    <p>
-                      {siteConfig.currency.shortForm}
-                      {grandTotal}
-                    </p>
-                  )}
+                    {selectedPaymentOption === "delivery_charge_payment" ? (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {deliveryCharge}
+                      </p>
+                    ) : (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {grandTotal}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center bg-white px-6 py-2">
+                    <p>Personal Number: +8801521103806</p>
+                  </div>
+                  {/* </div> */}
+                  <div className="form-control my-6 ">
+                    <FieldsetInput
+                      label={translations["note"] || "Trx ID"}
+                      name="note"
+                      defaultValue={user?.note}
+                      register={register("note", {
+                        required: "Transaction id is required.",
+                      })}
+                    />
+                    {errors.note && (
+                      <div className="errorMsg bg-white text-center">
+                        <p className="errorMsg">{errors.note.message}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center bg-white px-6 py-2">
-                  <p>Personal Number: +8801521103806</p>
-                </div>
-                {/* </div> */}
-                <div className="form-control my-6 ">
-                  <FieldsetInput
-                    label={translations["note"] || "Trx ID"}
-                    name="note"
-                    defaultValue={user?.note}
-                    register={register("note", {
-                      required: "Transaction id is required.",
-                    })}
-                  />
-                  {errors.note && (
-                    <div className="errorMsg bg-white text-center">
-                      <p className="errorMsg">{errors.note.message}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -698,18 +702,16 @@ const CheckoutGlamqueen = () => {
             />
           )}
           {/* Payment Area  */}
-          <div className="lg:px-6 hidden md:block">
-            {/* Payment Options Area */}
-            {deliveryArea ? (
-              <div className="form-control">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-options"] || "Payment Options"}
-                </h4>
-                <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) =>
-                    payOption.key === "no_payment" &&
-                    isDeliveryChargeRequired &&
-                    activePaymentMethods?.length > 1 ? null : (
+          {activePaymentMethods?.length !== 0 && (
+            <div className="lg:px-6 hidden md:block">
+              {/* Payment Options Area */}
+              {deliveryArea ? (
+                <div className="form-control">
+                  <h4 className="text-slate-700 font-bold">
+                    {translations["payment-options"] || "Payment Options"}
+                  </h4>
+                  <div className="flex flex-col gap-3 pt-3">
+                    {paymentOptions.map((payOption) => (
                       <button
                         key={payOption.key}
                         type="button"
@@ -743,66 +745,66 @@ const CheckoutGlamqueen = () => {
                           {payOption.value}
                         </p>
                       </button>
-                    )
+                    ))}
+                  </div>
+                  {!selectedPaymentOption && (
+                    <p id="paymentOptionError" className="hidden errorMsg">
+                      You must select a payment option
+                    </p>
                   )}
                 </div>
-                {!selectedPaymentOption && (
-                  <p id="paymentOptionError" className="hidden errorMsg">
-                    You must select a payment option
-                  </p>
-                )}
-              </div>
-            ) : null}
-            {/* Payment Methods Area */}
-            {(selectedPaymentOption === "delivery_charge_payment" ||
-              selectedPaymentOption === "total_payment") && (
-              <div className="bg-[#e1146d] p-2">
-                <div className="flex items-center justify-center bg-white border-b py-2">
-                  <Image
-                    src="/assets/icons/bkash-logo.svg"
-                    alt="Bkash Logo"
-                    width={140}
-                    height={65}
-                  />
-                </div>
-                {/* <div className="flex items-center justify-center bg-white"> */}
-                <div className="flex items-center justify-between bg-white  px-6 py-2">
-                  <h2>Glam Queen</h2>
+              ) : null}
+              {/* Payment Methods Area */}
+              {(selectedPaymentOption === "delivery_charge_payment" ||
+                selectedPaymentOption === "total_payment") && (
+                <div className="bg-[#e1146d] p-2 mt-3">
+                  <div className="flex items-center justify-center bg-white border-b py-2">
+                    <Image
+                      src="/assets/icons/bkash-logo.svg"
+                      alt="Bkash Logo"
+                      width={140}
+                      height={65}
+                    />
+                  </div>
+                  {/* <div className="flex items-center justify-center bg-white"> */}
+                  <div className="flex items-center justify-between bg-white  px-6 py-2">
+                    <h2>Glam Queen</h2>
 
-                  {selectedPaymentOption === "delivery_charge_payment" ? (
-                    <p>
-                      {siteConfig.currency.shortForm}
-                      {deliveryCharge}
-                    </p>
-                  ) : (
-                    <p>
-                      {siteConfig.currency.shortForm}
-                      {grandTotal}
-                    </p>
-                  )}
+                    {selectedPaymentOption === "delivery_charge_payment" ? (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {deliveryCharge}
+                      </p>
+                    ) : (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {grandTotal}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center bg-white px-6 py-2">
+                    <p>Personal Number: +8801521103806</p>
+                  </div>
+                  {/* </div> */}
+                  <div className="form-control my-6 ">
+                    <FieldsetInput
+                      label={translations["note"] || "Trx ID"}
+                      name="note"
+                      defaultValue={user?.note}
+                      register={register("note", {
+                        required: "Transaction id is required.",
+                      })}
+                    />
+                    {errors.note && (
+                      <div className="errorMsg bg-white text-center">
+                        <p className="errorMsg">{errors.note.message}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center bg-white px-6 py-2">
-                  <p>Personal Number: +8801521103806</p>
-                </div>
-                {/* </div> */}
-                <div className="form-control my-6 ">
-                  <FieldsetInput
-                    label={translations["note"] || "Trx ID"}
-                    name="note"
-                    defaultValue={user?.note}
-                    register={register("note", {
-                      required: "Transaction id is required.",
-                    })}
-                  />
-                  {errors.note && (
-                    <div className="errorMsg bg-white text-center">
-                      <p className="errorMsg">{errors.note.message}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           {/* Order Now Button  */}
           <div className="form-control mt-7   lg:px-6">
             {settings?.terms_and_condition_link &&
