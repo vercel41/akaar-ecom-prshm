@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
+  getAutoSelectedPaymentOption,
   getCartTotal,
   getCouponDiscount,
+  getDefaultFormValues,
   getOrderFormattedCartItems,
 } from "@/lib/checkout";
 
@@ -33,10 +35,17 @@ import { useAddToTrackingMutation } from "@/store/api/serverSideTrackingAPI";
 import { generateUniqueId } from "@/utils/get-unique";
 import { Cookies } from "@/utils/cookies";
 import { sendGTMEvent } from "@next/third-parties/google";
-import ShippingFormWithOutAreaSelect from "./ShippingFormWithOutAreaSelect";
-import { usePlaceIncompleteOrderMutation } from "@/store/api/orderAPI";
+import {
+  usePlaceAnOrderMutation,
+  usePlaceIncompleteOrderMutation,
+} from "@/store/api/orderAPI";
+import FieldsetInput from "@/components/elements/FieldsetInput";
+import ShippingFormWithOutAreaSelect from "../checkout-without-area-select/ShippingFormWithOutAreaSelect";
+import { useRouter } from "next/navigation";
+import { setGlobalLoader } from "@/store/slices/commonSlice";
+import { clearCart, clearDiscountInfo } from "@/store/slices/cartSlice";
 
-const CheckoutWithOutAreaSelect = () => {
+const CheckoutGlamqueen = () => {
   // Dynamic delivery charges
   const { settings, translations, isFbPixelInitialized } = useSelector(
     (state) => state.common
@@ -73,7 +82,10 @@ const CheckoutWithOutAreaSelect = () => {
   const [isTermChecked, setIsTermChecked] = useState(false);
   const { cart, discountCoupon } = useSelector((state) => state.cart);
   const { user, isLoading } = useSelector((state) => state.auth);
-  const { handleOrderPlace } = useOrderPlace(); //custom hook for separating order place business logics
+  const [placeAnOrder] = usePlaceAnOrderMutation();
+  const isGuestCheckout = !!settings?.guest_checkout;
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { handleUserUpdate } = useProfileUpdate(); //custom hook for separating profile update business logics
   const isMobile = useMediaQuery("(max-width: 768px)"); // checking for mobile
 
@@ -87,12 +99,6 @@ const CheckoutWithOutAreaSelect = () => {
   //slicing cart items based on orderCollapsed
   const cartItems = orderCollapsed ? cart : cart.slice(0, 3);
 
-  //  ------------------ DEFAULT FORM LOCAL STORAGE VALUES ------------------
-  const getDefaultFormValues = () => ({
-    name: localStorage.getItem("name") || "",
-    address: localStorage.getItem("address") || "",
-    phone: localStorage.getItem("phone") || "",
-  });
   const {
     register,
     handleSubmit,
@@ -104,110 +110,110 @@ const CheckoutWithOutAreaSelect = () => {
   });
 
   //------------------ WATCH VALUES ------------------
-    const phoneValue = watch("phone");
-    const nameValue = watch("name");
-    const addressValue = watch("address");
-    useEffect(() => {
-      reset();
-    }, [user, reset]);
-  
-    //Summary calculation
-    // const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
-    const total = getCartTotal(cart);
-    const discountedPrice = getCouponDiscount(discountCoupon, total);
-    const totalWithDiscount = total - discountedPrice;
-  
-    //Handling free delivery charge
-    const deliveryCharge =
-      settings?.free_delivery_charges_limit > totalWithDiscount ||
-      settings?.free_delivery_charges_limit <= 0
-        ? deliveryArea?.charges || 0
-        : 0;
-  
-    const grandTotal = totalWithDiscount + deliveryCharge;
-  
-    //Handling delivery area and delivery charge Required
-    const handleDeliveryAreaChange = (area) => {
-      setDeliveryArea(area);
-      setSelectedPaymentOption(null);
-      updateDeliveryChargeRequirement(area?.key);
-  
-      //auto select payment option
-      const autoSelectedPaymentOption =
-        getAutoSelectedPaymentOption(activePaymentMethods);
-      if (autoSelectedPaymentOption)
-        setSelectedPaymentOption(autoSelectedPaymentOption);
-    };
-    //auto select payment method
-    useEffect(() => {
-      if (Object.keys(paymentMethods).length > 0) {
-        let activePayments = Object.values(paymentMethods).filter(
-          (payMethod) => payMethod?.status === 1
-        );
-  
-        if (activePayments?.length > 1 && activePayments[0].key === "COD") {
-          setSelectedPayMethod(activePayments[1]);
-        } else {
-          setSelectedPayMethod(activePayments[0]);
+  const phoneValue = watch("phone");
+  const nameValue = watch("name");
+  const addressValue = watch("address");
+  useEffect(() => {
+    reset();
+  }, [user, reset]);
+
+  //Summary calculation
+  // const total = getMultipliedColumnTotal(cart, "quantity", "new_price");
+  const total = getCartTotal(cart);
+  const discountedPrice = getCouponDiscount(discountCoupon, total);
+  const totalWithDiscount = total - discountedPrice;
+
+  //Handling free delivery charge
+  const deliveryCharge =
+    settings?.free_delivery_charges_limit > totalWithDiscount ||
+    settings?.free_delivery_charges_limit <= 0
+      ? deliveryArea?.charges || 0
+      : 0;
+
+  const grandTotal = totalWithDiscount + deliveryCharge;
+
+  //Handling delivery area and delivery charge Required
+  const handleDeliveryAreaChange = (area) => {
+    setDeliveryArea(area);
+    setSelectedPaymentOption(null);
+    updateDeliveryChargeRequirement(area?.key);
+
+    //auto select payment option
+    const autoSelectedPaymentOption =
+      getAutoSelectedPaymentOption(activePaymentMethods);
+    if (autoSelectedPaymentOption)
+      setSelectedPaymentOption(autoSelectedPaymentOption);
+  };
+  //auto select payment method
+  useEffect(() => {
+    if (Object.keys(paymentMethods).length > 0) {
+      let activePayments = Object.values(paymentMethods).filter(
+        (payMethod) => payMethod?.status === 1
+      );
+
+      if (activePayments?.length > 1 && activePayments[0].key === "COD") {
+        setSelectedPayMethod(activePayments[1]);
+      } else {
+        setSelectedPayMethod(activePayments[0]);
+      }
+      setActivePaymentMethods(activePayments);
+    }
+  }, [paymentMethods]);
+
+  const isCodPayEnabled =
+    activePaymentMethods?.length > 0 &&
+    activePaymentMethods?.find((payMethod) => payMethod?.key === "COD")
+      ?.status === 1;
+
+  const paymentOptions = [
+    isCodPayEnabled &&
+    (!isDeliveryChargeRequired || activePaymentMethods?.length == 1)
+      ? {
+          key: "no_payment",
+          title: `Cash on delivery`,
+          value: grandTotal,
         }
-        setActivePaymentMethods(activePayments);
-      }
-    }, [paymentMethods]);
-  
-    const isCodPayEnabled =
-      activePaymentMethods?.length > 0 &&
-      activePaymentMethods?.find((payMethod) => payMethod?.key === "COD")
-        ?.status === 1;
-  
-    const paymentOptions = [
-      isCodPayEnabled &&
-      (!isDeliveryChargeRequired || activePaymentMethods?.length == 1)
-        ? {
-            key: "no_payment",
-            title: `Cash on delivery`,
-            value: grandTotal,
-          }
-        : null,
-      activePaymentMethods?.length > 1 &&
-      isDeliveryChargeRequired &&
-      isCodPayEnabled
-        ? {
-            key: "delivery_charge_payment",
-            title: `Pay delivery charge only`,
-            value: deliveryArea.charges,
-          }
-        : null,
-      (activePaymentMethods?.length === 1 &&
-        activePaymentMethods[0].key === "COD") ||
-      activePaymentMethods?.length === 0
-        ? null
-        : {
-            key: "total_payment",
-            title: `Pay total amount`,
-            value: grandTotal,
-          },
-    ].filter((option) => option !== null);
-  
-    // Auto select payment option
-    useEffect(() => {
-      const autoSelectedPaymentOption =
-        getAutoSelectedPaymentOption(activePaymentMethods);
-      if (autoSelectedPaymentOption)
-        setSelectedPaymentOption(autoSelectedPaymentOption);
-    }, [activePaymentMethods]);
-  
-    useEffect(() => {
-      let incompleteId = localStorage.getItem("incomplete_unique_id");
-      if (!incompleteId) {
-        const newId = generateUniqueId();
-        localStorage.setItem("incomplete_unique_id", newId);
-      }
-    }, []);
-  
-    const isDisabled = !!(!cart?.length || settings?.agreement_links?.length
-      ? !isTermChecked
-      : false);
-  
+      : null,
+    activePaymentMethods?.length > 1 &&
+    isDeliveryChargeRequired &&
+    isCodPayEnabled
+      ? {
+          key: "delivery_charge_payment",
+          title: `Pay delivery charge only`,
+          value: deliveryArea.charges,
+        }
+      : null,
+    (activePaymentMethods?.length === 1 &&
+      activePaymentMethods[0].key === "COD") ||
+    activePaymentMethods?.length === 0
+      ? null
+      : {
+          key: "total_payment",
+          title: `Pay total amount`,
+          value: grandTotal,
+        },
+  ].filter((option) => option !== null);
+
+  // Auto select payment option
+  useEffect(() => {
+    const autoSelectedPaymentOption =
+      getAutoSelectedPaymentOption(activePaymentMethods);
+    if (autoSelectedPaymentOption)
+      setSelectedPaymentOption(autoSelectedPaymentOption);
+  }, [activePaymentMethods]);
+
+  useEffect(() => {
+    let incompleteId = localStorage.getItem("incomplete_unique_id");
+    if (!incompleteId) {
+      const newId = generateUniqueId();
+      localStorage.setItem("incomplete_unique_id", newId);
+    }
+  }, []);
+
+  const isDisabled = !!(!cart?.length || settings?.agreement_links?.length
+    ? !isTermChecked
+    : false);
+
   // ------------------ CHECKOUT SUBMIT ------------------
   const handleCheckoutSubmit = async (data) => {
     const incompleteId = localStorage.getItem("incomplete_unique_id");
@@ -217,7 +223,12 @@ const CheckoutWithOutAreaSelect = () => {
       return;
     }
 
-    console.log();
+    if (activePaymentMethods?.length === 0) {
+      toast.error(
+        "Checkout is not available now, please contact us for more info"
+      );
+      return;
+    }
     if (!selectedPaymentOption) {
       document.getElementById("paymentOptionError").classList.remove("hidden");
       toast.error("Please select payment option");
@@ -251,10 +262,39 @@ const CheckoutWithOutAreaSelect = () => {
       grand_total: grandTotal,
       paymentOption: selectedPaymentOption,
       note: data.note,
-      incomplete_unique_id: incompleteId
+      incomplete_unique_id: incompleteId,
     };
     // console.log("newOrder", newOrder);
-    handleOrderPlace(newOrder);
+    // handleOrderPlace(newOrder);
+    if (newOrder.paymentOption !== "no_payment") {
+      newOrder.payment_type = "Online"; //forcing to use payment type Online
+      delete newOrder.payment_method;
+      delete newOrder.paymentOption;
+    } else {
+      newOrder.payment_type = "COD"; //forcing to use payment type COD
+      delete newOrder.payment_method;
+    }
+    console.log("newOrder", newOrder);
+    placeAnOrder({ newOrder, isGuestCheckout })
+      .unwrap()
+      .then((response) => {
+        dispatch(clearDiscountInfo());
+        dispatch(setGlobalLoader(false));
+        toast.success("Order successful");
+        const { sale } = response || {};
+        dispatch(clearCart());
+        router.push(`checkout/success/${sale?.id}`);
+      })
+      .catch((error) => {
+        // Handle the error if necessary
+        dispatch(setGlobalLoader(false));
+        console.log(error);
+        toast.error(
+          error.data?.message ||
+            "Failed to place an order, something went wrong, please try again"
+        );
+      });
+
     // ------------------ LOCAL STORAGE CLEAR AFTER ORDER PLACE ------------------
     localStorage.removeItem("name");
     localStorage.removeItem("address");
@@ -304,9 +344,9 @@ const CheckoutWithOutAreaSelect = () => {
       grand_total: grandTotal,
       paymentOption: selectedPaymentOption,
       note: data.note,
-      incomplete_unique_id: incompleteId
+      incomplete_unique_id: incompleteId,
     };
-    // console.log("newOrder", newOrder);
+    console.log("newOrder", newOrder);
     try {
       await placeIncompleteOrder(newOrder);
     } catch (error) {
@@ -387,13 +427,12 @@ const CheckoutWithOutAreaSelect = () => {
     }
   }, [cart, total, settings]);
 
-
   useEffect(() => {
     if (paymentOptions.length === 1) {
       setSelectedPaymentOption(paymentOptions[0].key);
     }
   }, [paymentOptions]);
-
+  console.log(paymentOptions, "paymentOptions");
   return (
     <section className=" pb-8 font-body tracking-normal">
       <div className="py-8 border-y border-gray-300 mb-6">
@@ -440,18 +479,16 @@ const CheckoutWithOutAreaSelect = () => {
           />
 
           {/* Payment Options and Methods for Mobile recently added */}
-          <div className="px-6 block md:hidden mb-5">
-            {/* Payment Options Area */}
-            {deliveryArea ? (
-              <div className="form-control">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-options"] || "Payment Options"}
-                </h4>
-                <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) =>
-                    payOption.key === "no_payment" &&
-                    isDeliveryChargeRequired &&
-                    activePaymentMethods?.length > 1 ? null : (
+          {activePaymentMethods?.length !== 0 && (
+            <div className="px-6 block md:hidden mb-5">
+              {/* Payment Options Area */}
+              {deliveryArea ? (
+                <div className="form-control">
+                  <h4 className="text-slate-700 font-bold">
+                    {translations["payment-options"] || "Payment Options"}
+                  </h4>
+                  <div className="flex flex-col gap-3 pt-3">
+                    {paymentOptions.map((payOption) => (
                       <button
                         key={payOption.key}
                         type="button"
@@ -463,104 +500,92 @@ const CheckoutWithOutAreaSelect = () => {
                           label={payOption.title}
                           // onClick={() => setDeliveryArea(pt)}
                         />
+                        {payOption.key === "no_payment" ? (
+                          <></>
+                        ) : (
+                          <>
+                            <p>via Bkash</p>
+                            <Image
+                              src={
+                                "https://software.akaarserver.xyz/images/bkash.png"
+                              }
+                              height={32}
+                              width={80}
+                              alt="icon"
+                              className="h-8 w-fit max-w-[80px]"
+                            />
+                          </>
+                        )}
                         <p>
                           {siteConfig.currency.sign}
                           {payOption.value}
                         </p>
                       </button>
-                    )
+                    ))}
+                  </div>
+                  {!selectedPaymentOption && (
+                    <p id="paymentOptionError" className="hidden errorMsg">
+                      You must select a payment option
+                    </p>
                   )}
                 </div>
-                {!selectedPaymentOption && (
-                  <p id="paymentOptionError" className="hidden errorMsg">
-                    You must select a payment option
-                  </p>
-                )}
-              </div>
-            ) : null}
-            {/* Payment Methods Area */}
-            {(selectedPaymentOption === "delivery_charge_payment" ||
-              selectedPaymentOption === "total_payment") && (
-              <div className="form-control mt-4">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-method"] || "Payment Method"}
-                </h4>
-                <div className="flex flex-col gap-3 mt-3">
-                  {Object.keys(paymentMethods).map((method, index) =>
-                    paymentMethods[method].status === 1 &&
-                    !(paymentMethods[method].key === "COD") ? (
-                      <div
-                        key={index}
-                        type="button"
-                        onClick={() =>
-                          setSelectedPayMethod(paymentMethods[method])
-                        }
-                        className="flex items-center justify-between border border-slate-200 p-3 cursor-pointer"
-                      >
-                        <CustomRadio
-                          isChecked={
-                            paymentMethods[method].title ===
-                            selectedPayMethod?.title
-                          }
-                          label={paymentMethods[method].title}
-                        />
-                        <div className="">
-                          <Image
-                            src={paymentMethods[method].icon}
-                            height={32}
-                            width={150}
-                            alt="icon"
-                            className="h-8 w-fit max-w-[150px]"
-                          />
-                        </div>
+              ) : null}
+              {/* Payment Methods Area */}
+              {(selectedPaymentOption === "delivery_charge_payment" ||
+                selectedPaymentOption === "total_payment") && (
+                <div className="bg-[#e1146d] p-2">
+                  <div className="flex items-center justify-center bg-white border-b py-2">
+                    <Image
+                      src="/assets/icons/bkash-logo.svg"
+                      alt="Bkash Logo"
+                      width={140}
+                      height={65}
+                    />
+                  </div>
+                  {/* <div className="flex items-center justify-center bg-white"> */}
+                  <div className="flex items-center justify-between bg-white  px-6 py-2">
+                    <h2>Glam Queen</h2>
+
+                    {selectedPaymentOption === "delivery_charge_payment" ? (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {deliveryCharge}
+                      </p>
+                    ) : (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {grandTotal}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center bg-white px-6 py-2">
+                    <p>Personal Number: +8801521103806</p>
+                  </div>
+                  {/* </div> */}
+                  <div className="form-control my-6 ">
+                    <FieldsetInput
+                      label={translations["note"] || "Trx ID"}
+                      name="note"
+                      defaultValue={user?.note}
+                      register={register("note", {
+                        required: "Transaction id is required.",
+                      })}
+                    />
+                    {errors.note && (
+                      <div className="errorMsg bg-white text-center">
+                        <p className="errorMsg">{errors.note.message}</p>
                       </div>
-                    ) : null
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
       <div className="grid lg:grid-cols-2 mb-8 gap-14 max-w-7xl mx-auto">
         <div id="checkout-left" className="border border-slate-200 ">
-          {/* Delivery Options  */}
-          {/* <div className="lg:order-2 px-3 lg:px-9 py-4">
-            <h4 className="text-slate-700 font-bold">
-              {translations["select-delivery-area"] || "Select Delivery Area"}
-            </h4>
-            <div className="flex flex-col gap-3 pt-3">
-              {deliveryAreas.map((area) => (
-                <button
-                  key={area.key}
-                  className="flex gap-2 items-center border border-slate-200 p-3"
-                  onClick={() => handleDeliveryAreaChange(area)}
-                >
-                  <CustomRadio
-                    isChecked={deliveryArea?.key === area.key}
-                    label={area.title}
-                    // onClick={() => setDeliveryArea(area)}
-                  />
-                  <p
-                    className={cn(
-                      `font-semibold`,
-                      !deliveryCharge && deliveryArea && "line-through"
-                    )}
-                  >
-                    {siteConfig.currency.sign}
-                    {area.charges}
-                  </p>
-                </button>
-              ))}
-            </div>
-            {!deliveryArea && (
-              <p id="deliveryAreaError" className="hidden errorMsg">
-                You must select delivery area
-              </p>
-            )}
-          </div> */}
-
           {/* Cart Items  */}
           <div className="lg:order-1 order-2">
             <div className="border-b border-slate-200 text-left p-3 lg:p-5">
@@ -677,18 +702,16 @@ const CheckoutWithOutAreaSelect = () => {
             />
           )}
           {/* Payment Area  */}
-          <div className="lg:px-6 hidden md:block">
-            {/* Payment Options Area */}
-            {deliveryArea ? (
-              <div className="form-control">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-options"] || "Payment Options"}
-                </h4>
-                <div className="flex flex-col gap-3 pt-3">
-                  {paymentOptions.map((payOption) =>
-                    payOption.key === "no_payment" &&
-                    isDeliveryChargeRequired &&
-                    activePaymentMethods?.length > 1 ? null : (
+          {activePaymentMethods?.length !== 0 && (
+            <div className="lg:px-6 hidden md:block">
+              {/* Payment Options Area */}
+              {deliveryArea ? (
+                <div className="form-control">
+                  <h4 className="text-slate-700 font-bold">
+                    {translations["payment-options"] || "Payment Options"}
+                  </h4>
+                  <div className="flex flex-col gap-3 pt-3">
+                    {paymentOptions.map((payOption) => (
                       <button
                         key={payOption.key}
                         type="button"
@@ -700,63 +723,88 @@ const CheckoutWithOutAreaSelect = () => {
                           label={payOption.title}
                           // onClick={() => setDeliveryArea(pt)}
                         />
+                        {payOption.key === "no_payment" ? (
+                          <></>
+                        ) : (
+                          <>
+                            <p>via Bkash</p>
+                            <Image
+                              src={
+                                "https://software.akaarserver.xyz/images/bkash.png"
+                              }
+                              height={32}
+                              width={80}
+                              alt="icon"
+                              className="h-8 w-fit max-w-[80px]"
+                            />
+                          </>
+                        )}
+
                         <p>
                           {siteConfig.currency.sign}
                           {payOption.value}
                         </p>
                       </button>
-                    )
+                    ))}
+                  </div>
+                  {!selectedPaymentOption && (
+                    <p id="paymentOptionError" className="hidden errorMsg">
+                      You must select a payment option
+                    </p>
                   )}
                 </div>
-                {!selectedPaymentOption && (
-                  <p id="paymentOptionError" className="hidden errorMsg">
-                    You must select a payment option
-                  </p>
-                )}
-              </div>
-            ) : null}
-            {/* Payment Methods Area */}
-            {(selectedPaymentOption === "delivery_charge_payment" ||
-              selectedPaymentOption === "total_payment") && (
-              <div className="form-control mt-4">
-                <h4 className="text-slate-700 font-bold">
-                  {translations["payment-method"] || "Payment Method"}
-                </h4>
-                <div className="flex flex-col gap-3 mt-3">
-                  {Object.keys(paymentMethods).map((method, index) =>
-                    paymentMethods[method].status === 1 &&
-                    !(paymentMethods[method].key === "COD") ? (
-                      <div
-                        key={index}
-                        type="button"
-                        onClick={() =>
-                          setSelectedPayMethod(paymentMethods[method])
-                        }
-                        className="flex items-center justify-between border border-slate-200 p-3 cursor-pointer"
-                      >
-                        <CustomRadio
-                          isChecked={
-                            paymentMethods[method].title ===
-                            selectedPayMethod?.title
-                          }
-                          label={paymentMethods[method].title}
-                        />
-                        <div className="">
-                          <Image
-                            src={paymentMethods[method].icon}
-                            height={32}
-                            width={150}
-                            alt="icon"
-                            className="h-8 w-fit max-w-[150px]"
-                          />
-                        </div>
+              ) : null}
+              {/* Payment Methods Area */}
+              {(selectedPaymentOption === "delivery_charge_payment" ||
+                selectedPaymentOption === "total_payment") && (
+                <div className="bg-[#e1146d] p-2 mt-3">
+                  <div className="flex items-center justify-center bg-white border-b py-2">
+                    <Image
+                      src="/assets/icons/bkash-logo.svg"
+                      alt="Bkash Logo"
+                      width={140}
+                      height={65}
+                    />
+                  </div>
+                  {/* <div className="flex items-center justify-center bg-white"> */}
+                  <div className="flex items-center justify-between bg-white  px-6 py-2">
+                    <h2>Glam Queen</h2>
+
+                    {selectedPaymentOption === "delivery_charge_payment" ? (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {deliveryCharge}
+                      </p>
+                    ) : (
+                      <p>
+                        {siteConfig.currency.shortForm}
+                        {grandTotal}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center bg-white px-6 py-2">
+                    <p>Personal Number: +8801521103806</p>
+                  </div>
+                  {/* </div> */}
+                  <div className="form-control my-6 ">
+                    <FieldsetInput
+                      label={translations["note"] || "Trx ID"}
+                      name="note"
+                      defaultValue={user?.note}
+                      register={register("note", {
+                        required: "Transaction id is required.",
+                      })}
+                    />
+                    {errors.note && (
+                      <div className="errorMsg bg-white text-center">
+                        <p className="errorMsg">{errors.note.message}</p>
                       </div>
-                    ) : null
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           {/* Order Now Button  */}
           <div className="form-control mt-7   lg:px-6">
             {settings?.terms_and_condition_link &&
@@ -798,21 +846,6 @@ const CheckoutWithOutAreaSelect = () => {
               </div>
             ) : null}
 
-            {/* <button
-              disabled={isDisabled}
-              // type="submit"
-              onClick={() => handleSubmit(handleCheckoutSubmit)()}
-              className="btn btn-secondary !capitalize !text-lg w-full disabled:bg-slate-300 disabled:cursor-not-allowed"
-              style={{
-                "--btn-bg-color": isDisabled
-                  ? "#cccccc"
-                  : settings?.colors?.primary,
-                "--btn-text-color": settings?.colors?.primary_text,
-                opacity: isDisabled ? 0.5 : 1,
-              }}
-            >
-              {translations["order-now"] || "Order Now"}
-            </button> */}
             <div className="fixed md:static flex  items-center justify-between p-2 md:p-0 shadow-lg md:shadow-none border md:border-none  bottom-0 left-0 right-0 z-50 bg-white w-[100vw] md:w-auto">
               <div className="block md:hidden font-bold">
                 Total:
@@ -849,4 +882,4 @@ const CheckoutWithOutAreaSelect = () => {
   );
 };
 
-export default RequireAuth(CheckoutWithOutAreaSelect);
+export default RequireAuth(CheckoutGlamqueen);

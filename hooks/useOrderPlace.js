@@ -12,7 +12,7 @@ import { getPaymentUriByTitle } from "@/lib/order-pay";
 const useOrderPlace = () => {
 	const [placeAnOrder] = usePlaceAnOrderMutation();
 	const { settings } = useSelector((state) => state.common);
-	const { cart } = useSelector((state) => state.cart);
+	// const { cart } = useSelector((state) => state.cart);
 
 	const isGuestCheckout = !!settings?.guest_checkout;
 	const dispatch = useDispatch();
