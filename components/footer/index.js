@@ -53,7 +53,7 @@ const Footer = async () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between gap-5 lg:gap-12 py-8">
           <div className="footer-business-info">
             <div className="pr-4 w-[80%]">
-              <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px]">
+              <h6 className="mb-4 font-noto_serif uppercase  font-[700] text-[15px] text-black">
                 newsletter
               </h6>
 
