@@ -21,12 +21,12 @@ const FlashSale = () => {
 		return null;
 
 	return (
-		<div className="relative mt-16">
+		<div className="relative mt-16 mx-5">
 			<div className="sec-heading absolute top-[-30px] left-0 w-full flex flex-col lg:flex-row justify-center lg:justify-between items-center">
 				<div className=" bg-white">
-					<h2 className="sec-title">
+					<h2 className="sec-title md:text-3xl text-xl">
 						{flashSaleInfo?.title}{" "}
-						<Link href={`/flash-sale`} className="text-sm hover:text-secondary">
+						<Link href={`/flash-sale`} className="text-sm hover:text-secondary ml-4">
 							{translations["see-all"] || "See All"}
 						</Link>
 					</h2>
