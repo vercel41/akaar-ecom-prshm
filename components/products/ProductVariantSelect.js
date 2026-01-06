@@ -7,6 +7,7 @@ import { cn } from "@/utils";
 import { MdArrowForwardIos } from "react-icons/md";
 import SizeChartModal from "../modals/SizeChartModal";
 import ProductZoomYetAnother from "@/app/[locale]/products/[slug]/_components/ProductZoomYetAnother";
+import { useSelector } from "react-redux";
 
 const ProductVariantSelect = forwardRef(
   (
@@ -22,6 +23,7 @@ const ProductVariantSelect = forwardRef(
     },
     ref
   ) => {
+    const { settings } = useSelector((state) => state.common);
     const [colorsGroup, setColorsGroup] = useState({});
     const colors = Object.keys(colorsGroup);
     const [showSizeChart, setShowSizeChart] = useState(false);
@@ -29,7 +31,7 @@ const ProductVariantSelect = forwardRef(
     const [index, setIndex] = useState(0);
 
     const handleVariantSelect = (variantProp) => {
-      if (variantProp.stock_qty <= 0) {
+      if (variantProp.stock_qty <= 0 && settings.allow_stock_out_product_add_to_cart === 0) {
         setSelectedVariant(null); // clear selected variant when out of stock
         toast.error("Oops! this variant isn't available");
         return;
@@ -188,7 +190,7 @@ const ProductVariantSelect = forwardRef(
                   key={variant.id}
                   className={cn(
                     `px-[3px] min-w-[38px] border h-[38px] font-semibold text-[.7rem] m-1 cursor-pointer  grid place-items-center transition-colors duration-500 `,
-                    variant.stock_qty <= 0
+                    variant.stock_qty <= 0 && settings.allow_stock_out_product_add_to_cart === 0
                       ? "text-[#808080] cursor-default line-through"
                       : "text-black",
                     selectedVariant &&
@@ -203,24 +205,28 @@ const ProductVariantSelect = forwardRef(
             </div>
           </div>
         ) : null}
-        <p
-          className={cn(
-            `text-center text-sm font-bold mt-3 ${
-              ((selectedVariant && selectedVariant.stock_qty === 0) ||
-                (selectedVariant &&
-                  selectedVariant.stock_qty > 0 &&
-                  selectedVariant.stock_qty < 10)) &&
-              "text-red-500"
-            }`
-          )}
-        >
-          {selectedVariant && selectedVariant.stock_qty === 0 && "Out of stock"}
-          {selectedVariant &&
-            selectedVariant.stock_qty > 0 &&
-            selectedVariant.stock_qty < 10 &&
-            `Only ${selectedVariant.stock_qty} left`}
-          {selectedVariant && selectedVariant.stock_qty >= 10 && "In stock"}
-        </p>
+
+        {/* stock info off for negative sales */}
+        {settings?.allow_stock_out_product_add_to_cart === 0 && (
+          <p
+            className={cn(
+              `text-center text-sm font-bold mt-3 ${
+                ((selectedVariant && selectedVariant.stock_qty === 0) ||
+                  (selectedVariant &&
+                    selectedVariant.stock_qty > 0 &&
+                    selectedVariant.stock_qty < 10)) &&
+                "text-red-500"
+              }`
+            )}
+          >
+            {selectedVariant && selectedVariant.stock_qty === 0 && "Out of stock"}
+            {selectedVariant &&
+              selectedVariant.stock_qty > 0 &&
+              selectedVariant.stock_qty < 10 &&
+              `Only ${selectedVariant.stock_qty} left`}
+            {selectedVariant && selectedVariant.stock_qty >= 10 && "In stock"}
+          </p>
+        )}
 
         {/* {size_cart && showSizeChart && (
           <SizeChartModal
