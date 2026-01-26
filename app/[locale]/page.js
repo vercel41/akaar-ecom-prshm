@@ -159,11 +159,14 @@ export default async function Home() {
         </section>
       ) : null}
 
-      <section>
-        <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
-          <FeaturesSection />
-        </div>
-      </section>
+      {
+        process.env.NEXT_PUBLIC_PROMOTION_SECTION === "YES" && 
+          <section>
+            <div className="container-fluid lg:pt-14 w-[89%] mx-auto">
+              <FeaturesSection />
+            </div>
+          </section>
+      }
 
       {settings?.popup && <Popup popup={settings?.popup} />}
     </>
