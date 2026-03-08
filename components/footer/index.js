@@ -24,7 +24,9 @@ const Footer = async () => {
   const translationData = await fetchData({ api: "translations" });
   const translations = translationData?.data || {};
 
-  const { data: settings = {} } = await fetchData({ api: "info/basic" });
+  const settingRes = await fetchData({ api: "info/basic" });
+  
+  const settings = settingRes?.data || {};
 
   const footerPage = settings?.footer_page || [];
   const helpPage = settings?.help_page || [];

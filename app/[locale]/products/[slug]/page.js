@@ -7,24 +7,40 @@ import AllProducts from "@/components/products/AllProducts";
 import ProductDetails from "./_components/ProductDetails";
 import LastVisitedProducts from "./_components/LastVisitedProducts";
 import ProductMicroData from "@/components/products/ProductMicroData";
-import Loading from "../../loading";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import FallbackUI from "@/components/elements/fallback-ui";
 
 const ProductView = async ({ params }) => {
   const { slug } = params;
-  if (slug === "null") return notFound();
+  if (!slug || slug === "null") return notFound();
+
+  // ⚡ All APIs ekshathe fetch with Promise.allSettled
   const [settingsRes, productRes, transRes] = await Promise.allSettled([
     fetchData({ api: `info/basic` }),
     fetchData({ api: `products/${slug}` }),
     fetchData({ api: "translations" }),
   ]);
 
+  // --- Settings ---
   const settings =
-    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : {};
-  const product =
-    productRes.status === "fulfilled" ? productRes.value?.data || [] : [];
+    settingsRes.status === "fulfilled" ? settingsRes.value?.data || {} : null; // null means API fail
+
+  // --- Product ---
+  const productRaw =
+    productRes.status === "fulfilled" ? productRes.value : null;
+
+  // --- Translations ---
   const translations =
-    transRes.status === "fulfilled" ? transRes.value?.data || {} : {};
+    transRes.status === "fulfilled" ? transRes.value?.data || {} : null;
+
+  const product = productRaw?.data;
+
+  // ⚡ If any **required API** fail, show FallbackUI
+  if (!settings || !translations || !product) {
+    return (
+      <FallbackUI message="Failed to load some data. Please try again later." />
+    );
+  }
 
   //Category Filter
   const customSearchParams = {
