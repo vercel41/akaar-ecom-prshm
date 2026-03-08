@@ -63,13 +63,16 @@ const LoginModal = ({ showModal, setShowModal, title }) => {
     <Modal showModal={showModal} setShowModal={setShowModal} title={title}>
       <div className="w-full lg:w-[27rem] text-slate-500">
         <div>
-          <Image
-            src={settings?.footer_logo}
-            alt={"Logo"}
-            width={200}
-            height={48}
-            className="max-h-12 object-contain object-left"
-          />
+          {
+            settings?.footer_logo ?  <Image
+              src={settings?.footer_logo}
+              alt={"Logo"}
+              width={200}
+              height={48}
+              className="max-h-12 object-contain object-left"
+            /> : <span className="text-xl font-semibold">{settings?.name}</span>
+          }
+         
         </div>
         <p className="py-6 ">
           {otpSent

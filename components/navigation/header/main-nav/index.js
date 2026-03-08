@@ -49,6 +49,10 @@ export default function MainNav({ settings, categories }) {
       dispatch(setLoginModalOpen(true));
     }
   };
+
+  // Mobile and home page logo source
+  const logoSrc = isMobile || isHomePage  ? settings?.logo : settings?.footer_logo
+  
   // console.log(settings)
   return (
     <div
@@ -101,13 +105,16 @@ export default function MainNav({ settings, categories }) {
                   sticky && "lg:h-[45px] lg:max-w-[200px]"
                 )}
               >
-                <Image
-                  src={settings?.logo}
-                  alt={settings?.name}
-                  width={200}
-                  height={68}
-                  className="h-full w-auto object-contain"
-                />
+                {
+                  settings?.logo ? <Image
+                    src={settings?.logo}
+                    alt={settings?.name}
+                    width={200}
+                    height={68}
+                    className="h-full w-auto object-contain"
+                  /> : <span className="font-bold">{settings?.name}</span>
+                }
+                
               </Link>
             ) : (
               <Link
@@ -117,17 +124,16 @@ export default function MainNav({ settings, categories }) {
                   sticky && "lg:h-[45px] lg:max-w-[200px]"
                 )}
               >
-                <Image
-                  src={
-                    isMobile || isHomePage
-                      ? settings?.logo
-                      : settings?.footer_logo
-                  }
-                  alt={settings?.name}
-                  width={200}
-                  height={68}
-                  className="h-full w-auto object-contain"
-                />
+                {
+                  logoSrc ? <Image
+                    src={logoSrc }
+                    alt={settings?.name}
+                    width={200}
+                    height={68}
+                    className="h-full w-auto object-contain"
+                  /> : <span className="font-bold">{settings?.name}</span>
+                }
+                
               </Link>
             )}
             <div className={cn("", sticky ? "sm:block hidden" : "hidden ")}>

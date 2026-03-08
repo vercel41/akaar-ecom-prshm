@@ -61,13 +61,16 @@ export default function ResponsiveMenu({ settings, categories }) {
         </span>
       )}
       <Link href="/" className="logo">
-        <Image
+      {
+        settings?.logo ? <Image
           src={settings?.logo}
           alt={settings?.name}
           width={150}
           height={56}
           className="h-full max-h-[60px] py-2 object-contain lg:w-auto"
-        />
+        /> : <span className="font-semibold text-lg">{settings?.name}</span>
+      }
+        
       </Link>
       <ul className="ml-3 nav-menu hidden lg:flex gap-3 items-center justify-start h-[60px] box-border">
         {categories?.slice(0, 4)?.map((category, index) => (

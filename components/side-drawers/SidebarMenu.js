@@ -21,13 +21,16 @@ const SidebarMenu = ({
       setShow={sidebarToggle}
     >
       <Link href="/" className="logo flex justify-center">
-        <Image
-          src={settings?.logo}
-          alt={settings?.name}
-          width={150}
-          height={56}
-          className="h-full max-h-[75px] py-2 object-contain lg:w-auto"
-        />
+      {
+        settings?.logo ?  <Image
+            src={settings?.logo}
+            alt={settings?.name}
+            width={150}
+            height={56}
+            className="h-full max-h-[75px] py-2 object-contain lg:w-auto"
+          /> : <span className="font-bold text-lg">{settings?.name}</span>
+      }
+       
       </Link>
       {isSideBarOpen && (
         <div className="py-3 text-black">
