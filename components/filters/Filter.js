@@ -14,44 +14,45 @@ import PriceRangeFilter from "../filters/PriceRangeFilter";
 import SizeFilter from "./SizeFilter";
 
 const Filter = ({ category }) => {
-	// const router = useRouter();
-	const { locale } = useParams();
-	// const { handleSelectChange } = useSelectURLQuery();
-	const searchQuery = category?.id ? `category_ids=${category?.id}` : "";
-	const { data: filterOptions } = useGetFilterOptionsByCategoryQuery({
-		searchQuery,
-		locale,
-	});
+  const isBrandFilterOff = process.env.NEXT_PUBLIC_IS_BRANDFILTER_OFF === "YES";
+  // const router = useRouter();
+  const { locale } = useParams();
+  // const { handleSelectChange } = useSelectURLQuery();
+  const searchQuery = category?.id ? `category_ids=${category?.id}` : "";
+  const { data: filterOptions } = useGetFilterOptionsByCategoryQuery({
+    searchQuery,
+    locale,
+  });
 
-	const searchParams = useSearchParams();
-	const params = new URLSearchParams(searchParams);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
 
-	//selected brands
-	const brandIdsString = params.get("brand_ids");
-	let selectedBrandIds = [];
-	if (brandIdsString) {
-		selectedBrandIds = brandIdsString.split(",");
-	}
+  //selected brands
+  const brandIdsString = params.get("brand_ids");
+  let selectedBrandIds = [];
+  if (brandIdsString) {
+    selectedBrandIds = brandIdsString.split(",");
+  }
 
-	//selected colors
-	const colorsString = params.get("colors");
-	let selectedColors = [];
-	if (colorsString) {
-		selectedColors = colorsString.split(",");
-	}
+  //selected colors
+  const colorsString = params.get("colors");
+  let selectedColors = [];
+  if (colorsString) {
+    selectedColors = colorsString.split(",");
+  }
 
-	//selected sizes
-	const sizesString = params.get("sizes");
-	let selectedSizes = [];
-	if (sizesString) {
-		selectedSizes = sizesString.split(",");
-	}
+  //selected sizes
+  const sizesString = params.get("sizes");
+  let selectedSizes = [];
+  if (sizesString) {
+    selectedSizes = sizesString.split(",");
+  }
 
-	return (
-		<div
-			className={`min-w-[15rem] lg:max-w-[15rem] min-h-fit pb-4 md:pb-14 filter-sidebar flex flex-col pr-2 gap-y-5`}
-		>
-			{/* {category || selectedBrandIds.length || selectedColors.length ? (
+  return (
+    <div
+      className={`min-w-[15rem] lg:max-w-[15rem] min-h-fit pb-4 md:pb-14 filter-sidebar flex flex-col pr-2 gap-y-5`}
+    >
+      {/* {category || selectedBrandIds.length || selectedColors.length ? (
         <div className="flex items-center flex-wrap gap-2">
           {category && (
             <div className="flex items-center gap-1 bg-slate-100 border-slate-200 rounded px-2 py-1">
@@ -116,33 +117,39 @@ const Filter = ({ category }) => {
         </div>
       ) : null} */}
 
-			<CategoryFilter selectedCategory={category} />
-			{filterOptions?.max_price ? (
-				<PriceRangeFilter
-					min_price={filterOptions?.min_price}
-					max_price={filterOptions?.max_price}
-				/>
-			) : null}
-			{filterOptions?.brands?.length ? (
+      <CategoryFilter selectedCategory={category} />
+      {filterOptions?.max_price ? (
+        <PriceRangeFilter
+          min_price={filterOptions?.min_price}
+          max_price={filterOptions?.max_price}
+        />
+      ) : null}
+      {/* {filterOptions?.brands?.length ? (
 				<BrandFilter
 					filteredBrands={filterOptions?.brands}
 					selectedBrandIds={selectedBrandIds}
 				/>
-			) : null}
-			{filterOptions?.colors?.length ? (
-				<ColorFilter
-					colors={filterOptions?.colors}
-					selectedColors={selectedColors}
-				/>
-			) : null}
-			{filterOptions?.sizes?.length ? (
-				<SizeFilter
-					sizes={filterOptions?.sizes}
-					selectedSizes={selectedSizes}
-				/>
-			) : null}
-		</div>
-	);
+			) : null} */}
+      {!isBrandFilterOff && filterOptions?.brands?.length ? (
+        <BrandFilter
+          filteredBrands={filterOptions?.brands}
+          selectedBrandIds={selectedBrandIds}
+        />
+      ) : null}
+      {filterOptions?.colors?.length ? (
+        <ColorFilter
+          colors={filterOptions?.colors}
+          selectedColors={selectedColors}
+        />
+      ) : null}
+      {filterOptions?.sizes?.length ? (
+        <SizeFilter
+          sizes={filterOptions?.sizes}
+          selectedSizes={selectedSizes}
+        />
+      ) : null}
+    </div>
+  );
 };
 
 export default Filter;
