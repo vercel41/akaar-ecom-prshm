@@ -73,7 +73,7 @@ export default async function Home() {
       {settings?.shop_section ? (
         <section className="new-products md:my-20 my-10">
           <div className="container-fluid">
-            <div className="py-4 pb-10 text-center flex justify-center flex-col">
+            <div className="py-4 md:pb-6 2xl:pb-10 text-center flex justify-center flex-col">
               <h2 className="sec-title !text-xl mx-6">
                 {translations["new-arrival"] || "New Collection"}
               </h2>

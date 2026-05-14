@@ -21,7 +21,7 @@ const NewArrival = async ({ products }) => {
 
       <div>
         <div className="md:container container-fluid">
-          <div className="max-w-[1220px] mx-auto relative">
+          <div className="md:max-w-[900px] 2xl:max-w-[1220px] mx-auto relative">
             <div>
               <Swiper
                 ref={ref}
@@ -49,10 +49,10 @@ const NewArrival = async ({ products }) => {
               >
                 {products.map((product, index) => (
                   <SwiperSlide key={index}>
-                    <div className="grid md:grid-cols-2 items-center max-w-4xl mx-auto">
-                      <div className="md:w-[480px] w-full md:aspect-[0.8227848101265823] md:block hidden">
+                    <div className="grid md:grid-cols-2 items-center md:max-w-xl 2xl:max-w-4xl mx-auto">
+                      <div className=" md:h-[340px] 2xl:h-[500px] 2xl:w-[480px] w-full md:aspect-[0.8227848101265823] md:block hidden">
                         <Image
-                          className="w-full h-full object-contain object-top"
+                          className="w-full h-full  object-contain ml-2 object-top"
                           src={
                             product?.hover_image
                               ? product?.hover_image
@@ -64,15 +64,15 @@ const NewArrival = async ({ products }) => {
                         />
                       </div>
                       <div className="flex justify-center">
-                        <div className="md:max-w-[270px] w-full">
+                        <div className="md:max-w-[250px] 2xl:max-w-[350px] w-full">
                           <div className="md:px-2.5">
-                            <ProductCard product={product} />
+                            <ProductCard product={product} imageCss={'h-[400px] md:!h-[260px] 2xl:!h-[450px]'} />
                           </div>
                           <Link
                             href={`/products/${product?.slug}`}
-                            className="bg-primary py-3 px-2.5 w-full text-white text-[.8rem] text-center active:scale-95 font-semibold uppercase tracking-[.2rem] md:block hidden"
+                            className="bg-primary py-2 2xl:py-3 px-2.5 w-full text-white  text-center active:scale-95 font-semibold uppercase tracking-[.2rem] md:block hidden"
                           >
-                            <span>View this product</span>
+                            <span className="md:!text-[10px] 2xl:text-[.8rem]">View this product</span>
                           </Link>
                         </div>
                       </div>

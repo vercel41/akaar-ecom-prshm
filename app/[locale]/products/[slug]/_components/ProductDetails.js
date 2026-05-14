@@ -11,19 +11,15 @@ import ProductVariantSelect from "@/components/products/ProductVariantSelect";
 import * as pixel from "/lib/fpixel";
 
 // ** Import Icon
-import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { TbTag } from "react-icons/tb";
 import { IoCopy } from "react-icons/io5";
-import { BsFillTelephoneFill, BsPhone } from "react-icons/bs";
+import { BsPhone } from "react-icons/bs";
 import ProductViewSlider from "./ProductViewSlider";
 import { siteConfig } from "@/config/site";
-import { IoIosFlash } from "react-icons/io";
 import { getDiscountPercent } from "@/utils/percent";
 import useCart from "@/hooks/useCart";
 import { useSelector } from "react-redux";
 import VideoPlayer from "@/components/elements/VideoPlayer";
-import { MdArrowForwardIos, MdEmail, MdPhoneIphone } from "react-icons/md";
-import SizeChartModal from "@/components/modals/SizeChartModal";
 import { getFirstVariantOfColor } from "@/lib/product-variant";
 import SocialShare from "@/components/elements/SocialShare";
 import { usePathname } from "@/navigation";
@@ -44,7 +40,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   // const firstVariantOfColor = null;
   const firstVariantOfColor = getFirstVariantOfColor(
     selectedColor,
-    product?.barcodes
+    product?.barcodes,
   );
 
   const newPrice =
@@ -178,7 +174,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                           "en-US",
                           {
                             currency: "USD",
-                          }
+                          },
                         )}
                         % OFF
                       </span>
@@ -234,7 +230,7 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
                                 product?.coupons[0],
                                 product.new_price.toLocaleString("en-US", {
                                   currency: "USD",
-                                })
+                                }),
                               )
                             : 0}{" "}
                           {translations["off!"] || "ছাড়!"}

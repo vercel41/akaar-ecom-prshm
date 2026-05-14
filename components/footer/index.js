@@ -19,13 +19,14 @@ import { FaXTwitter } from "react-icons/fa6";
 import Image from "next/image";
 import AppleAppDownload from "../elements/svg/AppleAppDownload";
 import AndroidAppDownload from "../elements/svg/AndroidAppDownload";
+import { cn } from "@/utils";
 
 const Footer = async () => {
   const translationData = await fetchData({ api: "translations" });
   const translations = translationData?.data || {};
 
   const settingRes = await fetchData({ api: "info/basic" });
-  
+
   const settings = settingRes?.data || {};
 
   const footerPage = settings?.footer_page || [];
@@ -213,7 +214,7 @@ const Footer = async () => {
         <div className="flex justify-between items-center border-t border-slate-50 py-4 mt-8">
           <div className="w-full">
             <div className="text-xs md:text-sm font-normal font-body text-gray-700 text-center flex flex-wrap gap-2 justify-center md:justify-start items-center">
-               {/* <p className="text-sm">
+              {/* <p className="text-sm">
                 {translations["copyright"]} {new Date().getFullYear()}
               </p>
               <p className="text-sm">
@@ -240,36 +241,38 @@ const Footer = async () => {
                   />
                 </Link>
               </div> */}
-               <div className="col-span-12 ">
+              <div className="col-span-12 ">
                 {settings?.footer_branding_section ? (
                   <>
-                   <div className="flex gap-4">
-                    <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
-                    {translations["copyright"]} {new Date().getFullYear()}{" "}
-                    {translations["copyright-msg"] || "All Rights Reserved "} By{" "}
-                    <Link href="/" className="ml-1">
-                      {" "}
-                      {settings?.name}
-                    </Link>
-                  </div>
-                    <div className="flex  items-center gap-1">
-                      <p> Developed By</p>
+                    <div className="flex gap-4">
+                      <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
+                        {translations["copyright"]} {new Date().getFullYear()}{" "}
+                        {translations["copyright-msg"] ||
+                          "All Rights Reserved "}{" "}
+                        By{" "}
+                        <Link href="/" className="ml-1">
+                          {" "}
+                          {settings?.name}
+                        </Link>
+                      </div>
+                      <div className="flex  items-center gap-1">
+                        <p> Developed By</p>
 
-                      <Link
-                        href="https://amarsolution.com/"
-                        target="_blank"
-                        className="text-slate-300 hover:underline"
-                      >
-                        <Image
-                          src={amarsolutionLogo}
-                          alt="logo"
-                          width={117}
-                          height={42}
-                          className="mt-1 cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
-                        />
-                      </Link>
+                        <Link
+                          href="https://amarsolution.com/"
+                          target="_blank"
+                          className="text-slate-300 hover:underline"
+                        >
+                          <Image
+                            src={amarsolutionLogo}
+                            alt="logo"
+                            width={117}
+                            height={42}
+                            className="mt-1 cursor-pointer transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
+                          />
+                        </Link>
+                      </div>
                     </div>
-                   </div>
                   </>
                 ) : (
                   <div className="text-sm font-normal font-body text-slate-400 text-center flex items-center">
@@ -290,13 +293,30 @@ const Footer = async () => {
         </div>
       </div>
       <ScrollToTopButton settings={settings} />
-      <Link
-        className='fixed z-30 bottom-[12%] md:bottom-[75px] right-5 text-blue-500'
-        target='_blank'
+     
+
+     {settings?.whatsapp_link && settings.whatsapp_link !== "#" && (
+        <Link
+          className={cn("fixed z-30 bottom-[12%] md:bottom-[75px] right-5 text-[#25cc64]",  settings?.facebook_link && settings.facebook_link !== "#" && 'bottom-[20%]  md:bottom-[130px]' )}
+          target="_blank"
+          href={settings.whatsapp_link}
+        >
+          <FaWhatsapp size={45} />
+        </Link>
+      )}
+
+
+      {settings?.facebook_link && settings.facebook_link !== "#" && (
+        <Link
+        className="fixed z-30 bottom-[12%] md:bottom-[75px] right-5 text-blue-500"
+        target="_blank"
         href={`https://m.me/${messengerUser}`}
       >
         <FaFacebookMessenger size={45} />
       </Link>
+      )}
+
+      
     </footer>
   );
 };

@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { Link } from "@/navigation";
-import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import Loader from "../elements/loaders/Loader";
 import { getDiscountPercent, getSalePercent } from "@/utils/percent";
@@ -12,8 +11,6 @@ const MotionDiv = dynamic(
 );
 
 import { siteConfig } from "@/config/site";
-import useWishList from "@/hooks/useWishList";
-import useCart from "@/hooks/useCart";
 import { cn } from "@/utils";
 import dynamic from "next/dynamic";
 
@@ -21,11 +18,11 @@ const ProductCard = ({
   product,
   isFlashSale,
   isSquareImage,
+  imageCss,
   showPrice = true,
 }) => {
-  const { settings, translations } = useSelector((state) => state.common);
+
   const [loading, setLoading] = useState(true);
-  const { handleWishListProductStatus } = useWishList();
 
   const {
     id,
@@ -45,7 +42,6 @@ const ProductCard = ({
     }
   }, [product, id, product_name]);
 
-  const isInWishlist = handleWishListProductStatus(id);
 
   const revealVariant = {
     hidden: { filter: "blur(8px)", opacity: 0 },
@@ -71,10 +67,8 @@ const ProductCard = ({
       <div className="product-img-action-wrap relative @container">
         <div
           className={cn(
-            `product-img overflow-hidden relative`,
-            isSquareImage
-              ? "h-[300px]  2xl:h-[500px]"
-              : "h-[300px]  2xl:h-[500px]"
+            `product-img overflow-hidden h-[300px]  2xl:h-[500px] relative`,
+            imageCss
           )}
         >
           <Link

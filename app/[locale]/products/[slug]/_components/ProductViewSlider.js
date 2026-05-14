@@ -1,26 +1,20 @@
 "use client";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
 import { forwardRef, useState, useEffect, useRef } from "react";
 import noImage from "@/public/assets/images/no-image.png";
 import ProductViewSkeleton from "@/components/elements/loaders/ProductViewSkeleton";
 import ProductZoomYetAnother from "./ProductZoomYetAnother";
-import { cn } from "@/utils";
-import { useScroll, motion, useTransform } from "framer-motion";
-import { startVideoPlayer } from "@/store/slices/commonSlice";
-import { HiPlayCircle } from "react-icons/hi2";
-
+import { useScroll, useTransform } from "framer-motion";
+import ImageZoom from "./ImageZoom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, Pagination, Mousewheel } from "swiper/modules";
-import HorizontalScrollView from "@/components/elements/HorizontalScrollView";
+import { Thumbs, Pagination, } from "swiper/modules";
 
 const ProductViewSlider = forwardRef(
-  ({ product, selectedColor, isSquareImage, isLoading, targetRef }, ref) => {
-    const dispatch = useDispatch();
+  ({ product, selectedColor, isSquareImage, targetRef }, ref) => {
+    const enableZoomeImage = process.env.NEXT_PUBLIC_IMAGE_ZOME === "YES";
     const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const imageRefs = useRef([]); // Array of refs for each large image
-    const mainImageContainerRef = useRef(null); // Ref for the main image container
 
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -32,7 +26,7 @@ const ProductViewSlider = forwardRef(
     // Filtering slides based on selected color
     if (selectedColor) {
       const filteredSlides = slides.filter(
-        (slide) => slide.color_name === selectedColor
+        (slide) => slide.color_name === selectedColor,
       );
       if (filteredSlides.length) slides = filteredSlides;
     }
@@ -60,7 +54,7 @@ const ProductViewSlider = forwardRef(
     function getEmbedUrl(videoUrl) {
       // Check for YouTube
       const youtubeMatch = videoUrl.match(
-        /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/
+        /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/,
       );
       if (youtubeMatch) {
         return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
@@ -68,7 +62,7 @@ const ProductViewSlider = forwardRef(
 
       // Check for Google Drive
       const driveMatch = videoUrl.match(
-        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/
+        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
       );
       if (driveMatch) {
         return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
@@ -84,27 +78,6 @@ const ProductViewSlider = forwardRef(
 
       return () => clearTimeout(timer);
     }, []);
-
-    // Function to handle global scroll event
-    // const handleGlobalScroll = (event) => {
-    //   if (mainImageContainerRef.current) {
-    //     const scrollAmount = event.deltaY;
-    //     mainImageContainerRef.current.scrollBy({
-    //       top: scrollAmount,
-    //       behavior: "smooth",
-    //     });
-    //   }
-    // };
-
-    // Attaching the global scroll event listener
-    // useEffect(() => {
-    //   window.addEventListener("wheel", handleGlobalScroll, { passive: true });
-
-    //   // Cleanup listener on unmount
-    //   return () => {
-    //     window.removeEventListener("wheel", handleGlobalScroll);
-    //   };
-    // }, []);
 
     // Set up framer-motion's scroll tracking
     const { scrollYProgress } = useScroll({
@@ -213,6 +186,12 @@ const ProductViewSlider = forwardRef(
                               allowFullScreen
                             />
                           </>
+                        ) : enableZoomeImage ? (
+                          <ImageZoom
+                            image={slide?.image}
+                            zoomImage={slide?.image}
+                            isSquareImage={isSquareImage}
+                          />
                         ) : (
                           <div className="h-full w-full">
                             <Image
@@ -239,7 +218,7 @@ const ProductViewSlider = forwardRef(
         )}
       </div>
     );
-  }
+  },
 );
 
 ProductViewSlider.displayName = "ProductViewSlider";
