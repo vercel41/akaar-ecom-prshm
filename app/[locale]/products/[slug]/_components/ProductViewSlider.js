@@ -11,7 +11,7 @@ import { Thumbs, Pagination, } from "swiper/modules";
 
 const ProductViewSlider = forwardRef(
   ({ product, selectedColor, isSquareImage, targetRef }, ref) => {
-    const enableZoomeImage = process.env.NEXT_PUBLIC_IMAGE_ZOME === "YES";
+    const enableZoomeImage = process.env.NEXT_PUBLIC_SCALE_ON_HOVER === "YES";
     const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const imageRefs = useRef([]); // Array of refs for each large image
