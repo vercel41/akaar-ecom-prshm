@@ -67,7 +67,7 @@ const ProductCard = ({
       <div className="product-img-action-wrap relative @container">
         <div
           className={cn(
-            `product-img overflow-hidden h-[300px]  2xl:h-[500px] relative`,
+            `product-img overflow-hidden aspect-[3/4] relative`,
             imageCss
           )}
         >
@@ -76,12 +76,12 @@ const ProductCard = ({
             className="block relative w-full h-full group"
           >
             <Image
-              className=" default-img absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-[700ms] ease-in-out"
+              className=" default-img absolute inset-0 h-full w-full  object-top transition-opacity duration-[700ms] ease-in-out"
               src={image || noImage}
               alt={product_name}
               priority={false}
-              width={226}
-              height={400}
+              width={426}
+              height={500}
               onError={(e) => {
                 e.currentTarget.src = noImage.src;
               }}

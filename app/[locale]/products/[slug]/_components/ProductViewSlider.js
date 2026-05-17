@@ -174,7 +174,7 @@ const ProductViewSlider = forwardRef(
                       //   shortDetails ? "md:!h-[28.75rem]" : "md:!h-[47rem]"
                       // } md:!w-full}
                     >
-                      <div className="slider-image h-full w-full relative group flex justify-center items-center rounded-md">
+                      <div className="slider-image aspect-[3/4] h-full w-full relative group flex justify-center items-center rounded-md">
                         {isVideoSlide ? (
                           <>
                             <iframe
@@ -194,13 +194,14 @@ const ProductViewSlider = forwardRef(
                           />
                         ) : (
                           <div className="h-full w-full">
+                            
                             <Image
                               onClick={() => handleOpenZoom(idx)}
                               src={slide?.image}
-                              alt=""
-                              width={524}
-                              height={524}
-                              className="object-contain h-full w-full "
+                              alt={"Slider image"}
+                              width={600}
+                              height={750}
+                              className=" h-full w-full "
                             />
                           </div>
                         )}

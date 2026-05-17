@@ -39,7 +39,7 @@ const ZoomExample = ({ image, zoomImage, productTitle, isSquareImage }) => {
   }, []);
   return (
     <div
-      className=" !h-full hover:!h-auto active:!h-auto"
+      className="w-full !h-full hover:!h-auto active:!h-auto"
       onMouseMove={handleMouseMove}
     >
       <Image

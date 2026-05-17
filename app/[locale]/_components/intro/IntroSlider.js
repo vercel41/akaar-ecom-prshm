@@ -22,7 +22,7 @@ const IntroSlider = ({ sliders, settings }) => {
         {sliders.map((slide, i) => (
           <SwiperSlide key={i} className="">
             <div
-              className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center h-[calc(100vh+40px)] bg-no-repeat bg-cover `}
+              className={`relative single-hero-slider bg-top px-3 lg:px-12 md:py-10 text-center flex justify-center items-center h-56 sm:h-80 md:h-96 lg:h-[calc(100vh+40px)] bg-no-repeat bg-cover `}
               style={{
                 backgroundImage: `linear-gradient(to top, #040404a6, #36363633), url(${slide.image})`,
                 backgroundSize: "cover",
