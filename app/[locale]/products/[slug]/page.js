@@ -42,9 +42,18 @@ const ProductView = async ({ params }) => {
     );
   }
 
-  //Category Filter
+  // Filter out undefined or null values and join the IDs into a comma-separated string
+  const categoryIds = [
+    product?.category?.id,
+    product?.sub_category?.id,
+    product?.child_category?.id,
+  ]
+    .filter(Boolean) // This filters out falsy values like null or undefined
+    .join(",");
+
   const customSearchParams = {
-    category_id: product?.category?.id,
+    category_ids: categoryIds, // Only valid IDs will be joined with commas
+    per_page: 8,
   };
 
   const isLoading = productRes.status !== "fulfilled" ? true : false;

@@ -71,7 +71,7 @@ const LastVisitedProducts = ({ visitedProduct }) => {
       updatedProducts.unshift(productToAdd);
 
       // Keep only the last 10 viewed products
-      const limitedProducts = updatedProducts.slice(0, 10);
+      const limitedProducts = updatedProducts.slice(0, 4);
 
       localStorage.setItem("recentlyViewed", JSON.stringify(limitedProducts));
       setLocalVisitedProducts(limitedProducts);

@@ -165,7 +165,7 @@ const ProductViewSlider = forwardRef(
                 modules={[Thumbs, Pagination]}
               >
                 {slides.map((slide, idx) => {
-                  const isVideoSlide = idx === 0 && !!slide?.video_link;
+                  const isVideoSlide = idx === index && !!slide?.video_link;
                   return (
                     <SwiperSlide
                       className="max-w-[450px] overflow-hidden"
