@@ -196,6 +196,7 @@ const CheckoutWithAreaSelect = () => {
       name: data.name,
       alt_name: data.name,
       phone: phone,
+      email: data?.email,
       alt_phone: alt_phone,
       address: fullAddress,
       alt_address: fullAddress,

@@ -167,6 +167,19 @@ const ShippingFormWithAreaSelect = ({
               )}
             </div>
 
+             <div className="form-control mb-6">
+              <FieldsetInput
+                label={`${translations["email"] || "Email"}`}
+                name="email"
+                defaultValue={user?.email || user?.email}
+                register={register("email")}
+                type="email"
+              />
+              {errors.email && (
+                <p className="errorMsg">{errors.email.message}</p>
+              )}
+            </div>
+
             {/* District Field */}
             <div className="form-control mb-6" ref={dropdownRef}>
               <label className="mb-2 block text-sm font-medium">
