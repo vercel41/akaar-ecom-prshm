@@ -36,6 +36,8 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
   const productViewSwiperRef = useRef(null);
   const targetRef = useRef(null);
   const pathname = usePathname();
+  const isBrandFilterOff = process.env.NEXT_PUBLIC_IS_BRANDFILTER_OFF === "YES";
+
   //used this to get first variant of selected color to display first variant prices
   // const firstVariantOfColor = null;
   const firstVariantOfColor = getFirstVariantOfColor(
@@ -138,11 +140,13 @@ const ProductDetails = ({ product, settings, translations, isLoading }) => {
             <div className="sticky top-[80px]">
               <div className="product-content-wrap">
                 <h5 className="tracking-[3px] text-lg font-medium text-black ">
-                  {product?.brand?.brand_name
-                    ? `${product?.brand?.brand_name} | `
-                    : ""}{" "}
                   {getSlicedText(product?.product_name, 100)}
                 </h5>
+                {product?.brand?.brand_name && !isBrandFilterOff ? (
+                  <h6 className="text-sm text-gray-500 font-medium mb-2">
+                    {product?.brand?.brand_name}
+                  </h6>
+                ) : null}
 
                 {/* <div className="flex items-center gap-1 font-noto_serif text-[.8rem] pt-2 text-gray-500 font-medium">
                   <span>Code:</span>
