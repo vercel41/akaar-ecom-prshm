@@ -17,7 +17,7 @@ const ProductView = async ({ params }) => {
   // ⚡ All APIs ekshathe fetch with Promise.allSettled
   const [settingsRes, productRes, transRes] = await Promise.allSettled([
     fetchData({ api: `info/basic` }),
-    fetchData({ api: `products/${slug}` }),
+    fetchData({ api: `products/${slug}`, revalidate:0 }),
     fetchData({ api: "translations" }),
   ]);
 
@@ -54,6 +54,7 @@ const ProductView = async ({ params }) => {
   const customSearchParams = {
     category_ids: categoryIds, // Only valid IDs will be joined with commas
     per_page: 8,
+    sort_type: 'randomly'
   };
 
   const isLoading = productRes.status !== "fulfilled" ? true : false;
