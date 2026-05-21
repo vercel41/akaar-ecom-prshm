@@ -8,6 +8,11 @@ export async function POST(request) {
 		await request.json();
 	const headersList = headers();
 	const bearerToken = headersList.get("authorization");
+
+	// Extracting base URL from ENV file
+	const { origin: baseUrlFromRequest } = new URL(request.url);
+  const nextBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || baseUrlFromRequest;
+
 	// console.log(bearerToken);
 	let order = null;
 
@@ -42,7 +47,7 @@ export async function POST(request) {
 		}
 		// console.log(order);
 		//Initializing SSL payment using order data
-		const sslResponse = await handleOrderSSLPay(order, isDeliveryChargePayment);
+		const sslResponse = await handleOrderSSLPay(order, isDeliveryChargePayment, nextBaseUrl);
 
 		return NextResponse.json(
 			{
