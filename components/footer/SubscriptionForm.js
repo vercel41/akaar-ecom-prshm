@@ -45,7 +45,7 @@ const SubscriptionForm = ({ settings }) => {
             className="w-full h-11 text-black placeholder:text-black text-sm placeholder:text-sm"
             type="email"
             name="email"
-            placeholder="Enter your email address"
+            placeholder="Enter your email"
             {...register("email", {
               pattern: {
                 value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
